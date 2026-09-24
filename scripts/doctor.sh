@@ -13,10 +13,10 @@ ffmpeg -hide_banner -buildconf 2>/dev/null | grep -q enable-libass && pass "ffmp
 command -v node >/dev/null && [ "$(node -p 'process.versions.node.split(".")[0]')" -ge 18 ] && pass "node $(node -v)" || fail "node >= 18" "brew install node"
 v=$(npx -y hyperframes --version 2>/dev/null | tail -1); [ -n "$v" ] && pass "hyperframes $v" || fail hyperframes "npx -y hyperframes --version (needs network once)"
 w=${WHISPER:-$(command -v whisper)}; [ -n "$w" ] && pass "whisper ($w)" || fail whisper "pip install openai-whisper (or set WHISPER=/path)"
-command -v yt-dlp >/dev/null && pass "yt-dlp $(yt-dlp --version)" || fail yt-dlp "brew install yt-dlp (keep it upgraded: YouTube breaks old builds)"
+command -v yt-dlp >/dev/null && pass "yt-dlp $(yt-dlp --version)" || echo "  opt   yt-dlp not installed: only needed to pull a reference video from a link -> brew install yt-dlp"
 python3 -c "import numpy" 2>/dev/null && pass "python numpy" || fail numpy "pip install numpy"
 python3 -c "import cv2; cv2.FaceDetectorYN" 2>/dev/null && pass "python opencv (face tracking)" || fail opencv "pip install opencv-python"
-python3 -c "import google.genai" 2>/dev/null && pass "python google-genai" || fail google-genai "pip install google-genai (AI B-roll, reference study)"
+python3 -c "import google.genai" 2>/dev/null && pass "python google-genai" || echo "  opt   google-genai not installed: only needed to copy a reference edit or make AI B-roll -> pip install google-genai"
 
 echo "keys"
 if [ -n "$GEMINI_API_KEY" ] || grep -qs '^GEMINI_API_KEY=' "$S/.env"; then pass "GEMINI_API_KEY (env or $S/.env)"; else echo "  opt   GEMINI_API_KEY not set: only AI B-roll (broll_gen.py) and reference_study.py need it -> export GEMINI_API_KEY=... or $S/.env"; fi
