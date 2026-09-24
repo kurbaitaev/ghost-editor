@@ -9,6 +9,15 @@ Shorts:
 - motion graphics that land on the spoken word
 - sound effects and music mixed against the voice
 
+## Paid editor vs ghost-editor
+
+Same raw recording. Left: the cut a paid human editor delivered. Right:
+ghost-editor, shown that edit once and asked to cut the raw file the same way.
+
+[![Paid editor (left) vs ghost-editor (right), same raw recording](docs/demo-teaser.gif)](https://github.com/kurbaitaev/ghost-editor/releases/download/v0.1.0/ghost-editor-vs-paid-editor.mp4)
+
+**[Watch the full 49 s side by side, with sound](https://github.com/kurbaitaev/ghost-editor/releases/download/v0.1.0/ghost-editor-vs-paid-editor.mp4)**
+
 ## Two ways to get your look
 
 1. **Pick a built-in style.** Say which style (or let the agent choose by the
@@ -24,7 +33,7 @@ Shorts:
    Details are [below](#what-it-does). The style keeps your look
    recognisable. The agent varies the scenes, accent colour and music bed
    between reels, so they don't come out identical.
-2. **Show it an edit you love.** It reverse-engineers that reel and edits your
+2. **Show it an edit you love** (needs a free [Gemini key](#gemini-api-key-for-two-features)). It reverse-engineers that reel and edits your
    recording the same way (details below). If you like the result, ask the
    agent to save it as a new preset in `styles/` and reuse it by name.
 
@@ -86,8 +95,22 @@ Needs:
 - python3 with numpy and opencv-python
 - yt-dlp (only for pulling reference videos from a URL)
 
-Optional: `GEMINI_API_KEY` (in the environment or a gitignored `.env` here) for
-AI B-roll stills and reference studies.
+### Gemini API key (for two features)
+
+Editing in the 7 built-in styles works with no key. Two features need a free Google Gemini key:
+- **Show it an edit you love** (reverse-engineering a reference reel)
+- **AI B-roll stills**
+
+1. Get a key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey) (Google account, no card for the free tier).
+2. `pip install google-genai`
+3. Put it where the skill can find it:
+   ```bash
+   echo 'GEMINI_API_KEY=your-key' > ~/.claude/skills/ghost-editor/.env   # gitignored
+   ```
+   or `export GEMINI_API_KEY=your-key` in your shell profile.
+
+`doctor.sh` tells you whether it found the key. The scripts check it with one
+test call before doing any real work, so a bad key fails fast.
 
 | Agent | Setup |
 |---|---|

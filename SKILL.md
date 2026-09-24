@@ -169,7 +169,7 @@ and the dead ends not to retry.
 - `README.md` install, agent setup (Claude Code / Codex / any agent), quick start
 - `scripts/lib/motion.mjs` scenes (card, stats, fly3d, image, sentence), scene transitions, editorial captions, music bed
 - `scripts/autocut.py` pause-trimmed takes for a single clean take
-- `scripts/broll_gen.py` AI still B-roll with Gemini (9:16), same key as gemini-analyze
+- `scripts/broll_gen.py` AI still B-roll with Gemini (9:16), needs GEMINI_API_KEY
 - `library/music/` licensed music beds + manifest
 - `library/sfx/` kit + manifest.json; `library/memes/<id>/` clips + meta.json
 - `templates/fonts/` Geist (OFL)
