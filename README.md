@@ -71,4 +71,4 @@ Whisper for transcription, OpenCV for face tracking, [HyperFrames](https://www.n
 
 ---
 
-Built by [@kurbaitaev](https://x.com/kurbaitaev). Follow along on [X](https://x.com/kurbaitaev). MIT licence.
+Built by [@kurbaitaev](https://x.com/kurbaitaev) on X. MIT licence.
