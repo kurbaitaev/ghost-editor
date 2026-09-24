@@ -7,9 +7,7 @@ Send it a raw video of yourself talking to camera. Get back a finished reel for 
 
 Same raw recording. On the left, the edit I paid a human editor for. On the right, ghost-editor after seeing that edit once.
 
-[![Paid editor (left) vs ghost-editor (right), same raw recording](docs/demo-teaser.webp)](https://github.com/kurbaitaev/ghost-editor/releases/download/v0.1.0/ghost-editor-vs-paid-editor.mp4)
-
-**[▶ Watch the full 49 seconds with sound](https://github.com/kurbaitaev/ghost-editor/releases/download/v0.1.0/ghost-editor-vs-paid-editor.mp4)**
+https://github.com/user-attachments/assets/312f6910-a8a0-4424-9dd4-612cd079a2e7
 
 ## What it does for you
 
@@ -73,4 +71,4 @@ Whisper for transcription, OpenCV for face tracking, [HyperFrames](https://www.n
 
 ---
 
-Built by [@kurbaitaev](https://github.com/kurbaitaev). MIT licence.
+Built by [@kurbaitaev](https://x.com/kurbaitaev). Follow along on [X](https://x.com/kurbaitaev). MIT licence.
