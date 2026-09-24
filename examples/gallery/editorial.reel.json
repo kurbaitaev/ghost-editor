@@ -1,0 +1,159 @@
+{
+ "source": "assets/talk.mp4",
+ "words": "build/words.whisper.json",
+ "fps": 30,
+ "outro": 1.2,
+ "takes": [
+  {
+   "a": 0.0,
+   "b": 4.9
+  },
+  {
+   "a": 5.03,
+   "b": 9.39
+  },
+  {
+   "a": 9.53,
+   "b": 15.28
+  },
+  {
+   "a": 15.37,
+   "b": 20.04
+  }
+ ],
+ "captions": {
+  "phrases": {
+   "a call for reach": "Coffer Reach",
+   "call me coffee": "comment Coffer",
+   "many chat": "ManyChat"
+  },
+  "tags": [
+   "ManyChat",
+   "Coffer Reach"
+  ],
+  "highlight": [
+   "$20",
+   "$60",
+   "free",
+   "Coffer Reach"
+  ]
+ },
+ "zoom": {
+  "origin": "50% 32%"
+ },
+ "style": "editorial",
+ "beats": [
+  {
+   "type": "scene",
+   "kind": "fly3d",
+   "at": 4.6,
+   "to": 8.3,
+   "bg": "#1c1c1e",
+   "in": "blur",
+   "out": "blur",
+   "cam": {
+    "from": -80,
+    "to": 380
+   },
+   "items": [
+    {
+     "text": "DM",
+     "sub": "just to",
+     "at": 4.8,
+     "x": -150,
+     "y": -300,
+     "z": 0,
+     "size": 170
+    },
+    {
+     "text": "a link",
+     "at": 5.72,
+     "x": 150,
+     "y": -40,
+     "z": -380,
+     "size": 130
+    },
+    {
+     "text": "comment",
+     "at": 6.56,
+     "x": -130,
+     "y": 220,
+     "z": -650,
+     "size": 130
+    },
+    {
+     "text": "a specific word",
+     "at": 6.92,
+     "x": 40,
+     "y": -140,
+     "z": -930,
+     "size": 110
+    }
+   ]
+  },
+  {
+   "type": "scene",
+   "kind": "sentence",
+   "at": 9.53,
+   "to": 11.58,
+   "bg": "#ffffff",
+   "in": "expand",
+   "out": "cut",
+   "lines": [
+    "today we just launched"
+   ],
+   "hero": {
+    "text": "Coffer Reach",
+    "at": 10.52,
+    "size": 150
+   }
+  },
+  {
+   "type": "scene",
+   "kind": "sentence",
+   "at": 13.88,
+   "to": 16.7,
+   "bg": "accent",
+   "in": "wipe",
+   "out": "blur",
+   "lines": [
+    "that ManyChat does,",
+    "but for"
+   ],
+   "hero": {
+    "text": "free.",
+    "at": 15.8,
+    "size": 230
+   }
+  },
+  {
+   "type": "scene",
+   "kind": "card",
+   "at": 17.5,
+   "to": "end",
+   "bg": "#ffffff",
+   "y": 820,
+   "in": "expand",
+   "out": "cut",
+   "lines": [
+    {
+     "text": "just comment",
+     "at": 17.58,
+     "size": 90,
+     "color": "#1F1A16"
+    }
+   ],
+   "pill": {
+    "text": "Coffer",
+    "at": 17.9,
+    "size": 110
+   },
+   "cursor": {
+    "clickAt": 18.5,
+    "dx": 150,
+    "dy": 215
+   }
+  }
+ ],
+ "title": "Coffer Reach · editorial"
+}

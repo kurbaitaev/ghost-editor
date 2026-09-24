@@ -1,0 +1,21 @@
+{
+  "_about": "Editorial motion (the Gen Z reference): lowercase blur-in captions with a light previous line, tilted accent pill tags, highlight wipes, full-screen scenes over the voice (card, stats, fly3d, image, sentence), dark ambient bed.",
+  "brand": {
+    "accent": "#D13F34",
+    "accentDark": "#B93026",
+    "ink": "#262626",
+    "capSize": 58,
+    "font": "Montserrat"
+  },
+  "captions": {
+    "style": "editorial",
+    "group": 3,
+    "y": 1180
+  },
+  "sfxProfile": "standard",
+  "music": {
+    "id": "auto",
+    "db": -21
+  },
+  "look": {}
+}

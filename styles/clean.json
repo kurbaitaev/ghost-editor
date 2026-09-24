@@ -1,0 +1,18 @@
+{
+  "_about": "Business talking head, Hormozi-restrained: bold mixed-case captions with one keyword colour, punch-in snaps, rare cards in the band, few sounds, no music.",
+  "brand": {
+    "accent": "#FFD23F",
+    "accentDark": "#E0B400",
+    "ink": "#111111",
+    "capSize": 64,
+    "font": "Montserrat"
+  },
+  "captions": {
+    "style": "clean",
+    "group": 3,
+    "y": 1200
+  },
+  "sfxProfile": "restrained",
+  "music": null,
+  "look": {}
+}

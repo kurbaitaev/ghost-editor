@@ -1,0 +1,35 @@
+{
+  "_about": "Cinematic doc: film look (grade, grain, vignette), black-and-white B-roll stills with slow pushes, editorial captions whose keywords turn into a glowing serif italic, drone bed, few but heavy sounds (boom, riser).",
+  "brand": {
+    "accent": "#E7C27A",
+    "accentDark": "#B8914A",
+    "ink": "#EDE6DA",
+    "capSize": 56,
+    "font": "Montserrat",
+    "serif": "Playfair Display"
+  },
+  "captions": {
+    "style": "editorial",
+    "group": 3,
+    "y": 1200,
+    "keywordStyle": "serif"
+  },
+  "scenes": {
+    "image": {
+      "grade": "grayscale(1) contrast(1.15) brightness(0.92)"
+    },
+    "sentence": {
+      "bg": "#0f0f10"
+    }
+  },
+  "sfxProfile": "restrained",
+  "music": {
+    "id": "auto",
+    "db": -19
+  },
+  "look": {
+    "grade": "contrast(1.06) saturate(0.82) brightness(0.97)",
+    "grain": 0.07,
+    "vignette": 0.45
+  }
+}

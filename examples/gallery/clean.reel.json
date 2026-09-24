@@ -1,0 +1,82 @@
+{
+ "source": "assets/talk.mp4",
+ "words": "build/words.whisper.json",
+ "fps": 30,
+ "outro": 1.2,
+ "takes": [
+  {
+   "a": 0.0,
+   "b": 4.9
+  },
+  {
+   "a": 5.03,
+   "b": 9.39
+  },
+  {
+   "a": 9.53,
+   "b": 15.28
+  },
+  {
+   "a": 15.37,
+   "b": 20.04
+  }
+ ],
+ "captions": {
+  "phrases": {
+   "a call for reach": "Coffer Reach",
+   "call me coffee": "comment Coffer",
+   "many chat": "ManyChat"
+  },
+  "tags": [
+   "ManyChat",
+   "Coffer Reach"
+  ],
+  "highlight": [
+   "$20",
+   "$60",
+   "free",
+   "Coffer Reach"
+  ]
+ },
+ "zoom": {
+  "origin": "50% 32%",
+  "snaps": [
+   [
+    5.03,
+    1.06
+   ],
+   [
+    8.34,
+    1.0
+   ],
+   [
+    9.53,
+    1.06
+   ],
+   [
+    13.88,
+    1.0
+   ],
+   [
+    15.37,
+    1.06
+   ],
+   [
+    16.8,
+    1.0
+   ]
+  ],
+  "pushes": [
+   {
+    "at": 15.6,
+    "z": 1.05,
+    "up": 0.4,
+    "until": 16.7,
+    "down": 0.2
+   }
+  ]
+ },
+ "style": "clean",
+ "beats": [],
+ "title": "Coffer Reach · clean"
+}

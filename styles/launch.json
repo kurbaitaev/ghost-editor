@@ -1,0 +1,27 @@
+{
+  "_about": "Product launch: dark UI windows with typed prompts, phone frames, cursor clicks, glitch transitions, mono labels, violet accent, upbeat electronic bed.",
+  "brand": {
+    "accent": "#7C5CFF",
+    "accentDark": "#5B3EE6",
+    "ink": "#0E0E12",
+    "capSize": 58,
+    "font": "Montserrat",
+    "mono": "JetBrains Mono"
+  },
+  "captions": {
+    "style": "editorial",
+    "group": 3,
+    "y": 1180
+  },
+  "scenes": {
+    "default_in": "glitch"
+  },
+  "sfxProfile": "standard",
+  "music": {
+    "id": "auto",
+    "db": -20
+  },
+  "look": {
+    "vignette": 0.2
+  }
+}

@@ -1,0 +1,94 @@
+{
+ "source": "assets/talk.mp4",
+ "words": "build/words.whisper.json",
+ "fps": 30,
+ "outro": 1.2,
+ "takes": [
+  {
+   "a": 0.0,
+   "b": 4.9
+  },
+  {
+   "a": 5.03,
+   "b": 9.39
+  },
+  {
+   "a": 9.53,
+   "b": 15.28
+  },
+  {
+   "a": 15.37,
+   "b": 20.04
+  }
+ ],
+ "captions": {
+  "phrases": {
+   "a call for reach": "Coffer Reach",
+   "call me coffee": "comment Coffer",
+   "many chat": "ManyChat"
+  },
+  "tags": [
+   "ManyChat",
+   "Coffer Reach"
+  ],
+  "highlight": [
+   "$20",
+   "$60",
+   "free",
+   "Coffer Reach"
+  ]
+ },
+ "zoom": {
+  "origin": "50% 32%"
+ },
+ "style": "cinematic",
+ "beats": [
+  {
+   "type": "scene",
+   "kind": "image",
+   "at": 4.6,
+   "to": 8.3,
+   "src": "assets/dms.png",
+   "zoom": [
+    1.0,
+    1.1
+   ],
+   "captions": true,
+   "in": "blur",
+   "out": "blur"
+  },
+  {
+   "type": "scene",
+   "kind": "sentence",
+   "at": 9.53,
+   "to": 11.58,
+   "in": "blur",
+   "out": "blur",
+   "lines": [
+    "today we just launched"
+   ],
+   "hero": {
+    "text": "Coffer Reach",
+    "at": 10.52,
+    "size": 150
+   }
+  },
+  {
+   "type": "scene",
+   "kind": "sentence",
+   "at": 17.5,
+   "to": "end",
+   "in": "blur",
+   "out": "cut",
+   "lines": [
+    "just comment"
+   ],
+   "hero": {
+    "text": "Coffer",
+    "at": 17.9,
+    "size": 190
+   }
+  }
+ ],
+ "title": "Coffer Reach · cinematic"
+}

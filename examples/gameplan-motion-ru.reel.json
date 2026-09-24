@@ -1,0 +1,286 @@
+{
+ "title": "Gameplan: ИИ-менеджер для спортсменов",
+ "source": "assets/talk.mp4",
+ "words": "build/words.whisper.json",
+ "fps": 30,
+ "outro": 1.5,
+ "takes": [
+  {
+   "a": 0.0,
+   "b": 53.6,
+   "note": "already a tight single take with burned-in captions"
+  }
+ ],
+ "brand": {
+  "accent": "#D13F34",
+  "accentDark": "#B93026",
+  "ink": "#262626",
+  "capSize": 58,
+  "font": "Montserrat"
+ },
+ "zoom": {
+  "origin": "50% 40%",
+  "base": 1.2,
+  "pushes": [
+   {
+    "at": 12.04,
+    "z": 1.06,
+    "up": 0.4,
+    "until": 14.4,
+    "down": 0.2,
+    "sfx": "whoosh"
+   },
+   {
+    "at": 36.28,
+    "z": 1.06,
+    "up": 0.4,
+    "until": 41.4,
+    "down": 0.2,
+    "sfx": "whoosh"
+   },
+   {
+    "at": 46.98,
+    "z": 1.07,
+    "up": 0.4,
+    "until": 50.5,
+    "down": 0.2,
+    "sfx": "whoosh"
+   }
+  ]
+ },
+ "captions": {
+  "style": "editorial",
+  "onlyInScenes": true,
+  "group": 3,
+  "y": 1300,
+  "fixes": {
+   "Кремьевую": "Кремниевую"
+  }
+ },
+ "music": {
+  "id": "deep-techno-ambience",
+  "db": -21
+ },
+ "beats": [
+  {
+   "type": "scene",
+   "kind": "card",
+   "at": 1.94,
+   "to": 4.02,
+   "bg": "#ffffff",
+   "y": 800,
+   "in": "blur",
+   "out": "cut",
+   "lines": [
+    {
+     "text": "а что если",
+     "at": 1.94,
+     "size": 96
+    }
+   ],
+   "pill": {
+    "text": "искусственным интеллектом?",
+    "at": 3.16,
+    "size": 52
+   },
+   "cursor": {
+    "clickAt": 3.62
+   }
+  },
+  {
+   "type": "scene",
+   "kind": "sentence",
+   "at": 4.02,
+   "to": 6.62,
+   "bg": "#ffffff",
+   "in": "expand",
+   "out": "cut",
+   "lines": [
+    "у большинства спортсменов",
+    "после тренировки начинается"
+   ],
+   "hero": {
+    "text": "вторая смена",
+    "at": 5.9,
+    "size": 132
+   }
+  },
+  {
+   "type": "scene",
+   "kind": "fly3d",
+   "at": 6.62,
+   "to": 9.92,
+   "bg": "#555555",
+   "in": "wipe",
+   "out": "blur",
+   "cam": {
+    "from": -80,
+    "to": 380
+   },
+   "items": [
+    {
+     "text": "почта",
+     "at": 6.64,
+     "x": -110,
+     "y": -280,
+     "z": 0,
+     "size": 130
+    },
+    {
+     "text": "бренды",
+     "at": 7.1,
+     "x": 130,
+     "y": -30,
+     "z": -380,
+     "size": 130
+    },
+    {
+     "text": "заявки",
+     "at": 7.56,
+     "x": -120,
+     "y": 220,
+     "z": -650,
+     "size": 130
+    },
+    {
+     "text": "съемки",
+     "at": 8.1,
+     "x": 90,
+     "y": -140,
+     "z": -920,
+     "size": 140
+    }
+   ]
+  },
+  {
+   "type": "scene",
+   "kind": "image",
+   "at": 14.46,
+   "to": 18.04,
+   "src": "assets/broll/valley.png",
+   "zoom": [
+    1.0,
+    1.1
+   ],
+   "captions": true,
+   "in": "blur",
+   "out": "blur"
+  },
+  {
+   "type": "scene",
+   "kind": "card",
+   "at": 24.88,
+   "to": 27.66,
+   "bg": "#ffffff",
+   "y": 800,
+   "in": "expand",
+   "out": "blur",
+   "lines": [
+    {
+     "text": "или ты можешь написать",
+     "at": 24.88,
+     "size": 70,
+     "color": "#262626"
+    }
+   ],
+   "pill": {
+    "text": "«найди мне бренды»",
+    "at": 25.96,
+    "size": 76
+   },
+   "cursor": {
+    "clickAt": 26.9
+   }
+  },
+  {
+   "type": "scene",
+   "kind": "fly3d",
+   "at": 30.18,
+   "to": 36.2,
+   "bg": "#555555",
+   "in": "blur",
+   "out": "blur",
+   "cam": {
+    "from": -80,
+    "to": 380
+   },
+   "items": [
+    {
+     "text": "мини-сайт",
+     "sub": "он уже знает, кто ты",
+     "at": 30.5,
+     "x": 0,
+     "y": -300,
+     "z": 0,
+     "size": 120
+    },
+    {
+     "text": "находит бренды",
+     "at": 33.88,
+     "x": 0,
+     "y": -20,
+     "z": -450,
+     "size": 90
+    },
+    {
+     "text": "связывается",
+     "at": 34.66,
+     "x": 0,
+     "y": 230,
+     "z": -720,
+     "size": 95
+    },
+    {
+     "text": "ведёт переписку",
+     "at": 35.42,
+     "x": 0,
+     "y": -170,
+     "z": -1050,
+     "size": 100
+    }
+   ]
+  },
+  {
+   "type": "scene",
+   "kind": "stats",
+   "at": 42.4,
+   "to": 45.76,
+   "bg": "accent",
+   "in": "expand",
+   "out": "blur",
+   "badges": [
+    {
+     "value": "2",
+     "sub": "спортсмена",
+     "at": 42.94,
+     "label": "стали **амбассадорами**",
+     "labelAt": 43.84
+    },
+    {
+     "value": "2",
+     "at": 44.7,
+     "label": "**крупных брендов**",
+     "labelAt": 44.94
+    }
+   ]
+  },
+  {
+   "type": "scene",
+   "kind": "sentence",
+   "at": 50.58,
+   "to": "end",
+   "bg": "#ffffff",
+   "in": "blur",
+   "out": "cut",
+   "lines": [
+    "посмотрим, насколько далеко",
+    "мы сможем это довести"
+   ],
+   "hero": {
+    "text": "три недели",
+    "at": 53.06,
+    "size": 150
+   }
+  }
+ ]
+}

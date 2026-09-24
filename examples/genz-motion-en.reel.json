@@ -1,0 +1,259 @@
+{
+ "title": "Gen Z follows players, not teams",
+ "source": "assets/talk.mp4",
+ "words": "build/words.whisper.json",
+ "fps": 30,
+ "outro": 0,
+ "takes": [
+  {
+   "a": 0.0,
+   "b": 1.88
+  },
+  {
+   "a": 2.2,
+   "b": 4.91
+  },
+  {
+   "a": 5.04,
+   "b": 6.82
+  },
+  {
+   "a": 7.16,
+   "b": 8.82
+  },
+  {
+   "a": 9.13,
+   "b": 13.9
+  },
+  {
+   "a": 13.99,
+   "b": 18.34
+  },
+  {
+   "a": 18.63,
+   "b": 20.56
+  },
+  {
+   "a": 20.66,
+   "b": 23.43
+  },
+  {
+   "a": 23.62,
+   "b": 25.58
+  },
+  {
+   "a": 25.78,
+   "b": 33.59
+  },
+  {
+   "a": 33.73,
+   "b": 35.86
+  },
+  {
+   "a": 36.01,
+   "b": 43.78
+  },
+  {
+   "a": 44.28,
+   "b": 46.52
+  },
+  {
+   "a": 47.01,
+   "b": 48.97
+  },
+  {
+   "a": 49.4,
+   "b": 51.93
+  },
+  {
+   "a": 52.12,
+   "b": 53.1
+  }
+ ],
+ "brand": {
+  "accent": "#D13F34",
+  "accentDark": "#B93026",
+  "ink": "#262626",
+  "capSize": 58,
+  "font": "Montserrat"
+ },
+ "zoom": {
+  "origin": "50% 35%",
+  "base": 1.0,
+  "pushes": [
+   {
+    "at": 18.18,
+    "z": 1.07,
+    "up": 0.35,
+    "until": 20.3,
+    "down": 0.25,
+    "sfx": "whoosh"
+   },
+   {
+    "at": 35.6,
+    "z": 1.07,
+    "up": 0.35,
+    "until": 39.2,
+    "down": 0.25,
+    "sfx": "whoosh"
+   },
+   {
+    "at": 51.48,
+    "z": 1.08,
+    "up": 0.4,
+    "until": "end",
+    "sfx": "whoosh"
+   }
+  ]
+ },
+ "captions": {
+  "style": "editorial",
+  "group": 3,
+  "y": 1235,
+  "tags": [
+   "for Gen Z",
+   "Gen Z"
+  ],
+  "highlight": [
+   "fundamental"
+  ]
+ },
+ "music": {
+  "id": "deep-techno-ambience",
+  "db": -21
+ },
+ "beats": [
+  {
+   "type": "scene",
+   "kind": "card",
+   "at": 3.18,
+   "to": 4.36,
+   "bg": "#ffffff",
+   "y": 820,
+   "in": "blur",
+   "out": "cut",
+   "lines": [
+    {
+     "text": "new research",
+     "at": 3.22
+    }
+   ],
+   "pill": {
+    "text": "shows",
+    "at": 3.9
+   },
+   "cursor": {
+    "clickAt": 4.18
+   }
+  },
+  {
+   "type": "scene",
+   "kind": "stats",
+   "at": 4.36,
+   "to": 11.74,
+   "bg": "accent",
+   "in": "expand",
+   "out": "cut",
+   "badges": [
+    {
+     "value": "31%",
+     "sub": "of Gen Z",
+     "at": 4.74,
+     "label": "follow **individual athletes**",
+     "labelAt": 7.04
+    },
+    {
+     "value": "27%",
+     "at": 9.62,
+     "label": "follow **teams**",
+     "labelAt": 10.64
+    }
+   ]
+  },
+  {
+   "type": "scene",
+   "kind": "fly3d",
+   "at": 11.74,
+   "to": 18.12,
+   "bg": "#555555",
+   "in": "wipe",
+   "out": "blur",
+   "cam": {
+    "from": -150,
+    "to": 620
+   },
+   "items": [
+    {
+     "text": "76%",
+     "sub": "follow the",
+     "at": 12.3,
+     "x": -120,
+     "y": -330,
+     "z": 0,
+     "size": 170
+    },
+    {
+     "text": "new team",
+     "at": 14.6,
+     "x": -230,
+     "y": 10,
+     "z": -420,
+     "size": 120
+    },
+    {
+     "text": "new sport",
+     "at": 15.2,
+     "x": 190,
+     "y": 260,
+     "z": -700,
+     "size": 120
+    },
+    {
+     "text": "new athlete",
+     "at": 16.06,
+     "x": -40,
+     "y": -80,
+     "z": -980,
+     "size": 130
+    }
+   ]
+  },
+  {
+   "type": "scene",
+   "kind": "image",
+   "at": 28.0,
+   "to": 33.36,
+   "src": "assets/broll/fans.png",
+   "zoom": [
+    1.0,
+    1.1
+   ],
+   "captions": true,
+   "in": "blur",
+   "out": "blur"
+  },
+  {
+   "type": "scene",
+   "kind": "sentence",
+   "at": 40.1,
+   "to": 46.26,
+   "bg": "#ffffff",
+   "in": "blur",
+   "out": "blur",
+   "lines": [
+    "the content creators influence",
+    "the sport they watch"
+   ],
+   "hero": {
+    "text": "creators",
+    "at": 43.58
+   },
+   "sub": {
+    "text": "not broadcasters",
+    "at": 44.84,
+    "cross": "broadcasters",
+    "crossAt": 45.6
+   }
+  }
+ ]
+}

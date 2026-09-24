@@ -1,0 +1,96 @@
+{
+ "source": "assets/talk.mp4",
+ "words": "build/words.whisper.json",
+ "fps": 30,
+ "outro": 1.2,
+ "takes": [
+  {
+   "a": 0.0,
+   "b": 4.9
+  },
+  {
+   "a": 5.03,
+   "b": 9.39
+  },
+  {
+   "a": 9.53,
+   "b": 15.28
+  },
+  {
+   "a": 15.37,
+   "b": 20.04
+  }
+ ],
+ "captions": {
+  "phrases": {
+   "a call for reach": "Coffer Reach",
+   "call me coffee": "comment Coffer",
+   "many chat": "ManyChat"
+  },
+  "tags": [
+   "ManyChat",
+   "Coffer Reach"
+  ],
+  "highlight": [
+   "$20",
+   "$60",
+   "free",
+   "Coffer Reach"
+  ]
+ },
+ "zoom": {
+  "origin": "50% 32%"
+ },
+ "style": "kinetic",
+ "beats": [
+  {
+   "type": "scene",
+   "kind": "kinetic",
+   "at": 0.0,
+   "to": 3.55,
+   "in": "cut",
+   "out": "blur",
+   "pip": true,
+   "text": "_if_ _you_ _have_ _been_ *wasting* $20 _to_ $60 every _single_ *month*"
+  },
+  {
+   "type": "scene",
+   "kind": "kinetic",
+   "at": 13.88,
+   "to": 16.72,
+   "in": "blur",
+   "out": "blur",
+   "pip": true,
+   "text": "_that_ ManyChat does, _but_ _for_ completely *free.*"
+  },
+  {
+   "type": "scene",
+   "kind": "card",
+   "at": 17.5,
+   "to": "end",
+   "bg": "#ffffff",
+   "y": 820,
+   "in": "expand",
+   "out": "cut",
+   "lines": [
+    {
+     "text": "just comment",
+     "at": 17.58,
+     "size": 90,
+     "color": "#1F1A16"
+    }
+   ],
+   "pill": {
+    "text": "Coffer",
+    "at": 17.9,
+    "size": 110
+   },
+   "cursor": {
+    "clickAt": 18.5,
+    "dx": 150,
+    "dy": 215
+   }
+  }
+ ],
+ "title": "Coffer Reach · kinetic"
+}

@@ -1,0 +1,232 @@
+{
+  "deep-techno-ambience": {
+    "file": "deep-techno-ambience.mp3",
+    "mood": [
+      "tense",
+      "tech",
+      "ambient",
+      "minimal"
+    ],
+    "source": "https://mixkit.co/free-stock-music/techno/ #134 Deep Techno Ambience, Alejandro Maga\u00f1a (A. M.)",
+    "licence": "Mixkit Free Music licence (commercial OK, no attribution)",
+    "url": "https://assets.mixkit.co/music/134/134.mp3",
+    "styles": [
+      "editorial"
+    ],
+    "lufs_i": -7.3,
+    "duration": 122.5
+  },
+  "cyberpunk-city": {
+    "file": "cyberpunk-city.mp3",
+    "mood": [
+      "tech",
+      "night",
+      "driving",
+      "electronic"
+    ],
+    "source": "https://mixkit.co/free-stock-music/ambient/ #140 Cyberpunk City, Alejandro Maga\u00f1a (A. M.)",
+    "licence": "Mixkit Free Music licence (commercial OK, no attribution)",
+    "url": "https://assets.mixkit.co/music/140/140.mp3",
+    "styles": [
+      "editorial",
+      "launch",
+      "product-launch"
+    ],
+    "lufs_i": -10.8,
+    "duration": 99.7
+  },
+  "lo-fi-02": {
+    "file": "lo-fi-02.mp3",
+    "mood": [
+      "chill",
+      "lo-fi",
+      "subtle",
+      "warm"
+    ],
+    "styles": [
+      "clean"
+    ],
+    "source": "https://mixkit.co/free-stock-music/quirky/ #764 Lo-Fi 02, Lily J (Chillout)",
+    "licence": "Mixkit Free Music licence (commercial OK, no attribution)",
+    "url": "https://assets.mixkit.co/music/764/764.mp3",
+    "lufs_i": -11.2,
+    "duration": 98.2
+  },
+  "digital-clouds": {
+    "file": "digital-clouds.mp3",
+    "mood": [
+      "chill",
+      "soft",
+      "electronic",
+      "subtle"
+    ],
+    "styles": [
+      "clean"
+    ],
+    "source": "https://mixkit.co/free-stock-music/electronic/ #175 Digital Clouds, Alejandro Maga\u00f1a (A. M.) (Chillout)",
+    "licence": "Mixkit Free Music licence (commercial OK, no attribution)",
+    "url": "https://assets.mixkit.co/music/175/175.mp3",
+    "lufs_i": -13.1,
+    "duration": 101.0
+  },
+  "comical": {
+    "file": "comical.mp3",
+    "mood": [
+      "quirky",
+      "fun",
+      "playful",
+      "comedic"
+    ],
+    "styles": [
+      "meme"
+    ],
+    "source": "https://mixkit.co/free-stock-music/quirky/ #2 Comical, Ahjay Stelino (Children)",
+    "licence": "Mixkit Free Music licence (commercial OK, no attribution)",
+    "url": "https://assets.mixkit.co/music/2/2.mp3",
+    "lufs_i": -11.3,
+    "duration": 114.4
+  },
+  "keeping-fit": {
+    "file": "keeping-fit.mp3",
+    "mood": [
+      "quirky",
+      "chiptune",
+      "bouncy",
+      "fun"
+    ],
+    "styles": [
+      "meme"
+    ],
+    "source": "https://mixkit.co/free-stock-music/quirky/ #82 Keeping Fit, Ahjay Stelino (Chiptune)",
+    "licence": "Mixkit Free Music licence (commercial OK, no attribution)",
+    "url": "https://assets.mixkit.co/music/82/82.mp3",
+    "lufs_i": -11.6,
+    "duration": 98.8
+  },
+  "silent-descent": {
+    "file": "silent-descent.mp3",
+    "mood": [
+      "piano",
+      "cinematic",
+      "reflective",
+      "slow"
+    ],
+    "styles": [
+      "cinematic",
+      "cinematic-doc"
+    ],
+    "source": "https://mixkit.co/free-stock-music/tag/cinematic/ #614 Silent Descent, Eugenio Mininni (Film Score)",
+    "licence": "Mixkit Free Music licence (commercial OK, no attribution)",
+    "url": "https://assets.mixkit.co/music/614/614.mp3",
+    "lufs_i": -13.3,
+    "duration": 160.4
+  },
+  "vastness": {
+    "file": "vastness.mp3",
+    "mood": [
+      "ambient",
+      "cinematic",
+      "drone",
+      "spacious"
+    ],
+    "styles": [
+      "cinematic",
+      "cinematic-doc"
+    ],
+    "source": "https://mixkit.co/free-stock-music/ambient/ #184 Vastness, Andrew Ev (Ambient)",
+    "licence": "Mixkit Free Music licence (commercial OK, no attribution)",
+    "url": "https://assets.mixkit.co/music/184/184.mp3",
+    "lufs_i": -13.5,
+    "duration": 229.8
+  },
+  "infinity": {
+    "file": "infinity.mp3",
+    "mood": [
+      "upbeat",
+      "tech",
+      "electronic",
+      "corporate"
+    ],
+    "styles": [
+      "launch",
+      "product-launch"
+    ],
+    "source": "https://mixkit.co/free-stock-music/electronic/ #440 Infinity, Arulo (Corporate Music)",
+    "licence": "Mixkit Free Music licence (commercial OK, no attribution)",
+    "url": "https://assets.mixkit.co/music/440/440.mp3",
+    "lufs_i": -12.2,
+    "duration": 102.9
+  },
+  "brainiac": {
+    "file": "brainiac.mp3",
+    "mood": [
+      "tech",
+      "electronic",
+      "driving",
+      "modern"
+    ],
+    "styles": [
+      "launch",
+      "product-launch"
+    ],
+    "source": "https://mixkit.co/free-stock-music/electronic/ #167 Brainiac, Alejandro Maga\u00f1a (A. M.) (Electronica)",
+    "licence": "Mixkit Free Music licence (commercial OK, no attribution)",
+    "url": "https://assets.mixkit.co/music/167/167.mp3",
+    "lufs_i": -10.6,
+    "duration": 106.4
+  },
+  "vocal-percussions": {
+    "file": "vocal-percussions.mp3",
+    "mood": [
+      "percussive",
+      "minimal",
+      "rhythmic",
+      "beat"
+    ],
+    "styles": [
+      "kinetic",
+      "kinetic-type"
+    ],
+    "source": "https://mixkit.co/free-stock-music/quirky/ #527 Vocal Percussions, Diego Nava (Rhythmic Underscore)",
+    "licence": "Mixkit Free Music licence (commercial OK, no attribution)",
+    "url": "https://assets.mixkit.co/music/527/527.mp3",
+    "lufs_i": -13.8,
+    "duration": 104.8
+  },
+  "happy-times": {
+    "file": "happy-times.mp3",
+    "mood": [
+      "upbeat",
+      "pop",
+      "bright",
+      "happy"
+    ],
+    "styles": [
+      "pop",
+      "pop-magazine"
+    ],
+    "source": "https://mixkit.co/free-stock-music/pop/ #158 Happy Times, Alejandro Maga\u00f1a (A. M.) (Pop)",
+    "licence": "Mixkit Free Music licence (commercial OK, no attribution)",
+    "url": "https://assets.mixkit.co/music/158/158.mp3",
+    "lufs_i": -9.7,
+    "duration": 100.1
+  },
+  "life-is-a-dream": {
+    "file": "life-is-a-dream.mp3",
+    "mood": [
+      "upbeat",
+      "disco",
+      "pop",
+      "groovy"
+    ],
+    "styles": [
+      "pop",
+      "pop-magazine"
+    ],
+    "source": "https://mixkit.co/free-stock-music/pop/ #837 Life is a Dream, Michael Ramir C. (Disco)",
+    "licence": "Mixkit Free Music licence (commercial OK, no attribution)",
+    "url": "https://assets.mixkit.co/music/837/837.mp3",
+    "lufs_i": -11.6,
+    "duration": 99.1
+  }
+}

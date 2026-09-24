@@ -1,0 +1,128 @@
+{
+ "source": "assets/talk.mp4",
+ "words": "build/words.whisper.json",
+ "fps": 30,
+ "outro": 1.2,
+ "takes": [
+  {
+   "a": 0.0,
+   "b": 4.9
+  },
+  {
+   "a": 5.03,
+   "b": 9.39
+  },
+  {
+   "a": 9.53,
+   "b": 15.28
+  },
+  {
+   "a": 15.37,
+   "b": 20.04
+  }
+ ],
+ "captions": {
+  "phrases": {
+   "a call for reach": "Coffer Reach",
+   "call me coffee": "comment Coffer",
+   "many chat": "ManyChat"
+  },
+  "tags": [
+   "ManyChat",
+   "Coffer Reach"
+  ],
+  "highlight": [
+   "$20",
+   "$60",
+   "free",
+   "Coffer Reach"
+  ]
+ },
+ "zoom": {
+  "origin": "50% 32%"
+ },
+ "style": "launch",
+ "beats": [
+  {
+   "type": "scene",
+   "kind": "ui",
+   "at": 4.6,
+   "to": 8.3,
+   "bg": "#0b0b10",
+   "title": "ManyChat",
+   "label": "$20–$60 / month",
+   "prompt": {
+    "text": "DM people a link when they comment a word",
+    "at": 4.8,
+    "cps": 20
+   }
+  },
+  {
+   "type": "scene",
+   "kind": "sentence",
+   "at": 9.53,
+   "to": 11.58,
+   "bg": "#0b0b10",
+   "lines": [
+    "today we just launched"
+   ],
+   "hero": {
+    "text": "Coffer Reach",
+    "at": 10.52,
+    "size": 150
+   }
+  },
+  {
+   "type": "scene",
+   "kind": "device",
+   "at": 13.88,
+   "to": 16.7,
+   "bg": "accent",
+   "label": "Coffer Reach",
+   "lines": [
+    {
+     "text": "coffer",
+     "me": true,
+     "at": 14.38
+    },
+    {
+     "text": "here is your link 🔗",
+     "at": 15.26
+    },
+    {
+     "text": "completely free ✓",
+     "at": 15.8
+    }
+   ]
+  },
+  {
+   "type": "scene",
+   "kind": "card",
+   "at": 17.5,
+   "to": "end",
+   "bg": "#ffffff",
+   "y": 820,
+   "in": "glitch",
+   "out": "cut",
+   "lines": [
+    {
+     "text": "just comment",
+     "at": 17.58,
+     "size": 90,
+     "color": "#1F1A16"
+    }
+   ],
+   "pill": {
+    "text": "Coffer",
+    "at": 17.9,
+    "size": 110
+   },
+   "cursor": {
+    "clickAt": 18.5,
+    "dx": 150,
+    "dy": 215
+   }
+  }
+ ],
+ "title": "Coffer Reach · launch"
+}

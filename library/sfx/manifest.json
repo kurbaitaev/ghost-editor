@@ -1,0 +1,636 @@
+{
+  "whoosh-1": {
+    "file": "whoosh-1.wav",
+    "role": "whoosh",
+    "tags": [
+      "zoom",
+      "transition",
+      "card-in"
+    ],
+    "duration": 0.9,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/whoosh/ #2350 Magic sparkle whoosh",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2350"
+  },
+  "whoosh-2": {
+    "file": "whoosh-2.wav",
+    "role": "whoosh",
+    "tags": [
+      "zoom",
+      "transition",
+      "card-in"
+    ],
+    "duration": 0.9,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/whoosh/ #1492 Cinematic whoosh fast transition",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "1492"
+  },
+  "whoosh-3": {
+    "file": "whoosh-3.wav",
+    "role": "whoosh",
+    "tags": [
+      "zoom",
+      "transition",
+      "card-in"
+    ],
+    "duration": 0.9,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/whoosh/ #1714 Fast rocket whoosh",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "1714"
+  },
+  "whoosh-cine": {
+    "file": "whoosh-cine.wav",
+    "role": "whoosh",
+    "tags": [
+      "text-slam",
+      "reveal"
+    ],
+    "duration": 0.313,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/whoosh/ #1491 Arrow whoosh",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "1491"
+  },
+  "pop-1": {
+    "file": "pop-1.wav",
+    "role": "ui",
+    "tags": [
+      "chip",
+      "emoji",
+      "list-item"
+    ],
+    "duration": 0.219,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/pop/ #2925 Soap bubble sound",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2925"
+  },
+  "pop-3": {
+    "file": "pop-3.wav",
+    "role": "ui",
+    "tags": [
+      "chip",
+      "emoji",
+      "list-item"
+    ],
+    "duration": 0.14,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/pop/ #2364 Hard pop click",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2364"
+  },
+  "click-1": {
+    "file": "click-1.wav",
+    "role": "ui",
+    "tags": [
+      "ui",
+      "cursor"
+    ],
+    "duration": 0.25,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/click/ #900 Sci fi click",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "900"
+  },
+  "tick-1": {
+    "file": "tick-1.wav",
+    "role": "ui",
+    "tags": [
+      "typing"
+    ],
+    "duration": 0.2,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/typing/ #2531 Typing on a laptop keyboard",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2531"
+  },
+  "typing-1": {
+    "file": "typing-1.wav",
+    "role": "ui",
+    "tags": [
+      "typing",
+      "prompt"
+    ],
+    "duration": 2.5,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/typing/ #2532 Slow typing on a keyboard",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2532"
+  },
+  "impact-1": {
+    "file": "impact-1.wav",
+    "role": "impact",
+    "tags": [
+      "text-slam",
+      "number",
+      "stamp"
+    ],
+    "duration": 1.6,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/impact/ #2908 Movie trailer epic impact",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2908"
+  },
+  "impact-2": {
+    "file": "impact-2.wav",
+    "role": "impact",
+    "tags": [
+      "text-slam",
+      "number",
+      "stamp"
+    ],
+    "duration": 1.2,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/impact/ #788 Big cinematic impact",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "788"
+  },
+  "riser-1": {
+    "file": "riser-1.wav",
+    "role": "whoosh",
+    "tags": [
+      "build-up"
+    ],
+    "duration": 1.705,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/cinematic/ #790 Cinematic trailer riser",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "790"
+  },
+  "ding-1": {
+    "file": "ding-1.wav",
+    "role": "ui",
+    "tags": [
+      "win",
+      "check"
+    ],
+    "duration": 0.885,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/notification/ #2870 Correct answer tone",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2870"
+  },
+  "buzzer-1": {
+    "file": "buzzer-1.wav",
+    "role": "meme",
+    "tags": [
+      "wrong",
+      "dismiss",
+      "myth"
+    ],
+    "duration": 1.2,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/game-show/ #948 Wrong answer bass buzzer",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "948"
+  },
+  "kaching-1": {
+    "file": "kaching-1.wav",
+    "role": "impact",
+    "tags": [
+      "money",
+      "price",
+      "win"
+    ],
+    "duration": 0.726,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/cash/ #1993 Clinking coins",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "1993"
+  },
+  "shutter-1": {
+    "file": "shutter-1.wav",
+    "role": "ui",
+    "tags": [
+      "screenshot",
+      "save",
+      "freeze"
+    ],
+    "duration": 0.444,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/camera/ #1430 Camera shutter hard click",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "1430"
+  },
+  "pop-2": {
+    "file": "pop-2.wav",
+    "role": "ui",
+    "tags": [
+      "chip",
+      "emoji",
+      "list-item"
+    ],
+    "duration": 0.049,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/pop/ #2354 Message pop alert",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2354"
+  },
+  "reaction-boing": {
+    "file": "reaction-boing.wav",
+    "role": "meme",
+    "tags": [
+      "absurd",
+      "bounce",
+      "flex"
+    ],
+    "duration": 0.487,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/cartoon/ #2894 Boing hit sound",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2894"
+  },
+  "reaction-rimshot": {
+    "file": "reaction-rimshot.wav",
+    "role": "meme",
+    "tags": [
+      "punchline",
+      "bad-joke"
+    ],
+    "duration": 1.841,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/drum/ #579 Drum joke accent",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "579"
+  },
+  "reaction-fail-trombone": {
+    "file": "reaction-fail-trombone.wav",
+    "role": "meme",
+    "tags": [
+      "fail",
+      "sad",
+      "pity"
+    ],
+    "duration": 3.0,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/funny/ #471 Sad game over trombone",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "471"
+  },
+  "reaction-drum-roll": {
+    "file": "reaction-drum-roll.wav",
+    "role": "meme",
+    "tags": [
+      "build-up",
+      "reveal",
+      "suspense"
+    ],
+    "duration": 3.0,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/drum/ #566 Drum Roll",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "566"
+  },
+  "reaction-crowd-laugh": {
+    "file": "reaction-crowd-laugh.wav",
+    "role": "meme",
+    "tags": [
+      "punchline",
+      "roast",
+      "dumb"
+    ],
+    "duration": 3.0,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/crowd/ #424 Crowd laugh",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "424"
+  },
+  "reaction-crowd-boo": {
+    "file": "reaction-crowd-boo.wav",
+    "role": "meme",
+    "tags": [
+      "bad-take",
+      "myth",
+      "wrong"
+    ],
+    "duration": 2.5,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/crowd/ #463 Crowd disappointment long boo",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "463"
+  },
+  "reaction-applause-short": {
+    "file": "reaction-applause-short.wav",
+    "role": "meme",
+    "tags": [
+      "win",
+      "flex",
+      "sarcastic"
+    ],
+    "duration": 3.0,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/applause/ #475 Small group clapping",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "475"
+  },
+  "reaction-tape-rewind": {
+    "file": "reaction-tape-rewind.wav",
+    "role": "meme",
+    "tags": [
+      "wait",
+      "freeze-frame",
+      "twist"
+    ],
+    "duration": 1.5,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/cinematic/ #1088 Tape rewind cinematic transition",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "1088"
+  },
+  "reaction-cartoon-pop": {
+    "file": "reaction-cartoon-pop.wav",
+    "role": "meme",
+    "tags": [
+      "emoji",
+      "idea",
+      "light"
+    ],
+    "duration": 0.6,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/cartoon/ #729 Cartoon bubbles pop",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "729"
+  },
+  "reaction-slide-whistle": {
+    "file": "reaction-slide-whistle.wav",
+    "role": "meme",
+    "tags": [
+      "fail",
+      "drop",
+      "falling"
+    ],
+    "duration": 2.0,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/cartoon/ #395 Cartoon falling whistle",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "395"
+  },
+  "reaction-gasp": {
+    "file": "reaction-gasp.wav",
+    "role": "meme",
+    "tags": [
+      "shock",
+      "disbelief",
+      "claim"
+    ],
+    "duration": 0.623,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/gasp/ #966 Male astonished gasp",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "966"
+  },
+  "reaction-ding-ding": {
+    "file": "reaction-ding-ding.wav",
+    "role": "meme",
+    "tags": [
+      "correct",
+      "idea",
+      "win"
+    ],
+    "duration": 0.875,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/bell/ #588 Service bell double ding",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "588"
+  },
+  "cinematic-deep-boom": {
+    "file": "cinematic-deep-boom.wav",
+    "role": "impact",
+    "tags": [
+      "text-slam",
+      "reveal",
+      "number"
+    ],
+    "duration": 2.5,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/drum/ #553 Blockbuster trailer bass drum",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "553"
+  },
+  "cinematic-rumble-riser": {
+    "file": "cinematic-rumble-riser.wav",
+    "role": "whoosh",
+    "tags": [
+      "build-up",
+      "tension"
+    ],
+    "duration": 3.0,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/riser/ #632 Cinematic drama riser",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "632"
+  },
+  "cinematic-drone-swell": {
+    "file": "cinematic-drone-swell.wav",
+    "role": "whoosh",
+    "tags": [
+      "tension",
+      "bed",
+      "reveal"
+    ],
+    "duration": 4.0,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/cinematic/ #678 Trailer cinematic suspense swell",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "678"
+  },
+  "cinematic-heartbeat": {
+    "file": "cinematic-heartbeat.wav",
+    "role": "impact",
+    "tags": [
+      "tension",
+      "pause",
+      "stakes"
+    ],
+    "duration": 0.455,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/boom/ #490 Human single heart beat",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "490"
+  },
+  "cinematic-film-flash": {
+    "file": "cinematic-film-flash.wav",
+    "role": "whoosh",
+    "tags": [
+      "flash",
+      "cut",
+      "transition"
+    ],
+    "duration": 1.0,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/impact/ #3131 Short impact static",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "3131"
+  },
+  "tech-glitch-1": {
+    "file": "tech-glitch-1.wav",
+    "role": "ui",
+    "tags": [
+      "glitch",
+      "cut",
+      "error"
+    ],
+    "duration": 0.688,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/glitch/ #1031 Glitch short",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "1031"
+  },
+  "tech-glitch-2": {
+    "file": "tech-glitch-2.wav",
+    "role": "whoosh",
+    "tags": [
+      "glitch",
+      "transition"
+    ],
+    "duration": 0.585,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/glitch/ #2951 Digital glitch break",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2951"
+  },
+  "tech-digital-whoosh": {
+    "file": "tech-digital-whoosh.wav",
+    "role": "whoosh",
+    "tags": [
+      "zoom",
+      "transition",
+      "tech"
+    ],
+    "duration": 1.2,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/whoosh/ #2596 Electric whoosh",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2596"
+  },
+  "tech-ui-confirm": {
+    "file": "tech-ui-confirm.wav",
+    "role": "ui",
+    "tags": [
+      "check",
+      "win",
+      "done"
+    ],
+    "duration": 1.0,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/notification/ #2865 Success software tone",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2865"
+  },
+  "tech-ui-error": {
+    "file": "tech-ui-error.wav",
+    "role": "ui",
+    "tags": [
+      "wrong",
+      "myth",
+      "reject"
+    ],
+    "duration": 0.358,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/interface/ #1110 Click error",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "1110"
+  },
+  "tech-keyboard-burst": {
+    "file": "tech-keyboard-burst.wav",
+    "role": "ui",
+    "tags": [
+      "typing",
+      "prompt",
+      "code"
+    ],
+    "duration": 2.0,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/typing/ #1387 Fast keyboard typing",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "1387"
+  },
+  "tech-notification-2": {
+    "file": "tech-notification-2.wav",
+    "role": "ui",
+    "tags": [
+      "notification",
+      "chip",
+      "alert"
+    ],
+    "duration": 0.405,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/technology/ #2519 High tech notification bleep",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2519"
+  },
+  "tech-camera-flash": {
+    "file": "tech-camera-flash.wav",
+    "role": "ui",
+    "tags": [
+      "screenshot",
+      "flash",
+      "freeze"
+    ],
+    "duration": 0.347,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/camera/ #1432 Camera digital shutter",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "1432"
+  },
+  "cinematic-cine-hit": {
+    "file": "cinematic-cine-hit.wav",
+    "role": "impact",
+    "tags": [
+      "title",
+      "stamp",
+      "reveal"
+    ],
+    "duration": 2.0,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/impact/ #2901 Epic movie impact",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "2901"
+  }
+}

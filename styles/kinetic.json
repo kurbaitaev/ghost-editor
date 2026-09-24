@@ -1,0 +1,22 @@
+{
+  "_about": "Kinetic type: full-screen word-by-word typography on a solid colour, a camera that glides from word to word, keywords big in the accent, the speaker shrinks into a round picture-in-picture while the type plays. Minimal percussive bed.",
+  "brand": {
+    "accent": "#FF5A1F",
+    "accentDark": "#D9440F",
+    "ink": "#141414",
+    "capSize": 60,
+    "font": "Montserrat",
+    "kineticBg": "#FFE14D"
+  },
+  "captions": {
+    "style": "editorial",
+    "group": 3,
+    "y": 1180
+  },
+  "sfxProfile": "standard",
+  "music": {
+    "id": "auto",
+    "db": -20
+  },
+  "look": {}
+}

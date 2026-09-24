@@ -1,0 +1,23 @@
+{
+  "_about": "Pop magazine: giant condensed display words BEHIND the speaker (cut-out matte), uppercase captions with a hot colour box on keywords, bold colour-block scenes, upbeat pop bed.",
+  "brand": {
+    "accent": "#FF2E88",
+    "accentDark": "#D1106A",
+    "ink": "#111111",
+    "capSize": 56,
+    "font": "Unbounded"
+  },
+  "captions": {
+    "style": "editorial",
+    "group": 3,
+    "y": 1200,
+    "upper": true
+  },
+  "matte": true,
+  "sfxProfile": "standard",
+  "music": {
+    "id": "auto",
+    "db": -20
+  },
+  "look": {}
+}

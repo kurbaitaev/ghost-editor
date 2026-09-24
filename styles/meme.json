@@ -1,0 +1,19 @@
+{
+  "_about": "Meme energy: outline captions, reaction memes/emoji in the slot next to the head, chips and big cards in the band, punchy reaction sounds.",
+  "brand": {
+    "accent": "#FFD166",
+    "accentDark": "#E0A800",
+    "ink": "#111111",
+    "capSize": 60,
+    "font": "Montserrat"
+  },
+  "captions": {
+    "style": "house",
+    "group": 3,
+    "size": 60,
+    "y": 1200
+  },
+  "sfxProfile": "rich",
+  "music": null,
+  "look": {}
+}

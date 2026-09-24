@@ -1,0 +1,94 @@
+{
+ "source": "assets/talk.mp4",
+ "words": "build/words.whisper.json",
+ "fps": 30,
+ "outro": 1.2,
+ "takes": [
+  {
+   "a": 0.0,
+   "b": 4.9
+  },
+  {
+   "a": 5.03,
+   "b": 9.39
+  },
+  {
+   "a": 9.53,
+   "b": 15.28
+  },
+  {
+   "a": 15.37,
+   "b": 20.04
+  }
+ ],
+ "captions": {
+  "phrases": {
+   "a call for reach": "Coffer Reach",
+   "call me coffee": "comment Coffer",
+   "many chat": "ManyChat"
+  },
+  "tags": [
+   "ManyChat",
+   "Coffer Reach"
+  ],
+  "highlight": [
+   "$20",
+   "$60",
+   "free",
+   "Coffer Reach"
+  ]
+ },
+ "zoom": {
+  "origin": "50% 32%"
+ },
+ "style": "pop",
+ "beats": [
+  {
+   "type": "behind",
+   "at": 1.76,
+   "to": 3.4,
+   "text": "$60"
+  },
+  {
+   "type": "behind",
+   "at": 10.52,
+   "to": 11.9,
+   "text": "COFFER"
+  },
+  {
+   "type": "behind",
+   "at": 16.22,
+   "to": 17.3,
+   "text": "FREE"
+  },
+  {
+   "type": "scene",
+   "kind": "card",
+   "at": 17.5,
+   "to": "end",
+   "bg": "accent",
+   "y": 820,
+   "in": "expand",
+   "out": "cut",
+   "lines": [
+    {
+     "text": "just comment",
+     "at": 17.58,
+     "size": 90,
+     "color": "#1F1A16"
+    }
+   ],
+   "pill": {
+    "text": "Coffer",
+    "at": 17.9,
+    "size": 110
+   },
+   "cursor": {
+    "clickAt": 18.5,
+    "dx": 150,
+    "dy": 215
+   }
+  }
+ ],
+ "title": "Coffer Reach · pop"
+}

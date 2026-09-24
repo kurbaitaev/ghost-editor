@@ -1,0 +1,15 @@
+# media is rebuilt by scripts/library_restore.py; the repo keeps manifests and meta only
+library/sfx/*.wav
+library/memes/*/clip.webm
+library/memes/*/image.png
+library/memes/*/preview.png
+library/audition.html
+__pycache__/
+.DS_Store
+
+# licensed/ripped media is restored by scripts/library_restore.py, never committed
+library/music/*.mp3
+.env
+
+# face model: face_track.py downloads it on first use (opencv_zoo, MIT)
+library/models/*.onnx

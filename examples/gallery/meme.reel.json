@@ -1,0 +1,107 @@
+{
+ "source": "assets/talk.mp4",
+ "words": "build/words.whisper.json",
+ "fps": 30,
+ "outro": 1.2,
+ "takes": [
+  {
+   "a": 0.0,
+   "b": 4.9
+  },
+  {
+   "a": 5.03,
+   "b": 9.39
+  },
+  {
+   "a": 9.53,
+   "b": 15.28
+  },
+  {
+   "a": 15.37,
+   "b": 20.04
+  }
+ ],
+ "captions": {
+  "phrases": {
+   "a call for reach": "Coffer Reach",
+   "call me coffee": "comment Coffer",
+   "many chat": "ManyChat"
+  },
+  "tags": [
+   "ManyChat",
+   "Coffer Reach"
+  ],
+  "highlight": [
+   "$20",
+   "$60",
+   "free",
+   "Coffer Reach"
+  ]
+ },
+ "zoom": {
+  "origin": "50% 32%"
+ },
+ "style": "meme",
+ "beats": [
+  {
+   "type": "emoji",
+   "at": 1.12,
+   "to": 2.9,
+   "emoji": "💸"
+  },
+  {
+   "type": "big",
+   "at": 1.76,
+   "to": 3.4,
+   "text": "$20–$60",
+   "sub": "every single month"
+  },
+  {
+   "type": "emoji",
+   "at": 8.78,
+   "to": 9.38,
+   "emoji": "🫡",
+   "sfx": "reaction-rimshot"
+  },
+  {
+   "type": "big",
+   "at": 16.22,
+   "to": 17.4,
+   "text": "FREE",
+   "sub": "completely",
+   "sfx": [
+    "whoosh-cine",
+    "reaction-ding-ding"
+   ]
+  },
+  {
+   "type": "scene",
+   "kind": "card",
+   "at": 17.5,
+   "to": "end",
+   "bg": "#ffffff",
+   "y": 820,
+   "in": "expand",
+   "out": "cut",
+   "lines": [
+    {
+     "text": "just comment",
+     "at": 17.58,
+     "size": 90,
+     "color": "#1F1A16"
+    }
+   ],
+   "pill": {
+    "text": "Coffer",
+    "at": 17.9,
+    "size": 110
+   },
+   "cursor": {
+    "clickAt": 18.5,
+    "dx": 150,
+    "dy": 215
+   }
+  }
+ ],
+ "title": "Coffer Reach · meme"
+}
