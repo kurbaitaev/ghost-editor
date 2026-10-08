@@ -8,6 +8,7 @@ The one-page inventory of this skill. Each style says how to ask for it.
 |---|---|---|---|
 | **Clean OS** | "edit this in Clean OS" | An Apple-ad talking head that lives inside your phone. 1–3 lowercase word cards resolving from blur (Inter), wide/tight cuts from one 4K camera, literal iOS scenes for what you say (date picker, lock-screen notifications, a search with a loading bar stuck at 97%, a Photos memory card), a red Figma selection box with a cursor, perspective text with a draining ring, one handwritten word (Great Vibes), a small sound on every graphic. | reflective or explanatory monologues |
 | **Vector explainer** | "make an animated explainer" | No footage. One continuous SVG world a camera travels through, a subject that draws itself, serif headlines on panels, words that rise from blur as the narrator says them, an ElevenLabs narrator, a piano bed. | parables, life lessons, concepts you can draw |
+| **RESULT** | "edit this in RESULT style" | A warm podcast edit: one or two Inter Tight words with a small line and one big word, Caveat handwriting, navy cards with film dust, polaroids, a paper stack that swaps pictures stop-motion, film-burn light leaks, comic props (REC frame, an incoming call you decline, a cursor clicking a dialog), dissolves between lines. | storytelling, nostalgia, podcast monologues |
 | **POV montage** | "cut these POV clips into a reel" | Several first-person clips cut into a story: a flash-forward hook, speed-ups, text behind you, a cursor-click fact card, a freeze frame with a zoom, a record scratch and a meme, on the editorial motion layer. | trips, vlogs, a day from smart glasses or a GoPro |
 
 Each lives in `recipes/<name>/` with a README (the full grammar and pipeline), its scripts and a worked example.
@@ -64,6 +65,7 @@ Inter (Clean OS), Great Vibes (script word), Montserrat (presets), Playfair Disp
 - Whisper merges restarts into one clean sentence and smears timestamps. Re-transcribe the cut voice and audit it with Gemini 2.5 Pro.
 - A long stretch of voice with few transcript words is a hidden retake. A throat-clear is a short voiced hum with falling pitch (find it with a pitch scan).
 - Leave ~0.2 s of breath between sentences. Confirm the right person on screen before rendering.
+- Build an attempt log of the whole raw take with Gemini 2.5 Pro before cutting. Hide jump cuts with short dissolves, not a zoom on every cut (three comic punch-ins at most).
 
 **Audio**
 - Full-strength denoise leaves a thin, watery voice: cap at 20 dB and add a little warmth.
@@ -73,7 +75,7 @@ Inter (Clean OS), Great Vibes (script word), Montserrat (presets), Playfair Disp
 - Never cover the face; stay inside the safe area. Light accents need dark text. Hide captions while a headline says the same words. No em dashes on screen; one emphasis mechanism per video.
 
 **Motion and rendering (HyperFrames)**
-- Anything tweened twice needs `fromTo` with explicit values. Grow SVG shapes with `attr`, not scale. Every video needs an id. Lint, snapshot every beat, look, then render.
+- Anything tweened twice needs `fromTo` with explicit values; hide each caption with a `fromTo` placed after its fade-in. Grow SVG shapes with `attr`, not scale. Every video needs an id. Lint, snapshot every beat, look, then render.
 - Top reels: 113 of 119 transitions are hard cuts, median shot ~3 s, B-roll 20–35 % of runtime, audible SFX 0.4–0.9 per 10 s on graphics, not cuts.
 
 **Sound and memes**

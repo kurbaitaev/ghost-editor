@@ -17,7 +17,7 @@ https://github.com/user-attachments/assets/312f6910-a8a0-4424-9dd4-612cd079a2e7
 - **Adds sound effects and music**, mixed so your voice always stays clear.
 - **Checks its own work** before handing you the video.
 
-## New: three named styles (v0.2)
+## New: four named styles (v0.2)
 
 Ask for them by name. Each one is a full recipe in `recipes/` with its own guide and a worked example.
 
@@ -32,6 +32,12 @@ No camera needed. A narrator (ElevenLabs) tells the story while a world draws it
 
 [![Vector explainer](docs/img/vector-explainer.jpg)](https://github.com/kurbaitaev/ghost-editor/releases/download/v0.2.0/vector-explainer-demo.mp4)
 [▶ Watch the explainer demo](https://github.com/kurbaitaev/ghost-editor/releases/download/v0.2.0/vector-explainer-demo.mp4)
+
+**RESULT** · *"edit this in RESULT style"*
+A warm podcast-style edit: one or two words at a time with a big emphasis word, handwritten key words, navy cards with film dust, polaroids, a paper stack that swaps pictures stop-motion, film-burn light leaks and a few comic props.
+
+[![RESULT](docs/img/result-podcast.jpg)](https://github.com/kurbaitaev/ghost-editor/releases/download/v0.2.0/result-demo.mp4)
+[▶ Watch the RESULT demo](https://github.com/kurbaitaev/ghost-editor/releases/download/v0.2.0/result-demo.mp4)
 
 **POV montage** · *"cut these POV clips into a reel"*
 Clips from smart glasses or a GoPro cut into a story: a flash-forward hook, speed-ups, text behind you, a fact card a cursor clicks, and a freeze frame with a record scratch on the moment that matters.
@@ -86,7 +92,7 @@ It installs everything it needs and tells you when it's ready (a few minutes).
 
 **Noisy outdoor recording?** It cleans the voice with DeepFilterNet (crickets, hum, wind), set to keep the voice natural.
 
-**Can it make something new?** Yes. Ask for a new style or a new kind of animation and it writes one. Three of the seven presets and all three named styles were made that way.
+**Can it make something new?** Yes. Ask for a new style or a new kind of animation and it writes one. Three of the seven presets and all four named styles were made that way.
 
 **Other agents?** It works with Codex and any agent that can run commands. See [INSTALL.md](docs/INSTALL.md).
 

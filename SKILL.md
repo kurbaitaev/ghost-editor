@@ -1,6 +1,6 @@
 ---
 name: ghost-editor
-description: AI video editor for talking-head reels. Turns a raw phone recording of someone talking to camera (retakes, pauses, false starts) into a finished vertical 1080x1920 reel for Instagram, TikTok or Shorts: best take of each sentence, pause trimming, word-timed captions that never cover the face and stay inside the platform safe area, motion scenes on the spoken word, sound effects and music mixed against the voice, in seven styles (clean, editorial, meme, cinematic, launch, kinetic, pop). It can also reverse-engineer a reference edit the user likes and apply that style to their recording. Use when the user hands over a talking-head video and says "edit this", "make a reel", "make it look like this video", "add captions/motion graphics/sound effects", "pick the best takes", "remove the pauses", or asks for a re-cut. Also the named styles "Clean OS" (Apple-clean word cards + phone-UI scenes + a Figma selection box), the vector explainer (no footage, an ElevenLabs narrator, a world drawn live) and the POV montage (first-person clips with freeze-frame moments); see recipes/ and docs/PLAYBOOK.md. Not for landscape screen recordings.
+description: AI video editor for talking-head reels. Turns a raw phone recording of someone talking to camera (retakes, pauses, false starts) into a finished vertical 1080x1920 reel for Instagram, TikTok or Shorts: best take of each sentence, pause trimming, word-timed captions that never cover the face and stay inside the platform safe area, motion scenes on the spoken word, sound effects and music mixed against the voice, in seven styles (clean, editorial, meme, cinematic, launch, kinetic, pop). It can also reverse-engineer a reference edit the user likes and apply that style to their recording. Use when the user hands over a talking-head video and says "edit this", "make a reel", "make it look like this video", "add captions/motion graphics/sound effects", "pick the best takes", "remove the pauses", or asks for a re-cut. Also the named styles "Clean OS" (Apple-clean word cards + phone-UI scenes + a Figma selection box), the vector explainer (no footage, an ElevenLabs narrator, a world drawn live), RESULT (a warm podcast edit with paper, film and handwriting) and the POV montage (first-person clips with freeze-frame moments); see recipes/ and docs/PLAYBOOK.md. Not for landscape screen recordings.
 ---
 
 # ghost-editor
@@ -88,6 +88,9 @@ Seven presets: `clean`, `editorial`, `meme`, `cinematic`, `launch`, `kinetic`, `
   Call: "Clean OS", "like One Normal Day". Talking heads, reflective or explanatory.
 - `recipes/explainer-vector/`, **Vector explainer**: no footage; an ElevenLabs narrator; one continuous SVG world a camera travels
   through, a subject that draws itself, serif headlines, word-reveal captions. Call: "animated explainer", "like the tree video".
+- `recipes/result-podcast/`, **RESULT**: warm podcast edit: one or two Inter Tight words with a two-tier emphasis, Caveat handwriting,
+  navy dust cards, polaroids, a stop-motion paper stack, film-burn leaks, comic props, dissolves between lines.
+  Call: "RESULT style", "like the millennials reel".
 - `recipes/pov-montage/`, **POV montage**: several first-person clips cut into a story with an edit list (speed-ups, freezes),
   the editorial motion layer, a freeze-frame moment with a meme. Call: "cut these POV clips", "like the Lime ride".
 The visual inventory of every style (playing loops, soundboard, rules) is docs/PLAYBOOK.md.
@@ -179,6 +182,9 @@ and the dead ends not to retry.
 - Music ducks under every spoken line (`music.duck`); under a freeze it nearly disappears. The QA SFX stem excludes the bed.
 - Calibration (6 top reels): 113 of 119 transitions are hard cuts, median shot ~3 s, audible SFX 0.4-0.9 per 10 s on graphics
   (not on cuts), B-roll 20-35 % of runtime. Default to restraint.
+- Hide jump cuts with short dissolves (0.2 s) or a shot-size change, not a zoom on every cut; the user found per-cut zooms annoying
+  (at most three comic punch-ins per reel). Before cutting, build an attempt log of the WHOLE raw take with Gemini 2.5 Pro.
+- Hide each caption with an explicit `fromTo` placed after its fade-in; a bare `set` inside the fade gets overridden.
 - After a re-cut, delete the cached person matte (assets/talk-matte.webm) or old cut-outs float over the new footage.
 - APIs: ElevenLabs through the direct key in .env (the MCP connector's grant budget runs out); Gemini 2.5 Pro for long video
   (Flash truncates), key checked with one call first; yt-dlp >= 2026.08.19 for YouTube; never pass Instagram cookies.
