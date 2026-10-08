@@ -17,6 +17,7 @@ FIX = {"все": "всё", "еще": "ещё", "живешь.": "живёшь."}
 for w in words:
     if w["w"].lower() in FIX:
         w["w"] = FIX[w["w"].lower()]
+SEG = json.load(open("build/edl_map.json"))
 TOTAL = round(float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", "assets/wide.mp4"],
                                    capture_output=True, text=True).stdout), 3)
 
@@ -60,7 +61,7 @@ def sound(sid, at, vol):
 UI = {  # full-screen phone scenes: (in, out)
     "picker": (W("вернуться") - 0.08, W("не", 1) - 0.12),
     "lock": (W("ты", 2) - 0.1, W("и", 3) - 0.1),
-    "search": (W("мне") - 0.06, W("поэтому") - 0.12),
+    "search": (W("мне") - 0.06, SEG[7]["start"] + 0.2),   # hold the phone screen to the cut: the speaker bows his head at the end of the take
     "photos": (W("однажды") - 0.1, W("но") - 0.1),
 }
 shots = [  # (start, kind, push_from, push_to)
@@ -91,7 +92,6 @@ cards = [
     ("80|лет", W("80"), W("и", 1) - 0.03, "xl-sub"),
     ("и каким-то образом", W("и", 1), UI["picker"][0], "s"),
     ("не какое-то", W("не", 1), W("важное") - 0.02, "s"),
-    ("не", W("не", 2), W("день", 2) - 0.02, "s"),
     ("а просто", W("а"), W("сегодня") - 0.02, "s"),
     ("сегодня", W("сегодня"), UI["lock"][0], "it"),
     ("и даже то,", W("и", 3), W("что", 2) - 0.02, "s"),
@@ -152,7 +152,7 @@ def figma(fid, text, t_in, t_click, t_out, delete):
 
 figma_html = [
     figma("fg1", "важное событие", W("важное"), W("событие") + 0.2, W("не", 2), True),
-    figma("fg2", "день свадьбы", W("день", 2), W("свадьбы") + 0.25, W("а"), True),
+    figma("fg2", "не день свадьбы", W("не", 2), W("свадьбы") + 0.25, W("а"), True),
     figma("fg3", "раздражает", W("раздражает"), W("раздражает") + 0.35, W("ощущалось"), False),
 ]
 

@@ -55,6 +55,11 @@ npx hyperframes render -o renders/<name>.mp4
 - Raw whisper merges a false start with its restart ("И даже то, что… И даже то, что сейчас…"): re-transcribe the cut voice.
 - A "khm" before a word: find it with a voicing/pitch scan (a voiced hum with falling pitch), not by asking Gemini.
   Gemini's sub-second timestamps are unreliable.
+- Speakers often bow their head or close their eyes right AFTER a take's last word. Check every take's tail in close-up frames
+  (a head-pose scan from face landmarks does not see an eyes-down glance), end the take at the word, and when a phone scene
+  covers the cut, end the scene's fade over the NEXT shot (scene out = next segment start + 0.2 s), not over the tail.
+- Gemini's visual QA called the cut "clean" while the bow was visible; trust frames over its verdict. Its audio flags need
+  checking too: a "breath" it reported was the щ inside "ощущалось" (voicing scan: unvoiced, high zero-crossing between vowels).
 - Never use a bare `tl.to()` on something animated twice; use fromTo with explicit values (seek order changes the result).
 - `.strike` on non-deleting boxes: render the element only when it's used (the lint rejects CSS transform + GSAP scale).
 - Every `<video>` needs an id, including decorative blurred copies (otherwise it renders frozen).
