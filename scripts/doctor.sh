@@ -21,6 +21,9 @@ python3 -c "import google.genai" 2>/dev/null && pass "python google-genai" || ec
 echo "keys"
 if [ -n "$GEMINI_API_KEY" ] || grep -qs '^GEMINI_API_KEY=' "$S/.env"; then pass "GEMINI_API_KEY (env or $S/.env)"; else echo "  opt   GEMINI_API_KEY not set: only AI B-roll (broll_gen.py) and reference_study.py need it -> export GEMINI_API_KEY=... or $S/.env"; fi
 
+if [ -n "$ELEVENLABS_API_KEY" ] || grep -qs '^ELEVENLABS_API_KEY=' "$S/.env"; then pass "ELEVENLABS_API_KEY (narrated explainers)"; else echo "  opt   ELEVENLABS_API_KEY not set: only scripts/tts_elevenlabs.py (explainer voiceover) needs it -> $S/.env"; fi
+[ -x "${DF_VENV:-$S/.venv-df}/bin/deepFilter" ] && pass "DeepFilterNet (scripts/denoise.sh)" || echo "  opt   DeepFilterNet not set up: scripts/denoise.sh installs it on first use (needs python3.11 + uv)"
+
 echo "library"
 n=$(ls "$S"/library/sfx/*.wav 2>/dev/null | wc -l | tr -d ' ')
 [ "$n" -ge 30 ] && pass "sfx kit ($n files)" || fail "sfx kit ($n files)" "python3 $S/scripts/library_restore.py --sfx-only"

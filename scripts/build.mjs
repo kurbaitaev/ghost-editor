@@ -305,6 +305,7 @@ const motionCtx = { tl, E, r3, esc, addSfx, brand, userAsset, words, proj, LIB, 
 // incoming panel has covered it
 const beatsList = spec.beats || [];
 const HANDOVER = 0.45;
+const splitWins = []; // [t0, t1, shift] of split-screen broll beats
 for (const b of beatsList) {
   const id = `b${n++}`;
   const t0 = E(b.at, `${b.type} at`);
@@ -415,6 +416,37 @@ for (const b of beatsList) {
       beatSfx(b, t0, "pop", "logo");
       break;
     }
+    case "broll": {
+      // full-bleed video cutaway (e.g. AI B-roll): timed muted video inside an UNtimed wrapper, like meme clips;
+      // captions (z 8) stay on top. "in" = seconds into the clip, "zoom" = [from, to] slow push.
+      // mode "split": the clip fills the top `h` px and the speaker plate slides down into the bottom panel
+      const src = userAsset(b.src);
+      const [z0, z1] = b.zoom ?? [1.0, 1.08];
+      const bh = b.mode === "split" ? (b.h ?? 960) : 1920;
+      if (b.mode === "split") splitWins.push([t0, t1, b.shift ?? 560]);
+      inner = `<div id="${id}-in" class="ov broll" style="left:0;top:0;width:${W}px;height:${bh}px;overflow:hidden;background:#000">
+        <video id="${id}-v" src="${src}" data-start="${t0}" data-duration="${dur}" data-media-start="${b.in ?? 0}" muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;${b.grade ? `filter:${b.grade};` : ""}"></video></div>`;
+      tl.push(`ft("#${id}-in", { autoAlpha: 0, filter: "blur(22px)", scale: 1.06 }, { autoAlpha: 1, filter: "blur(0px)", scale: 1, duration: 0.2, ease: "power2.out" }, ${t0});`);
+      tl.push(`ft("#${id}-v", { scale: ${z0} }, { scale: ${z1}, duration: ${dur}, ease: "none" }, ${t0});`);
+      tl.push(`tl.to("#${id}-in", { autoAlpha: 0, duration: 0.1 }, ${r3(t1 - 0.1)});`);
+      if (b.sfx) beatSfx(b, t0, null, "broll in");
+      break;
+    }
+    case "title": {
+      // giant display words that pop in one by one on their spoken times (`words: [{text, at}]`), or a whole `text` at once
+      const ws = b.words ?? [{ text: b.text, at: b.at }];
+      const pop = (b.anim ?? "pop") === "pop";
+      const spans = ws.map((w, i) => {
+        const at = E(w.at, "title word");
+        tl.push(pop
+          ? `ft("#${id}-w${i}", { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.16, ease: "back.out(2)" }, ${at});`
+          : `ft("#${id}-w${i}", { autoAlpha: 0, scale: 0.82, filter: "blur(14px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, ${at});`);
+        return `<span id="${id}-w${i}" style="display:inline-block;margin:0 0.14em">${esc(w.text)}</span>`;
+      }).join(" ");
+      inner = `<div id="${id}-in" class="ov title" style="left:${b.x ?? 60}px;right:${b.x ?? 60}px;top:${b.y ?? 190}px;z-index:4;text-align:${b.align ?? "center"};font-family:'${b.font ?? brand.font ?? "Inter"}', Inter, sans-serif;font-size:${b.size ?? 120}px;font-weight:${b.weight ?? 900};line-height:0.98;letter-spacing:${b.tracking ?? "-2px"};text-transform:uppercase;color:${b.color ?? "#fff"};text-shadow:${b.glow ? `0 0 28px ${b.glow}, ` : ""}0 6px 24px rgba(0,0,0,.45)">${spans}</div>`;
+      if (b.sfx) beatSfx(b, t0, null, "title");
+      break;
+    }
     case "meme": {
       const { dir, meta } = memeLib(b.id);
       const file = meta.clip || meta.image;
@@ -479,13 +511,23 @@ for (const b of beatsList) {
       die(`unknown beat type '${b.type}'`);
   }
   if (b.type === "behind") continue;
-  if (!["endcard", "scene"].includes(b.type) && !(b.type === "meme" && memeLib(b.id).meta.clip)) tl.push(exit(`#${id}-in`, t1));
-  const clipMeme = b.type === "meme" && memeLib(b.id).meta.clip;
+  if (!["endcard", "scene", "broll"].includes(b.type) && !(b.type === "meme" && memeLib(b.id).meta.clip)) tl.push(exit(`#${id}-in`, t1));
+  const clipMeme = b.type === "broll" || (b.type === "meme" && memeLib(b.id).meta.clip);
   overlays.push({ html: clipMeme
     ? `<div id="${id}" class="layer">${inner}</div>` // the <video> inside is the timed element; a timed wrapper would break it
     : `<div id="${id}" class="clip layer" data-start="${t0}" data-duration="${dur}" data-track-index="${b.type === "scene" ? 4 : inSlot ? 3 : 2}">${inner}</div>` });
 }
 
+// split-screen B-roll: slide the speaker plate down once per run of adjacent split beats
+{
+  const runs = [];
+  for (const [a, b, sh] of [...splitWins].sort((x, y) => x[0] - y[0])) { if (runs.length && a <= runs.at(-1)[1] + 0.6) runs.at(-1)[1] = Math.max(runs.at(-1)[1], b); else runs.push([a, b, sh]); }
+  for (const [a, b, sh] of runs) {
+    tl.push(`tl.to("#pip", { y: ${sh}, duration: 0.28, ease: "power3.inOut" }, ${r3(Math.max(0, a - 0.05))});`);
+    tl.push(`tl.to("#pip", { y: 0, duration: 0.28, ease: "power3.inOut" }, ${r3(b - 0.2)});`);
+  }
+  spec._splitRuns = runs;
+}
 for (const s of spec.sfx || []) addSfx(E(s.at, "sfx"), s.id, "manual", { db: s.db ?? 0, lead: s.lead ?? 0 });
 
 // ---------- SFX rules ----------
@@ -545,13 +587,17 @@ const capHtml = cap.style === "none" || edit ? "" : groups.map((g, gi) => {
     if (cap.highlight) tl.push(`tl.set("#cg${gi}w${wi}", { color: "${cap.highlight}" }, ${r3(w.start)}); tl.set("#cg${gi}w${wi}", { color: "#fff" }, ${r3(Math.min(w.end + 0.02, e - 0.01))});`);
   });
   const capSize = cap.style === "pill" ? 66 : cap.style === "clean" ? (cap.size ?? brand.capSize) : (cap.size ?? 56);
-  const pl = placer.place(s, e, capSize * (cap.style === "pill" ? 1.6 : 1.3));
+  // mini: small captions at a fixed height (reference-style); they jump to the panel seam during split-screen B-roll
+  const inSplit = (spec._splitRuns || []).some(([a, b]) => s < b && e > a);
+  const pl = cap.style === "mini" ? { y: inSplit ? (cap.splitY ?? 985) : (cap.y ?? 1360), mode: "fixed" } : placer.place(s, e, capSize * (cap.style === "pill" ? 1.6 : 1.3));
   return `<div id="cg${gi}" class="cap-group clip${pl.mode === "lower-face" && cap.style !== "pill" ? " cap-backed" : ""}" style="top:${pl.y}px${pl.scale && pl.scale < 1 ? `;transform:translateX(-50%) scale(${pl.scale});transform-origin:50% 0` : ""}" data-start="${r3(s)}" data-duration="${r3(Math.max(0.1, e - s))}" data-track-index="5">${g.map((w, wi) => `<span id="cg${gi}w${wi}" class="w">${esc(w.word)}</span>`).join("")}</div>`;
 }).join("\n      ");
 
 const cyr = /[\u0400-\u04FF]/.test(JSON.stringify(spec.beats || []) + words.map((w) => w.word).join(" "));
 const UI_FONT = brand.font || (cyr ? "Inter" : "Geist");
-const capCss = cap.style === "clean"
+const capCss = cap.style === "mini"
+  ? `.cap-group { font-family: '${cap.font ?? UI_FONT}', ${UI_FONT}, system-ui, sans-serif; font-size: ${cap.size ?? 40}px; font-weight: ${cap.weight ?? 800}; color: #fff; letter-spacing: ${cap.tracking ?? "1px"}; ${cap.upper ? "text-transform: uppercase;" : ""} ${cap.stroke ? `-webkit-text-stroke: ${cap.stroke}px rgba(0,0,0,.85); paint-order: stroke fill;` : ""} text-shadow: 0 2px 10px rgba(0,0,0,.7), 0 1px 2px rgba(0,0,0,.8); max-width: 940px; }`
+  : cap.style === "clean"
   ? `.cap-group { font-family: ${UI_FONT}, system-ui, sans-serif; font-size: ${cap.size ?? brand.capSize}px; font-weight: 800; color: #fff; letter-spacing: -1px; text-shadow: 0 4px 18px rgba(0,0,0,.55), 0 1px 3px rgba(0,0,0,.6); }`
   : cap.style === "pill"
   ? `.cap-group { font-family: ${UI_FONT}, system-ui, sans-serif; font-size: 66px; font-weight: 800; color: #fff; background: rgba(12,12,14,.88); border-radius: 22px; padding: 16px 32px; max-width: 900px; }`

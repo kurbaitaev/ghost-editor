@@ -36,7 +36,7 @@ def db(x):
 
 
 def render_sfx_stem(project):
-    """Render the composition with the take audio removed; returns the stem path."""
+    """Render the composition with the take audio and music bed removed; returns the stem path."""
     import shutil
     import tempfile
     project = os.path.abspath(project)
@@ -47,6 +47,7 @@ def render_sfx_stem(project):
             (shutil.copytree if os.path.isdir(src) else shutil.copy)(src, os.path.join(td, f))
     html = open(os.path.join(td, "index.html")).read()
     html = re.sub(r'<audio id="take-\d+-audio"[^>]*></audio>', "", html)
+    html = re.sub(r'<audio id="music-bed"[^>]*></audio>', "", html)  # the bed would read as loud SFX where it isn't ducked
     open(os.path.join(td, "index.html"), "w").write(html)
     out = os.path.abspath(os.path.join(project, "build", "sfx_stem.mp4"))
     print("rendering the SFX-only stem for the level check...")

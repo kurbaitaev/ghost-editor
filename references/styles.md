@@ -47,3 +47,12 @@ recording (`examples/gallery/`) to check that they read as different.
 - steps captions around cards on screen at the same time
 
 `build/caption_layout.json` records every block's zone. `qa.py` prints the counts and fails on anything outside the safe area.
+
+## Recipes (beyond the presets)
+
+| recipe | looks like | best for | where |
+|---|---|---|---|
+| **Clean OS** | Apple-clean lowercase Inter word cards resolving from blur, wide/tight cuts from one 4K camera, white iOS-style scenes (date picker, lock screen, search, Photos), a red Figma selection box with a cursor, perspective text + draining ring, Great Vibes script word | reflective or explanatory monologues where each line names something you could see on a phone | `recipes/clean-os/README.md` (worked example: "Один обычный день") |
+| **Vector explainer** | no footage: one SVG world a camera travels through, a subject drawing itself (stroke-draw), Playfair headlines on panels, word-reveal captions, ElevenLabs narrator, piano bed | parables, life lessons, concepts you can draw | `recipes/explainer-vector/README.md` (example: "Two Directions") |
+| **POV montage** | first-person clips cut to a story: speed-ups, flash-forward hook, freeze-frame + zoom + record scratch + meme, editorial motion layer with a footage-matched accent | trips, vlogs, a day in the life from glasses or a GoPro | `recipes/pov-montage/README.md` (example: SF Lime ride) |
+

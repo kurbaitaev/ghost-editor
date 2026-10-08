@@ -22,7 +22,7 @@ export const MOTION_CSS = (brand) => `
   .scene { position: absolute; inset: 0; overflow: hidden; }
   .scene .col { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; }
   .sc-line { font-weight: 400; letter-spacing: -1px; line-height: 1.05; white-space: nowrap; }
-  .sc-pill { display: inline-block; background: ${brand.accent}; color: #fff; font-weight: 700; border-radius: 999px; padding: 6px 34px 12px; white-space: nowrap; box-shadow: 0 10px 24px rgba(0,0,0,.18); }
+  .sc-pill { display: inline-block; background: ${brand.accent}; color: ${brand.onAccent || "#fff"}; font-weight: 700; border-radius: 999px; padding: 6px 34px 12px; white-space: nowrap; box-shadow: 0 10px 24px rgba(0,0,0,.18); }
   .sc-ring { position: absolute; border: 7px solid ${brand.accent}; border-radius: 50%; opacity: 0; }
   .sc-cursor { position: absolute; width: 86px; height: 86px; filter: drop-shadow(0 6px 10px rgba(0,0,0,.3)); }
   .badge { position: absolute; left: 0; top: 0; width: 330px; height: 330px; margin: -165px 0 0 -165px; border-radius: 50%;
@@ -56,7 +56,7 @@ export const MOTION_CSS = (brand) => `
   .ui-prompt .pr { color: ${brand.accent}; margin-right: 18px; }
   .ui-caret { display: inline-block; width: 20px; height: 46px; background: ${brand.accent}; vertical-align: -8px; margin-left: 4px; }
   .ui-line { font-size: 40px; color: rgba(255,255,255,.88); margin-top: 22px; display: flex; gap: 18px; align-items: center; }
-  .ui-line .ck { width: 40px; height: 40px; border-radius: 50%; background: ${brand.accent}; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; flex: none; }
+  .ui-line .ck { width: 40px; height: 40px; border-radius: 50%; background: ${brand.accent}; color: ${brand.onAccent || "#fff"}; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; flex: none; }
   .ui-label { position: absolute; left: 0; right: 0; text-align: center; font-family: ${brand.mono ? `"${brand.mono}", ` : ""}ui-monospace, monospace; font-size: 30px; letter-spacing: 6px; text-transform: uppercase; color: ${brand.accent}; }
   /* device (launch) */
   .dev { position: absolute; left: 50%; width: 480px; height: 980px; margin-left: -240px; border-radius: 72px; background: #0b0b0e; border: 14px solid #1d1d22; box-shadow: 0 50px 110px rgba(0,0,0,.55), inset 0 0 0 2px #2c2c33; overflow: hidden; }
@@ -79,10 +79,10 @@ export const MOTION_CSS = (brand) => `
   .ebacked { background: rgba(8,8,10,.5); border-radius: 26px; padding: 10px 0 14px; }
   .eline { display: block; font-size: ${brand.capSize}px; line-height: 1.08; letter-spacing: -1px; white-space: nowrap; }
   .ew { display: inline-block; margin: 0 0.13em; color: #fff; font-weight: 700; text-shadow: 0 3px 14px rgba(0,0,0,.35); }
-  .etag { display: inline-block; background: ${brand.accent}; color: #fff; font-weight: 700; border-radius: 16px; padding: 2px 18px 8px; margin-bottom: 6px; box-shadow: 0 6px 18px rgba(0,0,0,.25); font-size: ${Math.round(brand.capSize * 0.95)}px; }
+  .etag { display: inline-block; background: ${brand.accent}; color: ${brand.onAccent || "#fff"}; font-weight: 700; border-radius: 16px; padding: 2px 18px 8px; margin-bottom: 6px; box-shadow: 0 6px 18px rgba(0,0,0,.25); font-size: ${Math.round(brand.capSize * 0.95)}px; }
   .ehl { position: relative; display: inline-block; margin: 0 0.13em; }
   .ehl i { position: absolute; left: -8px; right: -8px; top: 12%; bottom: 2%; background: ${brand.accent}; transform-origin: 0 50%; }
-  .ehl .ew { position: relative; margin: 0; }
+  .ehl .ew { position: relative; margin: 0; ${brand.onAccent ? `color: ${brand.onAccent} !important;` : ""} }
 `;
 
 const CURSOR_SVG = `<svg viewBox="0 0 64 64"><path d="M22 6c-2.8 0-5 2.2-5 5v25l-4.6-4.3c-2-1.9-5.2-1.7-7 .4-1.7 2-1.5 5 .3 6.8l13.8 13.8C23.6 56.9 28.4 59 33.5 59H38c9.4 0 17-7.6 17-17V30c0-2.8-2.2-5-5-5-.9 0-1.8.3-2.5.7-.6-2.2-2.6-3.7-4.9-3.7-1.2 0-2.3.4-3.2 1.1-.8-1.9-2.7-3.1-4.8-3.1-.9 0-1.8.2-2.6.7V11c0-2.8-2.2-5-5-5z" fill="#fff" stroke="#111" stroke-width="3" stroke-linejoin="round"/></svg>`;
@@ -412,6 +412,17 @@ export function buildMusic(m, ctx, execFileSync, path, fs) {
   const target = -16 + (m.db ?? -20);
   const vol = r3(Math.min(3.98, Math.pow(10, (target - I) / 20)));
   const fi = m.fadeIn ?? 0.6, fo = m.fadeOut ?? 1.2;
-  const lane = JSON.stringify({ version: 1, lanes: [{ target: "volume", points: [{ t: 0, v: 0 }, { t: fi, v: vol }, { t: r3(TOTAL - fo), v: vol }, { t: r3(TOTAL), v: 0 }] }] });
+  // duck: [{from, to, db}] edit-time windows (usually speech) where the bed dips by db (default -8):
+  // down over 0.25 s before `from`, back up over 0.4 s after `to`
+  const pts = [{ t: 0, v: 0 }, { t: fi, v: vol }];
+  for (const d of (m.duck || []).slice().sort((a, b) => a.from - b.from)) {
+    const dv = r3(vol * Math.pow(10, (d.db ?? -8) / 20));
+    const a = Math.max(fi, d.from - 0.25), b = Math.min(TOTAL - fo, d.to + 0.4);
+    if (b <= a + 0.25) continue;
+    if (a > pts.at(-1).t) pts.push({ t: r3(a), v: vol });
+    pts.push({ t: r3(Math.max(a, d.from)), v: dv }, { t: r3(Math.max(a, d.to)), v: dv }, { t: r3(b), v: vol });
+  }
+  pts.push({ t: r3(TOTAL - fo), v: vol }, { t: r3(TOTAL), v: 0 });
+  const lane = JSON.stringify({ version: 1, lanes: [{ target: "volume", points: pts.filter((p, i) => i === 0 || p.t > pts[i - 1].t) }] });
   return { html: `<audio id="music-bed" src="${src}" data-start="0" data-duration="${TOTAL}" data-media-start="${m.start ?? 0}" data-track-index="20" data-automation='${lane}'></audio>`, vol, I };
 }

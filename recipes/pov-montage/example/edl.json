@@ -1,0 +1,140 @@
+{
+ "_about": "Edit decision list: source clip, source in/out (s), speed, audio (voice = keep at full, amb = ambience low, mute). Order = edit order.",
+ "segments": [
+  {
+   "clip": "5875",
+   "a": 3.35,
+   "b": 7.45,
+   "speed": 1,
+   "audio": "voice",
+   "note": "HOOK: у нас 39 минут, блин, я немного опоздал"
+  },
+  {
+   "clip": "5851",
+   "a": 12.0,
+   "b": 14.0,
+   "speed": 1,
+   "audio": "amb",
+   "note": "rewind: Ferry Building tower"
+  },
+  {
+   "clip": "5851",
+   "a": 22.3,
+   "b": 25.7,
+   "speed": 1,
+   "audio": "voice",
+   "note": "palms, Офигеть"
+  },
+  {
+   "clip": "5851",
+   "a": 43.8,
+   "b": 45.4,
+   "speed": 1,
+   "audio": "voice",
+   "note": "идём на велик, phone"
+  },
+  {
+   "clip": "5863",
+   "a": 3.0,
+   "b": 5.0,
+   "speed": 1.5,
+   "audio": "mute",
+   "note": "unlock on the phone"
+  },
+  {
+   "clip": "5863",
+   "a": 30.0,
+   "b": 38.0,
+   "speed": 2,
+   "audio": "mute",
+   "note": "ride past the clock tower"
+  },
+  {
+   "clip": "5026",
+   "a": 6.3,
+   "b": 8.3,
+   "speed": 1,
+   "audio": "mute",
+   "note": "selfie cutaway (Sep 11)"
+  },
+  {
+   "clip": "5857",
+   "a": 0.0,
+   "b": 8.0,
+   "speed": 3,
+   "audio": "mute",
+   "note": "green lane"
+  },
+  {
+   "clip": "5869",
+   "a": 5.8,
+   "b": 7.95,
+   "speed": 1,
+   "audio": "voice",
+   "note": "какой красивый Сан-Фран"
+  },
+  {
+   "clip": "5869",
+   "a": 9.7,
+   "b": 17.2,
+   "speed": 1,
+   "audio": "voice",
+   "note": "эту башню кто-то узнает? из GTA, я на неё залетал постоянно"
+  },
+  {
+   "clip": "5885",
+   "a": 0.0,
+   "b": 9.0,
+   "speed": 3,
+   "audio": "mute",
+   "note": "city montage 1"
+  },
+  {
+   "clip": "5887",
+   "a": 132.4,
+   "b": 133.6,
+   "speed": 1,
+   "audio": "amb",
+   "note": "a woman steps out between parked cars"
+  },
+  {
+   "clip": "5887",
+   "freeze": 133.6,
+   "dur": 1.4,
+   "audio": "mute",
+   "note": "FREEZE: she's in the lane"
+  },
+  {
+   "clip": "5887",
+   "a": 133.6,
+   "b": 137.25,
+   "speed": 1,
+   "audio": "voice",
+   "note": "не не не... он меня засадить хотел, что ли"
+  },
+  {
+   "clip": "5875",
+   "a": 118.0,
+   "b": 127.0,
+   "speed": 3,
+   "audio": "mute",
+   "note": "walk to the building"
+  },
+  {
+   "clip": "5875",
+   "a": 133.5,
+   "b": 136.5,
+   "speed": 1.5,
+   "audio": "mute",
+   "note": "Fort Mason door"
+  },
+  {
+   "clip": "5875",
+   "a": 150.0,
+   "b": 159.0,
+   "speed": 3,
+   "audio": "mute",
+   "note": "elevator 3-2-1"
+  }
+ ]
+}

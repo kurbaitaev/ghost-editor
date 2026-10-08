@@ -17,6 +17,29 @@ https://github.com/user-attachments/assets/312f6910-a8a0-4424-9dd4-612cd079a2e7
 - **Adds sound effects and music**, mixed so your voice always stays clear.
 - **Checks its own work** before handing you the video.
 
+## New: three named styles (v0.2)
+
+Ask for them by name. Each one is a full recipe in `recipes/` with its own guide and a worked example.
+
+**Clean OS** · *"edit this in Clean OS"*
+An Apple-ad talking head that lives inside your phone: calm word cards that sharpen out of a blur, wide and tight shots from one 4K camera, and an iPhone scene for each thing you name (a date picker, lock-screen notifications, a search with a loading bar stuck at 97%, a Photos memory). A red Figma selection box strikes out the words you reject.
+
+[![Clean OS](docs/img/clean-os.jpg)](https://github.com/kurbaitaev/ghost-editor/releases/download/v0.2.0/clean-os-demo.mp4)
+[▶ Watch the Clean OS demo](https://github.com/kurbaitaev/ghost-editor/releases/download/v0.2.0/clean-os-demo.mp4)
+
+**Vector explainer** · *"make an animated explainer"*
+No camera needed. A narrator (ElevenLabs) tells the story while a world draws itself: one continuous illustration the camera travels through, serif headlines, words that rise as they're spoken.
+
+[![Vector explainer](docs/img/vector-explainer.jpg)](https://github.com/kurbaitaev/ghost-editor/releases/download/v0.2.0/vector-explainer-demo.mp4)
+[▶ Watch the explainer demo](https://github.com/kurbaitaev/ghost-editor/releases/download/v0.2.0/vector-explainer-demo.mp4)
+
+**POV montage** · *"cut these POV clips into a reel"*
+Clips from smart glasses or a GoPro cut into a story: a flash-forward hook, speed-ups, text behind you, a fact card a cursor clicks, and a freeze frame with a record scratch on the moment that matters.
+
+![POV montage](docs/img/pov-montage.jpg)
+
+Everything the skill can do, in one page: [docs/PLAYBOOK.md](docs/PLAYBOOK.md).
+
 ## Two ways to pick a look
 
 **1. Choose one of 7 styles**
@@ -61,7 +84,9 @@ It installs everything it needs and tells you when it's ready (a few minutes).
 
 **Which languages?** Tested in English and Russian.
 
-**Can it make something new?** Yes. Ask for a new style or a new kind of animation and it writes one. Three of the seven styles were made that way.
+**Noisy outdoor recording?** It cleans the voice with DeepFilterNet (crickets, hum, wind), set to keep the voice natural.
+
+**Can it make something new?** Yes. Ask for a new style or a new kind of animation and it writes one. Three of the seven presets and all three named styles were made that way.
 
 **Other agents?** It works with Codex and any agent that can run commands. See [INSTALL.md](docs/INSTALL.md).
 

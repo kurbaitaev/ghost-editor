@@ -34,7 +34,9 @@ PUBLIC_DESCRIPTION = ("AI video editor for talking-head reels. Turns a raw phone
     "meme, cinematic, launch, kinetic, pop). It can also reverse-engineer a reference edit the user likes and apply that "
     "style to their recording. Use when the user hands over a talking-head video and says \"edit this\", \"make a reel\", "
     "\"make it look like this video\", \"add captions/motion graphics/sound effects\", \"pick the best takes\", "
-    "\"remove the pauses\", or asks for a re-cut. Not for landscape screen recordings.")
+    "\"remove the pauses\", or asks for a re-cut. Also the named styles \"Clean OS\" (Apple-clean word cards + phone-UI scenes + a "
+    "Figma selection box), the vector explainer (no footage, an ElevenLabs narrator, a world drawn live) and the POV montage "
+    "(first-person clips with freeze-frame moments); see recipes/ and docs/PLAYBOOK.md. Not for landscape screen recordings.")
 
 
 def main():

@@ -13,3 +13,4 @@ library/music/*.mp3
 
 # face model: face_track.py downloads it on first use (opencv_zoo, MIT)
 library/models/*.onnx
+.venv-df/

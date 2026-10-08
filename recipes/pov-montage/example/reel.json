@@ -1,0 +1,282 @@
+{
+ "title": "Опоздал на встречу: через весь Сан-Франциско на Lime",
+ "style": "editorial",
+ "platform": "instagram",
+ "source": "assets/talk.mp4",
+ "words": "build/words.fixed.json",
+ "fps": 30,
+ "outro": 2,
+ "matte": true,
+ "brand": {
+  "accent": "#A6FF00",
+  "accentDark": "#4E9A00",
+  "ink": "#111111",
+  "capSize": 62,
+  "font": "Montserrat",
+  "onAccent": "#111111"
+ },
+ "takes": [
+  {
+   "a": 0.0,
+   "b": 48.02,
+   "note": "pre-assembled montage (assemble.py / edl.json)"
+  }
+ ],
+ "zoom": {
+  "origin": "62% 40%",
+  "snaps": [],
+  "pushes": [
+   {
+    "at": 23.27,
+    "z": 1.1,
+    "up": 1.6,
+    "until": 24.6,
+    "down": 0.2
+   },
+   {
+    "at": 34.97,
+    "z": 1.3,
+    "up": 0.22,
+    "until": 36.37,
+    "down": 0.12
+   }
+  ]
+ },
+ "captions": {
+  "style": "editorial",
+  "group": 3,
+  "y": 1180,
+  "tags": [
+   "GTA"
+  ],
+  "highlight": [
+   "Офигеть",
+   "постоянно"
+  ]
+ },
+ "sfxProfile": "standard",
+ "music": {
+  "id": "life-is-a-dream",
+  "db": -0.5,
+  "fadeIn": 0.4,
+  "fadeOut": 1.5,
+  "duck": [
+   {
+    "from": 0.0,
+    "to": 4.0,
+    "db": -15
+   },
+   {
+    "from": 7.8,
+    "to": 11.0,
+    "db": -15
+   },
+   {
+    "from": 21.2,
+    "to": 30.7,
+    "db": -15
+   },
+   {
+    "from": 34.9,
+    "to": 36.4,
+    "db": -18
+   },
+   {
+    "from": 36.4,
+    "to": 40.1,
+    "db": -15
+   }
+  ]
+ },
+ "mix": {
+  "roleDb": {
+   "ui": -19,
+   "whoosh": -15,
+   "impact": -13,
+   "meme": -3
+  }
+ },
+ "beats": [
+  {
+   "type": "scene",
+   "kind": "kinetic",
+   "at": 0.0,
+   "to": 4.45,
+   "in": "cut",
+   "out": "blur",
+   "pip": true,
+   "text": "_У_ _нас_ *39* *минут*, _блин,_ _я_ _немного_ *опоздал*",
+   "bg": "#111111",
+   "pipY": 1560,
+   "pipX": 820,
+   "pullback": 0.45,
+   "zoom": 1.35,
+   "ink": "#ffffff"
+  },
+  {
+   "type": "scene",
+   "kind": "fly3d",
+   "at": 4.45,
+   "to": 6.2,
+   "bg": "#111111",
+   "in": "glitch",
+   "out": "blur",
+   "cam": {
+    "from": -80,
+    "to": 420
+   },
+   "items": [
+    {
+     "text": "15 минут",
+     "sub": "назад",
+     "at": 4.5,
+     "x": -120,
+     "y": -260,
+     "z": 0,
+     "size": 150
+    },
+    {
+     "text": "13:24",
+     "at": 4.95,
+     "x": 140,
+     "y": 20,
+     "z": -380,
+     "size": 140
+    },
+    {
+     "text": "Ferry Building",
+     "at": 5.4,
+     "x": -60,
+     "y": 260,
+     "z": -700,
+     "size": 110
+    }
+   ]
+  },
+  {
+   "type": "behind",
+   "text": "SAN FRAN",
+   "at": 16.55,
+   "to": 18.4,
+   "color": "#A6FF00",
+   "y": 900
+  },
+  {
+   "type": "scene",
+   "kind": "image",
+   "at": 21.1,
+   "to": 23.27,
+   "src": "assets/broll/5851-12.3.jpg",
+   "zoom": [
+    1.0,
+    1.12
+   ],
+   "captions": true,
+   "in": "blur",
+   "out": "blur"
+  },
+  {
+   "type": "scene",
+   "kind": "card",
+   "at": 24.67,
+   "to": 28.7,
+   "bg": "#111111",
+   "y": 760,
+   "in": "expand",
+   "out": "blur",
+   "lines": [
+    {
+     "text": "эту башню кто-то узнает?",
+     "at": 24.72,
+     "size": 70,
+     "color": "#ffffff"
+    }
+   ],
+   "pill": {
+    "text": "GTA: San Andreas",
+    "at": 26.5,
+    "size": 92
+   },
+   "cursor": {
+    "clickAt": 27.2,
+    "dx": 150,
+    "dy": 215
+   }
+  },
+  {
+   "type": "scene",
+   "kind": "stats",
+   "at": 30.87,
+   "to": 33.6,
+   "bg": "#111111",
+   "in": "blur",
+   "out": "blur",
+   "badges": [
+    {
+     "value": "13:25",
+     "sub": "старт",
+     "at": 31.0
+    },
+    {
+     "value": "13:39",
+     "sub": "финиш",
+     "at": 31.6,
+     "label": "через **весь город** на Lime",
+     "labelAt": 32.2
+    }
+   ]
+  },
+  {
+   "type": "emoji",
+   "emoji": "😳",
+   "at": 35.05,
+   "to": 36.35,
+   "sfx": "none"
+  },
+  {
+   "type": "meme",
+   "id": "doakes-stare",
+   "at": 40.0,
+   "to": 42.4,
+   "w": 560,
+   "x": 440,
+   "y": 300
+  },
+  {
+   "type": "scene",
+   "kind": "card",
+   "at": 45.1,
+   "to": "end",
+   "bg": "#111111",
+   "y": 820,
+   "in": "expand",
+   "out": "cut",
+   "lines": [
+    {
+     "text": "успел?",
+     "at": 45.2,
+     "size": 150,
+     "color": "#A6FF00"
+    }
+   ],
+   "pill": {
+    "text": "пиши в комментах",
+    "at": 46.0,
+    "size": 70
+   },
+   "cursor": {
+    "clickAt": 46.8,
+    "dx": 150,
+    "dy": 215
+   }
+  }
+ ],
+ "sfx": [
+  {
+   "at": 34.97,
+   "id": "record-scratch",
+   "db": 0,
+   "lead": 0
+  }
+ ]
+}

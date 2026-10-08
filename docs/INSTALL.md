@@ -32,7 +32,10 @@ Work through these steps in order. Tell the user in plain words what you're inst
    - they get a free key at https://aistudio.google.com/apikey
    - `pip install google-genai`
    - save it with `echo 'GEMINI_API_KEY=<key>' > ~/.claude/skills/ghost-editor/.env` (the file is gitignored)
-6. **Tell the user it's ready**, and that they can now say, for example: "Edit ~/Downloads/my-video.mov into a reel."
+6. **ElevenLabs key (optional).** Only for the vector explainer's narrator. If the user wants it: a key from elevenlabs.io (Profile → API keys),
+   saved as `ELEVENLABS_API_KEY=<key>` in the same `.env`. Noise removal (`scripts/denoise.sh`) needs no key; it sets itself up on first use
+   (python3.11 + uv, about 1 GB).
+7. **Tell the user it's ready**, and that they can now say, for example: "Edit ~/Downloads/my-video.mov into a reel."
 
 Restart Claude Code (or start a new session) so the skill shows up.
 

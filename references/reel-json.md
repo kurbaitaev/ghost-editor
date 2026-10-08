@@ -59,6 +59,8 @@ the build warns on a double booking).
 | `logo` | `icon` (simple-icons slug) or `src`, `bg`, `invert` | pop | a product or company that should land alone |
 | `meme` | `id` (library), `audio` (false = mute the clip's own sound), `in` (start later in the clip), `w`, `x`, `y`, `tilt`, `db` | clip: its own audio; image: its `sfx` or vine-boom | a punchline, a reaction, a wait. ON or just after the punchline word, never before |
 | `endcard` | `title`, `line`, `url` (usually `at: "outro+0"`) | whoosh | the close |
+| `broll` | `src` (an mp4 in the project), `in` (seconds into the clip), `zoom` ([from, to], default [1, 1.08]), `grade`, `mode: "split"` (clip fills the top `h` px, default 960; the speaker plate slides down by `shift`, default 560, once per run of adjacent split beats) | none (set `sfx` to add one) | a full-screen video cutaway on the word it illustrates (e.g. AI B-roll from MiniMax H3); captions stay on top, the clip is muted |
+| `title` | `words: [{text, at}]` (or `text`), `y`, `size`, `font`, `weight`, `tracking`, `anim` (`pop` or `blur`), `color`, `glow` | none (set `sfx`) | giant uppercase display words above the head that land on their spoken times (reference styles: @iphone_igor pops, @rpn blur-in) |
 
 `icon` slugs come from simpleicons.org (fetched at build time, CC0).
 
@@ -70,7 +72,8 @@ the build warns on a double booking).
 - `look`: `{grade: "<css filter>", grain: 0.07, vignette: 0.45}`, the film look over the speaker plate.
 - `matte: true`: cut the speaker out once (`hyperframes remove-background`, cached as `assets/talk-matte.webm`, ~4 fps) for `behind` beats.
 - `captions.phrases: {"a call for reach": "Coffer Reach"}` fixes multi-word whisper errors.
-- `captions.upper: true`: uppercase captions. `captions.keywordStyle: "serif"`: highlight words become a glowing serif italic (cinematic).
+- `captions.upper: true`: uppercase captions.
+- `captions.style: "mini"`: small captions at a fixed height (`y`, default 1360; `splitY`, default 985, during split-screen B-roll), `font`, `size` (40), `weight`, `tracking`, `upper`, `stroke` (px dark outline, for serif captions over bright B-roll). For reference looks with tiny bottom captions. `captions.keywordStyle: "serif"`: highlight words become a glowing serif italic (cinematic).
 - `face`: the path to the face track, default `build/face.json` (run `scripts/face_track.py`). Without it, captions sit at a fixed height and the build warns.
 
 New beat:
@@ -83,7 +86,7 @@ New beat:
 
 Top-level fields:
 
-- `brand`: `{accent, accentDark, ink, capSize, font}`. A 60/30/10 kit: one accent, a darker accent for text on light scenes, ink for dark text. `font: "Montserrat"` is bundled with Latin and Cyrillic.
+- `brand`: `{accent, accentDark, ink, capSize, font, onAccent}`. `onAccent` is the text colour on accent pills, tags and highlights (default white; set a dark ink for light accents like lime or yellow). A 60/30/10 kit: one accent, a darker accent for text on light scenes, ink for dark text. `font: "Montserrat"` is bundled with Latin and Cyrillic.
 - `zoom.base`: a constant punch-in on the speaker, for example `1.8` with `origin` at the face. `pushes[].sfx` puts a whoosh on a push-in.
 - `captions.style: "editorial"`:
   - Lowercase lines of `group` words.
@@ -92,7 +95,7 @@ Top-level fields:
   - `tags: ["for Gen Z", "Gen Z"]` renders those phrases as tilted accent pills. List longer phrases first.
   - `highlight: ["fundamental"]` wipes an accent box behind the word.
   - `y` is the top of the block (default 1150).
-- `music`: `{id | src, db: -20, fadeIn, fadeOut, start}`. The bed is set `db` below the -16 LUFS voice, from the track's own measured loudness. The library is `library/music/manifest.json`.
+- `music`: `{id | src, db: -20, fadeIn, fadeOut, start, duck}`. `duck: [{from, to, db: -8}]` dips the bed in those edit-time windows (speech in a music-led montage). The bed is set `db` below the -16 LUFS voice, from the track's own measured loudness. The library is `library/music/manifest.json`.
 
 `scene` beats are full-screen graphic scenes over the continuing voice. Captions hide during a scene unless `captions: true`.
 
