@@ -35,7 +35,7 @@ STILL = (".png", ".jpg", ".jpeg", ".webp")
 
 
 def sh(cmd):
-    return subprocess.run(cmd, check=True, capture_output=True, text=True)
+    return subprocess.run(cmd, check=True, capture_output=True, text=True, encoding="utf-8", errors="replace")
 
 
 def fetch(src, td):
@@ -43,7 +43,7 @@ def fetch(src, td):
         return os.path.abspath(src), src
     r = subprocess.run(["yt-dlp", "-f", "bv*[height<=1080]+ba/b[height<=1080]/b", "--merge-output-format", "mp4",
                         "--no-playlist", "-o", os.path.join(td, "src.%(ext)s"), "--print", "after_move:filepath", src],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
         sys.exit(f"yt-dlp failed: {r.stderr.strip()[-400:]}")
     return r.stdout.strip().splitlines()[-1], src
@@ -163,7 +163,7 @@ def main():
     # everything needed to rebuild this entry from its source (library_restore.py)
     meta["args"] = {k: v for k, v in {"in": a.t_in, "out": a.t_out, "key": a.key, "similarity": a.similarity, "w": a.w,
                                       "crop": a.crop, "no_audio": a.no_audio}.items() if v not in (None, False)}
-    json.dump(meta, open(os.path.join(out, "meta.json"), "w"), indent=2)
+    json.dump(meta, open(os.path.join(out, "meta.json"), "w", encoding="utf-8"), indent=2)
     print(json.dumps(meta, indent=2))
     print(f"\nlook at {os.path.join(out, 'preview.png')} (magenta = transparent) before using it")
 

@@ -6,8 +6,8 @@ Only frames visible in the final edit are reported (windows covered by full-scre
 usage: headmotion.py <cut.mp4> <edl_map.json> [hidden.json]   (hidden.json: [[t0,t1],...] scene windows)"""
 import cv2, numpy as np, json, sys, os
 MODEL = os.path.expanduser("~/.claude/skills/ghost-editor/library/models/face_detection_yunet_2023mar.onnx")
-src, edl = sys.argv[1], json.load(open(sys.argv[2]))
-hidden = json.load(open(sys.argv[3])) if len(sys.argv) > 3 else []
+src, edl = sys.argv[1], json.load(open(sys.argv[2], encoding="utf-8"))
+hidden = json.load(open(sys.argv[3], encoding="utf-8")) if len(sys.argv) > 3 else []
 cap = cv2.VideoCapture(src); fps = cap.get(cv2.CAP_PROP_FPS)
 W, H = 540, 960
 det = cv2.FaceDetectorYN.create(MODEL, "", (W, H), 0.5)
@@ -51,4 +51,4 @@ while k < len(t):
 for a, b, m, x, y, s in sorted(runs, key=lambda r: -r[2]):
     seg = edl[s]; d = ("right" if x > 0 else "left") if abs(x) > abs(y) else ("down" if y > 0 else "up")
     print(f"{a:6.2f}-{b:6.2f} ({(b - a) * 1000:4.0f} ms) peak {m:5.1f}px {d:5s} seg {s:2d} orig {seg['a'] + a - seg['start']:.2f}  [{seg['note'][:28]}]")
-json.dump({"t": t.tolist(), "mag": mag.tolist()}, open("build/headmotion.json", "w"))
+json.dump({"t": t.tolist(), "mag": mag.tolist()}, open("build/headmotion.json", "w", encoding="utf-8"))

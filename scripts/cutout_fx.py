@@ -498,8 +498,8 @@ def bench(src, ss, nframes=30, configs=("portrait@1024", "lite@1024", "lite@768"
 
 def platform_name():
     try:
-        chip = subprocess.run(["sysctl", "-n", "machdep.cpu.brand_string"], capture_output=True, text=True).stdout.strip()
-        mem = int(subprocess.run(["sysctl", "-n", "hw.memsize"], capture_output=True, text=True).stdout) / 2**30
+        chip = subprocess.run(["sysctl", "-n", "machdep.cpu.brand_string"], capture_output=True, text=True, encoding="utf-8", errors="replace").stdout.strip()
+        mem = int(subprocess.run(["sysctl", "-n", "hw.memsize"], capture_output=True, text=True, encoding="utf-8", errors="replace").stdout) / 2**30
         return f"{chip}, {mem:.0f} GB"
     except Exception:
         return sys.platform
@@ -1598,7 +1598,7 @@ DEFAULT_MODEL = os.environ.get("CUTOUT_FX_MODEL", "lite@1024")
 
 def has_audio(src):
     r = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a", "-show_entries", "stream=index", "-of", "csv=p=0", src],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
     return bool(r.stdout.strip())
 
 

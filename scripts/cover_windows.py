@@ -60,10 +60,10 @@ def windows(F, strict=False):
 
 if __name__ == "__main__":
     strict = "--strict" in sys.argv
-    W = windows(json.load(open("build/facescan_cut.json")), strict)
-    json.dump(W, open("build/look_windows.json", "w"), indent=1)
+    W = windows(json.load(open("build/facescan_cut.json", encoding="utf-8")), strict)
+    json.dump(W, open("build/look_windows.json", "w", encoding="utf-8"), indent=1)
     cover = [[w["t0"], w["t1"]] for w in W if w["verdict"] == "cover"]
-    json.dump(cover, open("build/cover_windows.json", "w"))
+    json.dump(cover, open("build/cover_windows.json", "w", encoding="utf-8"))
     print(f"{len(W)} off-lens windows: {len(cover)} to cover, {len(W) - len(cover)} kept on screen")
     for w in W:
         if w["verdict"] == "cover":

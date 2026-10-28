@@ -54,7 +54,7 @@ def main():
     src = src.replace(".mp4", ".mov")
     sh(["ffmpeg", "-v", "error", "-y", "-i", src, "-vn", "-ac", "1", "-ar", str(SR), os.path.join(work, "build", "voice-clean.wav")])
     json.dump({"source": src, "denoised": "build/voice-clean.wav", "segments": segs, "eyes": [0.5, 0.45], "tight": 1.0},
-              open(os.path.join(work, "cut.json"), "w"), indent=1)
+              open(os.path.join(work, "cut.json"), "w", encoding="utf-8"), indent=1)
     for f in ("wide.mp4", "tight.mp4", "voice.wav"):
         p = os.path.join(work, "assets", f)
         if os.path.exists(p):

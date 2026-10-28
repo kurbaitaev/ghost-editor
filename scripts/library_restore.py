@@ -42,7 +42,7 @@ def main():
         print("note film LUTs (library/luts) are generated, not downloaded: bash scripts/setup_looks.sh (optional, film looks only)")
     # music beds: licensed files are downloaded from their source, never stored in git
     if not a.memes_only and not a.sfx_only:
-        man = json.load(open(os.path.join(LIB, "music", "manifest.json")))
+        man = json.load(open(os.path.join(LIB, "music", "manifest.json"), encoding="utf-8"))
         for mid, m in man.items():
             dst = os.path.join(LIB, "music", m["file"])
             if os.path.exists(dst):
@@ -73,7 +73,7 @@ def main():
             p = os.path.join(mdir, d, "meta.json")
             if not os.path.exists(p):
                 continue
-            m = json.load(open(p))
+            m = json.load(open(p, encoding="utf-8"))
             g = m.get("args", {})
             cmd = [sys.executable, os.path.join(HERE, "meme_add.py"), d, m["source_url"], "--tags", ",".join(m["emotion"]),
                    "--use", m["use_case"], "--triggers", ",".join(m["trigger_phrases"]), "--trend", m["trend_status"], "--name", m["name"]]
@@ -86,7 +86,7 @@ def main():
                 cmd += ["--sfx", m["sfx"]]
             elif m.get("image"):
                 cmd += ["--sfx", m.get("sfx", "vine-boom")]
-            r = subprocess.run(cmd, capture_output=True, text=True)
+            r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
             print(("ok   " if r.returncode == 0 else "FAIL ") + d + ("" if r.returncode == 0 else ": " + r.stderr[-300:]))
             bad += r.returncode != 0
     sys.exit(1 if bad else 0)

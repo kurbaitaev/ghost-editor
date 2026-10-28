@@ -32,8 +32,12 @@ import numpy as np
 SR = 48000
 
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
+from plat import npx  # noqa: E402
+
+
 def sh(cmd):
-    return subprocess.run(cmd, capture_output=True, text=True)
+    return subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
 
 
 def db(x):
@@ -50,13 +54,13 @@ def render_sfx_stem(project):
         if f in ("index.html", "assets"):
             src = os.path.join(project, f)
             (shutil.copytree if os.path.isdir(src) else shutil.copy)(src, os.path.join(td, f))
-    html = open(os.path.join(td, "index.html")).read()
+    html = open(os.path.join(td, "index.html"), encoding="utf-8").read()
     html = re.sub(r'<audio id="take-\d+-audio"[^>]*></audio>', "", html)
     html = re.sub(r'<audio id="music-bed"[^>]*></audio>', "", html)  # the bed would read as loud SFX where it isn't ducked
-    open(os.path.join(td, "index.html"), "w").write(html)
+    open(os.path.join(td, "index.html"), "w", encoding="utf-8").write(html)
     out = os.path.abspath(os.path.join(project, "build", "sfx_stem.mp4"))
     print("rendering the SFX-only stem for the level check...")
-    r = subprocess.run(["npx", "hyperframes", "render", "-o", out, "--quiet"], cwd=td, capture_output=True, text=True)
+    r = subprocess.run(npx("hyperframes", "render", "-o", out, "--quiet"), cwd=td, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
         sys.exit("stem render failed: " + r.stderr[-500:])
     shutil.rmtree(td, ignore_errors=True)
@@ -121,8 +125,8 @@ def check_cutouts(project):
     cp = os.path.join(project, "build", "cutouts.json")
     if not os.path.exists(cp):
         return probs
-    wins = json.load(open(cp))
-    spec = json.load(open(os.path.join(project, "reel.json")))
+    wins = json.load(open(cp, encoding="utf-8"))
+    spec = json.load(open(os.path.join(project, "reel.json"), encoding="utf-8"))
     src = plate_of(spec)
     for w in wins:
         f = os.path.join(project, w["src"])
@@ -131,7 +135,7 @@ def check_cutouts(project):
             continue
         n = count_frames(f)
         side = os.path.join(project, w["src"] + ".json")
-        sf = json.load(open(side)).get("frames") if os.path.exists(side) else None
+        sf = json.load(open(side, encoding="utf-8")).get("frames") if os.path.exists(side) else None
         print(f"cutout {w['id']} {w['fx']} at {w['at']}: {n} frames (window {w['srcFrames']}), edit {w['start']} s, source {w['ss']} s")
         if n != w["srcFrames"] or (sf is not None and sf != n):
             probs.append(f"{w['id']}: {n} frames, the window needs {w['srcFrames']} (sidecar {sf}): rebuild")
@@ -146,7 +150,7 @@ def check_matte(project):
     rp = os.path.join(project, "reel.json")
     if not os.path.exists(rp):  # recipe projects (seoul-list, clean-os) have no reel.json and no matte
         return probs
-    spec = json.load(open(rp))
+    spec = json.load(open(rp, encoding="utf-8"))
     mp = os.path.join(project, "assets", "talk-matte.webm")
     panels = any(b.get("type") == "panel" and b.get("behind", True) for b in spec.get("beats") or [])  # stan style
     if not (spec.get("matte") or panels) or not os.path.exists(mp):
@@ -154,7 +158,7 @@ def check_matte(project):
     src = plate_of(spec)
     nm, ns = count_frames(mp), count_frames(os.path.join(project, src))
     side = os.path.join(project, "assets", "talk-matte.json")
-    rep = json.load(open(side)).get("report", {}) if os.path.exists(side) else {}
+    rep = json.load(open(side, encoding="utf-8")).get("report", {}) if os.path.exists(side) else {}
     print(f"matte: {nm} frames (source {ns}), {rep.get('wanted', '?')} matted, {rep.get('model', 'hyperframes u2net')} on {rep.get('device', '?')}")
     if nm != ns:
         probs.append(f"matte has {nm} frames, the source {ns}: delete assets/talk-matte.* and rebuild")
@@ -175,7 +179,7 @@ def main():
         probs = check_av(a.project, a.video)
         print("\nPROBLEMS:\n  " + "\n  ".join(probs) if probs else "\na/v lengths match")
         sys.exit(1 if probs else 0)
-    ev = json.load(open(os.path.join(a.project, "build", "sfx_events.json")))
+    ev = json.load(open(os.path.join(a.project, "build", "sfx_events.json"), encoding="utf-8"))
     probs = []
 
     info = json.loads(sh(["ffprobe", "-v", "error", "-show_entries", "stream=codec_type,width,height:format=duration", "-of", "json", a.video]).stdout)
@@ -231,7 +235,7 @@ def main():
     # captions vs the face (build/caption_layout.json from the face-aware placer)
     lay_p = os.path.join(a.project, "build", "caption_layout.json")
     if os.path.exists(lay_p):
-        lay = json.load(open(lay_p))
+        lay = json.load(open(lay_p, encoding="utf-8"))
         modes = {}
         for b in lay["blocks"]:
             modes[b["mode"]] = modes.get(b["mode"], 0) + 1
@@ -243,11 +247,11 @@ def main():
         print("captions: no build/caption_layout.json (run face_track.py and rebuild for face-aware placement)")
 
     tfx_p = os.path.join(a.project, "build", "textfx.json")
-    tfx = json.load(open(tfx_p)) if os.path.exists(tfx_p) else []
+    tfx = json.load(open(tfx_p, encoding="utf-8")) if os.path.exists(tfx_p) else []
     # transitions (scripts/transitions.py reel): count, punchy budget, and each window clip holds exactly its frames
     tp = os.path.join(a.project, "build", "transitions.json")
     if os.path.exists(tp):
-        txs = json.load(open(tp))
+        txs = json.load(open(tp, encoding="utf-8"))
         punchy = [t for t in txs if t["type"] in ("whip", "scaled_push", "flash", "static_wipe")]
         per_min = len(txs) / max(ev["speech"] / 60, 1e-6)
         print(f"transitions: {len(txs)} ({len(punchy)} punchy), {per_min:.1f}/min")
@@ -261,12 +265,12 @@ def main():
                 probs.append(f"{t['id']}: {n} frames, expected {t['frames']} (re-run transitions.py reel)")
     # Paper shader layers (look.shader, scene bg looks): scan the render for one-frame flicker (a missed GL draw, a seek glitch)
     html_p = os.path.join(a.project, "index.html")
-    if os.path.exists(html_p) and "data-shader=" in open(html_p).read():
+    if os.path.exists(html_p) and "data-shader=" in open(html_p, encoding="utf-8").read():
         fc = os.path.join(os.path.dirname(os.path.abspath(__file__)), "framecheck.py")
         r = sh([sys.executable, fc, a.project, "--render", os.path.abspath(a.video), "--flicker-only"])
         rp = os.path.join(a.project, "build", "framecheck.json")
         if r.returncode == 0 and os.path.exists(rp):
-            rep = json.load(open(rp))
+            rep = json.load(open(rp, encoding="utf-8"))
             print(f"shader flicker scan: {rep['frames']} frames, ratio_max {rep['ratio_max']} (smooth ~0.5, a one-frame flash > 2.5)")
             # a textfx block's lock shake jitters the text every frame on purpose: not a shader glitch
             shake = [(b["t0"], b["t1"] or b["t0"] + 2.5) for b in tfx]

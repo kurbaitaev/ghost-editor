@@ -9,7 +9,7 @@ screen; only a real look-away becomes a cover window (references/broll.md 1: tri
 framed insert, full-screen stock last). --strict: every off-lens window is a cover window (the pre-Oct-13 rule)."""
 import json, subprocess, sys, numpy as np
 LOOKAWAY_S, ANGLE_DEG, STRICT = 0.5, 12.0, "--strict" in sys.argv
-c = json.load(open("cut.json")); F = [x for x in json.load(open("build/facescan_raw.json"))]
+c = json.load(open("cut.json", encoding="utf-8")); F = [x for x in json.load(open("build/facescan_raw.json", encoding="utf-8"))]
 T = np.array([x[0] for x in F]); ok = np.array([x[1] is not None for x in F])
 V = np.array([[np.nan] * 8 if x[1] is None else x[1:] for x in F], float)
 inside = np.zeros(len(T), bool)
@@ -31,7 +31,7 @@ x = np.frombuffer(subprocess.run(["ffmpeg", "-v", "error", "-i", "build/voice-cl
 hop = sr // 100
 db = 20 * np.log10(np.sqrt(np.convolve(x ** 2, np.ones(hop * 3) / (hop * 3), "same"))[::hop] + 1e-9)
 TH, MINP = -37.0, 0.24
-WR = json.load(open("build/words_raw.json")) if __import__("os").path.exists("build/words_raw.json") else []
+WR = json.load(open("build/words_raw.json", encoding="utf-8")) if __import__("os").path.exists("build/words_raw.json") else []
 def in_word(g0, g1):  # a "pause" that sits inside a spoken word (e.g. the unvoiced 'ст' in "десять") is not a pause
     return any(w["a"] + 0.03 < g1 and w["b"] - 0.03 > g0 for w in WR)
 DROP = c.get("drop", [])
@@ -93,7 +93,7 @@ for a, b, note in c["segments"]:
 crit = {"yaw": np.abs(V[:, 0] - med[0]) > 3, "pitch": np.abs(V[:, 1] - med[1]) > 5.5, "roll": np.abs(V[:, 2] - med[2]) > 3,
         "eyesDown": V[:, 3] > 0.22, "eyesOut": V[:, 5] > 0.42, "eyesIn": V[:, 6] > 0.42, "closed": V[:, 7] > 0.42}
 print("flagged frames inside takes by test:", {k: int((v & inside).sum()) for k, v in crit.items()}, "| bad total", int((bad & inside).sum()), "of", int(inside.sum()))
-json.dump({"pieces": pieces, "cover": cover, "keep": keep, "total": round(E, 3)}, open("build/plan.json", "w"), ensure_ascii=False, indent=1)
+json.dump({"pieces": pieces, "cover": cover, "keep": keep, "total": round(E, 3)}, open("build/plan.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 old = sum(s[1] - s[0] for s in c["segments"])
 print(f"{len(c['segments'])} takes -> {len(pieces)} pieces; {old:.2f}s -> {E:.2f}s ({old - E:.2f}s of pauses removed)")
 print(f"{len(cover) + len(keep)} off-lens windows: {len(keep)} kept on screen (blinks, glances), {len(cover)} need cover (edit s):")

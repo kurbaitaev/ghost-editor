@@ -19,6 +19,7 @@ import { fileURLToPath } from "node:url";
 import { buildMusic } from "../../scripts/lib/motion.mjs";
 import { loadManifest as emojiManifest, installEmoji, emojiPopHtml, emojiPopJs, EMOJI_POP_CSS } from "../../scripts/lib/emoji-pop.mjs";
 import { FT_HELPER } from "../../scripts/lib/caption-templates.mjs";
+import { pySpawnSync } from "../../scripts/lib/plat.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const SKILL = path.resolve(HERE, "../..");
@@ -238,7 +239,7 @@ for (const s of shots) {
     const py = `import sys, json; sys.path.insert(0, ${JSON.stringify(path.join(SKILL, "scripts"))}); import transitions as T
 r = T.render_junction(sys.argv[1], float(sys.argv[2]), sys.argv[3], float(sys.argv[4]), sys.argv[5], None, (float(sys.argv[7]) if sys.argv[7] else None), sys.argv[6], fps=${FPS})
 print(json.dumps({k: r[k] for k in ("L", "R", "d", "engine", "spec")}))`;
-    const res = spawnSync("python3", ["-c", py, path.resolve(proj, p.c.src), String(tout), path.resolve(proj, s.c.src), String(tin), s.tx, out, String(s.txDur ?? "")], { encoding: "utf8" });
+    const res = pySpawnSync(["-c", py, path.resolve(proj, p.c.src), String(tout), path.resolve(proj, s.c.src), String(tin), s.tx, out, String(s.txDur ?? "")], { encoding: "utf8" });
     if (res.status) die(`transitions.py ${s.tx} into shot ${s.i} failed: ${res.stderr.slice(-600)}`);
     r = { ...JSON.parse(res.stdout.trim().split("\n").at(-1)), key };
     fs.writeFileSync(side, JSON.stringify(r));

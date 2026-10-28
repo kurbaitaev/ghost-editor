@@ -22,7 +22,10 @@ try:
 except ImportError:  # pragma: no cover
     Image = ImageDraw = None
 
-HF = ["npx", "hyperframes"]
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
+from plat import npx  # noqa: E402
+
+HF = npx("hyperframes")
 
 
 def snapshot(proj, times, out):
@@ -30,7 +33,7 @@ def snapshot(proj, times, out):
     for f in os.listdir(out):
         os.remove(os.path.join(out, f))
     subprocess.run([*HF, "snapshot", proj, "--at", ",".join(f"{t:g}" for t in times), "--no-end", "--describe", "false", "-o", out],
-                   check=True, capture_output=True, text=True)
+                   check=True, capture_output=True, text=True, encoding="utf-8", errors="replace")
     res = {}
     for f in os.listdir(out):
         m = re.match(r"frame-\d+-at-([\d.]+)s\.png$", f)
@@ -68,7 +71,7 @@ def frame_rgb(video, idx):
     p = subprocess.run(["ffmpeg", "-v", "error", "-i", video, "-vf", f"select=eq(n\\,{idx})", "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
                        capture_output=True, check=True)
     probe = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "csv=p=0", video],
-                           capture_output=True, text=True, check=True).stdout.strip().split(",")
+                           capture_output=True, text=True, encoding="utf-8", errors="replace", check=True).stdout.strip().split(",")
     w, h = int(probe[0]), int(probe[1])
     return np.frombuffer(p.stdout, np.uint8).reshape(h, w, 3).astype(np.int16)
 
@@ -164,7 +167,7 @@ def main():
         rep["flicker_free"] = len(flags) == 0
         if ImageDraw is not None:
             chart(d, [f["frame"] for f in flags], os.path.join(build, "framecheck.png"), a.fps)
-    json.dump(rep, open(os.path.join(build, "framecheck.json"), "w"), indent=1)
+    json.dump(rep, open(os.path.join(build, "framecheck.json"), "w", encoding="utf-8"), indent=1)
     print(json.dumps(rep, indent=1))
 
 

@@ -34,6 +34,7 @@ import { KINETIC_CSS, buildKinetic, blockHeight, placeY } from "./lib/kinetic.mj
 import { installShaderRuntime, shaderLayerHtml, extractStill } from "./lib/shader-layer.mjs";
 import { loadManifest as emojiManifest, installEmoji, emojiPopHtml, emojiPopJs, EMOJI_POP_CSS, EMOJI_DIR } from "./lib/emoji-pop.mjs";
 import { makePlacer, PLATFORMS } from "./lib/safezone.mjs";
+import { PY, npxSync, venvPython, venvDefault } from "./lib/plat.mjs";
 import { TEMPLATE_NAMES, buildTemplateCaptions } from "./lib/caption-templates.mjs";
 import { aiTag } from "./lib/ai-tag.mjs";
 import { findTaste, loadTaste, applyTaste, checkTaste, bannedSfx } from "./lib/taste.mjs";
@@ -277,7 +278,7 @@ if (spec.look && (spec.look.grade || spec.look.film) && !spec.look.asked) {
 if (spec.look?.film) {
   const plate = spec.look.plate || "assets/talk.film.mp4";
   const fp = path.resolve(proj, plate), sp = path.resolve(proj, SRC);
-  const cmd = `python3 ${path.join(SKILL, "scripts", "film_look.py")} apply ${SRC} ${plate} --look ${spec.look.film}` +
+  const cmd = `${PY} ${path.join(SKILL, "scripts", "film_look.py")} apply ${SRC} ${plate} --look ${spec.look.film}` +
     (spec.look.grain != null ? ` --grain ${spec.look.grain}` : "") + (spec.look.halation != null ? ` --halation ${spec.look.halation}` : "");
   if (!fs.existsSync(fp) || fs.statSync(fp).mtimeMs < fs.statSync(sp).mtimeMs) die(`look.film: grade the plate first (in ${proj}):\n  ${cmd}`);
   SRC = plate;
@@ -294,7 +295,7 @@ if (spec.look?.cutout) {
   const dur = parseFloat(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", sp]).toString());
   const kebab = (k) => k.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase());
   const opts = Object.entries(lc).filter(([k]) => !["fx", "plate", "model", "batch", "ramp", "at"].includes(k));
-  const cmd = `${process.env.MATTE_VENV || "~/.venvs/ghost-matte"}/bin/python ${path.join(SKILL, "scripts", "cutout_fx.py")} ${lc.fx} ${SRC}` +
+  const cmd = `${venvPython(venvDefault("MATTE_VENV", "ghost-matte"))} ${path.join(SKILL, "scripts", "cutout_fx.py")} ${lc.fx} ${SRC}` +
     ` --ss 0 --t ${dur} --at 0 --ramp 0 --model ${lc.model || "lite@512"} --batch ${lc.batch ?? 4} -o ${plate}` +
     opts.map(([k, v]) => ` --${kebab(k)} '${v}'`).join("");
   let sig = null;
@@ -328,7 +329,7 @@ const takeAudio = takes.map((k, i) => `
 let txHtml = "";
 if (spec.transitions) {
   const tp = path.join(proj, "build", "transitions.json");
-  const fresh = `python3 ${path.join(SKILL, "scripts", "transitions.py")} reel ${proj}`;
+  const fresh = `${PY} ${path.join(SKILL, "scripts", "transitions.py")} reel ${proj}`;
   if (!fs.existsSync(tp)) die(`transitions: render them first:\n  ${fresh}`);
   const txs = JSON.parse(fs.readFileSync(tp, "utf8"));
   const txSpec = (i) => (Array.isArray(spec.transitions) ? spec.transitions.find((x) => x.after === i) : spec.transitions) || {};
@@ -371,7 +372,7 @@ let cutoutHtml = "";
 const cutoutBeats = (spec.beats || []).filter((b) => b.type === "cutout");
 const cutoutWins = []; // -> build/cutouts.json, what each window was cut from (qa.py re-counts the clips)
 if (cutoutBeats.length) {
-  const py = path.join(process.env.MATTE_VENV || path.join(os.homedir(), ".venvs", "ghost-matte"), "bin", "python");
+  const py = venvPython(venvDefault("MATTE_VENV", "ghost-matte"));
   if (!fs.existsSync(py)) die(`cutout beats need the matte venv: bash ${path.join(SKILL, "scripts", "setup_matte.sh")}`);
   const [fn, fd] = execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=r_frame_rate", "-of", "csv=p=0",
     path.resolve(proj, SRC)]).toString().trim().split("/").map(Number);
@@ -468,8 +469,8 @@ if (spec.matte || panelMatte.length) {
       if (z > a) ranges.push(`${(k.a + a - k.start).toFixed(2)}-${(k.a + z - k.start).toFixed(2)}`);
     }
   }
-  const venv = process.env.MATTE_VENV || path.join(os.homedir(), ".venvs", "ghost-matte");
-  const py = path.join(venv, "bin", "python");
+  const venv = venvDefault("MATTE_VENV", "ghost-matte");
+  const py = venvPython(venv);
   if (!spec.matte && !fs.existsSync(py)) {
     warn.push(`panels behind the speaker need the matte venv (bash ${path.join(SKILL, "scripts", "setup_matte.sh")}); without it the panels cover the speaker's head`);
   } else if (mcfg.engine !== "hyperframes" && fs.existsSync(py)) {
@@ -484,7 +485,7 @@ if (spec.matte || panelMatte.length) {
   } else if (!fs.existsSync(mp)) {
     if (mcfg.engine !== "hyperframes") warn.push(`matte: BiRefNet venv not set up (bash ${path.join(SKILL, "scripts", "setup_matte.sh")}); used hyperframes remove-background (u2net: softer, jumpier edges)`);
     console.log("cutting the speaker out (hyperframes remove-background, ~4 fps; cached in assets/talk-matte.webm)...");
-    execFileSync("npx", ["hyperframes", "remove-background", path.resolve(proj, SRC), "-o", mp], { stdio: ["ignore", "ignore", "pipe"], cwd: proj, maxBuffer: 1 << 28 }); console.log("  matte done");
+    npxSync(["hyperframes", "remove-background", path.resolve(proj, SRC), "-o", mp], { stdio: ["ignore", "ignore", "pipe"], cwd: proj, maxBuffer: 1 << 28 }); console.log("  matte done");
   }
   if (spec.matte) matteHtml = takes.map((k, i) => `
       <video id="matte-${i}" class="matte" src="assets/talk-matte.webm" data-start="${fgrid(k.f0)}" data-duration="${fgrid(k.frames)}" data-media-start="${k.a}" data-track-index="2" muted playsinline></video>`).join("");

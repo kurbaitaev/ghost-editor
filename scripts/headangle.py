@@ -9,7 +9,7 @@ MODEL = os.path.expanduser("~/.claude/skills/ghost-editor/library/models/face_la
 lm = vision.FaceLandmarker.create_from_options(vision.FaceLandmarkerOptions(
     base_options=BaseOptions(model_asset_path=MODEL), running_mode=vision.RunningMode.VIDEO,
     output_facial_transformation_matrixes=True, num_faces=1))
-src, edl = sys.argv[1], json.load(open(sys.argv[2])); hidden = json.load(open(sys.argv[3])) if len(sys.argv) > 3 else []
+src, edl = sys.argv[1], json.load(open(sys.argv[2], encoding="utf-8")); hidden = json.load(open(sys.argv[3], encoding="utf-8")) if len(sys.argv) > 3 else []
 cap = cv2.VideoCapture(src); fps = cap.get(cv2.CAP_PROP_FPS); rows = []; i = 0
 while True:
     ok, f = cap.read()
@@ -24,7 +24,7 @@ while True:
     else:
         rows.append([i / fps, None, None, None])
     i += 1
-json.dump(rows, open("build/headangle.json", "w"))
+json.dump(rows, open("build/headangle.json", "w", encoding="utf-8"))
 A = np.array([[r[1], r[2], r[3]] for r in rows if r[1] is not None])
 med = np.median(A, 0); sd = 1.4826 * np.median(np.abs(A - med), 0)
 print(f"{len(rows)} frames; median yaw {med[0]:.1f} pitch {med[1]:.1f} roll {med[2]:.1f}; robust sd {sd[0]:.1f} {sd[1]:.1f} {sd[2]:.1f} deg")

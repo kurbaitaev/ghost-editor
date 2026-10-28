@@ -13,6 +13,7 @@ import html
 import json
 import os
 import subprocess
+import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 LIB = os.path.abspath(os.path.join(HERE, "..", "library"))
@@ -22,7 +23,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--open", action="store_true")
     a = ap.parse_args()
-    sfx = json.load(open(os.path.join(LIB, "sfx", "manifest.json")))
+    sfx = json.load(open(os.path.join(LIB, "sfx", "manifest.json"), encoding="utf-8"))
     rows = []
     for role in ("meme", "impact", "whoosh", "ui"):
         for k, v in sfx.items():
@@ -37,7 +38,7 @@ def main():
         p = os.path.join(mdir, d, "meta.json")
         if not os.path.exists(p):
             continue
-        m = json.load(open(p))
+        m = json.load(open(p, encoding="utf-8"))
         media = f'<video controls preload="none" poster="memes/{d}/preview.png" src="memes/{d}/{m["clip"]}"></video>' if m.get("clip") else f'<img src="memes/{d}/{m["image"]}">'
         cards.append(f'<div class="card">{media}<div><b>{html.escape(m["name"])}</b> <code>{d}</code> <span class="t {m["trend_status"]}">{m["trend_status"]}</span></div>'
                      f'<div>{", ".join(m["emotion"])}</div><div class="u">{html.escape(m["use_case"])}</div></div>')
@@ -49,10 +50,12 @@ def main():
 .u{{color:#aaa;font-size:12px}}.t{{font-size:11px;padding:1px 6px;border-radius:6px;background:#333}}.hot{{background:#c2410c}}.dying{{background:#555}}</style>
 <h1>Sound effects ({len(sfx)})</h1><table>{''.join(rows)}</table><h1>Memes ({len(cards)})</h1><div class="grid">{''.join(cards)}</div>"""
     out = os.path.join(LIB, "audition.html")
-    open(out, "w").write(page)
+    open(out, "w", encoding="utf-8").write(page)
     print(out)
     if a.open:
-        subprocess.run(["open", out])
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
+        from plat import open_path
+        open_path(out)
 
 
 if __name__ == "__main__":

@@ -42,7 +42,7 @@ def main():
     for d in have:
         p = os.path.join(LIB, d, "meta.json")
         if os.path.exists(p):
-            have_names.add(slug(json.load(open(p)).get("name", d)))
+            have_names.add(slug(json.load(open(p, encoding="utf-8")).get("name", d)))
     out = {"imgflip_new": [], "knowyourmeme": [], "errors": []}
     try:
         h = get("https://imgflip.com/memetemplates?sort=top-new")

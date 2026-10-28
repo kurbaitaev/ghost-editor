@@ -38,7 +38,8 @@ deliver        -> ~/Desktop/<name>-reel.mp4  taste.py log-reel; save_style.py if
 
 ### 0. Check the toolchain once per session
 `bash $S/scripts/doctor.sh`: tools, GEMINI_API_KEY and the media library,
-each with its fix. The B-roll people and line check (`broll_vision.py`, `broll_qa.py`) needs GEMINI_API_KEY (the free
+each with its fix. On Windows run the `.sh` steps from Git Bash and read `python3` below as `python`
+(docs/INSTALL.md "Windows"); the caption check uses tesseract there instead of macOS Vision. The B-roll people and line check (`broll_vision.py`, `broll_qa.py`) needs GEMINI_API_KEY (the free
 tier is enough); without it those checks warn or fail as unchecked. On a fresh machine run `python3 $S/scripts/library_restore.py`
 first (SFX, memes, music and the animated emoji aren't in git). Say what is missing; don't
 improvise around it. Lines marked `opt` are optional tools with their own `scripts/setup_<x>.sh`

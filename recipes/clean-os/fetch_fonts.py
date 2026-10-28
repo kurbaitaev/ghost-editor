@@ -24,5 +24,5 @@ for sub, block in re.findall(r"/\* ([a-z-]+) \*/\s*@font-face \{(.*?)\}", css, r
     fn = f"{fam.replace(' ', '')}-{sty}-{sub}.woff2"
     urllib.request.urlretrieve(src, os.path.join(dst, fn))
     out.append("@font-face {" + block.replace(src, fn) + "}")
-open(os.path.join(dst, "fonts-local.css"), "w").write("\n".join(out))
+open(os.path.join(dst, "fonts-local.css"), "w", encoding="utf-8").write("\n".join(out))
 print(f"{len(out)} faces -> {dst}")

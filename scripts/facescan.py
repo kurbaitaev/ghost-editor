@@ -30,5 +30,5 @@ while True:
         else:
             rows.append([round(i / fps, 3)] + [None] * 8)
     i += 1
-json.dump(rows, open(out, "w"))
+json.dump(rows, open(out, "w", encoding="utf-8"))
 print(f"{len(rows)} frames -> {out}")

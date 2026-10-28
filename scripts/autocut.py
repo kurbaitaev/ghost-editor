@@ -18,6 +18,7 @@ import argparse
 import json
 import re
 import subprocess
+import sys
 
 
 def main():
@@ -32,7 +33,9 @@ def main():
     a = ap.parse_args()
     if a.vad:
         here = os.path.dirname(os.path.abspath(__file__))
-        py = os.path.join(os.environ.get("AUDIOQA_VENV", os.path.expanduser("~/.venvs/ghost-audioqa")), "bin", "python")
+        sys.path.insert(0, os.path.join(here, "lib"))
+        from plat import venv_python
+        py = venv_python(os.environ.get("AUDIOQA_VENV", "~/.venvs/ghost-audioqa"))
         if not os.path.exists(py):
             raise SystemExit(f"--vad needs the audio QA venv: bash {os.path.join(here, 'setup_audioqa.sh')}")
         cmd = [py, os.path.join(here, "vad_pauses.py"), a.src, "--min-pause", str(a.min), "--lead", str(a.keep), "--tail", str(a.keep)]
@@ -40,17 +43,17 @@ def main():
             cmd += ["--ss", str(a.t0)]
         if a.t1:
             cmd += ["--t", str(a.t1 - a.t0)]
-        res = json.loads(subprocess.run(cmd, capture_output=True, text=True, check=True).stdout)
+        res = json.loads(subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", check=True).stdout)
         takes = [{"a": round(t["a"], 2), "b": round(t["b"], 2)} for t in res["takes"]]
         kept = sum(t["b"] - t["a"] for t in takes)
         print(json.dumps(takes))
         print(f"\n{len(takes)} takes (silero-vad), {kept:.2f}s kept of {res.get('duration', kept):.2f}s")
         return
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", a.src],
-                               capture_output=True, text=True).stdout)
+                               capture_output=True, text=True, encoding="utf-8", errors="replace").stdout)
     t1 = a.t1 or dur
     err = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", a.src, "-af", f"silencedetect=noise={a.noise}dB:d={a.min}",
-                          "-f", "null", "-"], capture_output=True, text=True).stderr
+                          "-f", "null", "-"], capture_output=True, text=True, encoding="utf-8", errors="replace").stderr
     starts = [float(x) for x in re.findall(r"silence_start: ([\d.]+)", err)]
     ends = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", err)]
     sil = list(zip(starts, ends + [dur] * (len(starts) - len(ends))))

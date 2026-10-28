@@ -12,7 +12,7 @@ import json, math, random, re
 W_, H_ = 1080, 1920
 HZ = 1400                      # horizon, world y
 WORLD_H = 3600
-words = json.load(open("voice/words.json"))
+words = json.load(open("voice/words.json", encoding="utf-8"))
 VO_END = words[-1]["e"]
 TOTAL = round(VO_END + 2.8, 3)
 
@@ -466,5 +466,5 @@ svg.world {{ position: absolute; left: 0; top: 0; overflow: visible; }}
 </script>
 </body></html>
 """
-open("index.html", "w").write(html)
+open("index.html", "w", encoding="utf-8").write(html)
 print(f"index.html: {TOTAL}s, {len(B)} branches, {len(R)} roots, {len(leaves)} leaves, {len(fruit_pts)} fruits, {len(groups)} caption groups, {len(tl)} timeline lines")

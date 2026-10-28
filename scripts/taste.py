@@ -54,14 +54,14 @@ def taste_path(explicit=None):
 
 def load(p):
     if os.path.exists(p):
-        return json.load(open(p))
+        return json.load(open(p, encoding="utf-8"))
     return {"version": 1, "about": "What the user corrected or approved across reels. A prior, not evidence: reel.json always wins.", "rules": [], "reels": []}
 
 
 def save(p, t):
     t["updated"] = dt.date.today().isoformat()
     tmp = p + ".tmp"
-    json.dump(t, open(tmp, "w"), indent=1, ensure_ascii=False)
+    json.dump(t, open(tmp, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
     os.replace(tmp, p)
 
 
@@ -79,7 +79,7 @@ def val(s):
 
 def node(args):
     mjs = next((p for p in (os.path.join(HERE, "taste.mjs"), os.path.join(HERE, "lib", "taste.mjs")) if os.path.exists(p)), "taste.mjs")
-    r = subprocess.run(["node", mjs] + args, capture_output=True, text=True)
+    r = subprocess.run(["node", mjs] + args, capture_output=True, text=True, encoding="utf-8", errors="replace")
     sys.stdout.write(r.stdout)
     sys.stderr.write(r.stderr)
     return r.returncode
@@ -223,9 +223,9 @@ def main():
         sys.exit(node([a.cmd, a.arg, "--taste", p, "--skill", SKILL]))
     elif a.cmd == "log-reel":
         proj = os.path.abspath(a.arg or ".")
-        raw = json.load(open(os.path.join(proj, "reel.json")))
+        raw = json.load(open(os.path.join(proj, "reel.json"), encoding="utf-8"))
         stp = os.path.join(SKILL, "styles", f"{raw.get('style')}.json")
-        preset = json.load(open(stp)) if raw.get("style") and os.path.exists(stp) else {}
+        preset = json.load(open(stp, encoding="utf-8")) if raw.get("style") and os.path.exists(stp) else {}
         brand = {**(preset.get("brand") or {}), **(raw.get("brand") or {})}
         music = raw.get("music", preset.get("music")) or {}
         e = {"name": os.path.basename(proj), "title": raw.get("title"), "project": proj, "date": today, "style": raw.get("style"),

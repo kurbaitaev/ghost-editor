@@ -88,7 +88,7 @@ def client():
             key = os.environ.get("GEMINI_API_KEY")
             envp = os.path.join(HERE, "..", ".env")
             if not key and os.path.exists(envp):
-                m = re.search(r"GEMINI_API_KEY\s*=\s*['\"]?([^'\"\n]+)", open(envp).read())
+                m = re.search(r"GEMINI_API_KEY\s*=\s*['\"]?([^'\"\n]+)", open(envp, encoding="utf-8").read())
                 key = m.group(1).strip() if m else None
             if not key:
                 raise RuntimeError("no GEMINI_API_KEY (env or the skill's .env)")
@@ -154,7 +154,7 @@ def confirmed(r, path):
         return r
     if os.path.exists(cp):
         try:
-            r = dict(r, confirmed=json.load(open(cp)).get("note", "yes"))
+            r = dict(r, confirmed=json.load(open(cp, encoding="utf-8")).get("note", "yes"))
         except (OSError, json.JSONDecodeError):
             pass
     return r
@@ -174,7 +174,7 @@ def _check(path, tin=0.0, dur=None, line=None):
     cp = os.path.join(CACHE, k + ".json")
     if os.path.exists(cp):
         try:
-            return json.load(open(cp))
+            return json.load(open(cp, encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             pass
     try:
@@ -227,7 +227,7 @@ def _check(path, tin=0.0, dur=None, line=None):
             res["ok"] = not any(res[ru["id"]] for ru in RULES["rules"])
             os.makedirs(CACHE, exist_ok=True)
             tmp = cp + f".{os.getpid()}.tmp"
-            json.dump(res, open(tmp, "w"), ensure_ascii=False, indent=1)
+            json.dump(res, open(tmp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
             os.replace(tmp, cp)
             return res
         except RuntimeError as e:          # no key: no point retrying
@@ -345,7 +345,7 @@ def cmd_picks(a):
     o = a.out or os.path.join(a.project, "build", "broll-picks.jpg")
     os.makedirs(os.path.dirname(os.path.abspath(o)), exist_ok=True)
     sheet.save(o, quality=85)
-    json.dump(out, open(os.path.splitext(o)[0] + ".json", "w"), ensure_ascii=False, indent=1)
+    json.dump(out, open(os.path.splitext(o)[0] + ".json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     n_bad = sum(1 for x in out if x["flagged"])
     print(f"{len(out)} B-roll shot(s), {n_bad} flagged -> {o}")
     for x in out:
@@ -357,7 +357,7 @@ def cmd_picks(a):
 
 def confirm(path, note):
     os.makedirs(CACHE, exist_ok=True)
-    json.dump({"src": os.path.realpath(path), "note": note, "at": time.strftime("%Y-%m-%d %H:%M")}, open(confirm_path(path), "w"),
+    json.dump({"src": os.path.realpath(path), "note": note, "at": time.strftime("%Y-%m-%d %H:%M")}, open(confirm_path(path), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
 
 

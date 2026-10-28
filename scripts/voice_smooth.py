@@ -8,7 +8,7 @@
 usage: voice_smooth.py <project> [xfade_ms=35]"""
 import json, os, subprocess, sys, numpy as np
 P = sys.argv[1]; XF = (float(sys.argv[2]) if len(sys.argv) > 2 else 35) / 1000
-c = json.load(open(os.path.join(P, "cut.json"))); SEG = [(a, b) for a, b, _ in c["segments"]]
+c = json.load(open(os.path.join(P, "cut.json"), encoding="utf-8")); SEG = [(a, b) for a, b, _ in c["segments"]]
 SR = 48000
 src = np.frombuffer(subprocess.run(["ffmpeg", "-v", "error", "-i", os.path.join(P, c["denoised"]), "-ac", "1", "-ar", str(SR), "-f", "f32le", "-"],
                                    capture_output=True, check=True).stdout, np.float32).astype(np.float64)
@@ -58,7 +58,7 @@ subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-
 chain = ("highpass=f=70,deesser=i=0.35:m=0.5:f=0.5:s=o,acompressor=threshold=-22dB:ratio=2:attack=12:release=160:knee=6:makeup=1,agate=threshold=0.006:ratio=1.8:range=0.4:attack=8:release=300:knee=4,"
          "equalizer=f=180:t=q:w=1.2:g=2,equalizer=f=3200:t=q:w=1.5:g=0.8")
 m = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", raw, "-af", chain + ",loudnorm=I=-16:TP=-1.5:LRA=9:print_format=json", "-f", "null", "-"],
-                   capture_output=True, text=True).stderr
+                   capture_output=True, text=True, encoding="utf-8", errors="replace").stderr
 j = json.loads(m[m.rindex("{"):m.rindex("}") + 1])
 outp = os.path.join(P, "assets", "voice.wav")
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", chain + f",loudnorm=I=-16:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}"

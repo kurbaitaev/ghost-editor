@@ -17,7 +17,7 @@ FALLBACK = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".env"
 def key():
     k = os.environ.get("GEMINI_API_KEY")
     if not k and os.path.exists(FALLBACK):
-        for line in open(FALLBACK):
+        for line in open(FALLBACK, encoding="utf-8"):
             if line.startswith("GEMINI_API_KEY="):
                 k = line.split("=", 1)[1].strip().strip('"')
     if not k:

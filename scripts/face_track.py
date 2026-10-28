@@ -67,7 +67,7 @@ def main():
             samples.append([t, round(max(0, top)), round(min(H, bottom)), round(max(0, left)), round(min(W, right)), round(eyes_y), round(mouth_y)])
             found += 1
         f += step
-    json.dump({"fps": a.fps, "w": W, "h": H, "samples": samples}, open(a.out, "w"))
+    json.dump({"fps": a.fps, "w": W, "h": H, "samples": samples}, open(a.out, "w", encoding="utf-8"))
     tops = [s[1] for s in samples if s[1] is not None]
     bots = [s[2] for s in samples if s[1] is not None]
     print(f"face in {found}/{len(samples)} samples; top {min(tops) if tops else '-'}-{max(tops) if tops else '-'}, "

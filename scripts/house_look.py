@@ -47,7 +47,7 @@ def house_path(style):
 
 def load(style):
     p = house_path(style)
-    return json.load(open(p)) if os.path.exists(p) else {}
+    return json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {}
 
 
 def footage_frames(video, fps=2.0):
@@ -116,7 +116,7 @@ def cmd_measure(a):
     house["grade"] = {k: round(float(np.median([r[k] for r in rows])), 2) for k in rows[0]}
     house["grade_from"] = used
     house.setdefault("tolerance", TOLERANCE)
-    json.dump(house, open(house_path(a.style), "w"), ensure_ascii=False, indent=1)
+    json.dump(house, open(house_path(a.style), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(json.dumps(house["grade"]), "->", house_path(a.style))
 
 
@@ -136,7 +136,7 @@ def cmd_apply(a):
     lut = tempfile.NamedTemporaryFile(suffix=".cube", delete=False).name
     G.write_cube(lut, p, tr)
     matrix = ":in_color_matrix=bt2020" if G.is_hdr(info) else ""
-    vf = (f"scale=flags={G.SCALE_FLAGS}{matrix},format=rgb48le,lut3d=file={lut}:interp=tetrahedral,"
+    vf = (f"scale=flags={G.SCALE_FLAGS}{matrix},format=rgb48le,lut3d=file='{G.filter_path(lut)}':interp=tetrahedral,"
           f"scale=out_color_matrix=bt709:out_range=tv:flags={G.SCALE_FLAGS},format=yuv420p,"
           f"setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709:range=tv")
     g = max(1, int(round(info["fps"])))
@@ -147,7 +147,7 @@ def cmd_apply(a):
     os.unlink(lut)
     rep = {"plate": os.path.abspath(a.plate), "style": a.style, "params": {k: round(v, 3) for k, v in p.items()},
            "before_off": off0, "after": d1, "after_off": off1}
-    json.dump(rep, open(a.out + ".json", "w"), ensure_ascii=False, indent=1)
+    json.dump(rep, open(a.out + ".json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(json.dumps(rep, ensure_ascii=False))
     print(f"-> {a.out}: {'inside' if not off1 else 'still off: ' + '; '.join(off1)} the {a.style} house look "
           f"(was: {'; '.join(off0) or 'inside'})")

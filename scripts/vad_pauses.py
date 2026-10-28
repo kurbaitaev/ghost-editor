@@ -167,7 +167,7 @@ def main():
         res["probs"] = [round(float(v), 3) for v in p]
     s = json.dumps(res, ensure_ascii=False, indent=1)
     if a.out:
-        open(a.out, "w").write(s)
+        open(a.out, "w", encoding="utf-8").write(s)
         kinds = {}
         for q in res["pauses"]:
             kinds[q["kind"]] = kinds.get(q["kind"], 0) + 1

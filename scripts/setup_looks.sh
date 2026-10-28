@@ -5,11 +5,13 @@
 #   bash scripts/setup_looks.sh            -> ~/.venvs/ghost-looks (override with LOOKS_VENV=/path), library/luts/*.cube
 set -euo pipefail
 S="$(cd "$(dirname "$0")/.." && pwd)"
+source "$S/scripts/lib/venv.sh"
 V="${LOOKS_VENV:-$HOME/.venvs/ghost-looks}"
-PY="${PYTHON311:-$(command -v python3.11 || echo /opt/homebrew/bin/python3.11)}"
-[ -x "$V/bin/python" ] || "$PY" -m venv "$V"
-"$V/bin/pip" install -q --upgrade pip
-"$V/bin/pip" install -q "spectral_film_lut==0.18.12"
-"$V/bin/python" "$S/scripts/gen_luts.py" "$@"
+PY="${PYTHON311:-$(find_py311)}"
+venv_ok "$V" || "$PY" -m venv "$V"
+VB=$(venv_bin "$V")
+"$VB/python" -m pip install -q --upgrade pip
+"$VB/pip" install -q "spectral_film_lut==0.18.12"
+"$VB/python" "$S/scripts/gen_luts.py" "$@"
 n=$(ls "$S"/library/luts/*.cube 2>/dev/null | wc -l | tr -d ' ')
 echo "film looks ready: $n LUTs in $S/library/luts (venv $V)"

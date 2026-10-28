@@ -53,13 +53,13 @@ def looks():
 def probe(path):
     out = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
                           "stream=width,height,r_frame_rate:format=duration", "-of", "json", path],
-                         capture_output=True, text=True, check=True).stdout
+                         capture_output=True, text=True, encoding="utf-8", errors="replace", check=True).stdout
     j = json.loads(out)
     s = j["streams"][0]
     num, den = s["r_frame_rate"].split("/")
     has_audio = bool(subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a", "-show_entries",
                                      "stream=index", "-of", "csv=p=0", path],
-                                    capture_output=True, text=True).stdout.strip())
+                                    capture_output=True, text=True, encoding="utf-8", errors="replace").stdout.strip())
     return dict(w=int(s["width"]), h=int(s["height"]), fps=float(num) / float(den),
                 dur=float(j["format"]["duration"]), audio=has_audio)
 

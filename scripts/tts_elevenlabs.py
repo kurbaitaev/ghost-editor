@@ -20,7 +20,7 @@ def key():
     k = os.environ.get("ELEVENLABS_API_KEY")
     env = os.path.join(HERE, "..", ".env")
     if not k and os.path.exists(env):
-        for line in open(env):
+        for line in open(env, encoding="utf-8"):
             if line.startswith("ELEVENLABS_API_KEY="):
                 k = line.split("=", 1)[1].strip()
     if not k:
@@ -65,7 +65,7 @@ def main():
     k = key()
     sub = call("/v1/user/subscription", k=k)
     left = sub.get("character_limit", 0) - sub.get("character_count", 0)
-    text = open(a.script).read().strip()
+    text = open(a.script, encoding="utf-8").read().strip()
     if left < len(text) * a.takes:
         sys.exit(f"not enough ElevenLabs characters left ({left}) for {a.takes} takes of {len(text)}")
     os.makedirs(a.out, exist_ok=True)
@@ -75,9 +75,9 @@ def main():
         d = call(f"/v1/text-to-speech/{a.voice}/with-timestamps?output_format=mp3_44100_192", body, k)
         base = os.path.join(a.out, f"take{n}")
         open(base + ".mp3", "wb").write(base64.b64decode(d["audio_base64"]))
-        json.dump(d["alignment"], open(base + ".align.json", "w"))
+        json.dump(d["alignment"], open(base + ".align.json", "w", encoding="utf-8"))
         w = words_from(d["alignment"])
-        json.dump(w, open(base + ".words.json", "w"), ensure_ascii=False, indent=0)
+        json.dump(w, open(base + ".words.json", "w", encoding="utf-8"), ensure_ascii=False, indent=0)
         print(f"take {n}: {len(w)} words, {w[-1]['e']:.1f}s -> {base}.mp3")
 
 

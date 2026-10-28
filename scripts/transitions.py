@@ -421,7 +421,7 @@ def easing_fn(name, allow_overshoot=False):
 def probe(path):
     j = json.loads(subprocess.run(["ffprobe", "-v", "error", "-show_entries",
                                    "stream=codec_type,width,height,r_frame_rate:format=duration",
-                                   "-of", "json", str(path)], capture_output=True, text=True, check=True).stdout)
+                                   "-of", "json", str(path)], capture_output=True, text=True, encoding="utf-8", errors="replace", check=True).stdout)
     v = next(s for s in j["streams"] if s["codec_type"] == "video")
     n, d = v["r_frame_rate"].split("/")
     return dict(w=v["width"], h=v["height"], fps=float(n) / float(d), dur=float(j["format"]["duration"]),

@@ -42,7 +42,8 @@ from broll_qa import Faces, decode, cover_size  # noqa: E402
 ME = os.path.join(HERE, "..", "library", "me")
 REF = os.path.join(ME, "face_ref.npz")
 INDEX = os.path.join(ME, "footage_index.json")
-ROOTS = [os.path.expanduser(p) for p in ("~/Pictures/Photos Library.photoslibrary/originals", "~/Movies")]
+ROOTS = [os.path.expanduser(p) for p in ("~/Pictures/Photos Library.photoslibrary/originals", "~/Movies",
+                                         "~/Videos", "~/Pictures")]  # macOS Photos + Movies; Windows / Linux Videos + Pictures
 VIDEO = re.compile(r"\.(mov|mp4|m4v)$", re.I)
 SKIP = re.compile(r"(/\.|/Telegram|/CapCut/|/renders?/|/proxies|/\.Trash)", re.I)
 TH, MINW, TINY = 0.40, 0.04, 0.04
@@ -168,7 +169,7 @@ def describe_init():
     if not key:
         envp = os.path.join(HERE, "..", ".env")
         if os.path.exists(envp):
-            m = re.search(r"GEMINI_API_KEY\s*=\s*['\"]?([^'\"\n]+)", open(envp).read())
+            m = re.search(r"GEMINI_API_KEY\s*=\s*['\"]?([^'\"\n]+)", open(envp, encoding="utf-8").read())
             key = m.group(1).strip() if m else None
     if not key:
         sys.exit("--describe needs GEMINI_API_KEY")
@@ -192,8 +193,8 @@ def describe(client, sheet):
 
 def cmd_index(a):
     ref = load_ref()
-    roots = a.root or (json.load(open(os.path.join(ME, "roots.json"))) if os.path.exists(os.path.join(ME, "roots.json")) else ROOTS)
-    idx = json.load(open(INDEX)) if os.path.exists(INDEX) else {}
+    roots = a.root or (json.load(open(os.path.join(ME, "roots.json"), encoding="utf-8")) if os.path.exists(os.path.join(ME, "roots.json")) else ROOTS)
+    idx = json.load(open(INDEX, encoding="utf-8")) if os.path.exists(INDEX) else {}
     os.makedirs(os.path.join(ME, "sheets"), exist_ok=True)
     files = []
     for r in roots:
@@ -236,7 +237,7 @@ def cmd_index(a):
             idx[p] = e
             done += 1
             if done % 10 == 0:
-                json.dump(idx, open(INDEX, "w"))
+                json.dump(idx, open(INDEX, "w", encoding="utf-8"))
                 print(f"  {done} scanned", flush=True)
         if client and e and not e.get("desc") and e.get("sheet"):
             for attempt in range(3):
@@ -248,7 +249,7 @@ def cmd_index(a):
                     if attempt == 2:
                         print(f"  describe failed for {os.path.basename(p)}: {ex}")
                     time.sleep(2 * (attempt + 1))
-    json.dump(idx, open(INDEX, "w"))
+    json.dump(idx, open(INDEX, "w", encoding="utf-8"))
     n = len(idx)
     by = {k: sum(1 for e in idx.values() if e["people"] == k) for k in ("none", "tiny", "me", "others")}
     print(f"{n} clips indexed ({done} new): no people {by['none']}, far figures only {by['tiny']}, only you {by['me']}, "
@@ -257,7 +258,7 @@ def cmd_index(a):
 
 # ------------------------------------------------------------------ find / check / sheet
 def cmd_find(a):
-    idx = json.load(open(INDEX))
+    idx = json.load(open(INDEX, encoding="utf-8"))
     words = [w.lower() for w in a.words]
     rows, banned = [], 0
     for p, e in idx.items():
@@ -312,7 +313,7 @@ def picks_from_project(project):
     for dp, _, fn in os.walk(project):
         for f in fn:
             if f.endswith(".mp4.json") or f.endswith(".jpg.json"):
-                j = json.load(open(os.path.join(dp, f)))
+                j = json.load(open(os.path.join(dp, f), encoding="utf-8"))
                 if (j.get("kind") or G.guess_kind(j.get("src", ""))) == "own":
                     out.append({"src": j["src"], "in": j.get("in", 0), "dur": j.get("source_span", 2.0), "clip": os.path.join(dp, f[:-5])})
     return out
@@ -320,7 +321,7 @@ def picks_from_project(project):
 
 def cmd_sheet(a):
     ref = load_ref()
-    picks = picks_from_project(a.project) if a.project else json.load(open(a.picks))
+    picks = picks_from_project(a.project) if a.project else json.load(open(a.picks, encoding="utf-8"))
     rows, report = [], []
     for pk in picks:
         if G.STILL_EXT(pk["src"]):

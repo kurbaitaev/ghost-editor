@@ -455,7 +455,7 @@ def main():
     if not stem and os.path.exists(dflt) and os.path.exists(ev_p) and os.path.getmtime(dflt) >= os.path.getmtime(ev_p):
         stem = dflt
     ap_p = os.path.join(pr.path, "build", "approval.json")
-    approval = json.load(open(ap_p)) if os.path.exists(ap_p) else None
+    approval = json.load(open(ap_p, encoding="utf-8")) if os.path.exists(ap_p) else None
 
     t0 = dt.datetime.now()
     info = ffprobe_json(video)
@@ -474,14 +474,14 @@ def main():
             bq = broll_qa.analyse(video, pr.path, prof, [{"w": w["word"], "s": w["start"], "e": w["end"]} for w in pr.words_edit], log=lambda *x: None,
                                   style=style if style and os.path.isdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "recipes", str(style))) else None)
             bp = os.path.join(pr.path, "build", "broll-qa.json")
-            json.dump(bq, open(bp, "w"), ensure_ascii=False, indent=1, default=lambda o: o.tolist() if hasattr(o, "tolist") else str(o))
+            json.dump(bq, open(bp, "w", encoding="utf-8"), ensure_ascii=False, indent=1, default=lambda o: o.tolist() if hasattr(o, "tolist") else str(o))
             broll_qa.timeline_png(bq, os.path.splitext(bp)[0] + "-timeline.png")
             checks += [{**c, "id": "bq_" + c["id"]} for c in bq["checks"] if c["status"] != "skip"]
         except ImportError as e:
             checks.append(chk("bq", "B-roll and motion QA", "skip", f"needs numpy + opencv ({e}); run broll_qa.py in the media venv"))
 
     # round counter: a new render file (path or mtime) starts the next round
-    prev = json.load(open(out)) if os.path.exists(out) else None
+    prev = json.load(open(out, encoding="utf-8")) if os.path.exists(out) else None
     mtime = os.path.getmtime(video)
     if prev and prev.get("render") == video and abs(prev.get("render_mtime", 0) - mtime) < 1e-3:
         rnd, hist = prev["round"], prev.get("history", [])[:-1]
@@ -510,10 +510,10 @@ def main():
            "next": nxt}
     rep["history"] = hist + [{"round": rnd, "created": rep["created"], "status": status, "fail": [c["id"] for c in fails]}]
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    json.dump(rep, open(out, "w"), indent=1, ensure_ascii=False)
+    json.dump(rep, open(out, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
     if not a.no_html:
         hp = os.path.splitext(out)[0] + ".html"
-        open(hp, "w").write(report_html(rep, pr, video, an))
+        open(hp, "w", encoding="utf-8").write(report_html(rep, pr, video, an))
     took = (dt.datetime.now() - t0).total_seconds()
     for c in checks:
         print(f"  {c['status'].upper():5s} {c['title']}: {c['value'] if not isinstance(c['value'], dict) else json.dumps(c['value'], ensure_ascii=False)}")

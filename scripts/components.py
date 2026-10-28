@@ -39,7 +39,7 @@ def path_of(style):
 
 
 def load(style):
-    c = json.load(open(path_of(style)))
+    c = json.load(open(path_of(style), encoding="utf-8"))
     c.setdefault("reels", {})
     c.setdefault("elements", [])
     c.setdefault("history", list(c["reels"].keys()))
@@ -48,7 +48,7 @@ def load(style):
 
 
 def save(style, c):
-    json.dump(c, open(path_of(style), "w"), ensure_ascii=False, indent=1)
+    json.dump(c, open(path_of(style), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 
 def recent(c, last, exclude=()):

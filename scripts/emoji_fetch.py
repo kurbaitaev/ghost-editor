@@ -77,7 +77,7 @@ def pick(paths, folder, kind):
 
 def ffprobe_frames(path):
     out = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "frame=pts_time,duration_time",
-                          "-of", "csv=p=0", path], capture_output=True, text=True, check=True).stdout.strip().splitlines()
+                          "-of", "csv=p=0", path], capture_output=True, text=True, encoding="utf-8", errors="replace", check=True).stdout.strip().splitlines()
     rows = [r.split(",") for r in out if r]
     n = len(rows)
     dur = 0.0
@@ -117,17 +117,17 @@ def main():
 
     if not shutil.which("ffmpeg"):
         sys.exit("ffmpeg not found")
-    enc = subprocess.run(["ffmpeg", "-hide_banner", "-encoders"], capture_output=True, text=True).stdout
+    enc = subprocess.run(["ffmpeg", "-hide_banner", "-encoders"], capture_output=True, text=True, encoding="utf-8", errors="replace").stdout
     if "libvpx-vp9" not in enc:
         sys.exit("ffmpeg lacks libvpx-vp9 (needed for alpha webm)")
 
-    items = json.load(open(a.set))["emoji"]
+    items = json.load(open(a.set, encoding="utf-8"))["emoji"]
     only = {s.strip() for s in a.only.split(",") if s.strip()}
     if only:
         items = [e for e in items if e["slug"] in only]
     os.makedirs(a.out, exist_ok=True)
     man_path = os.path.join(a.out, "manifest.json")
-    manifest = json.load(open(man_path)) if os.path.exists(man_path) else {"source": REPOS, "licence": "MIT (Microsoft Fluent Emoji)", "items": {}}
+    manifest = json.load(open(man_path, encoding="utf-8")) if os.path.exists(man_path) else {"source": REPOS, "licence": "MIT (Microsoft Fluent Emoji)", "items": {}}
 
     for kind, repo in REPOS.items():
         lic = os.path.join(a.out, f"LICENSE-{repo.split('/')[1]}.txt")
@@ -196,7 +196,7 @@ def main():
             manifest["items"][slug] = {"slug": slug, "glyph": meta.get("glyph", ""), "cldr": meta.get("cldr", folder.lower()),
                                        "kind": kind, "folder": folder, "use": e.get("use", ""), "files": files, "sha256": sha,
                                        "source": src, "repo": f"https://github.com/{repo}", "licence": "MIT", **extra}
-            with open(man_path + ".tmp", "w") as f:
+            with open(man_path + ".tmp", "w", encoding="utf-8", newline="\n") as f:
                 json.dump(manifest, f, ensure_ascii=False, indent=1)
             os.replace(man_path + ".tmp", man_path)
             ok += 1

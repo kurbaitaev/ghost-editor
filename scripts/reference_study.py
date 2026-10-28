@@ -43,7 +43,7 @@ def main():
     a = ap.parse_args()
     os.makedirs(os.path.join(a.out, "frames"), exist_ok=True)
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", a.video],
-                               capture_output=True, text=True).stdout)
+                               capture_output=True, text=True, encoding="utf-8", errors="replace").stdout)
     cols = 10
     rows = int(dur) // cols + 1
     sh(["ffmpeg", "-v", "error", "-y", "-i", a.video, "-vf",
@@ -62,7 +62,7 @@ def main():
     ping = client.models.generate_content(model="gemini-2.5-flash", contents="Reply with the single word: ok")
     if not (ping.text or "").strip():
         sys.exit("Gemini key check failed (empty reply); not running the analysis")
-    prompt = open(os.path.join(SKILL, "references", "reference-study-prompt.md")).read()
+    prompt = open(os.path.join(SKILL, "references", "reference-study-prompt.md"), encoding="utf-8").read()
     f = client.files.upload(file=a.video)
     for _ in range(60):
         f = client.files.get(name=f.name)
@@ -87,7 +87,7 @@ def main():
     hdr = (f"# Reference study: {os.path.basename(a.video)}\n\n"
            f"- analysed {datetime.date.today().isoformat()} with {a.model}, {dur:.1f} s\n"
            f"- DRAFT: verify fonts, sizes and framing against frames/ before building\n\n")
-    open(os.path.join(a.out, "edit-log.md"), "w").write(hdr + text)
+    open(os.path.join(a.out, "edit-log.md"), "w", encoding="utf-8").write(hdr + text)
     print(f"edit-log.md ({len(text)} chars) -> {a.out}")
 
 

@@ -21,7 +21,7 @@ while True:
 y = np.array([r[1] for r in rows if r[1] is not None]); p = np.array([r[2] for r in rows if r[2] is not None])
 ym, ys = np.median(y), 1.4826 * np.median(np.abs(y - np.median(y))); pm, ps = np.median(p), 1.4826 * np.median(np.abs(p - np.median(p)))
 print(f"yaw median {ym:.3f} mad-sd {ys:.3f} | pitch median {pm:.3f} mad-sd {ps:.3f} | {len(rows)} frames")
-edl = json.load(open(sys.argv[2]))
+edl = json.load(open(sys.argv[2], encoding="utf-8"))
 def seg(t):
     for s in edl:
         if s["start"] <= t < s["end"]: return s
@@ -34,4 +34,4 @@ for r0, r1, v in runs:
     if r1 - r0 < 0.1: continue
     s = seg(r0); ya = [a for a, b in v if a is not None]; pa = [b for a, b in v if b is not None]
     print(f"{r0:6.2f}-{r1:6.2f} ({r1-r0:.2f}s) seg {s['i']} orig {s['a'] + r0 - s['start']:.2f}  yaw {max(ya, key=lambda q: abs(q-ym)) if ya else 'LOST':.3}  pitch {max(pa, key=lambda q: abs(q-pm)) if pa else 0:.3}")
-json.dump([[float(v) if v is not None else None for v in r] for r in rows], open("build/headpose.json", "w"))
+json.dump([[float(v) if v is not None else None for v in r] for r in rows], open("build/headpose.json", "w", encoding="utf-8"))

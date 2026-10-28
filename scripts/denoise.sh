@@ -7,10 +7,11 @@
 set -euo pipefail
 S="$(cd "$(dirname "$0")/.." && pwd)"
 IN="$1"; OUT="$2"; ATT="${3:-20}"
+source "$S/scripts/lib/venv.sh"
 V="${DF_VENV:-$S/.venv-df}"
-if [ ! -x "$V/bin/deepFilter" ]; then
-  PY=$(command -v python3.11 || echo /opt/homebrew/bin/python3.11)
-  [ -x "$PY" ] || { echo "needs python3.11 (brew install python@3.11)"; exit 1; }
+if [ ! -x "$V/bin/deepFilter" ] && [ ! -x "$V/Scripts/deepFilter.exe" ]; then
+  PY=$(find_py311)
+  [ -x "$PY" ] || { echo "needs python3.11 (brew install python@3.11 / winget install Python.Python.3.11)"; exit 1; }
   command -v uv >/dev/null || { echo "needs uv (pip install uv)"; exit 1; }
   echo "setting up DeepFilterNet in $V (one time, ~1 GB with torch)..."
   uv venv -q -p "$PY" "$V"
@@ -18,7 +19,7 @@ if [ ! -x "$V/bin/deepFilter" ]; then
 fi
 TMP=$(mktemp -d)
 ffmpeg -v error -y -i "$IN" -vn -ac 1 -ar 48000 "$TMP/in.wav"
-"$V/bin/deepFilter" "$TMP/in.wav" --atten-lim "$ATT" -o "$TMP/out" >/dev/null 2>&1
+"$(venv_bin "$V")/deepFilter" "$TMP/in.wav" --atten-lim "$ATT" -o "$TMP/out" >/dev/null 2>&1
 mv "$TMP"/out/*.wav "$OUT"
 rm -rf "$TMP"
 for f in "$IN" "$OUT"; do printf "%s: " "$(basename "$f")"; ffmpeg -hide_banner -nostats -i "$f" -af volumedetect -f null - 2>&1 | grep -o "mean_volume: [-0-9.]* dB"; done

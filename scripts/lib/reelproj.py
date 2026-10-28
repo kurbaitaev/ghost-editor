@@ -33,7 +33,7 @@ def taste_mjs():
 
 
 def sh(cmd, cwd=None, timeout=None):
-    return subprocess.run(cmd, capture_output=True, text=True, cwd=cwd, timeout=timeout)
+    return subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", cwd=cwd, timeout=timeout)
 
 
 def deep_merge(a, b):
@@ -156,7 +156,7 @@ def load_upstream(p):
     """Accept build/edl_map.json ([{a,b,start,end,note}]) or a cut.json ({segments: [[a,b,text]...]})."""
     if not p or not os.path.exists(p):
         return [], ""
-    d = json.load(open(p))
+    d = json.load(open(p, encoding="utf-8"))
     if isinstance(d, list):
         return [{"a": x["a"], "b": x["b"], "start": x["start"], "end": x["end"], "note": x.get("note", "")} for x in d], ""
     segs, acc = [], 0.0
@@ -169,12 +169,12 @@ def load_upstream(p):
 def load_project(path, skill=None, upstream=None):
     path = os.path.abspath(path)
     skill = os.path.abspath(os.path.expanduser(skill or DEFAULT_SKILL))
-    raw = json.load(open(os.path.join(path, "reel.json")))
+    raw = json.load(open(os.path.join(path, "reel.json"), encoding="utf-8"))
     preset = {}
     if raw.get("style"):
         sp = os.path.join(skill, "styles", f"{raw['style']}.json")
         if os.path.exists(sp):
-            preset = json.load(open(sp))
+            preset = json.load(open(sp, encoding="utf-8"))
             preset.pop("_about", None)
     spec = deep_merge(preset, raw)
     fps = spec.get("fps", 30)
@@ -194,16 +194,16 @@ def load_project(path, skill=None, upstream=None):
 
     b = os.path.join(path, "build")
     if os.path.exists(os.path.join(b, "words.edit.json")):
-        pr.words_edit = json.load(open(os.path.join(b, "words.edit.json")))
+        pr.words_edit = json.load(open(os.path.join(b, "words.edit.json"), encoding="utf-8"))
     wp = os.path.join(path, spec.get("words", "build/words.whisper.json"))
     if os.path.exists(wp):
-        w = json.load(open(wp))
+        w = json.load(open(wp, encoding="utf-8"))
         pr.words_orig = [{"word": x["word"].strip(), "start": x["start"], "end": x["end"]}
                          for s in w.get("segments", []) for x in s.get("words", [])]
     if os.path.exists(os.path.join(b, "sfx_events.json")):
-        pr.sfx = json.load(open(os.path.join(b, "sfx_events.json")))
+        pr.sfx = json.load(open(os.path.join(b, "sfx_events.json"), encoding="utf-8"))
     if os.path.exists(os.path.join(b, "caption_layout.json")):
-        pr.layout = json.load(open(os.path.join(b, "caption_layout.json")))
+        pr.layout = json.load(open(os.path.join(b, "caption_layout.json"), encoding="utf-8"))
     up = upstream or spec.get("upstream")
     if up:
         up = up if os.path.isabs(up) else os.path.join(path, up)
@@ -404,7 +404,7 @@ def run_build(pr, log_path=None):
     text = (r.stdout or "") + (r.stderr or "")
     log_path = log_path or os.path.join(pr.path, "build", "build.log")
     os.makedirs(os.path.dirname(log_path), exist_ok=True)
-    open(log_path, "w").write(text)
+    open(log_path, "w", encoding="utf-8").write(text)
     return r.returncode, text
 
 

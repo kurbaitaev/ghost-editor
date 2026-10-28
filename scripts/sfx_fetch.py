@@ -111,7 +111,7 @@ RIPS = {e[0] for e in KIT if e[5] == "rip"}  # private build only
 
 
 def sh(cmd, **kw):
-    return subprocess.run(cmd, check=True, capture_output=True, text=True, **kw)
+    return subprocess.run(cmd, check=True, capture_output=True, text=True, encoding="utf-8", errors="replace", **kw)
 
 
 def fetch(url):
@@ -182,7 +182,7 @@ def get_yt(query, dst_base):
         "yt-dlp", f"ytsearch5:{query}", "--match-filter", "duration < 20",
         "--max-downloads", "1", "-x", "--audio-format", "wav", "--no-playlist",
         "-o", dst_base + ".%(ext)s", "--print", "after_move:%(webpage_url)s %(title)s",
-    ], capture_output=True, text=True)
+    ], capture_output=True, text=True, encoding="utf-8", errors="replace")
     # --max-downloads exits 101 when it stops early; that is success
     if not os.path.exists(dst_base + ".wav"):
         raise RuntimeError(f"yt-dlp got nothing for '{query}': {r.stderr.strip()[-300:]}")
@@ -217,7 +217,7 @@ def main():
     only = set(filter(None, args.only.split(",")))
     os.makedirs(OUT, exist_ok=True)
     mpath = os.path.join(OUT, "manifest.json")
-    manifest = json.load(open(mpath)) if os.path.exists(mpath) else {}
+    manifest = json.load(open(mpath, encoding="utf-8")) if os.path.exists(mpath) else {}
     todo = [e for e in KIT if (not only or e[0] in only) and (not args.licensed_only or e[0] in LICENSED)]
     # every recorded id is reserved so a new entry never grabs another's sound;
     # an entry's own recorded id is fetched directly (pinned) and skips this check
@@ -251,7 +251,7 @@ def main():
         if kind == "mixkit" and m:
             entry["mixkit_id"] = m.group(1)
         manifest[sid] = entry
-        json.dump(manifest, open(mpath, "w"), indent=2)
+        json.dump(manifest, open(mpath, "w", newline="\n", encoding="utf-8"), indent=2)  # LF on Windows too: the manifest is tracked in git
         print(f"ok   {sid:18s} {role:7s} {dur:5.2f}s  {origin[:90]}")
     print(f"\n{len(manifest)} in manifest, {len(failed)} failed")
     for sid, e in failed:

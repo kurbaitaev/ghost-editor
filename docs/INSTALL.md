@@ -53,10 +53,33 @@ Restart Claude Code (or start a new session) so the skill shows up.
 
 ---
 
+## Windows
+
+The core pipeline (prep, transcription, face track, build, approval sheet, render, QA) runs on Windows 10/11. Tested on
+Windows 11 with an AMD GPU; the optional venvs (matte, audio QA, film looks) are set up the same way but have not been
+exercised there. What is different:
+
+- **Run the shell scripts from Git Bash** (comes with Git for Windows; `bash scripts/doctor.sh`). PowerShell and cmd
+  are not supported for the `.sh` steps. Everything else is `python <script>` and `node <script>`.
+- **`python`, not `python3`.** The Store alias `python3` on Windows is a stub. `doctor.sh` detects this and says so; in the
+  commands of SKILL.md read `python3` as `python`. Install Python from python.org or `winget install Python.Python.3.12`.
+- **ffmpeg**: `winget install Gyan.FFmpeg` (the *full* build: libvpx for the alpha WebM memes and libass). `prep.sh` picks a
+  hardware H.264 encoder that works on the machine (NVIDIA NVENC, Intel QSV, AMD AMF) and falls back to libx264.
+- **Node 18+**: `winget install OpenJS.NodeJS.LTS`. HyperFrames (the renderer) is fetched by `npx` on first use.
+- **The caption check** (`broll_qa.py`: size and contrast of the captions in the render) uses macOS Vision on a Mac and
+  **tesseract** elsewhere: `winget install UB-Mannheim.TesseractOCR`, then add `rus.traineddata` from
+  [tessdata_fast](https://github.com/tesseract-ocr/tessdata_fast) to its `tessdata` folder (or to any folder named in
+  `GHOST_TESSDATA`). Without tesseract the caption check is skipped and the report says so.
+- **Your own footage** (`own_footage.py`) looks in `~/Videos` and `~/Pictures` (no Photos library on Windows).
+- **Cyrillic and other non-Latin output**: the Windows console is cp1252 by default. The scripts that print transcripts
+  switch themselves to UTF-8; for everything else set `PYTHONUTF8=1` in your environment once (`setx PYTHONUTF8 1`).
+- The optional venvs land in `~/.venvs/<name>/Scripts/` (not `bin/`); `scripts/lib/venv.sh` handles the difference, and
+  Python 3.11 is found through the `py -3.11` launcher (`winget install Python.Python.3.11`).
+
 ## Doing it by hand
 
-You need a Mac with Apple silicon (what it is built and tested on; the caption check uses macOS text recognition, so
-it needs a Mac; Linux and Intel Macs are untested) with:
+Built and tested on a Mac with Apple silicon; Windows 10/11 works with the notes above; Linux and Intel Macs are untested.
+You need:
 - ffmpeg (with libvpx and libass): `brew install ffmpeg`
 - Node 18 or newer: `brew install node`
 - Whisper: `pip install openai-whisper`

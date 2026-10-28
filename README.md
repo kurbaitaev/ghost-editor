@@ -76,7 +76,7 @@ Everything the skill can do, in one page: [docs/PLAYBOOK.md](docs/PLAYBOOK.md).
 ## What you need
 
 - **[Claude Code](https://claude.com/claude-code).** It needs a paid Claude plan (Pro, Max, Team) or API credits. ghost-editor itself is free.
-- **A Mac with Apple silicon** (M1 or newer). That's what it is built and tested on. The caption check reads your finished video with macOS's built-in text recognition, so that part only works on a Mac. Linux and Intel Macs are untested.
+- **A Mac with Apple silicon** (M1 or newer), what it is built and tested on, **or Windows 10/11** (run the shell steps from Git Bash; see [docs/INSTALL.md](docs/INSTALL.md#windows)). The caption check reads your finished video with macOS's built-in text recognition on a Mac and with tesseract on Windows. Linux and Intel Macs are untested.
 - **Free tools** the install sets up for you: ffmpeg, Node, Python, Whisper, OpenCV. About 4 GB of disk for the speech model and the renderer's browser, plus up to about 6 GB more if you add the optional extras (the clean cut-out of your head, the noisy-audio tools, film looks).
 - **A Gemini API key (free tier).** It powers the B-roll check (does each shot match its line, does it keep your people rules), finding your own footage by what's in it, copying a reel you show it, and AI-made stills. Get one at [aistudio.google.com/apikey](https://aistudio.google.com/apikey); the free tier covers a reel. Without it the presets still work, but the B-roll check is skipped. The frames it checks are sent to Google.
 - **An ElevenLabs key, only for the vector explainer's narrator.** Nothing else uses it.

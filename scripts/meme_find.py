@@ -38,8 +38,8 @@ def main():
     for d in sorted(os.listdir(mdir)):
         p = os.path.join(mdir, d, "meta.json")
         if os.path.exists(p):
-            memes.append(json.load(open(p)))
-    sfx = json.load(open(os.path.join(LIB, "sfx", "manifest.json")))
+            memes.append(json.load(open(p, encoding="utf-8")))
+    sfx = json.load(open(os.path.join(LIB, "sfx", "manifest.json"), encoding="utf-8"))
 
     if a.list:
         print(f"{len(memes)} memes")

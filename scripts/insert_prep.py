@@ -119,7 +119,7 @@ def main():
            "hdr": hdr, "transfer": info["transfer"], "src_size": f"{info['w']}x{info['h']}", "src_fps": round(info["fps"], 3), "crop": crop}
     p = None
     if not a.no_grade and (a.ref or a.ref_stats):
-        ref = json.load(open(a.ref_stats)) if a.ref_stats else G.plate_stats(a.ref)
+        ref = json.load(open(a.ref_stats, encoding="utf-8")) if a.ref_stats else G.plate_stats(a.ref)
         ts = [a.tin + span * (i + 0.5) / 6 for i in range(6)]
         fr = G.sample_frames(a.src, ts, crop=crop)
         p, before, after = G.solve(fr, ref, strength=a.strength, transfer=transfer, sat_target=a.sat_target)
@@ -145,7 +145,7 @@ def main():
     if p is not None:
         lut = tempfile.NamedTemporaryFile(suffix=".cube", delete=False).name
         G.write_cube(lut, p, transfer)
-        vf += [f"scale={W}:{H}:flags=lanczos+{G.SCALE_FLAGS}{matrix}", "format=rgb48le", f"lut3d=file={lut}:interp=tetrahedral",
+        vf += [f"scale={W}:{H}:flags=lanczos+{G.SCALE_FLAGS}{matrix}", "format=rgb48le", f"lut3d=file='{G.filter_path(lut)}':interp=tetrahedral",
                f"scale=out_color_matrix=bt709:out_range=tv:flags={G.SCALE_FLAGS}"]
     else:
         vf += [f"scale={W}:{H}:flags=lanczos+{G.SCALE_FLAGS}:out_range=tv"]
@@ -161,7 +161,7 @@ def main():
         os.unlink(lut)
     o = G.probe(a.out)
     rep["written"] = {"path": os.path.abspath(a.out), "dur": round(o["dur"], 3), "size": f"{o['w']}x{o['h']}", "fps": round(o["fps"], 3), "transfer": o["transfer"]}
-    json.dump(rep, open(a.out + ".json", "w"), ensure_ascii=False, indent=1)
+    json.dump(rep, open(a.out + ".json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     if rep.get("vision_ok"):
         import broll_vision as BV
         BV.confirm(a.out, rep["vision_ok"])      # the prepared clip is what broll_qa.py checks
@@ -207,7 +207,7 @@ def still(a):
     im = G.cv2.imread(a.src, G.cv2.IMREAD_COLOR)
     if im is None:
         sys.exit(f"unreadable image: {a.src}")
-    ref = json.load(open(a.ref_stats)) if a.ref_stats else G.plate_stats(a.ref)
+    ref = json.load(open(a.ref_stats, encoding="utf-8")) if a.ref_stats else G.plate_stats(a.ref)
     rgb = im[..., ::-1].astype(np.float32) / 255.0
     small = G.cv2.resize(rgb, (270, max(2, int(270 * im.shape[0] / im.shape[1]))), interpolation=G.cv2.INTER_AREA)
     p, before, after = G.solve([small], ref, strength=a.strength, sat_target=a.sat_target)
@@ -221,7 +221,7 @@ def still(a):
         return
     out = (G.apply_lab(rgb, p)[..., ::-1] * 255 + 0.5).clip(0, 255).astype(np.uint8)
     G.cv2.imwrite(a.out, out, [G.cv2.IMWRITE_JPEG_QUALITY, 95])
-    json.dump(rep, open(a.out + ".json", "w"), ensure_ascii=False, indent=1)
+    json.dump(rep, open(a.out + ".json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     if rep.get("vision_ok"):
         import broll_vision as BV
         BV.confirm(a.out, rep["vision_ok"])

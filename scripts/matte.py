@@ -67,7 +67,7 @@ def probe(src: str) -> dict:
     out = subprocess.run(
         ["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
          "stream=width,height,r_frame_rate,color_space,color_range:stream_side_data=rotation:format=duration",
-         "-of", "json", src], capture_output=True, text=True, check=True).stdout
+         "-of", "json", src], capture_output=True, text=True, encoding="utf-8", errors="replace", check=True).stdout
     j = json.loads(out)
     s = j["streams"][0]
     rot = 0

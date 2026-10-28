@@ -33,6 +33,7 @@ import sys
 import tempfile
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
+from plat import npx, venv_python, open_path  # noqa: E402
 from reelproj import (beats_timeline, caption_at, caption_groups, fmt_t, load_project,  # noqa: E402
                       parse_build_log, predicted_silences, run_build, sh, take_words, taste_mjs)
 
@@ -106,8 +107,8 @@ def capture_snapshot(pr, times, tmp, jobs=3):
         d = os.path.join(tmp, f"j{j}")
         os.makedirs(d)
         at = ",".join(f"{times[i]:.3f}" for i in idx)
-        procs.append((idx, d, subprocess.Popen(["npx", "hyperframes", "snapshot", pr.path, "--at", at, "-o", d, "--describe", "false", "--no-end"],
-                                               cwd=pr.path, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)))
+        procs.append((idx, d, subprocess.Popen(npx("hyperframes", "snapshot", pr.path, "--at", at, "-o", d, "--describe", "false", "--no-end"),
+                                               cwd=pr.path, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace")))
     out = [None] * len(times)
     for idx, d, p in procs:
         log = p.communicate(timeout=1800)[0]
@@ -117,7 +118,7 @@ def capture_snapshot(pr, times, tmp, jobs=3):
             shutil.rmtree(d)
             os.makedirs(d)
             at = ",".join(f"{times[i]:.3f}" for i in idx)
-            r = sh(["npx", "hyperframes", "snapshot", pr.path, "--at", at, "-o", d, "--describe", "false", "--no-end", "--timeout", "20000"], cwd=pr.path, timeout=1800)
+            r = sh(npx("hyperframes", "snapshot", pr.path, "--at", at, "-o", d, "--describe", "false", "--no-end", "--timeout", "20000"), cwd=pr.path, timeout=1800)
             files = sorted(f for f in os.listdir(d) if re.match(r"frame-\d+-at-.*\.png$", f))
             if len(files) != len(idx):
                 raise RuntimeError(f"snapshot returned {len(files)} of {len(idx)} frames; try --jobs 1 or --frames video:<render>\n{(r.stdout + r.stderr)[-600:]}")
@@ -155,7 +156,7 @@ def make_cover(pr, tmp):
     cv = {"headline": cv} if isinstance(cv, str) else cv
     if not cv.get("headline"):
         return [], "cover: needs a headline (words the speaker says; 'A|B|*C*', *line* = accent box)"
-    py = os.path.join(os.environ.get("MATTE_VENV") or os.path.expanduser("~/.venvs/ghost-matte"), "bin", "python")
+    py = venv_python(os.environ.get("MATTE_VENV") or "~/.venvs/ghost-matte")
     if not os.path.exists(py):
         return [], f"cover: the matte venv is missing (bash {os.path.join(pr.skill, 'scripts', 'setup_matte.sh')}); no cover made"
     look = pr.spec.get("look") or {}
@@ -190,7 +191,7 @@ def make_cover(pr, tmp):
 
 # ---------------------------------------------------------------- checks
 def lint(pr):
-    r = sh(["npx", "hyperframes", "lint", "--json"], cwd=pr.path, timeout=300)
+    r = sh(npx("hyperframes", "lint", "--json"), cwd=pr.path, timeout=300)
     try:
         j = json.loads(r.stdout[r.stdout.index("{"):])
     except (ValueError, json.JSONDecodeError):
@@ -214,7 +215,7 @@ def taste_check(pr, taste_path):
 def taste_process_rules(taste_file):
     if not taste_file or not os.path.exists(taste_file):
         return []
-    t = json.load(open(taste_file))
+    t = json.load(open(taste_file, encoding="utf-8"))
     return [r for r in t.get("rules", []) if r.get("active", True) and r.get("kind") == "process"]
 
 
@@ -559,12 +560,12 @@ def main():
     jpath = os.path.join(proj, "build", "approval.json")
 
     if a.mark_approved:
-        j = json.load(open(jpath)) if os.path.exists(jpath) else {}
+        j = json.load(open(jpath, encoding="utf-8")) if os.path.exists(jpath) else {}
         h = build_hash(proj)
         if j.get("hash") != h:
             sys.exit(f"the build changed since the sheet was made (sheet {j.get('hash')}, now {h}); make a new sheet first")
         j.update({"approved": True, "approved_at": dt.datetime.now().isoformat(timespec="seconds")})
-        json.dump(j, open(jpath, "w"), indent=1, ensure_ascii=False)
+        json.dump(j, open(jpath, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
         print(f"approved build {h}")
         return
 
@@ -577,7 +578,7 @@ def main():
         if code != 0:
             print(text[-1500:])
         pr = load_project(proj, a.skill, a.upstream)
-    text = open(log_path).read() if os.path.exists(log_path) else ""
+    text = open(log_path, encoding="utf-8").read() if os.path.exists(log_path) else ""
     bl = parse_build_log(text)
     hsh = build_hash(proj)
 
@@ -588,12 +589,12 @@ def main():
     brp = os.path.join(proj, "build", "build_report.json")
     idx = os.path.join(proj, "index.html")
     fresh = os.path.exists(brp) and os.path.exists(idx) and os.path.getmtime(brp) >= os.path.getmtime(idx) >= os.path.getmtime(os.path.join(proj, "reel.json"))
-    br = json.load(open(brp)) if fresh else None  # same build run as index.html, else ignore it
+    br = json.load(open(brp, encoding="utf-8")) if fresh else None  # same build run as index.html, else ignore it
     warns = [("error", f"build.mjs: {e}") for e in bl["errors"]]
     sev_of = {}
     tp = (br or {}).get("taste", {}) and br["taste"].get("file")
     if tp and os.path.exists(tp):
-        sev_of = {r["id"]: r.get("severity", "warn") for r in json.load(open(tp)).get("rules", [])}
+        sev_of = {r["id"]: r.get("severity", "warn") for r in json.load(open(tp, encoding="utf-8")).get("rules", [])}
     for w in (br["warnings"] if br else bl["warnings"]):
         if w.startswith("taste ["):
             cut = w.find("; you said: ") if "; you said: " in w else w.find("; skill rule: ")
@@ -634,7 +635,7 @@ def main():
             pngs = capture_snapshot(pr, times, tmp, a.jobs)
         elif a.frames == "draft":
             draft = os.path.join(proj, "build", "draft.mp4")
-            r = sh(["npx", "hyperframes", "render", "-q", "draft", "-o", draft, "--quiet"], cwd=proj, timeout=7200)
+            r = sh(npx("hyperframes", "render", "-q", "draft", "-o", draft, "--quiet"), cwd=proj, timeout=7200)
             if r.returncode != 0:
                 sys.exit("draft render failed: " + (r.stderr or r.stdout)[-600:])
             pngs = capture_video(draft, times, tmp)
@@ -653,17 +654,17 @@ def main():
 
     out = a.out or os.path.join(proj, "build", "approval.html")
     doc = page(pr, frames, imgs, beats, groups, hidden, under, warns, lint_j, taste_j, process, bl["info"], hsh, a.frames, took, covers)
-    open(out, "w").write(doc)
+    open(out, "w", encoding="utf-8").write(doc)
     json.dump({"hash": hsh, "approved": False, "created": t_start.isoformat(timespec="seconds"), "html": out,
                "frames": [{"t": f["t"], "tags": f["tags"]} for f in frames],
                "warnings": [{"severity": w[0], "msg": w[1]} for w in warns], "total": pr.total},
-              open(jpath, "w"), indent=1, ensure_ascii=False)
+              open(jpath, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
     n_err = sum(1 for w in warns if w[0] == "error")
     n_warn = sum(1 for w in warns if w[0] == "warn")
     print(f"{len(frames)} frames in {took:.0f} s; {n_err} errors, {n_warn} warnings")
     print(f"-> {out}  ({os.path.getsize(out) / 1e6:.1f} MB)")
     if a.open:
-        subprocess.run(["open", out])
+        open_path(out)
 
 
 if __name__ == "__main__":

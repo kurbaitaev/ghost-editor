@@ -23,7 +23,7 @@ script checks the result: frames of wide/tight == round(voice duration x 30), el
 import json, os, subprocess, sys
 
 HERE = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else ".")
-C = json.load(open(os.path.join(HERE, "cut.json")))
+C = json.load(open(os.path.join(HERE, "cut.json"), encoding="utf-8"))
 SRC = os.path.expanduser(C["source"])
 DF = os.path.join(HERE, os.path.expanduser(C["denoised"]))
 FPS = 30
@@ -39,9 +39,9 @@ FRAMES = [round((b - a) * FPS) for a, b, _ in SEGS]
 if min(FRAMES) < 1:
     sys.exit(f"segment {FRAMES.index(min(FRAMES))} is shorter than one frame after snapping")
 _wh = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "json", SRC],
-                     capture_output=True, text=True).stdout
+                     capture_output=True, text=True, encoding="utf-8", errors="replace").stdout
 W4, H4 = (lambda s: (s["width"], s["height"]))(json.loads(_wh)["streams"][0])
-rot = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream_side_data=rotation", "-of", "csv=p=0", SRC], capture_output=True, text=True).stdout
+rot = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream_side_data=rotation", "-of", "csv=p=0", SRC], capture_output=True, text=True, encoding="utf-8", errors="replace").stdout
 if any(r.strip(", ") in ("90", "-90", "270", "-270") for r in rot.split()):
     W4, H4 = H4, W4
 EYES_X, EYES_Y = C.get("eyes", [0.5, 0.42])[0] * W4, C.get("eyes", [0.5, 0.42])[1] * H4
@@ -93,12 +93,12 @@ for i, (a, b, _) in enumerate(SEGS):
          f"afade=t=in:d=0.015,afade=t=out:st={d - 0.015:.6f}:d=0.015", "-ar", str(SR), "-ac", "1", p])
     parts.append(p)
 lst = os.path.join(HERE, "build/segs/v.txt")
-open(lst, "w").write("".join(f"file '{p}'\n" for p in parts))
+open(lst, "w", encoding="utf-8").write("".join(f"file '{p}'\n" for p in parts))
 raw = os.path.join(HERE, "build/voice_raw.wav")
 run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-af",
      "highpass=f=70,equalizer=f=180:t=q:w=1.2:g=2.5,equalizer=f=3200:t=q:w=1.5:g=1", raw])
 m = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", raw, "-af", "loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json", "-f", "null", "-"],
-                   capture_output=True, text=True).stderr
+                   capture_output=True, text=True, encoding="utf-8", errors="replace").stderr
 j = json.loads(m[m.rindex("{"):m.rindex("}") + 1])
 run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af",
      f"loudnorm=I=-16:TP=-1.5:LRA=11:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true,aresample=48000",
@@ -110,18 +110,18 @@ for i, (a, b, note) in enumerate(SEGS):
     mp.append({"i": i, "a": round(a, 4), "b": round(b, 4), "start": round(acc / FPS, 4), "end": round((acc + FRAMES[i]) / FPS, 4),
                "frames": FRAMES[i], "note": note})
     acc += FRAMES[i]
-json.dump(mp, open(os.path.join(HERE, "build/edl_map.json"), "w"), ensure_ascii=False, indent=1)
+json.dump(mp, open(os.path.join(HERE, "build/edl_map.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 
 # --- check: the picture and the voice have the same length (the lip-sync regression check)
 def frames(f):
     r = subprocess.run(["ffprobe", "-v", "error", "-count_packets", "-select_streams", "v:0", "-show_entries", "stream=nb_read_packets",
-                        "-of", "csv=p=0", f], capture_output=True, text=True).stdout.strip()
+                        "-of", "csv=p=0", f], capture_output=True, text=True, encoding="utf-8", errors="replace").stdout.strip()
     return int(r or 0)
 
 
 vdur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", os.path.join(HERE, "assets/voice.wav")],
-                            capture_output=True, text=True).stdout)
+                            capture_output=True, text=True, encoding="utf-8", errors="replace").stdout)
 bad = []
 for name in ("wide", "tight"):
     nf = frames(os.path.join(HERE, f"assets/{name}.mp4"))

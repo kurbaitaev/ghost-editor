@@ -28,12 +28,14 @@ import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SKILL = os.path.abspath(os.path.join(HERE, "..", ".."))
+sys.path.insert(0, os.path.join(SKILL, "scripts", "lib"))
+from plat import venv_python  # noqa: E402
 FPS = 30
 SR = 48000
 
 
 def sh(cmd, **kw):
-    r = subprocess.run(cmd, capture_output=True, text=True, **kw)
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", **kw)
     if r.returncode:
         sys.exit(f"failed: {' '.join(map(str, cmd))[:300]}\n{r.stderr[-1200:]}")
     return r
@@ -112,9 +114,9 @@ def cmd_words(a):
         sh([w, a.voice, "--model", a.model, "--language", a.lang, "--word_timestamps", "True", "--output_format", "json",
             "--output_dir", td, "--fp16", "False"])
         src = os.path.join(td, os.path.splitext(os.path.basename(a.voice))[0] + ".json")
-        d = json.load(open(src))
+        d = json.load(open(src, encoding="utf-8"))
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
-    json.dump(d, open(a.out, "w"), ensure_ascii=False, indent=1)
+    json.dump(d, open(a.out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     words = [x for s in d["segments"] for x in s.get("words", [])]
     print(f"-> {a.out}: {len(words)} words, {words[0]['start']:.2f}-{words[-1]['end']:.2f}s")
     for s in d["segments"]:
@@ -138,7 +140,7 @@ def cmd_still(a):
 def cmd_cutout(a):
     import numpy as np
     from PIL import Image
-    py = os.path.join(os.environ.get("MATTE_VENV", os.path.expanduser("~/.venvs/ghost-matte")), "bin", "python")
+    py = venv_python(os.environ.get("MATTE_VENV", "~/.venvs/ghost-matte"))
     if not os.path.exists(py):
         sys.exit("matte venv missing: bash $S/scripts/setup_matte.sh")
     with tempfile.TemporaryDirectory() as td:

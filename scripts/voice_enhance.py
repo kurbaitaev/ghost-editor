@@ -238,7 +238,7 @@ def main():
     rep["total_run_s"] = round(sum(s.get("run_s", 0) for s in rep["steps"]), 2)
     print(f"-> {a.out}  ({dur:.2f}s, 48 kHz mono)")
     if a.json:
-        json.dump(rep, open(a.json, "w"), indent=1)
+        json.dump(rep, open(a.json, "w", encoding="utf-8"), indent=1)
 
 
 if __name__ == "__main__":
