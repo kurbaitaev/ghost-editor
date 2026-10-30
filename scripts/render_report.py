@@ -23,6 +23,11 @@ Checks (each: pass | warn | fail | skip, value, target, details, fix):
                frozen frames, HDR output, plate keyframes. --broll-profile talking-head|tutorial|broll-led|graphics (default:
                reel.json "broll_profile", else broll-led for seoul-list / pov-montage, tutorial for stan-style panels);
                --no-broll skips it. Its full result: build/broll-qa.json + broll-qa-timeline.png.
+A project without reel.json (a HyperFrames index.html written by a custom generator, e.g. a recipe's build.py) is
+checked against its composition instead: duration vs the composition, times in composition seconds, words from
+build/words.cut.json (or words.json), frozen stretches judged by broll_qa's labels (a still UI scene is not a stalled
+speaker); the checks that need the build (take mapping, caption layout, SFX table) skip. Pass --style
+(clean-os, seoul-list, ...) and --broll-profile there, since there is no reel.json to read them from.
 Writes build/render-report.json (+ render-report.html). Exit code 1 when any check fails.
 """
 import argparse
@@ -37,7 +42,7 @@ import sys
 import numpy as np
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
-from reelproj import beats_timeline, ffprobe_json, fmt_t, load_project, predicted_silences, sh  # noqa: E402
+from reelproj import bare_project, beats_timeline, ffprobe_json, fmt_t, load_project, predicted_silences, sh  # noqa: E402
 
 esc = lambda s: html.escape(str(s), quote=True)  # noqa: E731
 MAX_ROUNDS = 3
@@ -50,6 +55,8 @@ def chk(cid, title, status, value=None, target=None, details=None, fix=None, aut
 
 def where(pr, te):
     """Edit time -> 'take k, orig X s (raw Y s)' for fix messages."""
+    if pr.spec.get("bare"):
+        return f"composition {te:.2f} s", te, 0, None
     orig, ti, kind = pr.to_orig(te)
     raw, _ = pr.to_raw(orig) if kind == "take" else (None, None)
     s = f"take {ti} at orig {orig:.2f} s" if kind == "take" else f"{kind} after take {ti}"
@@ -126,13 +133,17 @@ def run_checks(pr, video, an, info, stem, approval):
     if not au:
         bad.append("no audio stream")
     C.append(chk("streams", "Streams", "fail" if bad else "pass", f"{v.get('width')}x{v.get('height')} {fps:g} fps", f"1080x1920 {pr.fps} fps h264 + audio",
-                 det + bad, "Re-render with `npx hyperframes render -o build/reel.mp4` (mp4 is H.264 yuv420p); the composition must be 1080x1920." if bad else None))
+                 det + bad, "Re-render with `$S/scripts/hf.sh render -o build/reel.mp4` (the pinned HyperFrames) (mp4 is H.264 yuv420p); the composition must be 1080x1920." if bad else None))
 
     # duration
     d = dur - pr.total
     st = "pass" if abs(d) <= 0.1 else "warn" if abs(d) <= 0.5 else "fail"
-    C.append(chk("duration", "Duration", st, round(dur, 3), f"{pr.total} s (build) ±0.1", [f"render {dur:.3f} s, build plans {pr.total} s ({len(pr.takes)} takes, speech {pr.speech:.2f} s, outro {pr.outro} s)"],
-                 None if st == "pass" else "Rebuild (`node build.mjs <project>`) and re-render: the render is from an older build or was cut short (read the render log).", auto=True))
+    bare = bool(pr.spec.get("bare"))
+    C.append(chk("duration", "Duration", st, round(dur, 3), f"{pr.total} s ({'composition' if bare else 'build'}) ±0.1",
+                 [f"render {dur:.3f} s, the composition (index.html) is {pr.total} s" if bare else
+                  f"render {dur:.3f} s, build plans {pr.total} s ({len(pr.takes)} takes, speech {pr.speech:.2f} s, outro {pr.outro} s)"],
+                 None if st == "pass" else ("Re-render from the current index.html: the render is from an older build or was cut short (read the render log)." if bare else
+                                            "Rebuild (`node build.mjs <project>`) and re-render: the render is from an older build or was cut short (read the render log)."), auto=True))
 
     # av sync
     if vs and au:
@@ -171,9 +182,9 @@ def run_checks(pr, video, an, info, stem, approval):
                  "A black stretch means missing media or a beat outside the source: check the beat/take at that time "
                  "(asset path in assets/, `data-media-start` past the clip end), rebuild, re-render." if bl else None, auto=True, times=times))
 
-    # frozen frames
+    # frozen frames (a custom build: frozen_bare() in main, once broll_qa has said where the speaker is)
     hard, soft, det, times = [], [], [], []
-    for a, b in an["freeze"]:
+    for a, b in ([] if bare else an["freeze"]):
         b = b if b is not None else dur
         cover = [(x, y) for x, y, _ in full] + holds
         # the part of the freeze that is over the speaker (not a scene, not a hold/outro)
@@ -197,17 +208,20 @@ def run_checks(pr, video, an, info, stem, approval):
                "re-render with --no-best-effort to surface missing media, or --video-frame-format png.")
     elif soft:
         fix = "A full-screen scene holds still: end it earlier (`to`), add a slow push, or land the next word sooner."
-    C.append(chk("frozen", "Frozen frames", st, f"{len(hard)} stalled, {len(soft)} long stills", "no freeze >= 0.5 s over the speaker", det, fix, auto=True, times=times))
+    if not bare:
+        C.append(chk("frozen", "Frozen frames", st, f"{len(hard)} stalled, {len(soft)} long stills", "no freeze >= 0.5 s over the speaker", det, fix, auto=True, times=times))
 
     # silences inside speech: dead air in the mix, plus pauses in the VOICE track (the takes' source audio,
     # which is what the render plays) that a music bed would hide from a mix-level silence detector
     det, times, fixes = [], [], []
     gaps = []
+    # a custom build has no outro marker: the speech ends at the last word, and a silence that runs to the end is the tail
+    speech_end = min(pr.speech, max((w["end"] for w in pr.words_edit), default=pr.speech) - 0.05) if bare else pr.speech
     for a, b in an["silence"]:
-        if b is None or a >= pr.speech:
+        if b is None or a >= speech_end or (bare and b >= dur - 0.1):
             continue
         gaps.append((a, min(b, pr.speech), "dead air"))
-    for a, b in predicted_silences(pr):
+    for a, b in ([] if bare else predicted_silences(pr)):
         if not any(x < b and a < y for x, y, _ in gaps):
             gaps.append((a, b, "voice pause under the music" if pr.spec.get("music") else "voice pause"))
     for a, b, kind in sorted(gaps):
@@ -218,6 +232,9 @@ def run_checks(pr, video, an, info, stem, approval):
         o_end = orig + (b - a)
         det.append(f"{fmt_t(a)} to {fmt_t(b)} ({b - a:.2f} s, {kind}): {w}")
         times.append(a)
+        if bare:
+            fixes.append(f"trim the pause at {fmt_t(a)} in the cut (plan_cut.py) or keep it under a scene")
+            continue
         k_end = k.start + k.dur
         if b > k_end + 0.05 and ti + 1 < len(pr.takes):  # the pause runs across the cut into the next take
             k2 = pr.takes[ti + 1]
@@ -288,9 +305,11 @@ def run_checks(pr, video, an, info, stem, approval):
     if not has_text:
         fixes.append("Put text on screen by 1.5 s: start captions on the first word, or open on a hook card/title on the first spoken word.")
     if not has_motion:
-        fixes.append(f"Nothing moves in the first 1.5 s: open on a snap (zoom.snaps [[{pr.takes[0].a}, 1.1]]) or a scene in-transition.")
+        fixes.append("Nothing moves in the first 1.5 s: open on a snap, a punch-in or a scene in-transition." if bare else
+                     f"Nothing moves in the first 1.5 s: open on a snap (zoom.snaps [[{pr.takes[0].a}, 1.1]]) or a scene in-transition.")
     if first_word is not None and first_word > 0.5:
-        fixes.append(f"Dead air at the start: set take 0 a = {pr.takes[0].a + first_word - 0.1:.2f}.")
+        fixes.append(f"Dead air at the start: trim {first_word - 0.1:.2f} s off the head of the cut." if bare else
+                     f"Dead air at the start: set take 0 a = {pr.takes[0].a + first_word - 0.1:.2f}.")
         st = "fail" if st == "fail" else "warn"
     C.append(chk("hook", "First 1.5 s (hook)", st, {"text_at": first_text, "motion": round(motion, 2)}, "text and motion by 1.5 s", det,
                  " ".join(fixes) or None, auto=True, times=[0.0, 0.5, 1.0, 1.5]))
@@ -329,7 +348,9 @@ def run_checks(pr, video, an, info, stem, approval):
     if os.path.exists(idx) and os.path.getmtime(video) < os.path.getmtime(idx):
         st = "warn"
         det.append("the render is older than index.html: it may not show the current build")
-    if approval is None:
+    if approval is None and bare:
+        det.append("custom build (no reel.json): no approval sheet; the user approves its low-quality preview instead")
+    elif approval is None:
         st = "warn" if st == "pass" else st
         det.append("no approval sheet for this build (approval_sheet.py)")
     else:
@@ -346,6 +367,33 @@ def run_checks(pr, video, an, info, stem, approval):
     C.append(chk("build_match", "Render matches the approved build", st, None, "render newer than the build; build approved", det,
                  "Re-render from the current build after the approval sheet is approved." if st != "pass" else None))
     return C
+
+
+def frozen_bare(pr, an, dur, labels):
+    """The frozen check for a build with no reel.json: the render alone can't tell a still phone-UI scene from a stalled
+    speaker, broll_qa's labels can (S = the speaker's face on screen, 5 per second). A freeze mostly over S fails; a still scene
+    passes (2.5 s or more: a warning); the plate's held last frame under the music fade (a freeze of up to 1 s that runs
+    to the end) is by design."""
+    hard, soft, det, times = [], [], [], []
+    for a, b in an["freeze"]:
+        b = b if b is not None else dur
+        if a >= pr.total - 0.5 - 2.0 / pr.fps or (b >= dur - 2.0 / pr.fps and b - a <= 1.0):
+            continue                     # the plate's held last frame under the music fade
+        seg = labels[int(a / 0.2):max(int(a / 0.2) + 1, int(round(b / 0.2)))] if labels else ""
+        spk = seg.count("S") / len(seg) if seg else None
+        if spk is not None and spk >= 0.5:
+            hard.append((a, b))
+            det.append(f"{fmt_t(a)} to {fmt_t(b)} ({b - a:.2f} s): the speaker is on screen and the picture is frozen")
+            times.append(a)
+        elif spk is None or b - a >= 2.5:
+            soft.append((a, b))
+            det.append(f"{fmt_t(a)} to {fmt_t(b)} ({b - a:.2f} s): " + ("a still stretch (no broll_qa labels to say what is on screen)" if spk is None
+                                                                     else f"a still scene for {b - a:.1f} s"))
+            times.append(a)
+    st = "fail" if hard else "warn" if soft else "pass"
+    fix = ("The speaker's video stalled: every <video> needs an id and a source that covers data-media-start + duration; re-render."
+           if hard else "A full-screen scene holds still: end it earlier, add a slow push, or land the next word sooner." if soft else None)
+    return chk("frozen", "Frozen frames", st, f"{len(hard)} stalled, {len(soft)} long stills", "no freeze >= 0.5 s over the speaker", det, fix, auto=True, times=times)
 
 
 # ------------------------------------------------------------------ html
@@ -443,8 +491,16 @@ def main():
     ap.add_argument("--max-rounds", type=int, default=MAX_ROUNDS)
     ap.add_argument("--broll-profile", choices=["talking-head", "tutorial", "broll-led", "graphics"])
     ap.add_argument("--no-broll", action="store_true", help="skip the B-roll and motion QA (broll_qa.py)")
+    ap.add_argument("--style", help="recipe name for broll_qa's style checks (clean-os, seoul-list, ...); default reel.json recipe")
+    ap.add_argument("--broll-out", help="broll_qa result path (default <project>/build/broll-qa.json)")
     a = ap.parse_args()
-    pr = load_project(a.project, a.skill, a.upstream)
+    if os.path.exists(os.path.join(a.project, "reel.json")):
+        pr = load_project(a.project, a.skill, a.upstream)
+    elif os.path.exists(os.path.join(a.project, "index.html")):
+        pr = bare_project(a.project, a.skill, a.style)
+        print(f"no reel.json: checking against the composition (index.html, {pr.total} s); the take, caption-layout and SFX checks skip")
+    else:
+        sys.exit(f"{a.project}: neither reel.json nor index.html")
     video = os.path.abspath(a.video)
     if not os.path.exists(video):
         sys.exit(f"no such render: {video}")
@@ -462,6 +518,7 @@ def main():
     print("analysing (one decode pass: black, freeze, loudness, silences)...")
     an = analyse(video)
     checks = run_checks(pr, video, an, info, stem, approval)
+    bq = None
     if not a.no_broll:
         try:
             sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -470,15 +527,19 @@ def main():
                 ("broll-led" if str(pr.spec.get("recipe", "")) in ("seoul-list", "pov-montage") else
                  "tutorial" if str(pr.spec.get("recipe", "")) == "stan-style" or any(b.get("type") == "panel" for b in pr.spec.get("beats", [])) else "talking-head")
             print(f"B-roll and motion QA (broll_qa.py, profile {prof})...")
-            style = pr.spec.get("recipe") or ("stan-style" if prof == "tutorial" else None)
+            style = a.style or pr.spec.get("recipe") or ("stan-style" if prof == "tutorial" else None)
             bq = broll_qa.analyse(video, pr.path, prof, [{"w": w["word"], "s": w["start"], "e": w["end"]} for w in pr.words_edit], log=lambda *x: None,
                                   style=style if style and os.path.isdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "recipes", str(style))) else None)
-            bp = os.path.join(pr.path, "build", "broll-qa.json")
+            bp = a.broll_out or os.path.join(pr.path, "build", "broll-qa.json")
+            os.makedirs(os.path.dirname(os.path.abspath(bp)), exist_ok=True)
             json.dump(bq, open(bp, "w"), ensure_ascii=False, indent=1, default=lambda o: o.tolist() if hasattr(o, "tolist") else str(o))
             broll_qa.timeline_png(bq, os.path.splitext(bp)[0] + "-timeline.png")
             checks += [{**c, "id": "bq_" + c["id"]} for c in bq["checks"] if c["status"] != "skip"]
         except ImportError as e:
             checks.append(chk("bq", "B-roll and motion QA", "skip", f"needs numpy + opencv ({e}); run broll_qa.py in the media venv"))
+    if pr.spec.get("bare"):
+        fz = frozen_bare(pr, an, float(info.get("format", {}).get("duration", 0)), (bq or {}).get("labels", ""))
+        checks.insert(next((i + 1 for i, c in enumerate(checks) if c["id"] == "black"), len(checks)), fz)
 
     # round counter: a new render file (path or mtime) starts the next round
     prev = json.load(open(out)) if os.path.exists(out) else None

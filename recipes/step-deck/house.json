@@ -1,0 +1,460 @@
+{
+ "about": "Step Deck house look (fixed: one house look per style, new components every reel). From a reference reel by @ant.lon, replicated frame by frame, and a founding talking-head reel.",
+ "world": "the speaker's talking head (two framings, as shot) cut every 1-2 s against flat full-screen cards: navy word cards, white word pages, a cream icon card, B&W paper prints, drawn diagrams, step cards with a giant italic numeral; the words are the graphic everywhere",
+ "layout": "1080x1920 at 30 fps (the reference is 25 fps; every frame count in SPEC is rescaled). On the face: one caption state at a time, centred on x 540, the baseline on the crown of the speaker's head + an offset by the line's biggest tier (T -38, M -10, B / S +14, G +26 px; build/crowns.json, measured from the matte), on a layer BETWEEN the plate and its matte so the head hides the lower part; two-line states stack upward. On cards: the words centred on y 960, two-line stacks grow down from there; B-roll captions in the empty space (y 1500 over a bench, ~650 over a wall). Step numeral centre (523, 946), 960 px tall. Diagram words at y 560, items at y 990-1150. Counter numeral at y 760, its words at 1190 / 1360. Nothing under the Instagram top bar (< 220) or the bottom UI (> 1500) except the pushed-back first frames.",
+ "layout_px": {
+  "montage": {
+   "y": 962,
+   "big_px": 300,
+   "mid_px": 200,
+   "maxw": 780
+  },
+  "disk_word_px": 60,
+  "panel": {
+   "paper": [
+    200,
+    560,
+    680,
+    920
+   ],
+   "window": [
+    216,
+    576,
+    648,
+    888
+   ],
+   "video": [
+    -108,
+    -48,
+    864,
+    1536
+   ],
+   "tiny_px": 68,
+   "tiny_y": 470,
+   "label_px": 124,
+   "label_y": 488
+  },
+  "title": {
+   "small_y": 860,
+   "squeeze_x": 0.88
+  },
+  "counter": {
+   "num_px": 520,
+   "num_y": 760,
+   "line_y": [
+    1190,
+    1360
+   ]
+  },
+  "keyword": {
+   "max_px": 210,
+   "maxw": 820
+  },
+  "step_numeral": {
+   "centre": [
+    523,
+    946
+   ],
+   "height_px": 960
+  },
+  "broll_caption_yc": 1500
+ },
+ "type": {
+  "captions": "Inter Tight 600, tracking -0.04 em, sentence case, one state per spoken word (a new word, a phrase append in place, or a sub-line under it); on the face #FDFEFC with a soft shadow (0 0 24px rgba(0,0,0,.35)), never an outline or a pill; on navy #FAE9D4, on white pages #0F1827; size by importance in tiers (face: T 64, M 112, B 152, S 170, ST 76 px; cards: T 68, M 150, B 170, S 178, ST 80, L 120; B-roll: T 68, M 130, B 200, S 190), a line shrinks to fit 930 px but never under 56 px (the rule: >= 48 px)",
+  "display": "serif voice: Playfair Display Italic 400 for the payoff or abstract word of a clause (about 1 in 6, never two in a row) and for the giant step numerals; Playfair Display Regular caps squeezed x0.88 for the promise title and panel labels; Inter Tight 700 in red for the hook montage words; Montserrat 800 with the gradient fill for the one keyword of the outro",
+  "substitutions": "Instrument Serif Italic (reference numerals and serif words; no Cyrillic) -> Playfair Display Italic; Instrument Serif Regular caps -> Playfair Display Regular squeezed x0.88; Helvetica Now Display Bold (red hook words) -> Inter Tight 700; Plus Jakarta Sans 800 (gradient keyword) -> Montserrat 800. All from templates/fonts (Cyrillic + Latin woff2), copied into assets/fonts per reel.",
+  "never": "em dashes on screen; words that claim what the speaker did not say; caption words under 56 px; SVG filter:url(#id) (HyperFrames 0.8.159 renders every other clip black: RGB split = three channel copies)",
+  "families": {
+   "it6": [
+    "Inter Tight",
+    600,
+    "normal",
+    "inter-tight",
+    600
+   ],
+   "it7": [
+    "Inter Tight",
+    700,
+    "normal",
+    "inter-tight",
+    700
+   ],
+   "pf": [
+    "Playfair Display",
+    400,
+    "normal",
+    "playfair-display",
+    400
+   ],
+   "pfi": [
+    "Playfair Display",
+    400,
+    "italic",
+    "playfair-display-italic",
+    400
+   ],
+   "mo8": [
+    "Montserrat",
+    800,
+    "normal",
+    "montserrat",
+    800
+   ]
+  },
+  "tracking_em": {
+   "it6": -0.04,
+   "it7": -0.05,
+   "pf": -0.01,
+   "pfi": -0.02,
+   "mo8": -0.03
+  },
+  "x_height_em": {
+   "it6": 0.53,
+   "it7": 0.54,
+   "pf": 0.52,
+   "pfi": 0.52,
+   "mo8": 0.53
+  },
+  "tiers": {
+   "face": {
+    "T": [
+     "it6",
+     64
+    ],
+    "M": [
+     "it6",
+     112
+    ],
+    "B": [
+     "it6",
+     152
+    ],
+    "S": [
+     "pfi",
+     170
+    ],
+    "G": [
+     "mo8",
+     200
+    ],
+    "ST": [
+     "pfi",
+     76
+    ]
+   },
+   "card": {
+    "T": [
+     "it6",
+     68
+    ],
+    "M": [
+     "it6",
+     150
+    ],
+    "B": [
+     "it6",
+     170
+    ],
+    "S": [
+     "pfi",
+     178
+    ],
+    "ST": [
+     "pfi",
+     80
+    ],
+    "L": [
+     "pf",
+     120
+    ]
+   },
+   "broll": {
+    "T": [
+     "it6",
+     68
+    ],
+    "M": [
+     "it6",
+     130
+    ],
+    "B": [
+     "it6",
+     200
+    ],
+    "S": [
+     "pfi",
+     190
+    ]
+   }
+  },
+  "space_em": 0.26,
+  "floor_px": 56,
+  "face_offset_px": {
+   "T": -38,
+   "ST": -38,
+   "M": -10,
+   "B": 14,
+   "S": 14,
+   "G": 26
+  },
+  "font_faces": [
+   [
+    "Inter Tight",
+    "inter-tight",
+    "100 900",
+    "normal"
+   ],
+   [
+    "Playfair Display",
+    "playfair-display",
+    "400 900",
+    "normal"
+   ],
+   [
+    "Playfair Display",
+    "playfair-display-italic",
+    "400 900",
+    "italic"
+   ],
+   [
+    "Montserrat",
+    "montserrat",
+    "100 900",
+    "normal"
+   ]
+  ],
+  "unicode_ranges": [
+   [
+    "cyrillic",
+    "U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116"
+   ],
+   [
+    "latin",
+    "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+   ]
+  ]
+ },
+ "palette": {
+  "navy": "#0B1829",
+  "navy_glow": "#13253B",
+  "page": "#F1F1F1",
+  "page_counter": "#F5F5F5",
+  "paper": "#FAFAFA",
+  "cream": "#EAE4C0",
+  "disk": "#050505",
+  "ink": "#0F1827",
+  "ink_diagram": "#111722",
+  "ink_tiny": "#141414",
+  "warm": "#FAE9D4",
+  "warm_label": "#F9E8D5",
+  "title": "#F8FAF9",
+  "caption": "#FDFEFC",
+  "red": "#D30B20",
+  "blue_box": "#2534E9",
+  "panel_paper": "#F4F1EA",
+  "broll_cream": "#FAFCD4",
+  "gradient": [
+   "#FF6A2B",
+   "#FF4A4A",
+   "#FF2D7A",
+   "#E040A8",
+   "#C04AE0",
+   "#9A5CF0",
+   "#6E7CFF",
+   "#5A9BFF"
+  ],
+  "note": "red only on the hook montage words; electric blue for a box under a word and the Step 3 field; the gradient on ONE word per reel at most (the payoff); the reference's scene tints for B-roll captions: #FAFCD4 cream, #DEEAC2 pale green, #E2CC9A amber, #6ACBE4 blue, #ED6A7A red-pink (pick the one of the clip's light)"
+ },
+ "steps": [
+  {
+   "num": "1",
+   "bg0": "#13253B",
+   "bg1": "#0B1829",
+   "n0": "#83878C",
+   "n1": "#606368",
+   "words": "#FCFEFF",
+   "shadow": ".4"
+  },
+  {
+   "num": "2",
+   "bg0": "#FDFDFD",
+   "bg1": "#F0F0F0",
+   "n0": "#E0E0E2",
+   "n1": "#C5C5C7",
+   "words": "#0E1828",
+   "shadow": null
+  },
+  {
+   "num": "3",
+   "bg0": "#2F26F1",
+   "bg1": "#2019DB",
+   "n0": "#8A83F3",
+   "n1": "#655DE4",
+   "words": "#FFFFFF",
+   "shadow": ".35"
+  }
+ ],
+ "insert_frame": [
+  "B&W paper print: the object photocopied (steep curve, crushed blacks), a 70-90 % wide card with a slight tilt / keystone and sometimes a black bar, on #FAFAFA paper, swapped on a ~10 fps clock with 1-3 px jitter (make_prints)",
+  "paper panel on navy (E18): a #F4F1EA panel x 200-880 y 560-1480 playing the clip in a 648x888 window, a tiny line above and a Playfair label; fade-up from dark in one frame",
+  "full screen (E22): the clip fills 9:16 (1080p or better), captions tinted to its light with a glow of the same hue, pushed back on entry",
+  "drawn on the white page: SVG line drawings (#111722 strokes, missing parts dashed at 30 %), never clip art or stock icons",
+  "the cream icon card (E4): a black disk r 113 at (541, 960) with one drawn icon inside, tiny words hugging it"
+ ],
+ "motion": {
+  "fps": 30,
+  "rule": "hard cuts on word onsets; all motion lives in the elements: push-backs (circ.out), the numeral shrink, element whips, blur ramps before a cut; nothing moves or filters the face except the one punch-in",
+  "settle": "push-back circ.out: opening layer x1.36 -> 1 in 0.6 s with a linear x1.057 drift over the world; montage pushes 1.36 / 1.22; step words x1.25 in 1.04 s, drift x1.0975; step numeral x1.48 -> 1 in 0.88 s + blur 14/6/3/0 px, drift x1.156; title block 1/0.855 in 0.76 s and x1.12 in 0.48 s on the big word; B-roll captions x1.47 in 1.24 s",
+  "entrances": "the first word of a face world fades over 6 frames (0, .11, .51, .80, .91, .96, 1) and rises 30 px (power2.out); flicker-on (E8) on the stressed word: 6 stepped opacity keys; step-card glow 10 frames then a hard step down",
+  "exits": "X1 blur-out 1/2/4/7/11/16 px over the last 6 frames; X3 brighten to white + blur over 7 frames; X4 push-out left power2.in 0.75 s with growing blur, the next caption layer enters from x +400 (circ.out 1.24 s); X5 a 1-frame scale jump under an 8 % white lift; X7 fade-up from dark 35 % -> 100 % in one frame; X8 one punch-in x1.20 per reel (scale only)",
+  "stepped": "prints on a 2-4 frame clock (~10 fps), the cream card icon on twos, counters one value per frame",
+  "flicker_dark": [
+   1.0,
+   0.32,
+   0.6,
+   0.34,
+   0.74,
+   1.0
+  ],
+  "flicker_light": [
+   0.84,
+   0.14,
+   0.32,
+   0.14,
+   0.46,
+   1.0
+  ],
+  "flicker_keyword": [
+   0.85,
+   0.3,
+   0.65,
+   0.35,
+   0.8,
+   1.0
+  ],
+  "first_word_fade": [
+   0,
+   0.11,
+   0.51,
+   0.8,
+   0.91,
+   0.96,
+   1
+  ],
+  "montage_holds": [
+   2,
+   3,
+   3,
+   4,
+   3,
+   2,
+   3,
+   3,
+   4,
+   3
+  ],
+  "white_exit_opacity": [
+   0.12,
+   0.25,
+   0.4,
+   0.55,
+   0.7,
+   0.82,
+   0.92
+  ],
+  "white_exit_blur_px": [
+   1,
+   2,
+   3,
+   5,
+   8,
+   12,
+   14
+  ],
+  "blur_out_px": [
+   1,
+   2,
+   4,
+   7,
+   11,
+   16
+  ],
+  "push_out_blur_px": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   10,
+   11,
+   11,
+   12,
+   12,
+   12,
+   12,
+   12,
+   12
+  ]
+ },
+ "sound": {
+  "rule": "a sound only where a world changes or something enters; none on caption words or on cuts inside a run; the payoff quiet (one soft whoosh at most)",
+  "bed": "one steady bed from 0 s to the end, no ducking, fade out the last 1.5 s; data-volume 0.18 (~9 dB under the voice; the reference: 6-9 dB); a hip-hop / lo-fi groove 85-95 BPM (the founding reel: library lo-fi-02, the closest to the reference's 88.6 BPM boom-bap)",
+  "bed_volume": 0.18,
+  "density": "3.5-4.5 SFX per 10 s (reference 3.6 on world changes; the founding reel 27 in 63 s = 4.3)",
+  "timing": "whooshes start 3-10 frames before the cut and run through it; a riser ends on the cut frame (back-timed, trimmed with media-start); hits / impacts / booms on the cut frame or +2 frames; UI pops and clicks 1-4 frames after their picture; a blur-out carries a whoosh that starts with the blur",
+  "roles": "whoosh-1/2/3 into a card or back to the face, whoosh-cine into a picture world or a big card, cinematic-deep-boom on frame 0 and the biggest reveal, cinematic-cine-hit on a step card, cinematic-rumble-riser / riser-1 back-timed into a step, impact-1 on a cream card or the title's big word, pop-1/2 and click-1 on diagram items and counters",
+  "never": "the voice lifted or ducked; SFX on caption swaps; a meme sound; the same whoosh three times in a row",
+  "missing": "a reverse whoosh (push-out), a short 0.6 s gap riser (the rumble riser is trimmed instead), paper / print flips for the montage, a real boom-bap bed with a clap on 2 and 4",
+  "sfx_len_s": {
+   "cinematic-deep-boom": 2.5,
+   "whoosh-1": 0.9,
+   "whoosh-2": 0.9,
+   "whoosh-3": 0.9,
+   "whoosh-cine": 0.31,
+   "impact-1": 1.6,
+   "cinematic-cine-hit": 2.0,
+   "pop-1": 0.21,
+   "pop-2": 0.04,
+   "click-1": 0.25,
+   "riser-1": 1.7,
+   "cinematic-rumble-riser": 3.0
+  }
+ },
+ "budgets": {
+  "face": "the speaker's face on screen 35-45 % of the reel (reference 40.5 %, the founding reel 38.4 %); every look-away in build/cover_windows.json under a card (coverage.txt lists any that show)",
+  "pace": "a new world every 1-2 s on average (the founding reel: 29 worlds in 63 s); no world longer than ~4.6 s; the hook stack in the first 5-12 s",
+  "pictures": "few, each the noun of its line: 4-8 generated B&W object stills for one montage, one clip for the metaphor, drawn diagrams; stock video only via broll_fetch.py (1080p+, Mixkit 2160p / Pexels)",
+  "people": "the B-roll people rules (people-rules.json; empty by default) and no nudity; one person doing the line's action at most; every picture through insert_prep.py --line and a broll_vision.py picks sheet"
+ },
+ "film": "the speaker's face as shot: no grade, no filter",
+ "vary_per_reel": [
+  "the components (new every reel: components.py plan --style step-deck): the three hook devices, the promise card, the metaphor insert and its frame, each step's illustration, the transitions used, the outro device",
+  "the pictures (the nouns of the speaker's lines) and the drawn diagrams",
+  "the music bed",
+  "which step colour comes first when a reel has more than three steps (the rotation continues navy, off-white, blue)"
+ ],
+ "kept": [],
+ "tolerance": {
+  "L": 8.0,
+  "wb_b": 5.0,
+  "wb_a": 4.0,
+  "sat": [
+   0.85,
+   1.15
+  ],
+  "contrast": [
+   0.85,
+   1.15
+  ]
+ },
+ "grade_rule": "none: the speaker's footage stays as shot; inserts are conformed to it",
+ "components_rule": "the house look is the type, captions, accents, insert framing and the speaker's face as shot; phone-UI scenes, paper props, polaroid / card / collage treatments, transitions, hook and outro devices are NEW every reel (scripts/components.py plan / check / record, catalog.json)"
+}

@@ -1,0 +1,629 @@
+{
+ "_about": "Registry of this style's components (SYSTEM.md): what each one is, its kind and the regexes (sig) that find it in a built index.html. scripts/components.py plan / check / add / record read and write it: history lists your reels in order, projects maps a reel id to its project folder, and each element's reels say where it was used. Empty history = nothing used yet.",
+ "reels": {},
+ "history": [],
+ "projects": {},
+ "_about_components": "kind = prop (a page drawing; new every reel) / transition / hook / outro, or emphasis (basic vocabulary: may stay) / house (the style). Every draw() names its shape: sig = data-shape=\"<name>\" on the built index.html. history = reels in order. scripts/components.py reads and writes this file.",
+ "elements": [
+  {
+   "id": "house-board-top-split",
+   "kind": "house",
+   "slot": "layout",
+   "desc": "the white marker board drops over the top half (0-960) on the first words; the face slides into the bottom half, as shot",
+   "sig": [
+    "<div id=\"board\"><div id=\"ghost\">"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-rough-strokes",
+   "kind": "house",
+   "slot": "stroke",
+   "desc": "seeded rough marker strokes (quadratic wobble, boil filter) that draw on with stroke-dashoffset, hidden until their start",
+   "sig": [
+    "pathLength=\"1\" stroke-dasharray=\"1 1\" stroke-dashoffset=\"1\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-marker-tip",
+   "kind": "house",
+   "slot": "stroke",
+   "desc": "a visible marker whose tip follows every stroke and every handwritten word, lifts off the board between ideas, its cap in the stroke colour",
+   "sig": [
+    "<g id=\"mk\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-caveat-handwriting",
+   "kind": "house",
+   "slot": "type",
+   "desc": "Caveat handwriting revealed left to right with a clip rect",
+   "sig": [
+    "font-family=\"Caveat\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-seam-pill-captions",
+   "kind": "house",
+   "slot": "captions",
+   "desc": "white Inter pills on the seam, the spoken word swept in yellow (#FFE14D)",
+   "sig": [
+    "class=\"cap\"><div class=\"pill\">"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-hook-face-pill",
+   "kind": "house",
+   "slot": "hook",
+   "desc": "frame 1 is the face full screen with the first words in a pill under it, until the board drops",
+   "sig": [
+    "class=\"cap hk\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-eraser-wipe",
+   "kind": "house",
+   "slot": "transition",
+   "desc": "an eraser sweeps left to right between pages, the page clip wipes with it",
+   "sig": [
+    "class=\"eraser\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-full-board-cover",
+   "kind": "house",
+   "slot": "cover",
+   "desc": "the board grows to full screen (the drawing moved to its centre, unscaled) only to hide a look-away, <= 2.5 s",
+   "sig": [
+    "\"height\": 1920"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-face-as-shot",
+   "kind": "house",
+   "slot": "plate",
+   "desc": "the plate as shot (no grade, no filter), a slow 5 % push about the face",
+   "sig": [
+    "<div id=\"vidp\"><video"
+   ],
+   "reels": []
+  },
+  {
+   "id": "stick",
+   "kind": "emphasis",
+   "slot": "vocabulary",
+   "desc": "stick figure (arms down / up / phone / wave)",
+   "sig": [
+    "data-shape=\"stick\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "arrow",
+   "kind": "emphasis",
+   "slot": "vocabulary",
+   "desc": "rough arrow",
+   "sig": [
+    "data-shape=\"arrow\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "check",
+   "kind": "emphasis",
+   "slot": "vocabulary",
+   "desc": "tick",
+   "sig": [
+    "data-shape=\"check\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "cross",
+   "kind": "emphasis",
+   "slot": "vocabulary",
+   "desc": "cross-out",
+   "sig": [
+    "data-shape=\"cross\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "underline",
+   "kind": "emphasis",
+   "slot": "vocabulary",
+   "desc": "double underline",
+   "sig": [
+    "data-shape=\"underline\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "grid",
+   "kind": "emphasis",
+   "slot": "vocabulary",
+   "desc": "grey divider lines (a 2 x 2 grid)",
+   "sig": [
+    "data-shape=\"grid\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "line",
+   "kind": "emphasis",
+   "slot": "vocabulary",
+   "desc": "a plain stroke",
+   "sig": [
+    "data-shape=\"line\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "crown",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a crown (Solomon)",
+   "sig": [
+    "data-shape=\"crown\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "clock",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a clock face with hands",
+   "sig": [
+    "data-shape=\"clock\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "bulb",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a light bulb with rays",
+   "sig": [
+    "data-shape=\"bulb\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "bubble",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a speech bubble with a tail",
+   "sig": [
+    "data-shape=\"bubble\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "shield",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a shield (an excuse)",
+   "sig": [
+    "data-shape=\"shield\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "cloud",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a thought cloud",
+   "sig": [
+    "data-shape=\"cloud\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "books",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a stack of books crossed out (knowing more)",
+   "sig": [
+    "data-shape=\"books\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "eye",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "an eye watching from the side",
+   "sig": [
+    "data-shape=\"eye\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "boomerang",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a curved arrow coming back to the speaker",
+   "sig": [
+    "data-shape=\"boomerang\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "robot",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a robot head (the AI manager)",
+   "sig": [
+    "data-shape=\"robot\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "barbell",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a barbell (training)",
+   "sig": [
+    "data-shape=\"barbell\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "trophy",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a trophy",
+   "sig": [
+    "data-shape=\"trophy\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "phone",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a plain phone outline",
+   "sig": [
+    "data-shape=\"phone\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "envelope",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "an envelope",
+   "sig": [
+    "data-shape=\"envelope\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "bridge",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a suspension bridge",
+   "sig": [
+    "data-shape=\"bridge\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "laptop",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a laptop",
+   "sig": [
+    "data-shape=\"laptop\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "tag",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a price tag",
+   "sig": [
+    "data-shape=\"tag\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "form",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a form with lines",
+   "sig": [
+    "data-shape=\"form\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "camera",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a camera",
+   "sig": [
+    "data-shape=\"camera\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "heart",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a heart",
+   "sig": [
+    "data-shape=\"heart\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "sun",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a sun",
+   "sig": [
+    "data-shape=\"sun\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "rings",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "two rings",
+   "sig": [
+    "data-shape=\"rings\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "calendar",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a calendar page",
+   "sig": [
+    "data-shape=\"calendar\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "coffee",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a coffee cup",
+   "sig": [
+    "data-shape=\"coffee\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "people",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "two people",
+   "sig": [
+    "data-shape=\"people\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hourglass",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "an hourglass",
+   "sig": [
+    "data-shape=\"hourglass\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "polaroid",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a polaroid sketch",
+   "sig": [
+    "data-shape=\"polaroid\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "pin",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a map pin",
+   "sig": [
+    "data-shape=\"pin\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "link",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "two chain links: a relationship",
+   "sig": [
+    "data-shape=\"link\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "wrench",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a wrench: something to work on",
+   "sig": [
+    "data-shape=\"wrench\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "phone-apps",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a phone with an app grid",
+   "sig": [
+    "data-shape=\"phone-apps\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "badge",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a red notification badge circle",
+   "sig": [
+    "data-shape=\"badge\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "book",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a single book with a spine and a title line",
+   "sig": [
+    "data-shape=\"book\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "key",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a key: the advice that opens it",
+   "sig": [
+    "data-shape=\"key\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "bell",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a notification bell",
+   "sig": [
+    "data-shape=\"bell\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "plane",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a paper plane: messages",
+   "sig": [
+    "data-shape=\"plane\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "social-card",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a card with a like heart: social media",
+   "sig": [
+    "data-shape=\"social-card\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "wheel",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a steering wheel: you decide",
+   "sig": [
+    "data-shape=\"wheel\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "flag",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a start flag on a pole",
+   "sig": [
+    "data-shape=\"flag\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "bed",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a bed with a pillow and a blanket",
+   "sig": [
+    "data-shape=\"bed\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "runner",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a running stick figure",
+   "sig": [
+    "data-shape=\"runner\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a house: the people close to you",
+   "sig": [
+    "data-shape=\"house\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "mountain",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a mountain with a flag: a scary task",
+   "sig": [
+    "data-shape=\"mountain\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "day-box",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "a big box with hour ticks: your day",
+   "sig": [
+    "data-shape=\"day-box\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "zz",
+   "kind": "prop",
+   "slot": "page",
+   "desc": "zz of sleep",
+   "sig": [
+    "data-shape=\"zz\""
+   ],
+   "reels": []
+  }
+ ],
+ "ideas_not_built_yet": [
+  "a scale (balance) tipping on a comparison",
+  "a ladder for steps",
+  "a maze for confusion",
+  "a seesaw for trade-offs",
+  "a battery that drains",
+  "a map with a dotted route",
+  "a timeline with ticks",
+  "a magnet pulling icons"
+ ]
+}

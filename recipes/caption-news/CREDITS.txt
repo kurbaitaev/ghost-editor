@@ -1,0 +1,33 @@
+Caption News recipe - credits
+
+Source
+  Repo:    lemo-opuscar by LemoLab, https://github.com/lemomo-ai/lemo-opuscar
+  Path:    styles/caption-news/ (STYLE.md, DEMO.md, demo/main.js, demo/index.html); shared techniques TECHNIQUE.md
+  Commit:  f17136060781a0068a7951245a3aa7835a7230de (2026-10-29)
+  Licence: MIT, "Copyright (c) 2026 LemoLab" (full text: LICENSE-lemo-opuscar.txt in this folder)
+
+What was adapted (rewritten for HyperFrames + a vertical talking head, not copied file for file)
+  - Spec text: the style's essence, layout zones, editing grammar, caption card, keyword block, frame-4 hook, title
+    sting -> bug, source tag, document-with-highlighter, lit grid, ledger sheet, sound-per-action rules (STYLE.md
+    sections 1-8), paraphrased into SYSTEM.md and house.json.
+  - Component code: capCard() (chunk slam scale 1.3 -> 1 in 0.13 s, back 1.6, keyword wipe 0.12 s), hook(), bug(),
+    sourceTag(), shotSting() (ruled honey page, red double margin, title slam, page wipe-off), paper() / shotDoc6()
+    (paper on a dark desk, tilt, push, multiply highlighter from bbox coordinates, re-set block), shotGrid() (staggered
+    panels lit on their words), ledger() (ruled sheet, red margin, slide-in with speed streaks), num() (fixed-width
+    digits): their timings and geometry, re-implemented in captionnews.py.
+  - Palette: ink #0E0E0C, ivory #F7F5EF, honey #FFC21A, loss red #FF4A3D, grey #8D8B83, #5E5C55, ledger #151512,
+    desk #23221E, and their meanings.
+
+NOT copied
+  - The demo film "The Bee Ledger" and its stills (CC BY 4.0), and all of its footage, photos, report pages and map
+    data (USDA / Wikimedia Commons / Natural Earth, third-party or CC BY): none of it is in this recipe or the proof.
+  - Its fonts (Noto Sans SC, Inter Tight subsets from demo/fonts): the recipe uses the skill's own Inter Tight woff2
+    (OFL, templates/fonts/LICENSE-InterTight.txt).
+  - Its fictional channel name "简闻", its titles, its score and foley code (audio/mix.py), the "LemoLab x Claude"
+    sign-off. The bug in a reel is built from that reel's own title.
+
+Reel material (none ships with the recipe)
+  - A reel's footage and voice are its own.
+  - A document beat shows the real source the speaker names (a cover, a page); it belongs to its owner and is shown at
+    <= 1:1 of its file.
+  - SFX from the skill library (Mixkit free licence; CC0 pack), licensed sounds only.

@@ -32,6 +32,13 @@ Inter Tight captions with Caveat key words, navy and kraft surfaces, polaroids a
 dust. Not house (new every reel, see catalog.json): the paper props and artifacts, the polaroid / collage
 treatments, the transitions (the film-burn leaks were the first set), the hook and the outro devices.
 
+## Face RESULT (the talking-head mode; faceresult.py)
+- The speaker's face stays on screen (>= 65 %); props sit beside, above or below it in zones measured from face.json,
+  never on it (the build checks every prop, caption and punch-in against the face core); full-screen cards <= 2.5 s.
+- Captions: the two-tier caption on the navy card (small line 62 px, big word 132 px, Caveat key word 150 px).
+- No film-burn leak over the face (an orange sweep across the face is a colour change): transitions are components.
+- The plate is held for the tail (0.45 s) and keyframed every second; nothing ever filters it.
+
 ## Slots (content: what the story needs)
 - **Artifacts** (one per story beat, from the story's world; NEW every reel: not in the last 7 RESULT reels, see
   `components.py plan --style result-podcast`): polaroid, paper stack, notebook to-do,

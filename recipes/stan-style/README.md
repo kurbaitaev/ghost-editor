@@ -90,7 +90,7 @@ chin, a hook card reaches the eyes, the eyes are too high for the band, or a rec
 ## Pipeline (end to end)
 
 ```bash
-S=~/.claude/skills/ghost-editor; P=~/reels/<name>; HF="npx -y hyperframes@0.8.150"
+S=~/.claude/skills/ghost-editor; P=~/reels/<name>; HF="$S/scripts/hf.sh"   # the pinned HyperFrames (scripts/HF_VERSION)
 bash $S/scripts/prep.sh <IMG_xxxx.MOV> $P                                     # talk.mp4, voice at -16 LUFS
 python3 $S/scripts/transcribe.py $P/assets/talk.mp4 --out $P/build/words.whisper.json --lang ru
 python3 $S/scripts/face_track.py $P/assets/talk.mp4 --out $P/build/face.json   # required: the panel move and every label use it

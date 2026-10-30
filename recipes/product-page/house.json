@@ -1,0 +1,146 @@
+{
+ "about": "Product page house look (fixed; one house look per style, new components every reel). From a reference reel by @adrien.ninet, measured frame by frame (sections C, E, F, G, H of the study), and the founding reel built from it (approved 2026-10-24). productpage.py reads palette, type sizes, layout numbers and budgets from this file.",
+ "layout": "1080x1920 at 30 fps. HOOK: the hook_page gradient, the speaker's plate in a rounded card (clip inset 1290 18 0 18, radius 66) and the speaker's BiRefNet cut-out in front of it, both shifted down (ty from face.json, at least 240 px) so the head breaks out of the card top just under the headline; the file card at y 262-472, the headline from y 500. PAGES: white, the drawing or picture in the centre column (y 230-1240), the page title at y 880-950 under it. SPLIT: the split_page gradient, the plate scaled 0.87 in a card (inset 1390 70 0 70, radius 60) + the cut-out, a white panel (x 150-1150, y -60-1065, radius 64 bottom-left) slides in from the right carrying the UI or a drawing; ty puts the head top at least 18 px under the pill. UI PAGES: the iOS grey page, rebuilt UI at full width (x 36-1044). FACE BEATS: the plate full frame as shot, a slow linear push (x1.03-1.05) and the chest captions. The pill slot is fixed for the whole reel (y 1098-1194). Nothing editorial in the Instagram bands (y < 220, y > 1500).",
+ "type": {
+  "captions": "footage captions over the speaker's face: 2-3 centred tiers in the chest band from y 1150 (never past y 1500): heavy sans Inter Tight 800 84 px white #FFFEFF, the payoff tier Playfair Display Italic 600 124 px, a serif regular tier Playfair Display 400 84 px for a three-voice pivot line; each fitted to 860 px; every word blurs in on its onset (opacity 0, y 18, blur 6 -> 0 over 4 reference frames, power2.out; a word on the cut is already in 2 frames before it); hard swap per phrase; a scrim from y 1125 (black 0.44 -> 0.52)",
+  "display": "page titles, black #0F0E0E on white pages: tier A Inter Tight 800 96 px (fits 720 px, letter-spacing -1 px) rises from 280 px below (expo.out 14.5 reference frames) with a per-letter fade + blur 8 (3.5 f, 0.6 f stagger from each word's onset); tier B Playfair Display Italic 600 168 px (fits 860 px) carries the payoff word: a soft left-to-right reveal, letters ghost at 0.1 + blur 3 -> solid (5 f each, 0.6 f stagger) from its spoken word; the tiers touch (tier B top = tier A top + 0.98 x size - 0.12 x its size)",
+  "hook": "the hook headline: 2-3 tiers from y 500, Inter Tight 800 80 px + the payoff tier Playfair Display Italic 600 108 px, fitted to 860 px, black, fully in on frame 0",
+  "pill": "the one-word subtitle over pages, splits and UI: the spoken word as spoken (case and punctuation kept), Inter Tight 700 66 px white, letter-spacing -0.6 px, in a pill rgba(0,0,0,0.45) 96 px tall, radius 10, padding 0 16, centred in the slot y 1098-1194; hard swap 1 frame after the word onset, holds through pauses to the next word; off while a title or a caption is up and while the words are on screen as UI text",
+  "file_card": "hook file card #181519 620 x 210 radius 16: row 1 Inter 600 48 px white centred, row 2 a grey #8E8E92 chevron + glyph and Inter Tight 600 48 px #BDBDBD",
+  "ui": "rebuilt phone UI in Inter (SF Pro stand-in): alert title 600 44 px, body 400 32 px, buttons 40 px in the accent; settings title 700 92 px, rows 400 50 px, 156 px tall",
+  "fonts": {
+   "Inter Tight": "templates/fonts/inter-tight-latin.woff2 + inter-tight-cyrillic.woff2",
+   "Playfair Display": "templates/fonts/playfair-display-latin.woff2 + playfair-display-cyrillic.woff2",
+   "Playfair Display Italic": "templates/fonts/playfair-display-italic-latin.woff2 + playfair-display-italic-cyrillic.woff2",
+   "Inter": "templates/fonts/inter-latin.woff2 + inter-cyrillic.woff2"
+  },
+  "cyrillic": "the reference's condensed italic serif (closest: Instrument Serif) has no Cyrillic and is not on disk: Playfair Display Italic 600 stands in for the payoff serif and Playfair Display 400 for the regular serif, in Russian and English alike (one house); Inter Tight 800 matches the heavy sans; Inter stands in for SF Pro in rebuilt UI",
+  "metrics": "advance widths for fitting: build/metrics.json in the project, written by fontwidths.py (~/.venvs/ghost-captions, fontTools + brotli) on the first build"
+ },
+ "palette": {
+  "page": "#FDFDFD",
+  "ios_grey": "#F2F2F7",
+  "ink": "#0F0E0E",
+  "caption": "#FFFEFF",
+  "card": "#181519",
+  "card_sub": "#BDBDBD",
+  "card_glyph": "#8E8E92",
+  "line_art": [
+   "#9A9A9A",
+   "#B2B2B2",
+   "#C8C8C8"
+  ],
+  "active": "#111",
+  "pill": "rgba(0,0,0,0.45)",
+  "panel": "#FEFEFE",
+  "tile_border": "#E8E8E8",
+  "empty_cell": "#D2D2D2",
+  "toggle_off": "#E5E5EA",
+  "pressed": "#D1D1D6",
+  "accent_rule": "ONE accent per reel = the colour of the named product as it sits on screen (sample it from the conformed picture); accent45 = the accent at 45 % on white, for highlights. Reference: Claude #D97757, keyword box #CF5129, highlight #E3AFA2. The founding reel: a book cover's coral #D94C5F / #EEAEB7 (accent_c004 / accent45_c004: the builder's default when no accent is passed)",
+  "accent_c004": "#D94C5F",
+  "accent45_c004": "#EEAEB7",
+  "hook_page": "linear-gradient(180deg,#FDFDFD 0%,#FDFDFD 45.8%,#FAFAFA 49%,#F6F6F6 52.1%,#EFEFEF 55.2%,#E3E3E3 58.3%,#D3D3D3 61.5%,#BDBDBD 64.6%,#A5A5A5 67.2%,#898989 70.8%,#7A7A7A 100%)",
+  "split_page": "linear-gradient(180deg,#F3F3F3 0%,#F3F3F3 61.5%,#F2F2F2 64.6%,#F0F0F0 67.7%,#EEEEEE 70.8%,#E3E3E3 74%,#D5D5D5 77.1%,#C8C8C8 80.2%,#BEBEBE 83.3%,#B7B7B7 86.5%,#B2B2B2 89.6%,#ADADAD 92.7%,#A6A6A6 95.8%,#A1A1A1 100%)",
+  "scrim": "background:linear-gradient(180deg,rgba(0,0,0,0) 0px,rgba(0,0,0,0) 1125px,rgba(0,0,0,0.44) 1195px,rgba(0,0,0,0.52) 1920px);",
+  "shadows": {
+   "picture": "18px 22px 42px rgba(0,0,0,0.26)",
+   "badge": "0 10px 26px rgba(0,0,0,0.30)",
+   "icon": "16px 20px 40px rgba(0,0,0,0.22)",
+   "panel": "-40px 30px 90px rgba(0,0,0,0.16)",
+   "alert": "0 18px 50px rgba(0,0,0,0.10)"
+  },
+  "never": "no grade, grain, vignette, text stroke, text shadow or pill shadow; soft drop shadows only on UI objects and pictures"
+ },
+ "geometry": {
+  "hook_card_clip": "inset(1290px 18px 0px 18px round 66px)",
+  "split_card_clip": "inset(1390px 70px 0px 70px round 60px)",
+  "split_scale": 0.87,
+  "split_x": 70,
+  "hook_headline_top": 500,
+  "hook_ty_min": 240,
+  "pill_top": 1098,
+  "pill_h": 96,
+  "pill_font": 66,
+  "caption_top": 1150,
+  "caption_sizes": {
+   "sans": 84,
+   "serif": 124,
+   "reg": 84
+  },
+  "title_sizes": [
+   96,
+   168
+  ],
+  "fit_px": {
+   "caption": 860,
+   "title_a": 720,
+   "title_b": 860,
+   "hook": 860
+  },
+  "gallery": {
+   "cols": [
+    24,
+    382,
+    740
+   ],
+   "rows": [
+    300,
+    712,
+    1124
+   ],
+   "cell": [
+    316,
+    370
+   ],
+   "gap": 42
+  }
+ },
+ "insert_frame": [
+  "card: a real picture (the cover, the product, its icon) on the white page with the soft picture shadow; it rises from below the frame (1350 px, expo.out 24 reference frames, no overshoot), pushes to its detail x1.23 (expo.out 13 f) on the word that names the detail, drifts, then accelerates into the cut (x0.87, power2.in)",
+  "badge: the same picture small on the hook file card's top-right corner (124 x 186 for a cover, radius 5, badge shadow); an app icon would be square",
+  "tile: a gallery cell 316 x 370, radius 22, 2 px #E8E8E8 border, holding a line-art drawing of the reel; an empty cell is dashed #D2D2D2",
+  "every picture through insert_prep.py --ref <plate> --line ... and broll_vision.py picks; line-art drawings are drawn per reel in SVG (no downloads)"
+ ],
+ "motion": {
+  "fps": 30,
+  "reference_fps": 25,
+  "frames_note": "durations written as n/25 in productpage.py are reference frames (the reference is 25 fps); n/30 are this reel's frames",
+  "cuts": "hard cuts on the first word of a sentence (within 0.1 s; at a cut in the plate when there is one); a new sentence = a new layer (page / split / UI page / face); no dissolve except the hook wash",
+  "camera": "all motion is a virtual camera inside the page, never a punch-in on the face: the measured push (scale 0.654 -> 1.0 in 12 steps of 0.04 s), a zoom-out to make room for the title (x0.74-0.78, power3.inOut or quart.inOut 0.9 s, anchored near the top), push-to-detail x1.23 expo.out 13 f, a slow drift, accelerate into the cut x0.87 power2.in; UI pages zoom out then push in (sine.inOut, x0.94 -> 1.04); the gallery zooms out linearly x0.9977 a reference frame; face beats push linearly x1.03-1.05",
+  "entrances": "expo.out with no overshoot (rise from below 24 f, panel from the right 45 f, icon from the top 22 f, 560 px); the only settle is the hook card (y -13 -> -20 -> 0 in 0.44 s); opacity ramps are linear",
+  "hook_exit": "from end - 0.32 s the card grows x1.14 and drifts 73 px down (power2.in 11 f) and fades (linear 7 f from end - 0.12); the footage + cut-out wash to white (quad.in 4 f from end - 0.16); the headline cuts in one frame at the end; the next page pre-rolls behind from end - 0.08",
+  "whip": "between two drawings: one strip, outgoing x 0 -70 -180 -400 -1100 and incoming 1100 950 448 148 28 0 in 0.04 s steps, a blank frame between, x-only blur by scaleX 10 with blur 0.8-14 px; it lands on the incoming word (start = word - 0.32 s); the whoosh lands with the incoming drawing",
+  "loops": "every drawing lives: a tile hops (0.3 s), a moon bobs, steam rises, a shoe rocks (sine.inOut 0.34-0.5 s)",
+  "ui": "every UI action lands on the word that names it: a press (one frame), a toggle (knob 0.2 s power2.inOut, 4 frames after the word), a highlight (8 frames linear, scale 0.95 -> 1), a bead hop (0.3 s)"
+ },
+ "sound": "a ducked plucky tech bed ~22 dB under the voice (library 'infinity', duck -8 dB) that DROPS OUT under the hook payoff (0.06 s out) and comes back with the first setup page (0.25 s in); SFX only where something enters or a UI action happens, within +-2 frames: pop-1 on the hook card (frame 0), a soft whoosh (tech-digital-whoosh) leading the hook wash, a trimmed cinematic-drone-swell (<= 1.1 s, -8/-9 dB) on a push-to-detail or a page entrance, click-1 on a press, tick-1 per toggle or icon change, a quiet cinematic-cine-hit 2 reference frames after the cut into a face beat, whoosh-cine landing with the whip's incoming drawing, a soft whoosh-2 on a panel slide, pop-3 on a tile change; nothing on pill swaps, caption words, bare cuts or the payoff title; 3.6-4.3 per 10 s (reference 3.6, the founding reel 4.3)",
+ "budgets": {
+  "face_min_pct": 45,
+  "page_max_s": 6.0,
+  "inserts_per_min_max": 3,
+  "note": "a talking head needs more face than the reference (24 %): the founding reel had 47.9 % face (hook cut-out, 2 splits, 3 face beats), pages 52 %, the longest page 5.8 s; productpage.py fails the build under face_min_pct or over page_max_s"
+ },
+ "film": "the speaker's face as shot: no grade, no filter",
+ "vary_per_reel": [
+  "the components (new every reel: components.py plan --style product-page): the hook device, the drawings, the UI scenes, the transitions, the outro",
+  "the accent (the named product's colour)",
+  "the music bed"
+ ],
+ "kept": [],
+ "tolerance": {
+  "L": 8.0,
+  "wb_b": 5.0,
+  "wb_a": 4.0,
+  "sat": [
+   0.85,
+   1.15
+  ],
+  "contrast": [
+   0.85,
+   1.15
+  ]
+ },
+ "grade_rule": "none: the speaker's footage stays as shot; inserts are conformed to it",
+ "components_rule": "the house look is the type, captions, accents, insert framing and the speaker's face as shot; phone-UI scenes, paper props, polaroid / card / collage treatments, transitions, hook and outro devices are NEW every reel (scripts/components.py plan / check / record, catalog.json)"
+}

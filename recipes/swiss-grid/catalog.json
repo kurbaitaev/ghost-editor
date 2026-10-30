@@ -1,0 +1,160 @@
+{
+ "_about": "Registry of this style's components (SYSTEM.md): what each one is, its kind and the regexes (sig) that find it in a built index.html. scripts/components.py plan / check / add / record read and write it: history lists your reels in order, projects maps a reel id to its project folder, and each element's reels say where it was used. Empty history = nothing used yet.",
+ "reels": {},
+ "history": [],
+ "projects": {},
+ "elements": [
+  {
+   "id": "house-header-caption-row",
+   "kind": "house",
+   "slot": "frame",
+   "desc": "a 300 px paper header over the whole reel: 2 px ink rule, 48 px title (the reel's topic in the speaker's words) flush left, the chapter counter «00 / 05» flush right; a 4 px signal-red line under it strikes across on frame 0 (linear)",
+   "sig": [
+    "id=\"hd_rule\"",
+    "id=\"hd_sig\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-face-band-page",
+   "kind": "house",
+   "slot": "frame",
+   "desc": "the speaker's plate as shot, full frame, between the header and a paper page that starts 40 px under the head box (on the 24 px baseline); column guides on header and page only, never across the face",
+   "sig": [
+    "class=\"pg\" id=\"w\\d+_pg\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-clip-reveal-words",
+   "kind": "house",
+   "slot": "captions",
+   "desc": "the speaker's words set flush left on a column start, a grey 60 px lead-in + a 104 px Bold statement (cards 112 px); each word rises out of its clip rect on its spoken onset in a sixteenth with cubic-bezier(.7,0,.2,1), leaves upward in an eighth",
+   "sig": [
+    "class=\"wc\"",
+    "const SW = "
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-page-wipe-card",
+   "kind": "house",
+   "slot": "transition",
+   "desc": "a poster card = the page's top edge wiping up over the frame (an eighth); it rolls up into the header after its last word, uncovering the next world from the bottom; never a fade",
+   "sig": [
+    "inset\\(0px 0px 1620px 0px\\)"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-giant-numeral",
+   "kind": "house",
+   "slot": "chapter",
+   "desc": "chapter card: the statement on top, a ~700 px Inter 800 numeral optically flush left at the bottom, climbing in 4 eased steps, thunk on landing; a caption row under it",
+   "sig": [
+    "id=\"c\\d+_num\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "signal-slab-overprint",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "the protagonist as a signal-red slab (3 columns x 940 px) wiping up on the word that names it, the speaker's words overprint it in black",
+   "sig": [
+    "id=\"c2_ph\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "book-artifact-label",
+   "kind": "scene",
+   "slot": "S2",
+   "desc": "the named book as an artifact on the grid: the real cover in greyscale on columns 5-6, a museum label (author, title) on columns 1-4, then the statement",
+   "sig": [
+    "id=\"w3_book\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "knife-list-badges",
+   "kind": "scene",
+   "slot": "S3",
+   "desc": "a spoken list: each row set with a red badge, knife-cut after the speaker names it; two slots, a cut row frees its slot",
+   "sig": [
+    "id=\"w5g\\d\"",
+    "class=\"knife\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "face-reflow-tight",
+   "kind": "transition",
+   "slot": "S6",
+   "desc": "the cut to the tight plate: the page top re-flows to the new chin line in an eighth (push into one module)",
+   "sig": [
+    "id=\"w7_pg\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "modules-programme",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "the line that announces the steps: the column guides grow, four outlined modules 02-05 are ruled (four lines each, linear)",
+   "sig": [
+    "id=\"c8_m0t\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "ruled-rows",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "the steps as ruled rows on the page: a rule grows, the grey number, the speaker's word in Bold; the header counter swaps on each word",
+   "sig": [
+    "id=\"w9r0\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "bleeding-bar",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "the line about effort or doubt: a black bar flush on the grid slides past the page edge (bleed) on the doubt word, then snaps back flush on the resolution word",
+   "sig": [
+    "id=\"c10_bar\"",
+    "id=\"w11_bar\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "minute-grid",
+   "kind": "scene",
+   "slot": "S7",
+   "desc": "the grid means something: 6 x 10 cells = the 60 minutes of an hour; red (the protagonist) fills every cell in a ripple, a knife clears them nearest-first, the named activities snap in as labelled black bars, the protagonist keeps one cell",
+   "sig": [
+    "id=\"mg_sh\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "exception-leaves",
+   "kind": "outro",
+   "slot": "S8",
+   "desc": "the red module (the protagonist) leaves the grid linearly and unsnapped with one eighth pause on the turn word; the caption row readout turns from 'on grid' to red 'off grid'; flat end on the last word",
+   "sig": [
+    "id=\"w13_ex\""
+   ],
+   "reels": []
+  }
+ ],
+ "ideas_not_built_yet": [
+  "rotate 90 degrees and stop (the same thing read another way): rotate a card, hold, then label",
+  "pull out to a wall of artifacts (one programme, many outputs) for a reel that lists many items",
+  "a vertical scroll through a column (a manifesto or spec sheet)",
+  "split frame into equal cells with the speaker's face in one cell (needs a matte or a second take)",
+  "the speaker's words behind the head with the matte (step-deck's trick) for the giant numeral on a face world",
+  "a frame-accurate running counter in the caption row (the demo's bar counter)"
+ ]
+}

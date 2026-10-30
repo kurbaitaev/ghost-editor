@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Optional: the BiRefNet person matte for `behind` beats (scripts/matte.py) and the cutout effects (scripts/cutout_fx.py:
-# cutout beats, look.cutout, covers). Without it, behind beats fall back to `npx hyperframes remove-background` (u2net:
+# cutout beats, look.cutout, covers). Without it, behind beats fall back to `hyperframes remove-background` (u2net:
 # blobby edges, a jumpy outline) and cutout beats stop the build. One-time: ~1.5 GB venv + ~1.1 GB weights (downloaded
 # into ~/.cache/ghost-matte, never into the repo). Weights: BiRefNet-portrait + BiRefNet_lite, MIT. bria models are refused.
 #   bash scripts/setup_matte.sh            -> ~/.venvs/ghost-matte (override with MATTE_VENV=/path)

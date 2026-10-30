@@ -8,17 +8,20 @@ Writes build/cover_windows.json = the COVER windows only, as [[t0, t1], ...] (wh
 trim, tight-crop punch, hold the current graphic, framed/split insert, full-screen stock last), and build/look_windows.json
 = every window with its verdict and numbers. --strict restores the old behaviour (every window is a cover window)."""
 import json
+import os
 import sys
 
 import numpy as np
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from facescan import matrix  # noqa: E402  (any row width: 9-column scans and 13-column ones)
 
 LOOKAWAY_S, ANGLE_DEG = 0.5, 12.0
 
 
 def windows(F, strict=False):
-    T = np.array([x[0] for x in F])
+    T, V = matrix(F)
     ok = np.array([x[1] is not None for x in F])
-    V = np.array([[np.nan] * 8 if x[1] is None else x[1:] for x in F], float)
     med = np.nanmedian(V, 0)
     fps = 1 / np.median(np.diff(T)) if len(T) > 1 else 30.0
     cl = V[:, 7] > 0.42

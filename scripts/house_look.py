@@ -33,6 +33,7 @@ import cv2
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import grade_lib as G  # noqa: E402
+from x264 import THREADS as X264_THREADS  # noqa: E402  (scripts/X264_THREADS)
 
 RECIPES = os.path.join(HERE, "..", "recipes")
 TOLERANCE = {"L": 8.0, "wb_b": 5.0, "wb_a": 4.0, "sat": [0.85, 1.15], "contrast": [0.85, 1.15]}
@@ -141,7 +142,7 @@ def cmd_apply(a):
           f"setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709:range=tv")
     g = max(1, int(round(info["fps"])))
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", a.plate, "-map", "0:v", "-map", "0:a?", "-c:a", "copy", "-vf", vf,
-                    "-c:v", "libx264", "-preset", "medium", "-crf", "14", "-g", str(g), "-keyint_min", str(g),
+                    "-c:v", "libx264", "-threads", X264_THREADS, "-preset", "medium", "-crf", "14", "-g", str(g), "-keyint_min", str(g),
                     "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv",
                     "-movflags", "+faststart", a.out], check=True)
     os.unlink(lut)

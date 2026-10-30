@@ -1,0 +1,12 @@
+Whiteboard worked example: "willpower is a battery" (7 thoughts, 91 words, about 37 s spoken). The words of the cut, as
+spoken; one page per line below. Whisper may hear "drains" as "trains": reel.py fixes it (fixes=).
+
+Your willpower works like a battery.
+Every small choice drains it a little: what to wear, what to eat, what to watch tonight.
+By evening it's almost empty, and that's when we make our worst decisions.
+A tired brain takes the easy road: the snack, the scroll, the yes you regret.
+So the fix isn't more discipline. It's fewer choices.
+Decide the small things once: the same breakfast, the same clothes, the same time to train.
+Then the one choice that really matters gets a full battery.
+
+Look-aways: one, while the list is spoken ("wear ... eat", about 1.2 s): the board goes full screen over it (1.8 s).

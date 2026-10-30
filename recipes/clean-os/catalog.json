@@ -358,7 +358,8 @@
    "id": "book-card-apple-books",
    "slot": "S4",
    "sig": [
-    "id=\"book\""
+    "id=\"bquote\"",
+    "class=\"bmeta\""
    ],
    "kind": "scene",
    "desc": "Books «…» widget above the head: The Attention Fix cover with a sheen, progress 64 %, the advice «…» appears and is highlighted on «…»",
@@ -1223,6 +1224,436 @@
    "desc": "mini map above the head: the route …> …«…», «…» chip, the «…» dot pops",
    "sig": [
     "id=\"rpath\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-dynamic-island",
+   "kind": "hook",
+   "slot": "S8",
+   "desc": "Dynamic Island live activity above the head, crisp on frame 1 (avatar + claim)",
+   "sig": [
+    "class=\"island\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "island-expand-collapse",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "full-screen scenes grow out of the Dynamic Island and collapse back into it",
+   "sig": [
+    "panel isl"
+   ],
+   "reels": []
+  },
+  {
+   "id": "photos-places-album",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "Photos Places album: place name lands on the word, own stills",
+   "sig": [
+    "id=\"places\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "win-streak-medals",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "hexagon medals 1 to N fill beside the head, count lands on the number",
+   "sig": [
+    "class=\"md\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "ig-message-requests",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "Instagram message requests pile up, badge counts up, rows land on words",
+   "sig": [
+    "id=\"dms\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "safari-real-page-loads",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "Safari types the URL, progress bar, the real page sharpens on the brand word",
+   "sig": [
+    "id=\"safari\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "rich-link-preview",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "chest rich link preview of the real page, tapped on check out the link",
+   "sig": [
+    "id=\"link\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "community-sheet-rows",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "membership sheet: what you get rows tick on spoken items",
+   "sig": [
+    "id=\"sheet\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "join-button-tapped",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "real page, cursor taps Join community on subscribe -> Joined",
+   "sig": [
+    "id=\"join\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "chest-card-flick",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "chest card flicks in from the right (app-switcher card), out to the left",
+   "sig": [
+    "pip flick"
+   ],
+   "reels": []
+  },
+  {
+   "id": "top-island-grow",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "top widget grows out of the Dynamic Island and shrinks back into it",
+   "sig": [
+    "wdg isl"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-white-page-to-pinned-card",
+   "kind": "hook",
+   "slot": "S8",
+   "desc": "frame 0 = full white page with the text hook; it flies off as the same words land as a pinned card above the head",
+   "sig": [
+    "id=\"hkpin\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "podcast-now-playing-card",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "Podcasts now-playing card on the chest, scrubber running, title turns accent on the word",
+   "sig": [
+    "class=\"podart\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "lookup-popover-definition",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "a term selected in a line of text, the Look Up dictionary popover opens on it",
+   "sig": [
+    "class=\"lkpop\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "control-center-two-sliders",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "Control Center tile above the cap: two vertical sliders, one fills, one drains on the words",
+   "sig": [
+    "class=\"ccv\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "calendar-week-blocks-renamed",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "a calendar week of event blocks (chest), then full screen; one event renamed by typing, then all",
+   "sig": [
+    "class=\"wkg\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "handwriting-to-type-struck",
+   "kind": "scene",
+   "slot": "S5",
+   "desc": "Notes handwriting scribbled on the word, converts to type and gets struck through",
+   "sig": [
+    "class=\"hwpad\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "pinch-zoom-too-close",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "a note pinched in so close the letters blur, pinched out on the payoff word",
+   "sig": [
+    "class=\"znote\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "mail-draft-recipients-to-self",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "Mail compose: recipient chips appear on the words, then are replaced by «…»; send",
+   "sig": [
+    "class=\"mlr\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-inbox-letter-from-self",
+   "kind": "outro",
+   "slot": "S8",
+   "desc": "ends flat on the Mail inbox: one new letter, from yourself (full-screen hold, no CTA)",
+   "sig": [
+    "class=\"row inb\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "wifi-network-vanishes",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "Settings › Wi-Fi: the connected network loses its bars and drops off the list on the word",
+   "sig": [
+    "id=\"wrow\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-iris-from-chest",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "a reel wave 2 entrance: scene-iris-from-chest",
+   "sig": [
+    "clipPath\": \"circle(0px at 540px 1290px)"
+   ],
+   "reels": []
+  },
+  {
+   "id": "chest-slide-across",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "a reel wave 2 entrance: chest-slide-across",
+   "sig": [
+    "{\"autoAlpha\": 0, \"x\": 760, \"rotation\": 5}"
+   ],
+   "reels": []
+  },
+  {
+   "id": "control-center-pull-down",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "a reel wave 2 entrance: control-center-pull-down",
+   "sig": [
+    "{\"autoAlpha\": 1, \"y\": -700}"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-caret-types-the-answer",
+   "kind": "hook",
+   "slot": "S8",
+   "desc": "frame-0 chest text hook (the premise line, readable at once) with a blinking caret after the key noun; on the reveal word the caret types the answer in the accent",
+   "sig": [
+    "c4hk"
+   ],
+   "reels": []
+  },
+  {
+   "id": "notification-stacks-swipe-mute",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "Notification Center grouped stacks (app, count, previews); on each spoken app name the stack swipes left, the accent «…» action is tapped and it collapses to a grey «…» row",
+   "sig": [
+    "c4ns"
+   ],
+   "reels": []
+  },
+  {
+   "id": "home-apps-become-life-widgets",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "home screen of badge apps on a dusk wallpaper; on each spoken habit a row of apps folds away and a life widget lands in its place (…)",
+   "sig": [
+    "c4lw"
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-push-in-sheet-drop-out",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "full-screen scenes enter like an iOS navigation push (slide in from the right) and leave like a dismissed sheet (drop down); one pair for the reel",
+   "sig": [
+    "tr-push-drop"
+   ],
+   "reels": []
+  },
+  {
+   "id": "today-view-free-hours-widget",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "data moment above the cap: a dark Today View widget swipes in from the left, 16 waking-hour pills turn from phone-grey to accent one by one while a «…» counter rolls up and lands on the last word",
+   "sig": [
+    "c4fh"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-lock-pill-click",
+   "kind": "outro",
+   "slot": "S8",
+   "desc": "after the last word the top widget folds into a black lock pill at the top (side-button lock click); the face holds clean to the end",
+   "sig": [
+    "c4lk"
+   ],
+   "reels": []
+  },
+  {
+   "id": "spotlight-question-no-results",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "search sheet: the spoken question is typed into the field as the speaker says it, then a grey «…» lands on the last word (the doubt before the method)",
+   "sig": [
+    "c4sp"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-live-text-selection",
+   "kind": "hook",
+   "slot": "S8",
+   "desc": "frame-1 hook as plain chest type; iOS text-selection handles sweep over the payoff words",
+   "sig": [
+    "data-c=\"hook-live-text-selection\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "beach-photo-thought-wheel",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "chest card: a vacation Photos still beside a picker wheel that scrolls the worries on their words",
+   "sig": [
+    "data-c=\"beach-photo-thought-wheel\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "bluetooth-work-disconnect",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "Bluetooth screen: device \"…\" goes …> …> …",
+   "sig": [
+    "data-c=\"bluetooth-work-disconnect\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "study-38k-two-bars",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "chest card: worker counter rolls to 38 000, then fatigue bar shrinks and sleep bar grows on their words",
+   "sig": [
+    "data-c=\"study-38k-two-bars\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "battery-background-app",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "Battery usage: app \"…\" draining in the background while screen time stays 0 min",
+   "sig": [
+    "data-c=\"battery-background-app\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "photos-card-sport-flip",
+   "kind": "frame",
+   "slot": "S8",
+   "desc": "one Photos card on the chest flips object stills (goggles, bike, ball, racket) on each spoken sport",
+   "sig": [
+    "data-c=\"photos-card-sport-flip\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-slide-in-drop-out",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "full-screen scene slides in from the right, drops out down",
+   "sig": [
+    "data-c=\"scene-slide-in-drop-out\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "chest-pop-scale",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "chest cards pop in with a back.out scale",
+   "sig": [
+    "data-c=\"chest-pop-scale\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-notification-flood-flicked-off",
+   "kind": "hook",
+   "slot": "S8",
+   "desc": "frame 0: a dark full-screen flood of ~18 tilted iOS banners (…) under a black two-line hook card; over the first line the whole pile is thrown off up-right in one move and the face is revealed (<= 1.4 s)",
+   "sig": [
+    "class=\"hkflood"
+   ],
+   "reels": []
+  },
+  {
+   "id": "slide-over-book-card",
+   "kind": "frame",
+   "slot": "S8",
+   "desc": "iPad Slide Over style narrow card with a grabber in the side column beside the face: the real book cover + author / title",
+   "sig": [
+    "class=\"ov so sobook"
+   ],
+   "reels": []
+  },
+  {
+   "id": "slide-over-edge-in-out",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "side cards slide in from the nearest frame edge (power3.out) and leave the same way, like Slide Over on iPad",
+   "sig": [
+    "data-in=\"slideover\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "day-view-phone-blocks-give-way",
+   "kind": "scene",
+   "slot": "S1",
+   "desc": "Calendar day column beside the face: four grey «…» blocks shrink to slivers one by one on the line and their slots fill with …(callback to the checklist); holds to the last frame",
+   "sig": [
+    "class=\"ov so dayv"
    ],
    "reels": []
   }

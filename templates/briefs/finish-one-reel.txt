@@ -1,0 +1,26 @@
+ONE REEL: FINAL RENDER -> QA -> DELIVERY        (ghost-editor skill; docs/PLAYBOOK.md "Cost")
+Mechanical: give it to a FRESH helper on the smaller model (Agent tool, model "sonnet") only AFTER the user's OK on the
+preview, with one line: "Read <path> and follow it exactly." Fill the {fields}; quote the user's OK word for word.
+
+Reel: {CODE} {STYLE}, project {P}, preview {PREVIEW}. The user's OK: "{USER_WORDS}"
+Manifest: {MANIFEST}   (finals.py reels.json: out, date, collection, language, reels[project, code, title, title_ru,
+style, name, how])
+Machine: everything on {MACHINE}, the machine that holds the project. S=~/.claude/skills/ghost-editor ;
+PY=~/.venvs/media/bin/python (or any python with numpy + opencv)
+Long jobs (render ~2 min a reel, qa a few min, deliver) run in ONE foreground Bash call each with timeout 600000: the open
+shell keeps the HyperFrames render alive (it cancels itself when its parent exits). Never `nohup ... &`, never a background
+job polled turn by turn (each poll re-reads your whole context); a batch that may outrun 10 min: start it with
+run_in_background, then ONE blocking wait ('while pgrep -f finals.py >/dev/null; do sleep 15; done', timeout
+600000). Check that every reel's log shows a FRESH render line.
+
+Steps (stop and report at the first failure you cannot fix by re-running; never change the edit itself):
+  1. $PY $S/scripts/finals.py render --batch {MANIFEST}
+  2. $PY $S/scripts/finals.py qa --batch {MANIFEST}       one summary line per reel. A HARD fail (streams, av_sync, black,
+     frozen, bq_people, bq_as_shot, bq_freeze, bq_faces, bq_hdr): STOP and report it with the reel's .qa.json lines.
+     Soft fails: list them in the report, do not fix.
+  3. Only when the user keeps a library of finished videos (CONTENT set):
+     CONTENT={CONTENT} $PY $S/scripts/finals.py deliver --batch {MANIFEST}  (library + TRACKER row + _moves.tsv); else skip.
+  4. Copy for the user: {COPY_TO} (or skip)
+  5. $PY $S/scripts/components.py record --style {RECIPE} --project {P} --reel {REEL_ID}
+  6. Report in <= 15 lines: delivered paths, duration, loudness, QA summary per reel, the tracker row, anything skipped.
+Do not commit, push, post anything, edit the skill or the generator, or open renders as images.

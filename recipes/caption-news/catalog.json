@@ -1,0 +1,121 @@
+{
+ "_about": "Registry of this style's components (SYSTEM.md): what each one is, its kind and the regexes (sig) that find it in a built index.html. scripts/components.py plan / check / add / record read and write it: history lists your reels in order, projects maps a reel id to its project folder, and each element's reels say where it was used. Empty history = nothing used yet.",
+ "reels": {},
+ "history": [],
+ "projects": {},
+ "elements": [
+  {
+   "id": "house-caption-card-slam",
+   "kind": "house",
+   "slot": "captions",
+   "desc": "lower-band caption card: one ink slab per line, 2-3 chunks slam (1.3 -> 1, 0.13 s, back 1.6) on their word onsets",
+   "sig": [
+    "class=\"clip cap\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-keyword-honey-wipe",
+   "kind": "house",
+   "slot": "captions",
+   "desc": "one keyword per caption on a honey block wiping left to right in 0.12 s, the word turns ink",
+   "sig": [
+    "class=\"kb\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-bug",
+   "kind": "house",
+   "slot": "chrome",
+   "desc": "channel bug top left: honey block + dark chip, 48 px caps, from the sting to the end",
+   "sig": [
+    "<div id=\"bug\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-source-tag",
+   "kind": "house",
+   "slot": "chrome",
+   "desc": "source tag under the bug on every document / data shot: SOURCE block + dark label, slides in 0.2 s",
+   "sig": [
+    "class=\"sl1\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-ledger-sheet",
+   "kind": "house",
+   "slot": "cards",
+   "desc": "ledger sheet #151512, rules every 54 px, red double margin, slides in from the right with honey streaks, push 1.0 -> 1.03",
+   "sig": [
+    "class=\"lmarg\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-stacked-block",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame-4 hook: the first line stacked on 4 lines, the last word in a 1.7x honey block",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "sting-bottom-band",
+   "kind": "title",
+   "slot": "S2",
+   "desc": "honey ruled page over the bottom band (y >= 1140), the title slammed word by word (one word may sit in an ink block), a chip under it; wipes off into the bug",
+   "sig": [
+    "class=\"page\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "doc-book-cover",
+   "kind": "evidence",
+   "slot": "S3",
+   "desc": "a book cover the speaker names on a dark desk, author and title highlighted on the spoken words, the title re-set in a tilted honey block",
+   "sig": [
+    "class=\"paper\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "lit-grid-apps",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "lit grid stacked for 9:16: three apps with drawn icons (mail, chat, feed), honey border + red notification dot on each word",
+   "sig": [
+    "class=\"gp\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "ruled-list-basics",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "ruled list of three basics: numerals 1-3 slam, equal honey bars grow on each word, the previous bar turns ivory",
+   "sig": [
+    "class=\"lbar\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "verdict-big-captions",
+   "kind": "outro",
+   "slot": "S7",
+   "desc": "verdict on the speaker's face (wide) at 100-105 px, the last words in the block, soft deep-boom",
+   "sig": [],
+   "reels": []
+  }
+ ],
+ "ideas_not_built_yet": [
+  "line / bar chart with true sourced numbers",
+  "proportion by darkness on a drawn card",
+  "split screen with racing counters",
+  "map with mask transition",
+  "rolling counter num()"
+ ]
+}

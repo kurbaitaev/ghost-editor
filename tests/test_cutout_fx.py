@@ -24,6 +24,7 @@ sys.path.insert(0, str(REPO / "scripts"))
 import numpy as np  # noqa: E402
 
 import cutout_fx as C  # noqa: E402
+from x264 import THREADS as X264_THREADS  # noqa: E402
 
 
 class FakeNet:
@@ -69,7 +70,7 @@ def frame_numbers(p, w, h):
 C.Net = FakeNet
 src = tmp / "src.mp4"
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "testsrc2=size=540x960:rate=30:duration=2.5", "-f", "lavfi", "-i",
-                "sine=f=440:d=2.5", "-shortest", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac", str(src)], check=True)
+                "sine=f=440:d=2.5", "-shortest", "-c:v", "libx264", "-threads", X264_THREADS, "-pix_fmt", "yuv420p", "-c:a", "aac", str(src)], check=True)
 bgimg = tmp / "bg.png"
 C.cv2.imwrite(str(bgimg), (np.random.default_rng(0).random((400, 300, 3)) * 255).astype(np.uint8))
 
@@ -120,7 +121,7 @@ print("ok thumb, webm, stills")
 # ---- the frame grid build.mjs relies on ----
 num = tmp / "num.mp4"  # frame n has luma 40 + 3 n (flat grey), 15360 timebase like prep.sh output
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "nullsrc=s=96x160:r=30:d=2.6,format=yuv420p,geq=lum='40+3*N':cb=128:cr=128",
-                "-c:v", "libx264", "-crf", "0", "-g", "250", "-pix_fmt", "yuv420p", "-video_track_timescale", "15360", str(num)], check=True)
+                "-c:v", "libx264", "-threads", X264_THREADS, "-crf", "0", "-g", "250", "-pix_fmt", "yuv420p", "-video_track_timescale", "15360", str(num)], check=True)
 for f0 in range(3, 9):  # every phase of the 1/30 grid (6-decimal ss rounds up on some, down on others)
     for nf in (17, 18):
         ss, t = f0 / 30, (nf - 0.5) / 30

@@ -1,0 +1,30 @@
+ONE REEL: CHANGES AFTER THE USER'S NOTES -> NEW PREVIEW, THEN STOP   (ghost-editor skill; one fresh helper per change round)
+Fill the {fields}; give a FRESH helper (subagent_type "reel-helper", default model: the change needs judgment) one line:
+"Read <path> and follow it exactly." The old generator is the state; never hand over the old helper's conversation.
+
+Reel: {CODE} «{TITLE}», {STYLE} (recipe {RECIPE}, builder {BUILDER}).
+Previous build: {OLD_P} (reel.py = its generator, build/plan.txt = its plan; read them with sed -n, once).
+New cut: {CUT}     New project: {P}     Machine: {MACHINE}, the machine that holds the footage.
+  S=~/.claude/skills/ghost-editor ; PY=~/.venvs/media/bin/python (or any python with numpy + opencv)
+The user's notes, verbatim: {USER_WORDS}
+What they mean for this reel: {CHANGES}
+Standing rules (the user's; edit to theirs): face as shot, nothing on it; frame 1 the speaker's face with the hook; people
+rules ($S/people-rules.json) on every insert (insert_prep.py / broll_vision.py); Commons (archival) / Google before stock
+before AI; crisp text (>= 30 px, no lingering
+blur, no ghost layers); every component new against the recent reels (components.py; register new ones with a sig).
+
+Steps:
+  a. The project from the new cut ($PY $S/scripts/lib/facereel.py --new {P} --from {CUT}; Seoul list: seoul.setup(project,
+     cut)); copy the old reel.py (and any assets it made: pictures, matte, fonts) into {P}; point it at {P}.
+  b. Adapt it: word-keyed calls follow the new timing by themselves; fix what the new order breaks (a near-time lookup,
+     a hardcoded second, a component whose line is gone, a line with no component); keep the hook unless the order makes
+     it wrong. Write the new order and what changed into {P}/build/plan.txt.
+  c. Build -> $S/scripts/hf.sh lint (0 errors) -> $PY $S/recipes/seoul-list/snap.py beats {P} -> build/snaps/overview.jpg
+     only (one image per round, at most 3 rounds) -> components.py check --style {RECIPE} --project {P}.
+  d. Preview: $PY $S/scripts/finals.py preview {P} --out {P}/finals --style "{STYLE}" --code {CODE} --title "{TITLE_EN}"
+     (one foreground Bash call, timeout 600000); copy it inside {P}/finals as "{NAME} (preview).mp4" (keep the mtime newer
+     than index.html), frame 0 as a jpg; both to {PREVIEW_DIR} (where the user watches previews) as
+     "{NAME} (preview 2).mp4" / "{NAME} - frame 0 (2).jpg".
+  e. Report in <= 20 lines: the preview paths and size; for the user one line on the new order and three lines (hook,
+     opening line, length); what changed in the generator; budgets. Then STOP: no final render, QA, delivery or commits.
+Keep your context small: grep / sed -n, one overview per look, never re-read a file you just wrote.

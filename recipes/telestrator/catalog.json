@@ -1,0 +1,239 @@
+{
+ "_about": "Registry of this style's components (SYSTEM.md): what each one is, its kind and the regexes (sig) that find it in a built index.html. scripts/components.py plan / check / add / record read and write it: history lists your reels in order, projects maps a reel id to its project folder, and each element's reels say where it was used. Empty history = nothing used yet.",
+ "reels": {},
+ "history": [],
+ "projects": {},
+ "_about_components": "house = the packaging, colour roles and drawing grammar (every reel); hook / scene / emphasis / transition / outro are NEW every reel (components.py plan --style telestrator)",
+ "elements": [
+  {
+   "id": "house-corner-bug-modes",
+   "kind": "house",
+   "slot": "packaging",
+   "desc": "corner bug from frame 0: yellow show block (house.json packaging.show) + a mode line ● LIVE (red) / ANALYSIS (yellow) / REPLAY (cyan)",
+   "sig": [
+    "<div id=\"bug\" style=",
+    "id=\"bug_replay\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-source-clock",
+   "kind": "house",
+   "slot": "packaging",
+   "desc": "source clock: ▶ running / ❚❚ yellow on a freeze / ◀◀ counting back, true reel time and frame number (F116)",
+   "sig": [
+    "<div id=\"clk\" style=",
+    "tl\\.set\\(\"#clkd\", \\{\"textContent\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-matchup-bar",
+   "kind": "house",
+   "slot": "packaging",
+   "desc": "matchup bar bottom right (no numbers): the yellow leader block sits on one side and flips once on the payoff word with a yellow flash",
+   "sig": [
+    "<div id=\"score_blk\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-subtitle-bar",
+   "kind": "house",
+   "slot": "captions",
+   "desc": "the speaker's words as one-line subtitle chunks (Inter Tight 600 52 px, black 0.64 bar, 4 px yellow left edge), names corrected on screen",
+   "sig": [
+    "<div id=\"sub0\" style="
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-yellow-wipe",
+   "kind": "house",
+   "slot": "transition",
+   "desc": "between segments only: a yellow slanted band with dark edges crossing in 0.34 s, the cut on its midpoint",
+   "sig": [
+    "<div id=\"wipe0\" style="
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-freeze-cutout",
+   "kind": "house",
+   "slot": "freeze",
+   "desc": "a freeze: a still of the exact plate frame, the flash + spotlight + zones behind the speaker's cutout (same frame + matte), the drawings on top; no punch or grade on the speaker",
+   "sig": [
+    "<img class=\"full\" src=\"assets/freeze/[^\"]+-cut\\.png\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-ring",
+   "kind": "house",
+   "slot": "drawing",
+   "desc": "the ring: perspective ellipse (ry 0.36 r) drawn clockwise with a pop, an outer dashed ring creeping at 60 px/s, fill 0.16",
+   "sig": [
+    "_ring\\d+_o\" cx="
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-marker-line",
+   "kind": "house",
+   "slot": "drawing",
+   "desc": "marker line: dark outline + glowing core + white highlight drawn along its length, arrowhead on the last 10 %, 2 px wobble; dashed (separate dashes revealed in order) = intended path",
+   "sig": [
+    "_mk\\d+_b\" d=\"M"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-label-card",
+   "kind": "house",
+   "slot": "drawing",
+   "desc": "label: black card, 10 px role-colour bar, Inter Tight 900 + spaced Oswald line, clip reveal left to right with a tick",
+   "sig": [
+    "clip-path:inset\\(0 100% 0 0\\)\"><div style=\"font-family:\\'Inter Tight\\';font-weight:900"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-tactics-board",
+   "kind": "house",
+   "slot": "board",
+   "desc": "dark board #0C1411 with a 60 px chalk grid; the line's object is played, frozen and drawn on it",
+   "sig": [
+    "background-size:60px 60px"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-spotlight",
+   "kind": "house",
+   "slot": "freeze",
+   "desc": "spotlight: the background outside a focus ellipse darkens to 0.42 in 0.3 s, behind the speaker's cutout only",
+   "sig": [
+    "_spot\\d+\" d=\"M0,0 H1080 V1920 H0 Z"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-stopwatch-ring-frame0",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame 0: live play with the stopwatch running and a ring already drawn under the speaker's hand (the hook reads as analysis at once)",
+   "sig": [
+    "<svg id=\"l0_front\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "freeze-ghost-phone-in-hand",
+   "kind": "scene",
+   "slot": "S2",
+   "desc": "freeze on the word that names an object: ring under the hand, a dashed (hypothetical) outline of the object in the hand, a dashed arrow from the label that names it",
+   "sig": [
+    "<g id=\"f1_phone\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "board-book-cover-tactics",
+   "kind": "scene",
+   "slot": "S3",
+   "desc": "the book the speaker names as a tactics board: the real cover with cyan rings on its marks and the yellow ring on its verdict, the author label",
+   "sig": [
+    "<section id=\"B1\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "stamp-simple-advice",
+   "kind": "emphasis",
+   "slot": "S3",
+   "desc": "the reel's one stamp (the gist in two words) drops 1.7x -> 1x rotated on the word that says it",
+   "sig": [
+    "_stamp\\d+\" style="
+   ],
+   "reels": []
+  },
+  {
+   "id": "board-phone-notifications",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "a drawn phone on the board: notifications stream in live, freeze, cyan rings on the ones the speaker names, yellow marker strikes, a label with the instruction",
+   "sig": [
+    "<div id=\"b2_c0\" style="
+   ],
+   "reels": []
+  },
+  {
+   "id": "rewind-notifications",
+   "kind": "transition",
+   "slot": "S4",
+   "desc": "rewind: the board's objects run back with jitter, tracking bars, ◀◀ REWIND, the clock counting back; then a clean screen with a ring and the speaker's side of the matchup",
+   "sig": [
+    "<div id=\"b2_rw\" style="
+   ],
+   "reels": []
+  },
+  {
+   "id": "freeze-app-icon-future-path",
+   "kind": "scene",
+   "slot": "S2",
+   "desc": "freeze on the word that names a tool: ring under the hand, its icon drawn on the wall beside the speaker, a dashed (future) arrow from hand to icon, a two-line label",
+   "sig": [
+    "<g id=\"f2_app\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "board-numbered-rows-icons",
+   "kind": "scene",
+   "slot": "S5",
+   "desc": "summary board: three rows land on the speaker's words with oblique yellow numerals, marker underlines and chalk icons (moon, a run route from a ring, two linked rings)",
+   "sig": [
+    "<div id=\"b3_r0\" style="
+   ],
+   "reels": []
+  },
+  {
+   "id": "split-dual-angle-freeze",
+   "kind": "scene",
+   "slot": "S6",
+   "desc": "dual-angle split: wide | tight windows (1:1 slices, yellow divider, camera tags), both freeze on the feeling word, rings in both, a label that turns from the doubt to the resolution",
+   "sig": [
+    "<div id=\"sp_wrap\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "freeze-space-zone-behind",
+   "kind": "scene",
+   "slot": "S7",
+   "desc": "freeze on the word about room or time: a red space zone behind the speaker's cutout (the room around them), a two-line label",
+   "sig": [
+    "_zone\\d+\" opacity=\"0\"><ellipse"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-matchup-flip",
+   "kind": "outro",
+   "slot": "S8",
+   "desc": "flat ending: live to the last word; the matchup leader flips from the opponent to YOU on the payoff word",
+   "sig": [
+    "tl\\.fromTo\\(\"#score_blk\""
+   ],
+   "reels": []
+  }
+ ],
+ "ideas_not_built_yet": [
+  "a rewind of the speaker's own footage (a reversed piece of the plate with tracking bars): needs a reversed matte so the bars stay off the face",
+  "a slow-motion pass between two freezes (frame-blended 0.6-0.85x of the plate) with the frame-counting stopwatch",
+  "a tracked ring that follows the speaker's hand through live play (keyframes per 3-6 frames, like the source's TRK) when the hand moves",
+  "the perspective flatten: a freeze frame warping into a top-down board (the source's homography move); for a talking head, a desk or a whiteboard the speaker points at",
+  "a data card with counted numbers and one red marker circle: only with true, sourced numbers",
+  "the show sting at frame 0 (chalk lines + title stamp) when the first line can wait half a second"
+ ]
+}

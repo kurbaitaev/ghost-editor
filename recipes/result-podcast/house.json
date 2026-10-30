@@ -1,7 +1,7 @@
 {
  "about": "RESULT house look (fixed: one house look per style, small variation per reel). Artifacts follow the story; the look does not change.",
  "type": {
-  "captions": "one or two words, Inter Tight, two-tier (small line + one big bold word)",
+  "captions": "one or two words, Inter Tight, two-tier (small line 62 px + one big bold word 132 px, or a Caveat key word 150 px) on a navy card (rgba(18,29,50,.86)) under the chin",
   "hand": "Caveat for key words"
  },
  "surfaces": [
@@ -47,5 +47,10 @@
  "components_rule": "the house look is the type, captions, accents, insert framing and the speaker's face as shot; phone-UI scenes, paper props, polaroid / card / collage treatments, transitions, hook and outro devices are NEW every reel (scripts/components.py plan / check / record, catalog.json)",
  "example_components": {
   "transition": "film-burn leaks at section turns"
+ },
+ "face_result": {
+  "mode": "talking head (faceresult.py): props beside / above / below the face in zones from face.json, never on it; full-screen cards <= 2.5 s; face on screen >= 65 %",
+  "plate": "as shot, slow 4 % drift, <= 3 punch-ins pivoting on the mouth line, held 0.45 s tail",
+  "texture": "film grain + per-frame-seeded dust over everything; no vignette and no light leak on the face"
  }
 }

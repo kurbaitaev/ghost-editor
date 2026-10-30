@@ -61,6 +61,7 @@ KIT = [
     ("pop-2", "ui", r"mixkit:pop:^Hard pop click$", 0.4, ["chip", "emoji", "list-item"], "mixkit"),
     ("pop-3", "ui", r"mixkit:pop:(?i)pop", 0.4, ["chip", "emoji", "list-item"], "mixkit"),
     ("click-1", "ui", r"mixkit:click:(?i)mouse", 0.25, ["ui", "cursor"], "mixkit"),
+    ("alarm-bell", "foley", r"mixkit:alarm:^Classic alarm$", 3.5, ["alarm", "clock", "wake-up", "ring"], "mixkit"),
     ("tick-1", "ui", r"mixkit:typing:(?i)single key|key", 0.2, ["typing"], "mixkit"),
     ("typing-1", "ui", r"mixkit:typing:(?i)typing", 2.5, ["typing", "prompt"], "mixkit"),
     ("impact-1", "impact", r"mixkit:impact:(?i)cinematic.*(hit|impact|boom)", 1.6, ["text-slam", "number", "stamp"], "mixkit"),

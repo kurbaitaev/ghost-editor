@@ -1,0 +1,43 @@
+News Package recipe - credits and licences
+
+SOURCE
+  lemo-opuscar by LemoLab, style "Broadcast News Package" (电视新闻包装)
+  https://github.com/lemomo-ai/lemo-opuscar  (commit f17136060781a0068a7951245a3aa7835a7230de)
+  path: styles/news-package/ (STYLE.md, DEMO.md, demo/main.js)
+  Licence of code and docs: MIT, "Copyright (c) 2026 LemoLab" (full text: LICENSE-lemo-opuscar.txt in this folder).
+
+WHAT WAS ADAPTED (under the MIT licence)
+  - Spec text: the package system and its rules from STYLE.md (sting that becomes the bug, the strap with its category tab
+    and flips, the rundown opened and ticked off, one fact per screen, the band wipe / hard cut grammar, stamps, corner
+    tags, split-flap board, threshold line, spec-card proportion bars and bracket, the order inside an item, pitfalls),
+    paraphrased and re-laid out for 1080x1920 and a talking head in SYSTEM.md and house.json.
+  - Component code: the geometry and timings of plate() (parallelogram with ink and gold bars, letter drop, glint),
+    stingLogo() (slam, ring, wordmark, fly to the bug), strap(), rundown() (rows flipping in, light sweep, ticks),
+    flipTile(), the stamp and the band wipe from demo/main.js, rewritten from Canvas 2D into SVG + one paused GSAP
+    timeline in newspackage.py.
+  - Palette: ink #121417, ink2 #1B1E23, ink3 #22262C, lemon #F2CF1D / #F8DE4A / #D8B30C, gold #D4B064, paper #F4F1E8,
+    olive #6E5A1E, reserved orange #FE6B3D (LemoLab's colours as published in the MIT style text).
+
+NOT COPIED
+  - The demo film (news-package.mp4, CC BY 4.0) and its stills: only watched for reference, nothing from it is in this
+    recipe or in any render. Its third-party material (AI-generated plates, map data, news content, the Doubao voice,
+    the score's samples) is not used.
+  - The LEMO / LEMO AI NEWS name, plate wordmark and any fictional channel name: the bug here carries a neutral word
+    (ON AIR, or the same word in the reel's language).
+  - The demo's fonts (Noto Sans SC, Barlow Condensed): replaced, see below. No logos.
+  - No music: the source's news theme, timpani and glockenspiel are not reproduced.
+
+FONTS (SIL Open Font License 1.1; woff2 subsets from Google Fonts in fonts/, full TTFs for measuring in fonts/ttf/)
+  - Fira Sans 800, Fira Sans Extra Condensed 600 / 800 / 600 italic: Copyright (c) 2012-2015, The Mozilla Foundation and
+    Telefonica S.A. (fonts/OFL-FiraSans.txt)
+  - IBM Plex Mono 500: Copyright 2017 IBM Corp. with Reserved Font Name "Plex" (fonts/OFL-IBMPlexMono.txt). Because
+    of the Reserved Font Name it ships only as the unmodified TTF (fonts/ttf/plex-mono-500.ttf), which the builder
+    copies and serves as is; no subset of it is distributed.
+
+SOUNDS
+  From the skill's library/sfx (manifest.json): Mixkit kit sounds and the CC0 pack (cc0-paper-flip, cc0-whoosh-reverse);
+  the builder refuses any sound marked "licensed": false.
+
+PICTURES
+  None ship with the recipe. A reel shows a real picture only of a thing its speaker names (e.g. a book cover, used as
+  the document of that point; the user supplies it and is responsible for its use). Everything else is drawn in code.

@@ -30,6 +30,19 @@ Here:
 - Text slam = whoosh leading into an impact on the frame (the `big` default).
 - A meme sound goes in air: after the punchline word, in the pause. Cut the
   take a little later to keep the pause if you have to.
+- On a finished tight cut (0.2-0.3 s between takes, too short for any rip),
+  `scripts/open_pause.py PROJECT --raw RAW.MOV --raw-audio full.wav --at J:D`
+  lets the take before the hard cut at J run on D s in its own raw frames
+  (framing matched, room tone at the voice's level) and writes a shifted plate,
+  voice, words, face.json and build/pauses.json; in reel.py map the old seconds
+  with SH(t) (see ~/reels/2026-10-27_C005/tactile-paper-v3-memes/reel.py).
+  ALWAYS look at build/pause-<i>-seam.jpg: where the cut covered a head turn
+  the plate's last frames are not raw, and the run-on jumps (pick another join).
+- The rips are cut while still loud (vine-boom ends at -13 dB, anime-wow at
+  -17): trim them with `sound(..., maxlen=0.85, fade=0.3)` so the tail is gone
+  before the next word. Size the pause = sound length - the natural gap.
+- `meme_find.py` matches English words only: for a Russian line, pass an
+  English gloss with the emotion ("I don't even know how they found it, confused").
 
 ## Kit (library/sfx)
 

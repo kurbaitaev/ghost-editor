@@ -7,7 +7,7 @@ Writes into <dir>:
   sheet.jpg          1 frame per second, timestamped (look at it first)
   frames/f_<t>.png   full-resolution frames every 2 s (check Gemini's claims here)
   raw_sheet.jpg      the raw take, 1 frame per 4 s (with --raw)
-  edit-log.md        Gemini's second-by-second edit log (prompt:
+  edit-log.txt        Gemini's second-by-second edit log (prompt:
                      references/reference-study-prompt.md), with a header
 Gemini gets styles wrong (it called light lowercase captions "ExtraBold"),
 so the edit log is a draft: verify type, sizes and framing against frames/
@@ -87,8 +87,8 @@ def main():
     hdr = (f"# Reference study: {os.path.basename(a.video)}\n\n"
            f"- analysed {datetime.date.today().isoformat()} with {a.model}, {dur:.1f} s\n"
            f"- DRAFT: verify fonts, sizes and framing against frames/ before building\n\n")
-    open(os.path.join(a.out, "edit-log.md"), "w").write(hdr + text)
-    print(f"edit-log.md ({len(text)} chars) -> {a.out}")
+    open(os.path.join(a.out, "edit-log.txt"), "w").write(hdr + text)
+    print(f"edit-log.txt ({len(text)} chars) -> {a.out}")
 
 
 if __name__ == "__main__":

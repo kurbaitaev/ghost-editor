@@ -1,0 +1,62 @@
+{
+ "about": "Caption News house look (fixed reel to reel). Ported from lemo-opuscar styles/caption-news (MIT, Copyright (c) 2026 LemoLab, https://github.com/lemomo-ai/lemo-opuscar) and adapted to a vertical talking head.",
+ "world": "the speaker's face as shot is the ground; huge captions are the lead actor: each line slams in 2-3 chunks on the onsets of their first words, one keyword per caption on a honey block that wipes left to right; short full-screen cutaways on the ledger sheet (document on a dark desk, lit grid, ruled list) carry the facts the speaker names; a channel bug born from a title sting and a source tag on every document shot",
+ "layout": "1080x1920 at 30 fps. The speaker's face sits y 470-1080 (tight and wide plates), so the caption card lives in the lower band: left aligned at x 64, max width 916 (right edge <= 980, Instagram UI ~100 px), the last line's slab bottom on y 1680 (>= 220 px clear at the bottom), lines stacked upward, each line a dark slab with its chunks. Bug top left at x 64, y 126 (>= 120 px clear at the top), 72 px high; source tag under it (y 214 + 286). Title sting page = the bottom band y 1140-1920 over the speaker's live plate (the 16:9 original wipes over the left 45 %), never above the speaker's chin. Cutaway cards are full screen and keep their content between y 380 and 1650.",
+ "layout_px": {
+  "cap": {"x": 64, "maxw": 916, "bottom": 1680, "size": 84, "min_size": 60, "line_gap": 8, "pad_x": 18, "kw_pad": 14, "lh": 1.16},
+  "bug": {"x": 64, "y": 126, "h": 72, "size": 48},
+  "source": {"y1": 214, "y2": 286, "h": 64, "size": 48},
+  "sting": {"top": 1140, "rule_every": 54, "margin_x": [78, 86], "title_px": 118, "title_x": 120},
+  "doc": {"cover_box": [240, 400, 840, 1300], "tilt_deg": -1.5, "push": [0.94, 1.0], "block_px": 70},
+  "grid": {"x": 64, "w": 916, "top": 400, "h": 372, "gap": 18, "label_px": 72, "num_px": 64},
+  "list": {"title_y": 470, "row_y": [700, 960, 1220], "num_px": 120, "bar_x": 200, "bar_maxw": 780, "bar_h": 150, "label_px": 64}
+ },
+ "type": {
+  "captions": "Inter Tight 900 (Latin + Cyrillic; the stand-in for Noto Sans SC 900), sentence case as spoken, tracking -0.02 em, ivory #F7F5EF on an ink slab rgba(14,14,12,.84) per line (the slab reads on any clothing: no gradient on the speaker's plate), keyword ink #0E0E0C on honey #FFC21A; 84 px (verdict 100-105 px, hook up to 150 px), shrunk to fit 916 px but never under 60 px (the house floor: >= 48 px)",
+  "chrome": "bug, source tag, chips: Inter Tight 900 caps 48 px (the original's 17-26 px is under the 48 px floor)",
+  "numbers": "Inter Tight 900 with tabular digits (font-variant-numeric: tabular-nums), the original num() fixed-width cells",
+  "substitutions": "Noto Sans SC 900 / 500 (no Cyrillic) -> Inter Tight 900 / 600; Inter Tight stays Inter Tight. Fonts from templates/fonts (OFL, Cyrillic + Latin woff2), copied into assets/fonts per reel.",
+  "never": "a second-language line under the caption (under-48 px lines are banned), em dashes, words the speaker did not say, SVG filter:url()",
+  "families": {"cap": ["Inter Tight", 900, "inter-tight"], "sub": ["Inter Tight", 600, "inter-tight"]},
+  "tracking_em": -0.02,
+  "font_faces": [["Inter Tight", "inter-tight", "100 900", "normal"]],
+  "unicode_ranges": [
+   ["cyrillic", "U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116"],
+   ["latin", "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"]
+  ]
+ },
+ "palette": {
+  "ink": "#0E0E0C",
+  "ivory": "#F7F5EF",
+  "honey": "#FFC21A",
+  "loss": "#FF4A3D",
+  "grey": "#8D8B83",
+  "muted": "#5E5C55",
+  "sheet": "#151512",
+  "desk": "#23221E",
+  "panel": "#1E1D19",
+  "panel_edge": "#3A3933",
+  "slab": "rgba(14,14,12,.84)",
+  "rule": "rgba(255,255,255,.045)",
+  "margin": "rgba(255,74,61,.38)",
+  "meaning": "honey = the point / the keyword / the bug; red = the bad thing (notification badges); ivory = everything else; grey = labels"
+ },
+ "motion": {
+  "fps": 30,
+  "chunk_slam": "scale 1.3 -> 1 in 0.13 s, back.out(1.6), opacity full in 0.04 s, at the onset of the chunk's first word (the original spaces chunks 0.12 s apart at the caption start; a talking head must not show words before the speaker says them, except the frame-4 hook)",
+  "keyword_wipe": "honey block scaleX 0 -> 1 from the left in 0.12 s, 0.05 s after its chunk lands; the text turns ink at +0.08 s",
+  "hook": "frame 4 (0.13 s): the first line's chunks slam 0.13 s apart, the keyword in a giant honey block",
+  "card_in": "cutaway cards slide in from the right in 0.18 s with honey speed streaks; a slow push 1.0 -> 1.03 inside",
+  "grid": "panels rise 80 px staggered 0.1 s, each lights (honey border, honey label, a red badge pops) on the word that names it",
+  "list": "rows: the numeral slams, the bar grows from the left in 0.3 s on its word; the previous bar turns ivory",
+  "doc": "the cover on a dark desk tilted -1.5 deg, push 0.94 -> 1.0 (never above 1:1 of book2x), highlighter rectangles (multiply, honey) swept left to right in 0.3-0.45 s on the words the speaker says, then the title re-set in a honey block beside it",
+  "sting": "honey ruled page wipes over the bottom band in 0.2 s, rules draw staggered, red double margin draws down, the title slams word by word, a chip follows; the page wipes off left in 0.18 s and the bug fades in",
+  "cuts": "hard cuts on the word onsets (the original cuts on a 120 BPM half-beat grid under a score; there is no score here)"
+ },
+ "sound": {
+  "rule": "the voice + SFX only, never a bed. Every graphic action that ENTERS gets a short sound: the hook hit on frame 4, a pop under each keyword wipe, whooshes into each card, paper on the document, marker on each highlighter sweep, pops as grid panels light, clicks as list rows land, a soft boom under the verdict.",
+  "kit": {"hook": "impact-2", "keyword": "pop-3", "card_in": "whoosh-cine", "sting_in": "paper-flip", "sting_out": "whoosh-reverse", "doc": "paper-flip", "highlighter": "marker-scribble", "source_tag": "click-1", "grid_light": "pop-1", "list_row": "click-1", "verdict": "deep-boom"},
+  "sfx_len_s": {}
+ },
+ "vary_per_reel": "which line gets the hook, which facts get cutaways (document / grid / list / a chart only with true, sourced numbers), the bug text, the keyword of each caption, the ending (verdict on the speaker's face, back to the hook, last card)"
+}

@@ -1,0 +1,15 @@
+# RESULT worked example: "keep the paper" (12 lines, ~85 words, about 32 s of speech + a 2.2 s outro).
+# A storytelling talking head, one sitting with retakes. takes.py holds the source seconds of the best take of each line
+# in a stand-in recording; re-time them from your own attempt log and transcript.
+On every trip, I keep one paper thing from each day.
+A ticket from the first train.
+A receipt from a café I could never find again.
+A leaf from a park, pressed between two pages.
+My phone has three thousand photos from the same trips.
+I never open them.
+Storage almost full. Again.
+But the box? I open it every winter.
+Because a photo shows you where you were.
+A ticket reminds you who you were there.
+So on your next trip, keep the paper.
+Your phone will forget. The box won't.

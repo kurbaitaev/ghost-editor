@@ -60,7 +60,7 @@ bundled: pass the user's own image as `logo`, or a text `label`.
 ## Pipeline (end to end)
 
 ```bash
-S=~/.claude/skills/ghost-editor; R=$S/recipes/seoul-list; P=~/reels/<name>; HF="npx -y hyperframes@0.8.150"
+S=~/.claude/skills/ghost-editor; R=$S/recipes/seoul-list; P=~/reels/<name>; HF="$S/scripts/hf.sh"   # the pinned HyperFrames (scripts/HF_VERSION)
 mkdir -p $P/clips && cd $P
 # 1. proxies: 1080x1920 30 fps H.264, no audio, refuses < 1080p; originals are never moved or modified
 bash $R/proxy.sh <out-dir> <clips...>     # e.g. bash $R/proxy.sh clips ~/Downloads/my-trip/IMG_1.MOV ~/Downloads/my-trip/IMG_2.MOV
@@ -85,6 +85,10 @@ python3 $R/snap.py strips $P renders/<name>.mp4        # build/strips/<beat>.jpg
 Against a reference: `snap.py compare REF.mp4 RENDER.mp4 --pairs "label=refT,...:ourT,...;..." -o compare`.
 approval_sheet.py and render_report.py read reel.json, so for this recipe send the user `build/snaps/overview.jpg` and
 the strips as the approval page, then deliver as in SKILL.md step 8.
+A Python generator (a reel's own short script) imports the plumbing from `$R/seoul.py` instead of writing
+a lib: `sys.path.insert(0, "$R"); from seoul import *`, then `setup("$P", cut="<clip>/edit")`, `W(word, near)` for word times,
+`vid` / `card` / `still_clip` for stock inserts, `write(spec)` (list.json + build.mjs + the readability CSS) and `measure(spec)`.
+`python3 $R/seoul.py --api` lists every call with its signature; the reel's own new components stay in its generator.
 
 ## list.json
 

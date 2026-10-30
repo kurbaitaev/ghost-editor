@@ -1,0 +1,556 @@
+{
+ "_about": "Registry of this style's components (SYSTEM.md): what each one is, its kind and the regexes (sig) that find it in a built index.html. scripts/components.py plan / check / add / record read and write it: history lists your reels in order, projects maps a reel id to its project folder, and each element's reels say where it was used. Empty history = nothing used yet.",
+ "reels": {},
+ "history": [],
+ "projects": {},
+ "_about_components": "kind = hook / scene / prop / frame / transition / outro (new every reel) or emphasis / signature / house (may stay); sig = regexes (a LIST) on the built index.html, each tested on a reel's delivered index.html (bespoke generator) and on the tactile.py rebuild (data keys and texture names; the new-every-reel sigs never match the inlined runtime alone); history = reels in order; projects = where each reel's index.html is. scripts/components.py reads and writes this file.",
+ "elements": [
+  {
+   "id": "maroon-ground",
+   "kind": "house",
+   "slot": null,
+   "desc": "the maroon textured ground (the reference's fitted colour surface + seeded fibre), moving with the scene camera",
+   "sig": [
+    "paper-texture-ground\\.png"
+   ],
+   "reels": []
+  },
+  {
+   "id": "flat-ground",
+   "kind": "house",
+   "slot": null,
+   "desc": "the flat #6A2947 ground, no texture (the reference's 'flat' version; the founding reel's notebook scene)",
+   "sig": [
+    "\\$\\('flatground'\\)\\.style\\.display = 'block';\\s*paper\\.draw\\(\\{ tex: TX\\.blank",
+    "\"ground\": \\{\"flat\": true\\}"
+   ],
+   "reels": []
+  },
+  {
+   "id": "condensed-pill-captions",
+   "kind": "house",
+   "slot": null,
+   "desc": "Inter Tight 700 UPPERCASE 62 px condensed 0.8 on a near-black pill at y 1400, 1-3 words, hard swaps, hidden while a title says the words",
+   "sig": [
+    "rgba\\(31, 31, 31, 0\\.85\\)"
+   ],
+   "reels": []
+  },
+  {
+   "id": "tilted-page-closeup",
+   "kind": "house",
+   "slot": null,
+   "desc": "hard cut to the page 1.12x tilted -2 deg with a ground strip on top, pushing on twos",
+   "sig": [
+    "chain\\(Tm\\(540, 250\\), Rm\\(-2\\), Sm\\(1\\.12",
+    "\"rot\": -2\\.0, \"s\": 1\\.12"
+   ],
+   "reels": []
+  },
+  {
+   "id": "print-curls-in",
+   "kind": "house",
+   "slot": null,
+   "desc": "a print / card curls in from the right edge in 4-5 stepped drawings and settles tilted on its noun (the reference's desk photo)",
+   "sig": [
+    "printC\\(|ticketC\\(",
+    "\"kind\": \"slide\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "flat-face-ending",
+   "kind": "house",
+   "slot": null,
+   "desc": "flat end on the speaker's face as shot, the last 0.45 s held without a caption; no CTA, no pen outro (the rule)",
+   "sig": [
+    "plate_hold\\.mp4"
+   ],
+   "reels": []
+  },
+  {
+   "id": "webgl-page-fold",
+   "kind": "signature",
+   "slot": null,
+   "desc": "the replica's WebGL2 cylinder fold: front / back faces, fold shading, depth-correct flap; every turn, unfurl and curl",
+   "sig": [
+    "function makePaper\\("
+   ],
+   "reels": []
+  },
+  {
+   "id": "stepped-motion-12-8",
+   "kind": "signature",
+   "slot": null,
+   "desc": "every designed move stepped: 12 fps (twos), the payoff on 8 fps (threes); the plate and captions smooth",
+   "sig": [
+    "const st = \\(t, f, t0 = 0\\) => Math\\.floor"
+   ],
+   "reels": []
+  },
+  {
+   "id": "page-unfurl-entrance",
+   "kind": "signature",
+   "slot": null,
+   "desc": "a page enters from the bottom-right corner with the reference's measured unfurl (CC Page Turn backwards)",
+   "sig": [
+    "fold: unfFold\\(F\\), backOp",
+    "\"kind\": \"unfurl\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "gobo-shadow",
+   "kind": "signature",
+   "slot": null,
+   "desc": "a soft window shadow drifting over close-ups, stepped (the reference's fitted half-plane)",
+   "sig": [
+    "gobo\\(t, (SC|PU)",
+    "\"gobo\": \\{\"t0\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "title-half-line-rise",
+   "kind": "signature",
+   "slot": null,
+   "desc": "the hook writes half the sentence in near-black grotesque, words rising whole on twos; the object finishes it",
+   "sig": [
+    "const RISE = \\{",
+    "\"titles\": \\[\\{\"id\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "white-brush-arrow",
+   "kind": "emphasis",
+   "slot": null,
+   "desc": "a white tapered brush arrow drawing on, head last, pointing at what the line names",
+   "sig": [
+    "#FDFCFB"
+   ],
+   "reels": []
+  },
+  {
+   "id": "black-brush-arrow",
+   "kind": "emphasis",
+   "slot": null,
+   "desc": "the black brush arrow on the flat ground, from the rising word to the page",
+   "sig": [
+    "id=\"arrowK\"",
+    "\"armW\": \\d+, \"fill\": \"#141114\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "crimson-underline",
+   "kind": "emphasis",
+   "slot": null,
+   "desc": "crimson marker under the printed words the speaker paraphrases, 80 % of the ink on the first drawing, glued to the page",
+   "sig": [
+    "ulD\\(UL\\.",
+    "\"kind\": \"ul\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "crimson-hand-ellipse",
+   "kind": "emphasis",
+   "slot": null,
+   "desc": "a crimson hand ellipse round the thing named (1.6 turns, stepped drawings, head last, boil)",
+   "sig": [
+    "loneEll\\(|priceEllV\\(",
+    "\"kind\": \"ell\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "charcoal-word-label",
+   "kind": "emphasis",
+   "slot": null,
+   "desc": "a charcoal box label of plain fact (a name, a year) popping on the word, glued to its page, boiling at 8 fps",
+   "sig": [
+    "<div id=\"label\">",
+    "\"labels\": \\[\\{\"id\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "rising-letters-word",
+   "kind": "emphasis",
+   "slot": null,
+   "desc": "the idea's one word rising letter by letter from behind a page's top edge (the reference's 'Flat')",
+   "sig": [
+    "SVOB_SIZE",
+    "\"rises\": \\[\\{\"id\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-map-finishes-line",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "the first half of the hook line rises on maroon paper while a drawn city map unfurls on frame 0 and finishes the line; a white arrow title -> map",
+   "sig": [
+    "names = \\['map'",
+    "\"map\": \"assets/map\\.jpg\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "simmel-essay-page",
+   "kind": "prop",
+   "slot": "S3",
+   "desc": "the quoted author's real 1903 page, typeset (running head, justified serif, foxing), the paraphrased words underlined",
+   "sig": [
+    "'simmel'",
+    "\"simmel\": \"assets/simmel\\.jpg\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "bw-city-print",
+   "kind": "prop",
+   "slot": "S4",
+   "desc": "one stock still (aerial skyscrapers, no people) as a B&W print curling in on its noun",
+   "sig": [
+    "TX\\.print",
+    "\"print\": \"assets/print\\.jpg\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "halftone-crowd-from-above",
+   "kind": "prop",
+   "slot": "S6",
+   "desc": "a halftone crowd from above on a crosswalk (dots, no faces), one figure alone in an empty patch, under the turning page",
+   "sig": [
+    "TX\\.crowd",
+    "\"crowd\": \"assets/crowd\\.jpg\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "notebook-speaker-line",
+   "kind": "prop",
+   "slot": "S7",
+   "desc": "a school grid notebook with the speaker's own line handwritten in blue ink",
+   "sig": [
+    "TX\\.notebook",
+    "\"notebook\": \"assets/notebook\\.jpg\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "train-ticket-price",
+   "kind": "prop",
+   "slot": "S8",
+   "desc": "a train ticket (TICKET, CAR, SEAT, PRICE over a punched hole) curling in onto the payoff map; PRICE circled on the word",
+   "sig": [
+    "TX\\.ticket",
+    "\"ticket\": \"assets/ticket\\.png\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "sheet-unfurls-below-face",
+   "kind": "scene",
+   "slot": "S3",
+   "desc": "the source page unfurls into the lower part of the face shot (top >= 1215), clear of the face",
+   "sig": [
+    "PLACE2 = chain\\(Tm\\(70, 1250\\)",
+    "\\[\"T\", 70, 1250\\], \\[\"R\", 1\\]"
+   ],
+   "reels": []
+  },
+  {
+   "id": "zoom-blur-push-into-object",
+   "kind": "transition",
+   "slot": "S1",
+   "desc": "zoom-blur push into the hook object on the word, the 1.217x jump hidden in the blur; title and arrow gone on the jump",
+   "sig": [
+    "blurHook\\(t\\)",
+    "\"blur\": \\{\"t\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "reveal-fast-turn-onto-face",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "the whole paper frame turns away fast on twos on a personal line: the face is the page under the page",
+   "sig": [
+    "const FAST = \\[0\\.08, 0\\.2, 0\\.42, 0\\.63, 0\\.9\\]",
+    "\"fr\": \\[0\\.08, 0\\.2, 0\\.42, 0\\.63, 0\\.9\\]"
+   ],
+   "reels": []
+  },
+  {
+   "id": "turn-reverse-side",
+   "kind": "transition",
+   "slot": "S6",
+   "desc": "on the turn word the marked page turns slowly; its back is the reverse side, a new picture is under it",
+   "sig": [
+    "TX\\.simmelMarked",
+    "\"tex\": \"simmelMarked\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "turn-old-page-to-blank",
+   "kind": "transition",
+   "slot": "S6",
+   "desc": "before / after: the written notebook page turns on the line about the past to a blank new page",
+   "sig": [
+    "TX\\.blank",
+    "\"tex\": \"blank\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "reveal-8fps-turn-onto-face",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "the payoff frame turns on threes onto the speaker's face for the last line (quiet payoff)",
+   "sig": [
+    "const EIGHT = \\[0\\.1, 0\\.55, 0\\.85\\]",
+    "\"fr\": \\[0\\.1, 0\\.55, 0\\.85\\]"
+   ],
+   "reels": []
+  },
+  {
+   "id": "payoff-bookend-8fps-replay",
+   "kind": "outro",
+   "slot": "S8",
+   "desc": "the hook object replayed on 8 fps (bookend), plus one new object that names the cost",
+   "sig": [
+    "3 \\* st\\(t, 8, SC\\.S9\\[0\\]\\)",
+    "\"F0\": 1, \"fps\": 8, \"step\": 3"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-paper-strip-below-face",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame 0 is the speaker's face as shot with a cream paper strip below the face box carrying the frame-1 hook text (Inter Tight 700, 56 px), static, gone on a hard cut",
+   "sig": [
+    "assets/hookstrip\\.png"
+   ],
+   "reels": []
+  },
+  {
+   "id": "archive-mount-print",
+   "kind": "prop",
+   "slot": "S4",
+   "desc": "an archive mount: a 19th-century photograph of a village (public domain) as a B&W print on aged archive paper, unfurls on the maroon ground, a place-name label, white arrow",
+   "sig": [
+    "assets/archive_mount\\.jpg"
+   ],
+   "reels": []
+  },
+  {
+   "id": "reveal-slow-7-twos-onto-face",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "the whole frame turns away slowly on twos, 7 drawings eased, onto the speaker's face",
+   "sig": [
+    "0\\.04, ?0\\.12, ?0\\.25, ?0\\.42"
+   ],
+   "reels": []
+  },
+  {
+   "id": "callback-mount-closeup-label",
+   "kind": "outro",
+   "slot": "S8",
+   "desc": "callback: the hook-side archive mount comes back as the tilted close-up with the gobo and a label of the speaker's words (a date span)",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "reveal-4-threes-onto-face",
+   "kind": "transition",
+   "slot": "S2",
+   "desc": "the whole frame turns away on threes in 4 drawings onto the speaker's face",
+   "sig": [
+    "0\\.14, ?0\\.43, ?0\\.74, ?0\\.95"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-typed-note-turns-on-word",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame 0: the speaker's face as shot with a typed cream note below the face box carrying the frame-1 hook (Inter Tight 700, 76 px), slow push from frame 0, the note turns away like a page on the first stressed word (6 drawings on twos)",
+   "sig": [
+    "assets/hooknote\\.jpg"
+   ],
+   "reels": []
+  },
+  {
+   "id": "valley-print-below-face",
+   "kind": "prop",
+   "slot": "S4",
+   "desc": "a B&W print of a landmark (a still) curling in below the speaker's face on the place's name, gone on the plate cut",
+   "sig": [
+    "assets/valley\\.jpg"
+   ],
+   "reels": []
+  },
+  {
+   "id": "methods-list-struck-through",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "grid paper with the methods the speaker tried, handwritten in their words, unfurls on the maroon ground; a crimson marker strike through each item on the line that says they failed",
+   "sig": [
+    "assets/methods\\.jpg"
+   ],
+   "reels": []
+  },
+  {
+   "id": "clock-print-squats-rises",
+   "kind": "prop",
+   "slot": "S7",
+   "desc": "a B&W print of a twin-bell alarm clock curls in on its noun; the habit's one word rises letter by letter from behind it",
+   "sig": [
+    "assets/clock\\.jpg"
+   ],
+   "reels": []
+  },
+  {
+   "id": "count-strip-200-circled",
+   "kind": "prop",
+   "slot": "S8",
+   "desc": "a slim typed strip (a download count) curls in below the speaker's face above the caption line, crimson ellipse round the number on the word",
+   "sig": [
+    "assets/count\\.png"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-stair-labels-chest",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame-0 hook as 3 stair-stacked black label boxes (white Inter Tight 700, 64 px) on the speaker's chest, boiling at 8 fps, over the face shot",
+   "sig": [
+    "data-comp=\"hook-stair-labels-chest\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "torn-cutout-beside-head",
+   "kind": "frame",
+   "slot": "S4",
+   "desc": "torn-edge photo cut-out (white torn rim, grain, contact shadow) beside the speaker's head over the room, pops whole on its noun, boils at 8 fps",
+   "sig": [
+    "data-comp=\"torn-cutout-beside-head\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "grey-flip-failed-methods",
+   "kind": "scene",
+   "slot": "S6",
+   "desc": "the cut-outs of the failed methods flip grey (x0.55, one frame) on the line that says they failed",
+   "sig": [
+    "data-comp=\"grey-flip-failed-methods\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "typed-labels-red-clock-scene",
+   "kind": "scene",
+   "slot": "S7",
+   "desc": "full-frame grey paper collage: red clock cut-out, Playfair printed title rising on 8 fps, typewriter stair labels on the speaker's words, live grain",
+   "sig": [
+    "data-comp=\"typed-labels-red-clock-scene\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "typed-number-label-chest",
+   "kind": "emphasis",
+   "slot": "S5",
+   "desc": "typewriter label pair on the speaker's chest for the number line",
+   "sig": [
+    "data-comp=\"typed-number-label-chest\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "flat-face-end",
+   "kind": "outro",
+   "slot": "S9",
+   "desc": "flat end on the speaker's face after the last word, no CTA, no pen",
+   "sig": [
+    "data-comp=\"flat-face-end\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "valley-print-paper-cut",
+   "kind": "prop",
+   "slot": "S4",
+   "desc": "hard cut from the face to the maroon ground: a B&W print of a landmark (a still) curls in on the place's name above the caption line, 1.8 s, hard cut back",
+   "sig": [
+    "assets/valley\\.jpg"
+   ],
+   "reels": []
+  },
+  {
+   "id": "torn-paper-phone-own-recording",
+   "kind": "scene",
+   "slot": "S7",
+   "desc": "the speaker's own app screen recording (pre-sped) inside a torn paper phone cut-out on the grey paper scene; typed labels below",
+   "sig": [
+    "data-comp=\"torn-paper-phone-own-recording\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "torn-appstore-row-card",
+   "kind": "scene",
+   "slot": "S8",
+   "desc": "App Store row (iOS icon, name, seller, blue Get pill) as a torn paper cut-out on the speaker's chest on the CTA",
+   "sig": [
+    "data-comp=\"torn-appstore-row-card\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "own-recording-phone-print",
+   "kind": "scene",
+   "slot": null,
+   "desc": "the speaker's own screen recording sped up on a cream phone print that curls in on the maroon ground; live video on the print's screen, last frame baked for the page reveal",
+   "sig": [
+    "id=\"squatvid\"",
+    "phone_end\\.png"
+   ],
+   "reels": []
+  },
+  {
+   "id": "app-store-row-strip",
+   "kind": "prop",
+   "slot": null,
+   "desc": "App Store row as a printed paper strip below the speaker's face (real icon, name, seller, blue Get pill), 8 fps curl-in, crimson ellipse on the button",
+   "sig": [
+    "appcard\\.png"
+   ],
+   "reels": []
+  }
+ ],
+ "ideas_not_built_yet": [
+  "before / after in place: zoom out 22 f on twos + a hard-edge left-to-right wipe on ones from the textured page to its flat twin, the one-word label rising (ref T7 + C10, R5)",
+  "page turn as an object wipe between two paper scenes: the outgoing scene is the front, the incoming one the back (FINDINGS 10)",
+  "reverse turn: the old page comes back from the LEFT, linear 8 f (ref C7c) for a callback",
+  "top-down desk collage: papers (screenshots, receipts, letters) unfurl / slide onto a desk plate on their nouns, contact shadows, desk grain on ones (ref C11)",
+  "crimson zig-zag scribble cross-out on a 'no' or a wrong page, 80 % on the first drawing, glued to the paper (ref C6)",
+  "cut + blur breath on threes: sigma 3 / 8 / 18 / 12 / 6 / 3 with no scale change (ref T16)",
+  "an arrow whose head tracks a moving element (FINDINGS 10)",
+  "zoomed screen-recording crops on the named control, cursor in frame, value changing, camera following the cursor (ref C12): only with the speaker's own screen recordings (tutorial / AI-tool reels)",
+  "paper foley: page flip on every turn's landing frame, paper slide / tap on landings, rustle under unfurls (library/sfx now has paper-flip and paper-riffle from the CC0 pack; no slide / tap yet)",
+  "open-end loop cut: end on the speaker's face 0.5 s into a new sentence (ref 'And now...'): only if the user asks, the default ending is flat",
+  "page fold v2: the source flap narrows toward the bottom (a wedge) and casts a shadow on the ground; ours is a straight cylinder with a CSS drop shadow (replica REPORT)",
+  "Tactile collage: the study proposed merging Tactile paper with a paper collage style and giving the collage stepped motion + paper foley (not decided)"
+ ]
+}

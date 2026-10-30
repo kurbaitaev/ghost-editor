@@ -37,8 +37,14 @@ import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+from x264 import THREADS as X264_THREADS  # noqa: E402  (scripts/X264_THREADS)
 XE = HERE / "vendor" / "xfade-easing"   # MIT, scriptituk/xfade-easing v3.6.6 (expression files, verbatim)
 TAGS = ["-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv"]
+# The expr engine splits a window into this many chunks (parallel ffmpeg processes). Fixed, not the core count: each
+# chunk evaluates the expression on its own remapped progress, so other chunk bounds give slightly different pixels
+# (7 chunks on an 8-core Mac and 9 on a 10-core one made different files).
+EXPR_CHUNKS = 8
 
 # ---------------------------------------------------------------- curated set for talking heads
 # name -> base transition, default easing, default duration (s), kind, one-line description
@@ -504,7 +510,7 @@ def _remap_p(k0, m, nf):
 def win_expr(A, a0, B, b0, nf, fps, W, H, spec, ease, out, jobs=None):
     """xfade custom expression, split into frame chunks rendered by parallel ffmpeg processes."""
     ex = full_expr(spec, ease)
-    jobs = jobs or max(1, (os.cpu_count() or 4) - 1)
+    jobs = jobs or EXPR_CHUNKS
     n_chunks = max(1, min(jobs, nf))
     bounds = [round(i * nf / n_chunks) for i in range(n_chunks + 1)]
     tmp = Path(tempfile.mkdtemp(prefix="tx-"))
@@ -765,7 +771,7 @@ def assemble(segs, juncs, fps, W, H, out, audio_mode="cut", audio_from=None, crf
     total = sum(s["n"] for s in segs)
     cmd = [*inputs, "-/filter_complex", str(fgp), "-map", "[vout]"]
     cmd += ["-map", "[aout]", "-c:a", "aac", "-b:a", "192k"] if has_audio else ["-an"]
-    cmd += ["-frames:v", str(total), "-c:v", "libx264", "-preset", "medium", "-crf", str(crf), "-pix_fmt", "yuv420p",
+    cmd += ["-frames:v", str(total), "-c:v", "libx264", "-threads", X264_THREADS, "-preset", "medium", "-crf", str(crf), "-pix_fmt", "yuv420p",
             *TAGS, "-r", str(fps), "-g", str(max(1, round(fps))), "-movflags", "+faststart", str(out)]
     t = time.time()
     ff(cmd)
@@ -829,7 +835,7 @@ def render_junction(A, tout, B, tin, name, easing=None, dur=None, out="tx.mp4", 
     tmp = Path(tempfile.mkdtemp(prefix="txj-")) / "w.mkv"
     eng, secs, cpu = render_window(A, tout - Lf / fps, B, tin - Lf / fps, Lf + Rf, fps, W, H, spec, ease, tmp,
                                    engine, jobs)
-    ff(["-i", str(tmp), "-c:v", "libx264", "-preset", "medium", "-crf", str(crf), "-pix_fmt", "yuv420p", *TAGS,
+    ff(["-i", str(tmp), "-c:v", "libx264", "-threads", X264_THREADS, "-preset", "medium", "-crf", str(crf), "-pix_fmt", "yuv420p", *TAGS,
         "-g", str(max(1, round(fps))), "-movflags", "+faststart", "-an", str(out)])
     tmp.unlink()
     tmp.parent.rmdir()
@@ -947,7 +953,8 @@ def main():
             s.add_argument("--fps", type=float)
             s.add_argument("--crf", type=int, default=18)
         s.add_argument("--engine", choices=["native", "numpy", "expr"], help="force a render engine")
-        s.add_argument("--jobs", type=int, help="parallel ffmpeg processes for the expr engine")
+        s.add_argument("--jobs", type=int, help=f"parallel ffmpeg processes for the expr engine (default {EXPR_CHUNKS}; another "
+                       "count changes the pixels slightly, so leave it unset for the same file on every Mac)")
     a = ap.parse_args()
     {"list": cmd_list, "join": cmd_join, "junction": cmd_junction, "reel": cmd_reel, "expr": cmd_expr}[a.cmd](a)
 

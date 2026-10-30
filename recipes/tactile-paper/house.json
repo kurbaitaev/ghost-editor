@@ -1,0 +1,117 @@
+{
+ "about": "Tactile paper house look (fixed: one house look per style, new components every reel). Replicated frame by frame from a reference reel by @chrismoran__ (an After Effects page-turn tutorial) and applied to a founding talking-head reel (captions >= 48 px). tactile.py and tactile.js read the palette, captions, type sizes, shadows and budgets from this file.",
+ "layout": "9:16 1080x1920 at 30 fps. Paper scenes fill the frame (the speaker's face off screen, each <= 3.5 s); a page rests at x 35-1048 (93.8 % of the width) with its top near y 522-610 and bleeds off the bottom; close-ups show the page 1.12x tilted -2 deg with a strip of ground on top. Face scenes are the plate as shot, full frame; a sheet may unfurl into the lower part (top >= 1215, clear of the face box + air), nothing on the face. The hook title sits left aligned at x 96 with baselines ~420 / 552 (upper quarter); the rising word centred on x 540, baseline 430, just above a page edge; arrows in the right band x 800-1040. Captions: one pill centred at y 1400-1488 (the reference's 1500-1571 sits in the Instagram bottom UI). Nothing designed in the top bar (< 220) except paper bleed.",
+ "type": {
+  "captions": "Inter Tight 700 UPPERCASE, 62 px condensed to 0.8 (scaleX), #FCFCFD on a pill rgba(31,31,31,0.85), radius 12, padding 22 px, the pill hugs the text; 1-3 words (<= 17 characters), hard swaps on the words (no animation, no highlight, no active word); hidden while a title on screen says the same words",
+  "display": "Inter Tight 700 near-black #110E10 sentence case (stands in for the reference's Helvetica Neue / Neue Haas Grotesk Bold look; neither is on Google Fonts): the hook title 128 px, tracking -2.56 px; words appear whole and opaque and rise on twos, no fade, no mask",
+  "title": {
+   "size": 128,
+   "tracking_px": -2.56,
+   "colour": "#110E10"
+  },
+  "label": {
+   "size": 190,
+   "colour": "#141114",
+   "note": "the rising word ('Flat' in the reference): Inter Tight 700, letters rise from behind a page edge, 2 frames apart"
+  },
+  "label_box": {
+   "size": 58,
+   "tracking_px": -0.5,
+   "note": "a charcoal box label of plain fact (a name, a year): Inter Tight 700 #F2F4F0 on #363432, padding 20/24/18/24, glued to its page, boiling at 8 fps"
+  },
+  "printed": "pages are typeset per reel in props.py: Playfair Display (latin + cyrillic) for a book or newspaper face (stands in for Fraktur / a 1903 book face), JetBrains Mono for ticket and form fields, Caveat 600 for handwriting (the speaker's own words only), Inter Tight 700 for printed headings",
+  "cyrillic": "Instrument Serif has no Cyrillic: never use it here. Every face above has a cyrillic subset in templates/fonts; props.mixed() switches subset per character",
+  "never": "fades, scale-ups or slides on type; outlined text; a per-word colour sweep; em dashes; text the speaker did not say (labels of plain fact are fine)"
+ },
+ "palette": {
+  "ground_base": "#522333",
+  "ground_centre": "#60293C",
+  "ground_shadow": "#240F16",
+  "flat_ground": "#6A2947",
+  "title": "#110E10",
+  "label": "#141114",
+  "arrow_white": "#FDFCFB",
+  "marker": "#990028",
+  "marker_note": "crimson round marker drawn in multiply at 0.9: it composites to ~#750022 on newsprint (the reference's sampled colour)",
+  "pill": "rgba(31, 31, 31, 0.85)",
+  "caption": "#FCFCFD",
+  "label_box": "#363432",
+  "label_box_text": "#F2F4F0",
+  "newsprint": "#B7B9B7",
+  "letter_paper": "#DFCFB6"
+ },
+ "ground": "the maroon textured ground: props.ground() regenerates the replica's fitted colour surface (#522333 base, #60293C centre, darkening to #240F16 top-right like a cast shadow) + seeded fibre noise, 1280x2120 with a 100 px margin; the flat variant is solid #6A2947 with no texture (before/after inside a scene)",
+ "insert_frame": [
+  "full-frame paper: a page at rest (or unfurling) on the maroon ground under a camera that is never still",
+  "page close-up: the page 1.12x, -2 deg, ground strip on top, pushing +0.1 % a twos step, the gobo shadow drifting over it",
+  "print / card curling in from the right edge (slide): 4-5 stepped drawings, settles tilted -6..-8 deg, z above the page",
+  "sheet below the face: a page unfurls into the lower part of a face scene (top >= 1215), guarded clear of the face",
+  "whole-frame reveal: the full paper frame turns away like a page (fast on twos / on threes in the payoff) onto the plate"
+ ],
+ "motion": {
+  "clock": "comp 30 fps; designed motion stepped: 12 fps (twos) for the hook, close-ups, entrances, labels; 8 fps (threes) for the payoff replay and its turn; the plate, the caption swaps and the reveal timing stay on the 30 fps clock",
+  "unfurl": "the reference's measured unfurl (CC Page Turn backwards): 24 reference frames, the fold sweeping from the bottom-right corner, rotation +9.9 -> 0 deg, scale 1.42 -> 1.0, then the width settle; F0 6 on the hook so frame 0 already moves",
+  "turns": "WebGL2 cylinder fold (180x260 mesh, front/back faces, fold shading): fast whole-frame turn 5 drawings on twos [0.08 0.2 0.42 0.63 0.9]; payoff turn on threes [0.1 0.55 0.85]; in-scene page turn right to left, linear, 11-13 drawings on twos, fold tilt -4.55 deg, radius 7",
+  "push": "zoom-blur push: blur 5 / 15 / 17 / 12 / 9 / 6 / 3 / 0 px over 13 frames from the word, the scale jump (1.217x about the object) 2 frames in, hidden inside the blur; then a slow push +0.24 % a twos step",
+  "holds": "never still: page close-ups push +0.1 % a twos step, flat-ground pages +0.12 %",
+  "type": "title words rise whole from +12..+57 px to rest on twos (already moving on frame 0); rising-word letters 100 / 40 / 12 / 1 / 0 px, one letter every 1/12 s",
+  "marks": "arrows draw on by arc length in 4-6 twos steps, head last; underline 80 % of the ink on the first drawing (0.8 / 0.93 / 1.0); ellipse 1.6 turns in stepped drawings held 1/2/3/4 frames, head last, then a 3-frame boil",
+  "exits": "hard: a title and its arrow vanish on the push's jump frame; marks leave with their page (baked into a page that turns); nothing fades"
+ },
+ "texture": "paper fibre and mottle on every prop (props.paper), ink spread into the paper (props.apply_ink), halftone for printed photos (props.halftone), a contact shadow under every sheet (drop-shadow 0 10 16 rgba(0,0,0,0.42)), the gobo shadow (the reference's fitted soft half-plane, normal ~320 deg, darkening 0.44-0.52, stepped) on close-ups; never on the speaker's plate",
+ "sheet_shadow": "rgba(0,0,0,0.42)",
+ "gl_shadow": "drop-shadow(0px 10px 16px rgba(0,0,0,0.42))",
+ "captions": {
+  "size": 62,
+  "condense": 0.8,
+  "pad": 22,
+  "radius": 12,
+  "top": 1400,
+  "height": 88,
+  "line_height": 90,
+  "guard_box": [
+   220,
+   1400,
+   640,
+   88
+  ],
+  "max_words": 3,
+  "max_chars": 17,
+  "note": ">= 48 px (the caption floor: 62 px condensed 0.8 reads ~50 px wide, cap height ~45 px); the reference's 50 px pill at y 1500-1571 was moved up out of the Instagram bottom UI"
+ },
+ "sound": "pensive documentary piano bed (library/music silent-descent) ~18 dB under the voice, light duck (-4 dB), wall to wall, no swells. SFX only where something enters or a section changes, never on caption words: a low whoosh pre-lapped so it peaks on the zoom-blur push (onset ~0.8 s before the jump); a whoosh 0.8 s before each cut into a paper section; a tick on a label pop; marker-scribble foley on each underline / ellipse (<= 0.5 s, 0.9 s apart); one low boom (-7 dB) under the big turn; a soft whoosh-cine (-8 dB) on the payoff turn and nothing loud after it. Measured density: reference 3.2 per 10 s (1.2 loud), the founding reel 2.78. Paper foley: paper-flip / paper-riffle (CC0 pack) on a turn's landing; no paper slide / tap in library/sfx yet; never fake paper with a UI sweep",
+ "film": "the speaker's face as shot: no grade, no filter",
+ "budgets": {
+  "face_on_screen_pct": [
+   45,
+   60
+  ],
+  "paper_scene_max_s": 3.5,
+  "inserts_per_min": 3,
+  "note": "the talking head carries the reel: paper scenes cover 40-55 % (the reference's 4 % face is a screen tutorial, not a talking-head format); every paper scene <= 3.5 s; stock stills <= 3 a minute, each as a print matching its line; nothing over the face (guards fail the build)"
+ },
+ "vary_per_reel": [
+  "the props (every page, map, print, card, notebook is drawn or typeset for the script; components.py plan --style tactile-paper)",
+  "the hook object that finishes the hook sentence",
+  "the before / after pair and what turns (which page turns onto which)",
+  "the payoff bookend object and the outro device",
+  "the arrows' and marks' targets",
+  "the music bed (a pensive piano or pad bed from library/music)"
+ ],
+ "kept": [],
+ "tolerance": {
+  "L": 8.0,
+  "wb_b": 5.0,
+  "wb_a": 4.0,
+  "sat": [
+   0.85,
+   1.15
+  ],
+  "contrast": [
+   0.85,
+   1.15
+  ]
+ },
+ "grade_rule": "none: the speaker's footage stays as shot; inserts are conformed to it",
+ "components_rule": "the house look is the type, captions, accents, insert framing and the speaker's face as shot; phone-UI scenes, paper props, polaroid / card / collage treatments, transitions, hook and outro devices are NEW every reel (scripts/components.py plan / check / record, catalog.json)"
+}

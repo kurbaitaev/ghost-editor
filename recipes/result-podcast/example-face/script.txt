@@ -1,0 +1,14 @@
+Face RESULT worked example: "the doorway effect", the words of the cut (about 42 s), as spoken; one line per sentence.
+Look-away this example covers: 17.55-18.35 s ("new scene, file"), under the full-screen drawer card. It is the stand-in recording's; take yours from scripts/cover_windows.py.
+
+You walk into the kitchen and forget why you came.
+You just stand there, staring at the fridge.
+Your memory is fine. Blame the door.
+Psychologists call it the doorway effect.
+Your brain saves the day in scenes, like a film.
+A doorway tells it: new scene, file the old one away.
+And the plan you had goes into that file.
+In experiments, people forgot more after walking through a door than after walking the same distance in one room.
+So before you go, say the task out loud: scissors, scissors, scissors.
+Now it walks through the door with you.
+Doors close scenes. They don't have to close your plans.

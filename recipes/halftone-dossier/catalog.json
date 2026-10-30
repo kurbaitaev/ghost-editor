@@ -1,0 +1,180 @@
+{
+ "_about": "Registry of this style's components (SYSTEM.md): what each one is, its kind and the regexes (sig) that find it in a built index.html. scripts/components.py plan / check / add / record read and write it: history lists your reels in order, projects maps a reel id to its project folder, and each element's reels say where it was used. Empty history = nothing used yet.",
+ "reels": {},
+ "history": [],
+ "projects": {},
+ "_about_components": "kind = hook / scene / prop / frame / transition / outro (new every reel) or house (stays); sig = regexes (a LIST) on the built index.html; history = reels in order; projects = where each reel's index.html is.",
+ "elements": [
+  {
+   "id": "house-paper-grain",
+   "kind": "house",
+   "slot": "pages",
+   "desc": "every page: paper.png multiplied over the page + grain specks moved every 2 frames",
+   "sig": [
+    "class=\"full paper\" src=\"assets/gen/paper.png\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-halftone-layers",
+   "kind": "house",
+   "slot": "pages",
+   "desc": "1-3 halftone PNG layers per page (step 20-26, own screen angle, radial / edge / linear fields), multiply overprint",
+   "sig": [
+    "src=\"assets/gen/ht_[0-9a-f]{10}\\.png\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-misreg-headline",
+   "kind": "house",
+   "slot": "headlines",
+   "desc": "Playfair Display 900 headline, pink +0.055 em shadow, glyph pop with squash (back.out 1.9)",
+   "sig": [
+    "class=\"hl\" style=\"[^\"]*Playfair Display"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-caption-bar",
+   "kind": "house",
+   "slot": "captions",
+   "desc": "navy pill with pink offset shadow, Inter 900 54 px cream, yellow keywords, every spoken word in <= 25-char chunks",
+   "sig": [
+    "<div class=\"caprow\"><div id=\"cap\\d+\" class=\"cap\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-case-hud",
+   "kind": "house",
+   "slot": "hud",
+   "desc": "case number chip + chapter chip + REC dot/date, inverts on night pages, hidden on the hook",
+   "sig": [
+    "<div id=\"hud\"><div class=\"case\">"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-stamp-slam",
+   "kind": "house",
+   "slot": "verdicts",
+   "desc": "rubber stamp: double rounded box, Inter 900, PNG ink mask, 2.6x -> 1x in 0.09 s + bounce + page shake",
+   "sig": [
+    "class=\"stamp\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-dot-wipe",
+   "kind": "house",
+   "slot": "transitions",
+   "desc": "90 px dot grid wipe, diagonal delay; full on page-page cuts, page half only on cuts touching the speaker's face",
+   "sig": [
+    "<svg id=\"wipe\" class=\"full\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-boil-copies",
+   "kind": "house",
+   "slot": "props",
+   "desc": "line boil: three jittered prop copies swapped at 10 fps via data-b on the page",
+   "sig": [
+    "class=\"bv bv0\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-behind-head-word",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "the subject word behind the speaker's head on frame 0 (matte), fully set, no HUD",
+   "sig": [
+    "<div id=\"behind\" class=\"full\" style=\"z-index:2\"><div id=\"hl\\d+\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-mugshot-phone-eyes",
+   "kind": "scene",
+   "slot": "S2",
+   "desc": "mugshot: height chart in cm, blue halo, the phone drawn as a kawaii suspect with glossy eyes, name plate, flash + squint, push-in",
+   "sig": [
+    "class=\"plate\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "frame-pinned-print-label",
+   "kind": "frame",
+   "slot": "S3",
+   "desc": "a real cover as a taped white-bordered print dropping in + a typed mono evidence label",
+   "sig": [
+    "class=\"print\"",
+    "class=\"label\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "prop-halftone-numeral",
+   "kind": "prop",
+   "slot": "S3",
+   "desc": "giant Unbounded numeral, flat yellow + orange halftone via background-clip:text, rising from below",
+   "sig": [
+    "background-clip:text"
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-night-notifications",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "night page: phone lock screen + notification banners (envelope / bubble / heart) popping out on the spoken words, a stamp (OFF.)",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "scene-evidence-board",
+   "kind": "scene",
+   "slot": "S5",
+   "desc": "numbered exhibit cards with halftone swatches + boiling icons (moon, dumbbell, heart), pins and a red string",
+   "sig": [
+    "class=\"excard\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-mountain-verdict",
+   "kind": "scene",
+   "slot": "S6",
+   "desc": "the hard task as a mountain with a flag over a navy dot ramp, a reassuring stamp",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "scene-day-cells-bloom",
+   "kind": "scene",
+   "slot": "S7",
+   "desc": "day cells under a big phone that shrinks away, a yellow halftone bloom swells over the freed cells",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "outro-face-stamp-closed",
+   "kind": "outro",
+   "slot": "S8",
+   "desc": "a case-closed stamp below the speaker's face on the last line, no shake",
+   "sig": [],
+   "reels": []
+  }
+ ],
+ "ideas_not_built_yet": [
+  "redaction bars lifting one by one (a leaked line)",
+  "the folder into a drawer of identical files ending",
+  "snap zoom into huge dots on a detail",
+  "pan across a pinned board",
+  "interjections in a hand face with Cyrillic",
+  "halftone conversion of an object photo (never a face)"
+ ]
+}

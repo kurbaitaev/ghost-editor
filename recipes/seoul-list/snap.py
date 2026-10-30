@@ -11,7 +11,7 @@ strips: text clipped or wrapped, stickers off the frame, a card landing on a fac
 compare: for each pair one image, reference frame(s) left, ours right, plus all.jpg stacking every pair.
 cuts: every shot's first frame in the render must match the proxy frame its in-point names (the frame-exact check;
 under ~30 dB means a wrong frame or something covering the shot, which a scene does on purpose).
-Snapshots go through `npx -y hyperframes@$HF_VERSION snapshot` (default 0.8.150), no Gemini description.
+Snapshots go through the pinned HyperFrames CLI (scripts/HF_VERSION; an HF_VERSION env var overrides it), no Gemini description.
 """
 import argparse
 import json
@@ -22,7 +22,8 @@ import tempfile
 
 from PIL import Image, ImageDraw, ImageFont
 
-HF = os.environ.get("HF_VERSION", "0.8.150")
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "scripts"))
+from hf_version import hf  # noqa: E402
 
 
 def font(size):
@@ -75,7 +76,7 @@ def load(P, ids):
 def snapshot(P, times, out):
     os.makedirs(out, exist_ok=True)
     at = ",".join(f"{t:.3f}" for t in times)
-    r = subprocess.run(["npx", "-y", f"hyperframes@{HF}", "snapshot", "--at", at, "--no-end", "--describe", "false", "-o", out],
+    r = subprocess.run(hf("snapshot", "--at", at, "--no-end", "--describe", "false", "-o", out),
                        cwd=P, capture_output=True, text=True)
     if r.returncode:
         sys.exit("snapshot failed: " + (r.stderr or r.stdout)[-800:])

@@ -741,5 +741,583 @@
     "licensed": true,
     "mixkit_id": "166",
     "review": "listen: picked by envelope (rising swoosh, peak at 0.25 s), not yet confirmed by ear as an iMessage-like send"
+  },
+  "paper-flip": {
+    "file": "cc0-paper-flip.wav",
+    "role": "foley",
+    "tags": [
+      "paper",
+      "page",
+      "card-flip",
+      "white-page"
+    ],
+    "duration": 0.45,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/gynation/sounds/82379/ \"paper flip 3.wav\" by gynation (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "82379",
+    "edit": "0-0.45 s, HP 150 Hz, 0.15 s fade-out",
+    "added": "2026-10-26",
+    "licence_checked": "2026-10-26 (sound page shows CC0)",
+    "pack": "cc0"
+  },
+  "paper-riffle": {
+    "file": "cc0-paper-riffle.wav",
+    "role": "foley",
+    "tags": [
+      "paper",
+      "prints",
+      "montage",
+      "page-turn"
+    ],
+    "duration": 1.0,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/davidbain/sounds/136778/ \"Page Turn\" by davidbain (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "136778",
+    "edit": "0.65-1.65 s, HP 150 Hz, fades 0.05/0.25 s",
+    "added": "2026-10-26",
+    "licence_checked": "2026-10-26 (sound page shows CC0)",
+    "pack": "cc0"
+  },
+  "whoosh-reverse": {
+    "file": "cc0-whoosh-reverse.wav",
+    "role": "whoosh",
+    "tags": [
+      "reverse",
+      "push-out",
+      "into-cut",
+      "suck"
+    ],
+    "duration": 0.62,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/SlavicMagic/sounds/446010/ \"Backwards Whoosh\" by SlavicMagic (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "446010",
+    "edit": "whole file, HP 80 Hz; peak ~0.50 s = the cut; +21 dB to the house -1 dBFS",
+    "added": "2026-10-26",
+    "licence_checked": "2026-10-26 (sound page shows CC0)",
+    "pack": "cc0"
+  },
+  "swell-short": {
+    "file": "cc0-swell-short.wav",
+    "role": "riser",
+    "tags": [
+      "swell",
+      "into-step-card",
+      "gap-riser",
+      "back-timed"
+    ],
+    "duration": 1.65,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/jordivburgel/sounds/218354/ \"Movie Short Swell\" by jordivburgel (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "218354",
+    "edit": "1.60-3.25 s (the build to its peak), HP 50 Hz, 0.3 s fade-in, peak at ~1.55 s",
+    "added": "2026-10-26",
+    "licence_checked": "2026-10-26 (sound page shows CC0)",
+    "pack": "cc0"
+  },
+  "wood-plane": {
+    "file": "cc0-wood-plane.wav",
+    "role": "foley",
+    "tags": [
+      "craft",
+      "wood",
+      "workshop",
+      "carpenter",
+      "hand-plane"
+    ],
+    "duration": 0.85,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/DeqstersLab/sounds/847374/ \"Victor No. 5, Face Planing, Doug Fir\" by DeqstersLab (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "847374",
+    "edit": "one stroke 6.10-6.95 s, HP 120 Hz, fades 0.08/0.15 s",
+    "added": "2026-10-26",
+    "licence_checked": "2026-10-26 (sound page shows CC0)",
+    "pack": "cc0"
+  },
+  "alarm-bell": {
+    "file": "alarm-bell.wav",
+    "role": "foley",
+    "tags": [
+      "alarm",
+      "clock",
+      "wake-up",
+      "ring"
+    ],
+    "duration": 3.5,
+    "peak_db": -1.0,
+    "source": "https://mixkit.co/free-sound-effects/alarm/ #995 Classic alarm",
+    "licence": "Mixkit Free SFX licence (commercial OK, no redistribution as-is)",
+    "licensed": true,
+    "mixkit_id": "995"
+  },
+  "deep-boom": {
+    "file": "cc0-deep-boom.wav",
+    "role": "meme",
+    "tags": [
+      "punchline",
+      "claim",
+      "reveal",
+      "sus"
+    ],
+    "duration": 2.5,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/Za-Games/sounds/539968/ \"Deep Boom\" by Za-Games (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "539968",
+    "what": "deep explosion boom",
+    "edit": "silence trimmed, max 2.5 s, 0.6 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "vinyl-scratch": {
+    "file": "cc0-vinyl-scratch.wav",
+    "role": "meme",
+    "tags": [
+      "wait",
+      "freeze-frame",
+      "twist"
+    ],
+    "duration": 0.448,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/ludvique/sounds/71853/ \"record_scratch.wav\" by ludvique (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "71853",
+    "what": "cartridge scratched over a vinyl record",
+    "edit": "silence trimmed, max 0.6 s, 0.05 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "error-beep": {
+    "file": "cc0-error-beep.wav",
+    "role": "meme",
+    "tags": [
+      "wrong",
+      "myth",
+      "fail"
+    ],
+    "duration": 0.245,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/JonnyRuss01/sounds/478191/ \"Beep_Error_1.wav\" by JonnyRuss01 (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "478191",
+    "what": "soft error beep made from a metal bowl",
+    "edit": "silence trimmed, max 0.5 s, 0.05 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "metal-clang": {
+    "file": "cc0-metal-clang.wav",
+    "role": "meme",
+    "tags": [
+      "fail",
+      "sudden",
+      "absurd"
+    ],
+    "duration": 0.339,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/jasonLON/sounds/125404/ \"Metallic Clang.aif\" by jasonLON (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "125404",
+    "what": "baking pan hit with a bass-drum mallet, layered",
+    "edit": "silence trimmed, max 1.8 s, 0.4 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "dark-sting": {
+    "file": "cc0-dark-sting.wav",
+    "role": "meme",
+    "tags": [
+      "reveal",
+      "twist",
+      "drama"
+    ],
+    "duration": 2.692,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/nomiqbomi/sounds/578577/ \"Dark Crescendo 3\" by nomiqbomi (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "578577",
+    "what": "dark orchestral crescendo, made in Logic",
+    "edit": "silence trimmed, max 3.6 s, 0.5 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "piano-sting": {
+    "file": "cc0-piano-sting.wav",
+    "role": "meme",
+    "tags": [
+      "drama",
+      "mystery",
+      "reveal"
+    ],
+    "duration": 1.749,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/ecfike/sounds/183500/ \"Piano Cord.wav\" by ecfike (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "183500",
+    "what": "minor piano chord hit",
+    "edit": "silence trimmed, max 1.75 s, 0.4 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "group-ooh": {
+    "file": "cc0-group-ooh.wav",
+    "role": "meme",
+    "tags": [
+      "burn",
+      "spicy",
+      "shock"
+    ],
+    "duration": 2.8,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/CHallSmith/sounds/870650/ \"Group Ooh 1\" by CHallSmith (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "870650",
+    "what": "loop group's synchronized ooh",
+    "edit": "silence trimmed, max 2.8 s, 0.3 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "gong-hit": {
+    "file": "cc0-gong-hit.wav",
+    "role": "meme",
+    "tags": [
+      "punchline",
+      "stop",
+      "verdict"
+    ],
+    "duration": 2.9,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/rabban625/sounds/436486/ \"gong-013.wav\" by rabban625 (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "436486",
+    "what": "live orchestral gong",
+    "edit": "silence trimmed, max 2.9 s, 0.8 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "cricket-chirp": {
+    "file": "cc0-cricket-chirp.wav",
+    "role": "meme",
+    "tags": [
+      "awkward",
+      "silence"
+    ],
+    "duration": 2.8,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/_sinny_/sounds/822935/ \"cricket chirping (slow)\" by _sinny_ (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "822935",
+    "what": "a cricket, field recording",
+    "edit": "silence trimmed, max 2.8 s, 0.3 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "air-horn": {
+    "file": "cc0-air-horn.wav",
+    "role": "meme",
+    "tags": [
+      "hype",
+      "win"
+    ],
+    "duration": 1.6,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/jacksonacademyashmore/sounds/414208/ \"Airhorn\" by jacksonacademyashmore (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "414208",
+    "what": "air horn made in Audacity",
+    "edit": "silence trimmed, max 1.6 s, 0.15 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "huh-voice": {
+    "file": "cc0-huh-voice.wav",
+    "role": "meme",
+    "tags": [
+      "confused",
+      "disbelief"
+    ],
+    "duration": 0.514,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/davdud101/sounds/150505/ \"Huh? - Vocal\" by davdud101 (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "150505",
+    "what": "young male voice: huh?",
+    "edit": "silence trimmed, max 0.9 s, 0.05 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "wow-voice": {
+    "file": "cc0-wow-voice.wav",
+    "role": "meme",
+    "tags": [
+      "impressive",
+      "flex"
+    ],
+    "duration": 1.6,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/willy_ineedthatapp_com/sounds/167355/ \"wow.mp3\" by willy_ineedthatapp_com (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "167355",
+    "what": "wow in a high voice",
+    "edit": "silence trimmed, max 1.6 s, 0.1 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "bike-honk": {
+    "file": "cc0-bike-honk.wav",
+    "role": "meme",
+    "tags": [
+      "absurd",
+      "dumb",
+      "bad-joke"
+    ],
+    "duration": 0.7,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/AntumDeluge/sounds/188039/ \"Bicycle Horn\" by AntumDeluge (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "188039",
+    "what": "child's plastic bicycle horn",
+    "edit": "silence trimmed, max 0.7 s, 0.05 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "whip-crack": {
+    "file": "cc0-whip-crack.wav",
+    "role": "meme",
+    "tags": [
+      "roast",
+      "savage",
+      "fast"
+    ],
+    "duration": 0.476,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/SciFiSounds/sounds/529925/ \"Whip Crack.m4a\" by SciFiSounds (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "529925",
+    "what": "whip crack",
+    "edit": "silence trimmed, max 0.6 s, 0.05 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "tada": {
+    "file": "cc0-tada.wav",
+    "role": "meme",
+    "tags": [
+      "win",
+      "done",
+      "reveal"
+    ],
+    "duration": 1.442,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/plasterbrain/sounds/397355/ \"Tada Fanfare A\" by plasterbrain (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "397355",
+    "what": "brass tada in A major",
+    "edit": "silence trimmed, max 1.75 s, 0.3 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "glass-break": {
+    "file": "cc0-glass-break.wav",
+    "role": "meme",
+    "tags": [
+      "fail",
+      "broke",
+      "shatter"
+    ],
+    "duration": 1.484,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/avrahamy/sounds/141563/ \"Glass Break\" by avrahamy (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "141563",
+    "what": "a glass window breaking",
+    "edit": "silence trimmed, max 1.9 s, 0.3 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "cartoon-zip": {
+    "file": "cc0-cartoon-zip.wav",
+    "role": "meme",
+    "tags": [
+      "fast",
+      "exit",
+      "gone"
+    ],
+    "duration": 0.157,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/se2001/sounds/541507/ \"Cartoon Quick Zip 02\" by se2001 (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "541507",
+    "what": "mouth-made cartoon zip",
+    "edit": "silence trimmed, max 0.3 s, 0.03 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "riser-short": {
+    "file": "cc0-riser-short.wav",
+    "role": "riser",
+    "tags": [
+      "build-up",
+      "suspense"
+    ],
+    "duration": 2.13,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/syntheffects/sounds/685256/ \"Riser sound effect short.wav\" by syntheffects (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "685256",
+    "what": "noise riser",
+    "edit": "silence trimmed, max 3.05 s, 0.03 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "oof-voice": {
+    "file": "cc0-oof-voice.wav",
+    "role": "meme",
+    "tags": [
+      "fail",
+      "pain",
+      "ouch"
+    ],
+    "duration": 0.272,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/unfa/sounds/719053/ \"Oof (original)\" by unfa (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "719053",
+    "what": "an original oof, recorded by the uploader",
+    "edit": "silence trimmed, max 0.35 s, 0.03 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "oh-no-voice": {
+    "file": "cc0-oh-no-voice.wav",
+    "role": "meme",
+    "tags": [
+      "mistake",
+      "dread"
+    ],
+    "duration": 1.53,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/Sadiquecat/sounds/801386/ \"Fear - ohno ohno ohno\" by Sadiquecat (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "801386",
+    "what": "male voice actor: oh no oh no oh no",
+    "edit": "silence trimmed, max 1.7 s, 0.1 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "glitch-hit": {
+    "file": "cc0-glitch-hit.wav",
+    "role": "impact",
+    "tags": [
+      "error",
+      "tech",
+      "glitch"
+    ],
+    "duration": 0.773,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/h0p1r4e7o/sounds/673773/ \"Glitch SFX - 1 sek.wav\" by h0p1r4e7o (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "673773",
+    "what": "digital glitch",
+    "edit": "silence trimmed, max 0.9 s, 0.05 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
+  },
+  "violin-sad": {
+    "file": "cc0-violin-sad.wav",
+    "role": "meme",
+    "tags": [
+      "sad",
+      "pity"
+    ],
+    "duration": 5.5,
+    "peak_db": -1.0,
+    "source": "https://freesound.org/people/andyssoundbox/sounds/234311/ \"Hearts and Flowers.wav\" by andyssoundbox (HQ preview, cdn.freesound.org/previews)",
+    "licence": "CC0 1.0 public domain (Freesound; commercial OK, no credit, redistribution OK)",
+    "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licensed": true,
+    "freesound_id": "234311",
+    "what": "Hearts and Flowers (1893, public domain) played on violin",
+    "edit": "silence trimmed, max 5.5 s, 0.8 s fade-out, 48 kHz stereo, peak -1 dBFS",
+    "added": "2026-10-29",
+    "pack": "cc0",
+    "licence_checked": "2026-10-29 (sound page shows Creative Commons 0; uploader's own recording or synth)"
   }
 }

@@ -25,9 +25,9 @@ How to read this: **ranked best-first per slot.** Licence is checked on GitHub (
 
 ---
 
-## 1. HyperFrames registry hits (`npx hyperframes catalog --query … --json`)
+## 1. HyperFrames registry hits (`$S/scripts/hf.sh catalog --query … --json`)
 
-Install with `npx hyperframes add <name>`. Previews are at `static.heygen.ai/hyperframes-oss/registry/...`.
+Install with `$S/scripts/hf.sh add <name>`. Previews are at `static.heygen.ai/hyperframes-oss/registry/...`.
 
 **Captions / typography**
 - `caption-editorial-emphasis` (component): a two-font system with strong size contrast on emphasis words. **This is the closest match to "and the rest / WILL COME."** Start here and restyle it to lowercase Inter Tight with a bold uppercase emphasis line.
@@ -55,7 +55,7 @@ Install with `npx hyperframes add <name>`. Previews are at `static.heygen.ai/hyp
 - There's **no dust/scratch block** in the registry. The query only returned grain and light-leak, so dust and scratches have to be built (see §3).
 
 **Cards / paper**
-- `freeze-frame-dressing` (block): timeline-driven paper, tape and flash dressing for a freeze-frame or a background-removed subject. **This is the closest to the polaroid/sticker card.** Combine it with `npx hyperframes remove-background` for cut-outs.
+- `freeze-frame-dressing` (block): timeline-driven paper, tape and flash dressing for a freeze-frame or a background-removed subject. **This is the closest to the polaroid/sticker card.** Combine it with `$S/scripts/hf.sh remove-background` for cut-outs.
 - `texture-mask-text` (component): 66 ambientCG luminance masks cut through letterforms. It can give paper-textured title words.
 - `ink-bleed-reveal` (component): ink blooms through paper. It's an optional transition onto the yellow card.
 - `yt-lcd-background` (block): a textured paper board with grain and a blur-focus title. It could be restyled into the flat-colour cards.
@@ -122,7 +122,7 @@ For integration, an overlay MP4 goes in as a muted `<video>` clip on the top tra
 
 - **Paper textures (CC0):** ambientCG `Paper001`–`Paper006` and `Cardboard001`–`004` (I confirmed these exist via the ambientCG API): https://ambientcg.com/list?q=paper . Use the `_Color` 2K JPG as a `background-image` on the card. Poly Haven (CC0) is an alternative source: https://polyhaven.com/textures
 - **Polaroid build (CSS, no library needed):** a white or off-white frame `padding: 28px 28px 110px`, paper texture at 25% `multiply`, a slight `rotate(-3deg)`, and a soft `drop-shadow`. Put the photo or B-roll inside. Animate it in with `back.out(1.4)` scale 0.85→1 plus a rotate settle, and an `editorial-flash-overlay` on impact.
-- **Sticker / cut-out:** run `npx hyperframes remove-background` (or the `media-use` skill) for the subject, then a CSS outline sticker edge via `filter: drop-shadow(0 0 0 6px #fff)` stacked x4, or an SVG `feMorphology` dilate for a clean white border. Tape strips come from `freeze-frame-dressing`.
+- **Sticker / cut-out:** run `$S/scripts/hf.sh remove-background` (or the `media-use` skill) for the subject, then a CSS outline sticker edge via `filter: drop-shadow(0 0 0 6px #fff)` stacked x4, or an SVG `feMorphology` dilate for a clean white border. Tape strips come from `freeze-frame-dressing`.
 - **Rounded framed B-roll on dark:** plain CSS `border-radius: 28px; overflow:hidden` on a `#0d0d0f` field with a grain layer. Add a subtle 1.00→1.04 Ken Burns with GSAP.
 - **Flat colour cards:** solid `#F2C230`-ish warm yellow, `#0E1A3A` navy, and a `linear-gradient(160deg,#E2401C,#F28A2E)` red-orange, plus the dust layer at high strength and a vignette. Text is Inter Tight with a single Instrument Serif or script accent word.
 
@@ -166,7 +166,7 @@ Track order, bottom to top:
 5. Texture: dust canvas (seeded by frame) plus `grain-overlay` across everything, a light vignette and a slight warm/low-saturation grade.
 
 Determinism rules: every random value seeded by frame or time, no `Math.random()` at runtime, no free-running rAF, and fonts and textures local.
-Captions come from word timestamps (`npx hyperframes transcribe` or the `media-use` engine), grouped with Remotion-style `combineTokensWithinMilliseconds` logic (~0 ms gives one word at a time, ~600 ms for the stacked two-line beats).
+Captions come from word timestamps (`$S/scripts/hf.sh transcribe` or the `media-use` engine), grouped with Remotion-style `combineTokensWithinMilliseconds` logic (~0 ms gives one word at a time, ~600 ms for the stacked two-line beats).
 
 ---
 

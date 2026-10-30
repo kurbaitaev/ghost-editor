@@ -10,7 +10,7 @@ taste checks, then captures a frame at every moment the user has to judge:
   the opening frame, the 1.5 s hook frame, just after every visible cut (take boundaries and, with an
   upstream cut list, the cuts inside a pre-cut source), each beat as it lands and when it is fully built,
   and the end frame.
-Frames come from `npx hyperframes snapshot --at ...` (default, no render needed), from a fast draft render
+Frames come from `hyperframes snapshot --at ...` (the pinned CLI, scripts/HF_VERSION) (default, no render needed), from a fast draft render
 (`--frames draft`), or from any existing video (`--frames video:build/reel.mp4`).
 
 The page holds: the contact sheet (edit time, original time, caption on screen, beat text, sounds), the
@@ -32,6 +32,8 @@ import subprocess
 import sys
 import tempfile
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from hf_version import hf  # noqa: E402  (the pinned HyperFrames CLI, scripts/HF_VERSION)
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
 from reelproj import (beats_timeline, caption_at, caption_groups, fmt_t, load_project,  # noqa: E402
                       parse_build_log, predicted_silences, run_build, sh, take_words, taste_mjs)
@@ -106,7 +108,7 @@ def capture_snapshot(pr, times, tmp, jobs=3):
         d = os.path.join(tmp, f"j{j}")
         os.makedirs(d)
         at = ",".join(f"{times[i]:.3f}" for i in idx)
-        procs.append((idx, d, subprocess.Popen(["npx", "hyperframes", "snapshot", pr.path, "--at", at, "-o", d, "--describe", "false", "--no-end"],
+        procs.append((idx, d, subprocess.Popen(hf("snapshot", pr.path, "--at", at, "-o", d, "--describe", "false", "--no-end"),
                                                cwd=pr.path, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)))
     out = [None] * len(times)
     for idx, d, p in procs:
@@ -117,7 +119,7 @@ def capture_snapshot(pr, times, tmp, jobs=3):
             shutil.rmtree(d)
             os.makedirs(d)
             at = ",".join(f"{times[i]:.3f}" for i in idx)
-            r = sh(["npx", "hyperframes", "snapshot", pr.path, "--at", at, "-o", d, "--describe", "false", "--no-end", "--timeout", "20000"], cwd=pr.path, timeout=1800)
+            r = sh(hf("snapshot", pr.path, "--at", at, "-o", d, "--describe", "false", "--no-end", "--timeout", "20000"), cwd=pr.path, timeout=1800)
             files = sorted(f for f in os.listdir(d) if re.match(r"frame-\d+-at-.*\.png$", f))
             if len(files) != len(idx):
                 raise RuntimeError(f"snapshot returned {len(files)} of {len(idx)} frames; try --jobs 1 or --frames video:<render>\n{(r.stdout + r.stderr)[-600:]}")
@@ -190,7 +192,7 @@ def make_cover(pr, tmp):
 
 # ---------------------------------------------------------------- checks
 def lint(pr):
-    r = sh(["npx", "hyperframes", "lint", "--json"], cwd=pr.path, timeout=300)
+    r = sh(hf("lint", "--json"), cwd=pr.path, timeout=300)
     try:
         j = json.loads(r.stdout[r.stdout.index("{"):])
     except (ValueError, json.JSONDecodeError):
@@ -634,7 +636,7 @@ def main():
             pngs = capture_snapshot(pr, times, tmp, a.jobs)
         elif a.frames == "draft":
             draft = os.path.join(proj, "build", "draft.mp4")
-            r = sh(["npx", "hyperframes", "render", "-q", "draft", "-o", draft, "--quiet"], cwd=proj, timeout=7200)
+            r = sh(hf("render", "-q", "draft", "-o", draft, "--quiet"), cwd=proj, timeout=7200)
             if r.returncode != 0:
                 sys.exit("draft render failed: " + (r.stderr or r.stdout)[-600:])
             pngs = capture_video(draft, times, tmp)

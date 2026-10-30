@@ -1,0 +1,51 @@
+ONE REEL: BUILD -> PREVIEW, THEN STOP          (ghost-editor skill; docs/PLAYBOOK.md "Cost")
+Fill the {fields}, save the copy as a .txt next to the project (or in the session's notes folder) and give a FRESH helper
+one line: "Read <path> and follow it exactly." Spawn it as subagent_type "reel-helper" (lean: ~11 k tokens of starting
+context instead of ~85 k) on the default model (Opus: this step is creative).
+
+Reel: {CODE} «{TITLE}» ({TITLE_EN}). Style: {STYLE} (recipe {RECIPE}, builder {BUILDER}). Tag: {TAG}.
+Project: {P}            Approved cut (do not re-cut the talk): {CUT}
+Machine: everything heavy (renders, snapshots, ffmpeg) on {MACHINE}, the machine that holds the footage.
+  S=~/.claude/skills/ghost-editor ; PY=~/.venvs/media/bin/python (or any python with numpy + opencv)
+Standing rules (the user's; edit to theirs): the speaker's face exactly as shot (no grade, no filter, nothing on it);
+frame 1 is the speaker's face with the hook; B-roll people rules ($S/people-rules.json, empty by default); every insert
+through insert_prep.py / broll_vision.py; few inserts, each matching its
+line; pictures: Wikimedia Commons first for anything archival ($S/scripts/wikimedia_fetch.py), then Google Images
+(google_images.py), stock next, AI only if nothing else fits; every search EN + RU,
+>= 1080 px short side, Google framed only (references/broll.md 3); each picture must say its line at a glance on a
+phone (named, iconic subject; never dim/flat B&W that hides it); choose every picture with
+$S/scripts/image_pick.py (brief, pull 6-10, score, pick >= 4 or flag the line) and put its scores sheet next to the preview; new components every reel (components.py); crisp, legible UI and text: no blur left on any text once it has
+landed (blur only inside entrance moves), no ghost layers, small text >= 30 px; previews before finals.
+Notes for this reel: {NOTES}
+
+Read exactly this, in this order (not old generators, not the builder source, not the whole SKILL.md):
+  1. $S/recipes/{RECIPE}/SYSTEM.md: the invariants, slots and planning procedure (skip the changelog).
+  2. The builder's calls: `$PY $S/recipes/{RECIPE}/{BUILDER} --api` where it has one (cleanos.py, seoul.py), else its
+     module docstring (`sed -n 1,70p`) and `grep -n "    def " ` on it.
+  3. $PY $S/scripts/components.py plan --style {RECIPE}   what the recent reels used (avoid) and what is free.
+  4. The words of the cut with times (one python one-liner over {CUT}/build/words.cut.json).
+
+Steps:
+  a. The project: `$PY $S/scripts/lib/facereel.py --new {P} --from {CUT}` (Clean OS, Face RESULT, Whiteboard, Kinetic doc;
+     --plate plate_wide.mp4 for a wide-only plate); Seoul list: seoul.setup(project, cut) in the generator.
+  b. Plan in {P}/build/plan.txt: line -> component (its new id) -> landing word; the hook; the outro; accent; bed.
+     The frame-1 hook text: natural in the script's language, short enough to read in the first second.
+     On-screen text never claims what the speaker did not say.
+  c. Register every new component: components.py add --style {RECIPE} --id ... --kind ... --slot ... --sig '<a class or
+     data-in it emits>' --desc '...'.
+  d. Write {P}/reel.py on the builder (aim <= 150 lines: word-keyed calls, kit parts, and only THIS reel's new markup).
+  e. Build -> $S/scripts/hf.sh lint (0 errors) -> $PY $S/recipes/seoul-list/snap.py beats {P} -> look at
+     {P}/build/snaps/overview.jpg ONLY; open one beat's strip only when the overview shows a problem. Fix, rebuild.
+     At most 3 look rounds. Check the legibility of the densest UI moment on a full-quality 1080x1920 still.
+  f. $PY $S/scripts/components.py check --style {RECIPE} --project {P}
+  g. Preview: $PY $S/scripts/finals.py preview {P} --out {P}/finals --style "{STYLE}" --code {CODE} --title "{TITLE_EN}"
+     (720x1280 ~4.5 Mbit/s) in ONE foreground Bash call with timeout 600000 (the open shell keeps the HyperFrames render
+     alive; never `nohup ... &`, never a background job polled turn by turn: each poll re-reads your whole context).
+     Frame 0 as a jpg. Copy both to {PREVIEW_DIR} (where the user watches previews) as "{NAME} (preview).mp4" /
+     "{NAME} - frame 0.jpg".
+  h. Report in <= 25 lines: the preview paths, its size in MB; three lines for the user (frame-1 hook, the opening line,
+     length in s); the bed; the components (new ids) and the one idea no earlier reel in this style has had; face on
+     screen %, budgets; anything skipped. Then STOP: no final render, QA, delivery, tracker, skill edits or commits.
+
+Keep your context small (it is re-read on every turn): grep / sed -n instead of cat; one overview image per look round;
+never re-read a file you just wrote; no exploring outside the files named here unless a step fails.

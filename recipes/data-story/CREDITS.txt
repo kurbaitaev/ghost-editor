@@ -1,0 +1,38 @@
+Data Story (recipes/data-story) - credits and licences
+
+SOURCE
+  Lemo-Opuscar by LemoLab, https://github.com/lemomo-ai/lemo-opuscar (checked out 2026-10-29, commit f171360)
+  path: styles/dataviz/ ("Data Storytelling": STYLE.md, DEMO.md, demo/engine.js) and core/lib.js
+  licence of the code and the style texts: MIT License, "Copyright (c) 2026 LemoLab" (verbatim in LICENSE-lemo-opuscar.txt)
+
+WHAT WAS ADAPTED (MIT)
+  - spec text: the style's rules (the chart is the film; every mark a real number; human notes in blue, records and
+    warnings in red; the subtitle is the figure caption with a kicker and a hairline rule; transitions are chart
+    operations, never fades; the native moves: the question first, the empty next cell, the headline revised, one mark
+    close) were paraphrased into SYSTEM.md and house.json
+  - component code: engine.js ports paperTile / drawPaper, resample / pencilStroke, quadPath / leader / ringPath /
+    wavePath / heartPath, textImage / handText, setType, dataDot, inkShape, dashedCell, pencilBody / drawPencil and
+    caption from demo/engine.js, and clamp / lerp / ss / eio / eo / mulberry / hash / vnoise from core/lib.js,
+    re-sized for 1080x1920 and Cyrillic fonts; the painter (layers, pencil travel, slips, hatching) is new
+  - palette: paper #F6F3EC, dot grid #E4DDCF, ink #2B2723, soft ink #6E665C, blue pencil #2F5D8A, red pencil #A8283A,
+    wood #E3C79C, the RdBu-family ramp stops (ColorBrewer, Cynthia Brewer, Apache 2.0) as listed in DEMO.md
+
+NOT COPIED
+  - the demo film dataviz.mp4 and its stills/poster (CC BY 4.0, LemoLab), its voices, score and sounds, its
+    GISTEMP data, its story ("A Hundred Summers"), its fonts files (Newsreader, IBM Plex Mono) and any LemoLab sign-off;
+    the film was only watched
+  - no logos, no fictional channel names, no third-party footage
+
+FONTS (SIL Open Font License 1.1, from the skill's templates/fonts, licences there)
+  Caveat (Impallari Type), Playfair Display (Claus Eggers Sorensen; stands in for Newsreader, which has no Cyrillic),
+  JetBrains Mono (JetBrains; stands in for IBM Plex Mono)
+
+SOUND
+  library/sfx (Mixkit kit + the CC0 pack): paper-flip, paper-riffle (cc0), pencil-write, wood-hit, tick-1. No music.
+
+DATA IN THE EXAMPLE (datastory.py docstring)
+  - U.S. Food and Drug Administration, Consumer Update "Spilling the Beans: How Much Caffeine is Too Much?",
+    https://www.fda.gov/consumers/consumer-updates/spilling-beans-how-much-caffeine-too-much (content current as of
+    2024-08-28): typical caffeine in a 12 fl oz drink, green tea 37 mg, black tea 71 mg; 400 mg a day cited for most
+    adults as an amount not generally associated with negative effects. A U.S. government work.
+  - A reel's own data comes from the primary or official source the user finds for each number, named on screen.

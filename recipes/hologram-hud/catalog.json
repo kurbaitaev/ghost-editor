@@ -1,0 +1,139 @@
+{
+ "_about": "Registry of this style's components (SYSTEM.md): what each one is, its kind and the regexes (sig) that find it in a built index.html. scripts/components.py plan / check / add / record read and write it: history lists your reels in order, projects maps a reel id to its project folder, and each element's reels say where it was used. Empty history = nothing used yet.",
+ "reels": {},
+ "history": [],
+ "projects": {},
+ "_about_components": "house elements stay every reel; the other elements (openings, sources, teardowns, lists, endings) are what the port's proof reel used: a new reel builds NEW objects and devices for its own nouns (components.py plan --style hologram-hud)",
+ "elements": [
+  {
+   "id": "house-stage-pad-wireframe",
+   "kind": "house",
+   "slot": "stage",
+   "desc": "near-black stage tinted by the hue, 48 px dot grid with parallax, the rotating projector pad (rings, ticks, rays), the object as additive line wireframe with depth fog and two glow passes",
+   "sig": [
+    "window\\.HH = \\{ render"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-target-lock",
+   "kind": "house",
+   "slot": "locks",
+   "desc": "target box 1.9x and rotated 45 deg snapping to the part in 0.22 s, 3 white frames on the lock, tag on a hue chip (48 px)",
+   "sig": [
+    "\"locks\": \\[\\{"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-rolling-value-card",
+   "kind": "house",
+   "slot": "values",
+   "desc": "spec card: label rolls in, the value rolls right to left from glyphs of its own script and turns amber (accent) on the frame it is true, one-frame flash, progress bar",
+   "sig": [
+    "\"cards\": \\[\\{"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-toggle-rail",
+   "kind": "house",
+   "slot": "rail",
+   "desc": "finished values dock as chips in a two-column rail from y 236 (a drawn toggle: on = amber knob right, off = amber ring left), stay in every later HUD scene",
+   "sig": [
+    "\"chips\": \\[\\{"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-hud-subtitle",
+   "kind": "house",
+   "slot": "captions",
+   "desc": "the spoken line on a dark plate with diagonal brackets and voiceprint bars that move while the speaker talks, Exo 2 Medium 70 px (cap 48 px), plate bottom y 1690, no glyph roll on the speaker's words, same on face and HUD worlds",
+   "sig": [
+    "\"subs\": \\[\\{"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-edge-chrome",
+   "kind": "house",
+   "slot": "chrome",
+   "desc": "corner brackets + parallax rulers on every frame, subject // mode top left and the live status top right in JetBrains Mono 48 px; on the speaker's face only at the edges",
+   "sig": [
+    "\"subject\": \""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-power-on",
+   "kind": "house",
+   "slot": "transitions",
+   "desc": "3-frame power-on into every HUD scene: a bright line opens to the full frame over black",
+   "sig": [
+    "HUD power-on"
+   ],
+   "reels": []
+  },
+  {
+   "id": "phone-scan-in",
+   "kind": "opening",
+   "slot": "S2",
+   "desc": "the phone (body, screen, three notifications, app grid, camera) grows under a rising scan plane while the camera orbits and cranes down; the scan % counts in the status; the subject rolls in as the title",
+   "sig": [
+    "\"model\": \"phone\", \"scan\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "book-keep-cover",
+   "kind": "source",
+   "slot": "S3",
+   "desc": "the book the speaker names scanned in as a wireframe box, its real cover on the front face in its own colour with the interlace over it (the single-colour exception), a source lock, a card with author / title",
+   "sig": [
+    "\"model\": \"book\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "notifications-pull-out",
+   "kind": "teardown",
+   "slot": "S4",
+   "desc": "lock on the notification stack, the three notifications slide out of the screen along z (hot), an OFF state rolls and docks as an off toggle; then a marker per app type and each card cools dark",
+   "sig": [
+    "\"id\": \"n1\", \"t0\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "basics-turntable",
+   "kind": "list",
+   "slot": "S5",
+   "desc": "four line icons on one pad (moon, dumbbell, heart, peak with flag), the turntable whips each to the front on its word, a lock + amber marker per item, each docks as an on toggle; status n/4",
+   "sig": [
+    "\"model\": \"basics\", \"scan\": \\[18"
+   ],
+   "reels": []
+  },
+  {
+   "id": "erase-and-fill",
+   "kind": "ending",
+   "slot": "S6",
+   "desc": "the phone is locked, the one glitch, scan-erased top-down; the four basics scan in on the free pad and ignite into the solid hologram with the beam; the payoff value turns amber",
+   "sig": [
+    "\"erase\": \\["
+   ],
+   "reels": []
+  }
+ ],
+ "ideas_not_built_yet": [
+  "a loupe (frame in frame) on a small part: a second camera inside a circle above the subtitle (STYLE.md loupe)",
+  "real motion blur inside a whip (sub-frames)",
+  "an orbit around a part's own axis (spin pieces with piece.axis; the port drops the axis spin)",
+  "plan view opening: the object arriving as its footprint on the pad seen from the top",
+  "knolling ending: the parts fly into a labelled top-down layout",
+  "a loop screen version (no voice) for a story or a pinned post",
+  "an upgrade beat: old value dim, new value amber, the old part scan-erased and the new one scanned in",
+  "modelFromPath for a logo or a 2D outline the user gives (a brand mark kept in its colour)"
+ ]
+}

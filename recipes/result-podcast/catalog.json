@@ -631,7 +631,8 @@
    "slot": "transition",
    "desc": "a side prop slides in from the frame edge with extra rotation and settles (back.out); out: slides back to the edge or fades",
    "sig": [
-    "tl\\.set\\(\"#\\w+\", \\{\"autoAlpha\": 0, \"x\": -?[234]\\d0, \"rotation\""
+    "(?:tl|gsap)\\.set\\(\"#\\w+\", \\{\"autoAlpha\": 0, \"x\": -?[234]\\d0, \"rotation\"",
+    "data-in=\"side\""
    ],
    "reels": []
   },
@@ -641,7 +642,8 @@
    "slot": "transition",
    "desc": "a prop drops in from above with a swing of rotation and settles (into the band over the head, or onto a full-screen card); out: a 0.22 s fade",
    "sig": [
-    "tl\\.set\\(\"#\\w+\", \\{\"autoAlpha\": 0, \"y\": -\\d{3}, \"rotation\""
+    "(?:tl|gsap)\\.set\\(\"#\\w+\", \\{\"autoAlpha\": 0, \"y\": -\\d{3}, \"rotation\"",
+    "data-in=\"drop\""
    ],
    "reels": []
   },
@@ -651,7 +653,8 @@
    "slot": "transition",
    "desc": "a sheet rises from below the frame into the chest band (captions step aside), settles tilted; out: sinks / fades",
    "sig": [
-    "tl\\.set\\(\"#\\w+\", \\{\"autoAlpha\": 0, \"y\": 5\\d0, \"rotation\""
+    "(?:tl|gsap)\\.set\\(\"#\\w+\", \\{\"autoAlpha\": 0, \"y\": 5\\d0, \"rotation\"",
+    "data-in=\"rise\""
    ],
    "reels": []
   },
@@ -682,7 +685,8 @@
    "slot": "hook",
    "desc": "the hook line's first caption is already on screen on frame 1 (no fade-in), over the face",
    "sig": [
-    "tl\\.set\\(\"#c0\", \\{\"autoAlpha\": 1\\}, 0\\.000\\)"
+    "(?:tl|gsap)\\.set\\(\"#c0\", \\{\"autoAlpha\": 1\\}, 0\\.000\\)",
+    "gsap\\.set\\(\"#c0\", \\{\"autoAlpha\": 1\\}\\);"
    ],
    "reels": []
   },
@@ -920,6 +924,376 @@
    "desc": "the returning note shakes (rotation yoyo x7) on «…»: the tension is still there",
    "sig": [
     "\"yoyo\": true, \"repeat\": 7"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-postcard-flip",
+   "kind": "hook",
+   "slot": "hook",
+   "desc": "a postcard of the place the speaker puts you in sits over the head from frame 1 (no entrance) and flips on the hook word to its back, where the line's items are written in («…»)",
+   "sig": [
+    "class=\"prop fr-postcard\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "sticky-battery-drain",
+   "kind": "prop",
+   "slot": "artifact",
+   "desc": "a yellow sticky note with a drawn battery beside the face: bars go out on the words, the last one turns red and blinks («…»)",
+   "sig": [
+    "class=\"prop fr-battery\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "dictionary-clipping",
+   "kind": "prop",
+   "slot": "artifact",
+   "desc": "a torn dictionary clipping on the chest: the term in Playfair, «…» pops in red italic, the definition revealed word by word as the speaker says it",
+   "sig": [
+    "class=\"prop fr-dict\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "ticket-stub-study",
+   "kind": "prop",
+   "slot": "artifact",
+   "desc": "a perforated ticket stub over the head: «…» on the left, the findings ticked in Caveat on the right on their words",
+   "sig": [
+    "class=\"prop fr-stub\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "gauge-needle-red",
+   "kind": "prop",
+   "slot": "artifact",
+   "desc": "a kraft card with a pressure gauge beside the face: the needle climbs into the red on «…» and trembles on «…»",
+   "sig": [
+    "class=\"prop fr-gauge\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "gauge-fullscreen",
+   "kind": "scene",
+   "slot": "artifact",
+   "desc": "the same gauge full screen on kraft, the needle shaking in the red, captions kept (hides a look-away)",
+   "sig": [
+    "class=\"scene [^\"]*fr-gaugebig"
+   ],
+   "reels": []
+  },
+  {
+   "id": "punch-card-list",
+   "kind": "scene",
+   "slot": "artifact",
+   "desc": "a spoken list as a gym membership card full screen: each item written in Caveat and a hole punched beside it on its word",
+   "sig": [
+    "class=\"scene [^\"]*fr-punchcard"
+   ],
+   "reels": []
+  },
+  {
+   "id": "paper-light-switch",
+   "kind": "prop",
+   "slot": "artifact",
+   "desc": "a paper light-switch plate with a drawn bulb beside the face: the toggle flips on «…», the bulb lights on «…»",
+   "sig": [
+    "class=\"prop fr-switch\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "door-hanger-swing",
+   "kind": "outro",
+   "slot": "outro",
+   "desc": "a red «…» door hanger swings in beside the face for the last line and stays to the end; the closing words written on it in yellow",
+   "sig": [
+    "class=\"prop fr-hanger\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "enter-toss",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "a prop is tossed in from the upper corner (x 340, y -260, rotation 38, scale .7) and lands with power3.out",
+   "sig": [
+    "data-in=\"toss\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "enter-slap",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "a prop slaps down onto the frame (scale 1.28 -> 1 in 0.14 s, power4.in), like a sticky note pressed on",
+   "sig": [
+    "data-in=\"slap\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "enter-unfold",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "a prop unfolds from a top hinge (rotationX -88 -> 0)",
+   "sig": [
+    "data-in=\"unfold\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "enter-swing",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "a hanging prop swings in on its hook (rotation 34 -> 0, elastic) and settles",
+   "sig": [
+    "data-in=\"swing\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-iris-open",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "a full-screen card opens as an iris (clip-path circle 0 -> 75 %) and closes the same way",
+   "sig": [
+    "data-in=\"iris\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-sheet-push",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "a full-screen card is pushed up over the lens from below and leaves upward",
+   "sig": [
+    "class=\"scene[^\"]*\" data-in=\"push\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-wipe",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "a full-screen card wipes in left to right and out to the right (not used yet)",
+   "sig": [
+    "data-in=\"wipe\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-book-spine-bookmark",
+   "kind": "hook",
+   "slot": "hook",
+   "desc": "frame 1: a cloth book spine across the top band (gold foil author + title) with a cream bookmark slip carrying the hook text; the key word underlined in red pencil on its word",
+   "sig": [
+    "class=\"bk-spine"
+   ],
+   "reels": []
+  },
+  {
+   "id": "breaker-panel-tape-labels",
+   "kind": "prop",
+   "slot": "artifact",
+   "desc": "a grey fuse box in the chest band; masking-tape labels written as said, each breaker clacks OFF on its word (one per named app category)",
+   "sig": [
+    "class=\"brk-panel"
+   ],
+   "reels": []
+  },
+  {
+   "id": "open-at-clock-sign",
+   "kind": "prop",
+   "slot": "artifact",
+   "desc": "a hanging shop sign …; hands spin and stop on the landing word, the answer handwritten under it",
+   "sig": [
+    "class=\"openat"
+   ],
+   "reels": []
+  },
+  {
+   "id": "rx-pad-basics",
+   "kind": "prop",
+   "slot": "artifact",
+   "desc": "a doctor prescription pad in a side column: Rx + title, each prescribed item handwritten on its word",
+   "sig": [
+    "class=\"rx-pad"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-appointment-card-fill",
+   "kind": "outro",
+   "slot": "outro",
+   "desc": "outro: an appointment card in the chest band, blank fields filled in by hand on the last words, a red heart drawn round the answer; holds to the end",
+   "sig": [
+    "class=\"appt-card"
+   ],
+   "reels": []
+  },
+  {
+   "id": "enter-popup",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "prop stands up from the table like a pop-up book page (rotationX 90 -> 0 from its bottom edge)",
+   "sig": [
+    "data-in=\"popup\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "enter-twirl",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "a hanging prop twirls on its string (rotationY 540 -> 0) and settles",
+   "sig": [
+    "data-in=\"twirl\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "enter-flip",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "a card flips over onto its face (rotationY -180 -> 0, back hidden)",
+   "sig": [
+    "data-in=\"flip\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "enter-deal",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "a card is dealt across the table from the lower left (x -700, rotation -24 -> 0, expo.out)",
+   "sig": [
+    "data-in=\"deal\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "phone-jar-empties",
+   "kind": "prop",
+   "slot": "artifact",
+   "desc": "a glass jar crammed with phones (red notification dots) beside the face; the lid pops and the phones fly up out of it on the word, a kraft label slaps on with the freed thing written by hand",
+   "sig": [
+    "class=\"pj-jar"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-comfort-zone-grows",
+   "kind": "outro",
+   "slot": "outro",
+   "desc": "outro: graph-paper card in the chest band; a blue comfort-zone circle, the scary thing written in red outside it; on the last word a big ring draws round both (the zone grows) and holds to the end",
+   "sig": [
+    "class=\"cz-card"
+   ],
+   "reels": []
+  },
+  {
+   "id": "enter-roll",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "prop rolls in from the frame edge like a jar on a table and stands up (x 520 + rotation 320 -> 0)",
+   "sig": [
+    "data-in=\"roll\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "enter-bungee",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "prop drops in small from above on an elastic cord (y -260, scale 0.45 -> 1, elastic.out)",
+   "sig": [
+    "data-in=\"bungee\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-luggage-tag",
+   "kind": "hook",
+   "slot": "hook",
+   "desc": "kraft luggage tag on a red string in the top band, on screen from frame 0, the hook question printed on it; captions off under it",
+   "sig": [
+    "class=\"[^\"]*lugtag"
+   ],
+   "reels": []
+  },
+  {
+   "id": "telegram-tape-strips",
+   "kind": "prop",
+   "slot": "artifact",
+   "desc": "telegram form in the chest band; the spoken term pasted in as printed tape strips word by word, a red marker ring on the key strip",
+   "sig": [
+    "class=\"[^\"]*telegram"
+   ],
+   "reels": []
+  },
+  {
+   "id": "time-card-clock-punch",
+   "kind": "prop",
+   "slot": "artifact",
+   "desc": "factory clock card in a side column: the number punched by the time clock, then the results written in rows",
+   "sig": [
+    "class=\"[^\"]*timecard"
+   ],
+   "reels": []
+  },
+  {
+   "id": "chalk-slate-versus",
+   "kind": "prop",
+   "slot": "artifact",
+   "desc": "small school chalk slate in a side column, chalk words written as said, the loser struck through",
+   "sig": [
+    "class=\"[^\"]*slate"
+   ],
+   "reels": []
+  },
+  {
+   "id": "film-strip-four-frames",
+   "kind": "frame",
+   "slot": "artifact",
+   "desc": "35 mm negative strip with sprocket holes in the chest band; one object photo lands in each frame on its word, labels under",
+   "sig": [
+    "class=\"[^\"]*filmstrip"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-hourglass-flip",
+   "kind": "outro",
+   "slot": "outro",
+   "desc": "kraft card with a drawn hourglass beside the face; the last words written on it, the hourglass turns over on the last word; ends flat",
+   "sig": [
+    "class=\"[^\"]*hourglass"
+   ],
+   "reels": []
+  },
+  {
+   "id": "enter-hinge",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "prop swings open on a side hinge (rotationY from 95 deg), like a cover opening",
+   "sig": [
+    "data-in=\"hinge\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "enter-feed",
+   "kind": "transition",
+   "slot": "in",
+   "desc": "prop feeds in sideways like film through a gate (x from off screen, steady ease)",
+   "sig": [
+    "data-in=\"feed\""
    ],
    "reels": []
   }

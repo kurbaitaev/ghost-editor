@@ -523,6 +523,356 @@
     "<circle id=\"x\\d+-c\" cx="
    ],
    "reels": []
+  },
+  {
+   "id": "ig-story-question-sticker",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "Instagram story question box, the question typed on the spoken word, badge counts up",
+   "sig": [
+    "ask me anything"
+   ],
+   "reels": []
+  },
+  {
+   "id": "join-button-sticker",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "community card, Join button tapped on subscribe -> Joined",
+   "sig": [
+    "Fighter From Kashmir</div>"
+   ],
+   "reels": []
+  },
+  {
+   "id": "stickers-fluent-muscle-voltage",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "hook stickers: muscle + high-voltage",
+   "sig": [
+    "muscle\\.png|high-voltage\\.png"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-question-stack-over-broll",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame 0 = stock B-roll of the line under a big three-tier text question (Inter Tight + Playfair italic)",
+   "sig": [
+    "id=\"x-hook\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "findmy-radar-searching",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "Find My card on the hoodie: radar rings searching for «…», no location",
+   "sig": [
+    "class=\"x-fm\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "index-card-typewriter-term",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "a ruled paper index card flies in tilted, the term typed on it on the voice",
+   "sig": [
+    "class=\"x-card\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "word-letters-fall-away",
+   "kind": "scene",
+   "slot": "S3",
+   "desc": "a big word whose letters drop away one by one on «…»",
+   "sig": [
+    "class=\"x-wis\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "face-punch-close-pullback",
+   "kind": "transition",
+   "slot": "S7",
+   "desc": "the face punched in close on «…», pulled back on «…»",
+   "sig": [
+    "transformOrigin: \"50% 37%\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-flat-face-final-words",
+   "kind": "outro",
+   "slot": "S6",
+   "desc": "no iMessage: ends flat on the face with the last words held as a serif word beat",
+   "sig": [
+    "Seoul list \\(wave 2\\)"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-crossword-blank-cells-pop",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame 1: the face + the number hook over the background, four empty numbered crossword cells under it that pop one by one on the spoken list promise",
+   "sig": [
+    "class=\"xw-teaser"
+   ],
+   "reels": []
+  },
+  {
+   "id": "tile-flip-into-page",
+   "kind": "transition",
+   "slot": "S7",
+   "desc": "the frame turns into a grid of white crossword cells flipping in row by row, which become the white page",
+   "sig": [
+    "class=\"tileflip"
+   ],
+   "reels": []
+  },
+  {
+   "id": "crossword-fills-on-spoken-words",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "white page crossword: each spoken item fills its row/column letter by letter, the active word tinted blue, the phrase as the clue line",
+   "sig": [
+    "class=\"page white xword"
+   ],
+   "reels": []
+  },
+  {
+   "id": "book-cover-bookmark-tip",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "the real cover of the named book flies in; a cream paper bookmark rises out of it and the tip lands on it word by word",
+   "sig": [
+    "class=\"bmark"
+   ],
+   "reels": []
+  },
+  {
+   "id": "chatlist-counters-go-grey-muted",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "dark messenger chat list over the chest; on each spoken app type its unread counter goes grey and a muted speaker pops in",
+   "sig": [
+    "class=\"chatlist"
+   ],
+   "reels": []
+  },
+  {
+   "id": "crossword-answer-strips-callback",
+   "kind": "frame",
+   "slot": "S6",
+   "desc": "the crossword answers return as tilted cell strips over the chest on the callback words, then drop away",
+   "sig": [
+    "class=\"xcall"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-phone-bezel-falls-away",
+   "kind": "outro",
+   "slot": "S6",
+   "desc": "a phone bezel closes in around the frame on the word phone and falls off the bottom on stops, leaving the face full screen",
+   "sig": [
+    "class=\"bezel"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-battery-sofa-card",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "hook text on a dark widget card on the hoodie with a battery pill at 12 % red that charges (bolt) on the body line and is full green on the rest word",
+   "sig": [
+    "class=\"bat-card"
+   ],
+   "reels": []
+  },
+  {
+   "id": "cc-work-toggle-off",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "Control Center Focus tile «…» whose blue switch flips OFF on the spoken disconnect word",
+   "sig": [
+    "class=\"cc-tile"
+   ],
+   "reels": []
+  },
+  {
+   "id": "receipt-print-stat",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "a paper till receipt prints up from the bottom edge, one stat row per spoken phrase (number big)",
+   "sig": [
+    "class=\"rcpt"
+   ],
+   "reels": []
+  },
+  {
+   "id": "tension-gauge-stuck-red",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "dark Health-style card with a level bar that rises and stays pinned in red while the speaker says nothing changes",
+   "sig": [
+    "class=\"tg-card"
+   ],
+   "reels": []
+  },
+  {
+   "id": "divan-strike-callback",
+   "kind": "frame",
+   "slot": "S2",
+   "desc": "a spoken word struck through by a red hand-drawn stroke on the word, called back from the hook word",
+   "sig": [
+    "class=\"strike-ln"
+   ],
+   "reels": []
+  },
+  {
+   "id": "list-chips-stack-numbered",
+   "kind": "frame",
+   "slot": "S5",
+   "desc": "numbered dark pill chips stack in the lower third, each new item pushes the last up and dims it",
+   "sig": [
+    "class=\"chip-stack"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-switch-back-on",
+   "kind": "outro",
+   "slot": "S6",
+   "desc": "the switch that went OFF earlier comes back on the last list chip and flips ON on the final word; end flat on the face",
+   "sig": [
+    "id=\"obsw"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-static-two-voice-blue-sweep",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame-1 hook text static from frame 0 in the top band over the face plate: grotesk line over a serif line, a blue bar sweeps under the last word",
+   "sig": [
+    "class=\"hk-sweep"
+   ],
+   "reels": []
+  },
+  {
+   "id": "archive-card-on-white-line-big",
+   "kind": "frame",
+   "slot": "S5",
+   "desc": "an archive photo card lands on a white page, spoken line above, serif big word below (no stickers)",
+   "sig": [
+    "archive-card"
+   ],
+   "reels": []
+  },
+  {
+   "id": "ig-caption-dark-thanks-heart",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "dark-mode Instagram caption card on the chest: the avatar, handle, the spoken thanks typed word by word, a heart pops",
+   "sig": [
+    "cm-dark"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-serif-word-blue-sweep-hold",
+   "kind": "outro",
+   "slot": "S6",
+   "desc": "the last spoken words as a serif big word with a blue sweep under it, holding over the face to the end",
+   "sig": [
+    "class=\"ot-sweep"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-ringing-clock-headline",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame-0 hook as a two-line heavy headline in the free band above the head, a Fluent alarm clock ringing (shake) beside it",
+   "sig": [
+    "fj-hook"
+   ],
+   "reels": []
+  },
+  {
+   "id": "tried-list-strikethrough",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "paper list of the methods the speaker tried, low on the shirt; each item struck in red as spoken, a heavy NOTHING lands under it",
+   "sig": [
+    "fj-tried"
+   ],
+   "reels": []
+  },
+  {
+   "id": "polaroid-on-black-caption",
+   "kind": "frame",
+   "slot": "S5",
+   "desc": "one photo as a polaroid dropping onto a black page, a serif caption of the spoken place under it",
+   "sig": [
+    "fj-pol"
+   ],
+   "reels": []
+  },
+  {
+   "id": "alarm-stop-locked",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "ringing alarm card; its Stop button greys out and a lock snaps on as the speaker says it does not stop",
+   "sig": [
+    "fj-alarm"
+   ],
+   "reels": []
+  },
+  {
+   "id": "dm-stack-want-to-try",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "story replies stacking up in a DM thread, faceless initials avatars, one line each",
+   "sig": [
+    "fj-dm"
+   ],
+   "reels": []
+  },
+  {
+   "id": "appstore-row-count-200",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "App Store row with a GET button; a downloads counter runs up to the spoken number",
+   "sig": [
+    "fj-store"
+   ],
+   "reels": []
+  },
+  {
+   "id": "ios-delete-app-sheet",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "iOS long-press sheet of an app icon; the red Remove App row presses on the spoken word",
+   "sig": [
+    "fj-del"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-delete-row-locks",
+   "kind": "outro",
+   "slot": "S6",
+   "desc": "callback outro: the delete sheet returns and its red row turns grey with a lock; the last serif words hold",
+   "sig": [
+    "fj-lock"
+   ],
+   "reels": []
   }
  ]
 }

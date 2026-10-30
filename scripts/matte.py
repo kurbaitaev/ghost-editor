@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """matte.py: person matte for text-behind-the-speaker (VP9 + alpha WebM).
 
-Replaces `npx hyperframes remove-background` (u2net_human_seg, 2020) in ghost-editor.
+Replaces `hyperframes remove-background` (u2net_human_seg, 2020) in ghost-editor.
 
   pass 1  ffmpeg decode at model size -> cut detection -> BiRefNet-portrait on every wanted frame
           (one session for the whole run; torch-MPS or ONNX Runtime via rembg)
@@ -42,6 +42,9 @@ os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")  # torchvision deform_
 
 import cv2
 import numpy as np
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from x264 import THREADS as X264_THREADS  # noqa: E402  (scripts/X264_THREADS)
 
 VERSION = "0.3.0"
 CACHE = Path(os.environ.get("GHOST_MATTE_CACHE", "~/.cache/ghost-matte")).expanduser()
@@ -592,7 +595,7 @@ def main():
     raw_enc = None
     if args.save_raw:
         raw_enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "gray", "-s", f"{W}x{H}",
-                                    "-r", info["fps_str"], "-i", "-", "-c:v", "libx264", "-crf", "12", "-pix_fmt", "yuv420p",
+                                    "-r", info["fps_str"], "-i", "-", "-c:v", "libx264", "-threads", X264_THREADS, "-crf", "12", "-pix_fmt", "yuv420p",
                                     "-color_range", "pc", args.save_raw], stdin=subprocess.PIPE)
     t_ref = t_enc = 0.0
     T1 = time.time()

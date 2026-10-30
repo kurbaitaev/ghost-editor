@@ -1,7 +1,15 @@
-# Sound effects and music (Mixkit)
+# Sound effects and music (Mixkit + a CC0 pack)
 
-No audio file ships in this repo. `library/sfx/manifest.json` and `library/music/manifest.json` list Mixkit items by id
-and source page; `scripts/library_restore.py` and `scripts/sfx_fetch.py` download them onto your machine.
+Two kinds of sound, with different rules:
+
+- **The CC0 pack ships in this repo**: `library/sfx/cc0-*.wav`, 27 sounds (reaction sounds such as a deep boom,
+  a record scratch, an air horn, crickets, a gong, a sad violin, huh / wow / oof voices, plus paper and wood foley).
+  Each comes from Freesound under CC0 1.0 (public domain: use, change and share them, commercial included, no credit
+  needed), and each was checked by hand: the sound page shows CC0 and the uploader recorded or made the sound
+  themselves. The manifest entry of each (`"pack": "cc0"`) links its Freesound page and says what was trimmed.
+  `scripts/cc0_pack.py list` shows the pack; `cc0_pack.py build` re-downloads and re-trims it.
+- **Mixkit items don't ship**: `library/sfx/manifest.json` and `library/music/manifest.json` list them by id and
+  source page; `scripts/library_restore.py` and `scripts/sfx_fetch.py` download them onto your machine.
 
 - **Sound effects:** Mixkit Sound Effects Free License. Use them in your videos, commercial included, no attribution.
   You may not redistribute an item on its own, as stock, or inside a tool or template, which is why only the list ships.

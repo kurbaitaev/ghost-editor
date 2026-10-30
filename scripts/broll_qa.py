@@ -30,7 +30,8 @@ Checks (profile talking-head unless noted; broll-led = Seoul list / POV montage;
   world          (broll-led) one coherent world: the inserts' brightness and white balance agree (sd L* <= 14, sd b* <= 5;
                  the reference Seoul reel 11.8 / 2.5, a mismatched stock reel 21.2 / 7.7)
   models         no posed stock models: a stranger's face >= 8 % of the frame width in a stock / AI / unknown-source insert
-                 fails in broll-led formats (beach and office models), warns elsewhere
+                 fails in broll-led formats (beach and office models), warns elsewhere. A face the detector finds in a shot
+                 the vision check says has nobody in it is a false detection and doesn't count (a football's panels, a bust)
   pace           (broll-led) median shot 0.9-2.2 s (warning outside 1.1-1.8; the reference Seoul reel 1.30 s)
   resolution     every video insert's source is 1080p or better (short side)
   Provenance: the insert's insert_prep / proxy.sh sidecar (<clip>.json "kind"), else its path/name
@@ -47,7 +48,10 @@ Checks (profile talking-head unless noted; broll-led = Seoul list / POV montage;
   own_people     own footage shows only the speaker: a face that is not theirs (SFace < 0.40 vs the plate's faces and
                  library/me/face_ref.npz) in an own-footage insert fails (other people have ended up in cuts before)
   freeze         no frozen picture > 0.2 s over the speaker's face or inside a moving insert; no clip played past its
-                 source's end; no frozen run inside an insert's source window (a padded cut)
+                 source's end; no frozen run inside an insert's source window (a padded cut). A clip that never moves at all
+                 (a photo written out as a clip) is a still, not a stall: fine framed, as a blurred backdrop or full screen with
+                 a slow push. It fails full screen (>= 0.5 s) when it shows a person, animal or vehicle caught mid-movement
+                 (a frozen runner reads as a stuck video; Gemini, cached) and warns full screen >= 1 s without any push
   hdr            the render is SDR BT.709 (one HDR source switches a HyperFrames render to HDR)
   keyframes      plates have a keyframe at least every 1 s (inserts: warning); source fps = the reel's fps (warning)
 Writes broll-qa.json (checks in render_report's format + a metrics row comparable to the audit's metrics.csv) and
@@ -283,8 +287,9 @@ def composition(project):
         ms = float(attr(tag, "data-media-start") or attr(tag, "data-offset") or 0)
         dur = float(attr(tag, "data-duration")) if attr(tag, "data-duration") else max(0.0, info["dur"] - ms)
         kind = "sticker" if STICKER_RE.search(s) else "plate" if (PLATE_RE.search(s) or (start <= 0.05 and total and dur >= 0.5 * total)) else "insert"
+        blurred = bool(re.search(r"blur\(\s*[1-9]", attr(tag, "style") or "")) or "blur" in (attr(tag, "class") or "").split()
         layers.append({"id": attr(tag, "id") or os.path.basename(s), "src": path, "rel": s, "start": start, "dur": dur, "ms": ms,
-                       "kind": kind, "info": info, "still": False, "origin": provenance(path)})
+                       "kind": kind, "info": info, "still": False, "origin": provenance(path), "blurred": blurred})
     seen = set()
     sw_ = still_windows(src, total)
     for tag in re.findall(r"<img\b[^>]*>", src):
@@ -352,6 +357,23 @@ def provenance(path):
             except (json.JSONDecodeError, OSError):
                 pass
     return {"kind": G.guess_kind(real), "src": real, "in": None, "span": None}
+
+
+_STILL_SRC = {}
+
+
+def source_still(path):
+    """True when a video file never moves: a photo written out as a clip (ffmpeg -loop 1), frozen from its first frame
+    to its last. A clip that moves and then holds is a stall (a padded or held cut), not a still."""
+    if path not in _STILL_SRC:
+        info = G.probe(path)
+        r = subprocess.run(["ffmpeg", "-hide_banner", "-i", path, "-an", "-vf", f"scale=270:-2,freezedetect=n=-60dB:d={FREEZE_MAX}", "-f", "null", "-"],
+                           capture_output=True, text=True)
+        st = [float(x) for x in re.findall(r"freeze_start: ([\d.]+)", r.stderr)]
+        en = [float(x) for x in re.findall(r"freeze_end: ([\d.]+)", r.stderr)]
+        fr = 2.0 / (info["fps"] or 30)
+        _STILL_SRC[path] = len(st) == 1 and st[0] <= fr and (not en or en[-1] >= info["dur"] - fr)
+    return _STILL_SRC[path]
 
 
 def cover_size(info, wm, hm):
@@ -784,7 +806,8 @@ def analyse(video, project=None, profile="talking-head", words=None, allow_hold=
     gact = [float((T[i] > 2.0).mean() >= 0.02) for i in range(len(T)) if any(s <= (i + 1) / fps < e for s, e in glong)]
 
     # ---------- freezes (native fps): inside the speaker's face box, inside a moving video insert's region
-    holds = [(dur - 0.5, dur + 1)] + [tuple(h) for h in allow_hold]
+    tail = min(dur, comp["total"]) if comp and comp.get("total") else dur      # the plate's held last frame under the music fade
+    holds = [(tail - 0.5 - 2.0 / fps, dur + 1)] + [tuple(h) for h in allow_hold]
     vh, vw = T.shape[1:] if len(T) else (0, 0)
     ident = np.zeros(len(T), bool)
     where = np.array([""] * len(T), dtype=object)
@@ -829,7 +852,7 @@ def analyse(video, project=None, profile="talking-head", words=None, allow_hold=
             i = j + 1
         else:
             i += 1
-    src_issues = []
+    src_issues, still_warn, still_ok = [], [], []
     if comp:
         for l in comp["layers"]:
             if l["kind"] in ("sticker", "backdrop") or l["still"]:
@@ -837,8 +860,53 @@ def analyse(video, project=None, profile="talking-head", words=None, allow_hold=
             li = l["info"]
             over = l["ms"] + l["dur"] - li["dur"]
             tail_hold = l["kind"] == "plate" and l["start"] + l["dur"] >= dur - 2.0 and over < 2.0
-            if over > 1.5 / fps and not tail_hold:
+            photo = l["kind"] == "insert" and source_still(l["src"])
+            if over > 1.5 / fps and not tail_hold and not photo:
                 src_issues.append(f"{l['id']}: plays {over:.2f} s past the end of {l['rel']} (a held last frame)")
+            if photo:
+                # a photo shown as a clip: judge how the reel shows it, not the file
+                name = f"{l['id']} ({os.path.basename(l['rel'])})"
+                full = sorted(k for k, v in vis.get(l["id"], {}).items() if v[0] >= 0.6)
+                runs_, cur = [], []
+                for k in full:
+                    if cur and k - cur[-1] > 2:
+                        runs_.append(cur)
+                        cur = []
+                    cur.append(k)
+                if cur:
+                    runs_.append(cur)
+                long_ = [r for r in runs_ if (r[-1] - r[0] + 1) * DTM >= 0.5]
+                if l.get("blurred"):
+                    still_ok.append(f"{name}: a still clip as a blurred backdrop (by design)")
+                    continue
+                if not long_:
+                    still_ok.append(f"{name}: a still clip, framed or under 0.5 s full screen (a photo; by design)")
+                    continue
+                if use_vision:
+                    import broll_vision as BV
+                    mv = BV.still_motion(l["src"])
+                else:
+                    mv = {"error": "--no-vision"}
+                for r in long_:
+                    t0_, d_ = r[0] * DTM, (r[-1] - r[0] + 1) * DTM
+                    As = [vis[l["id"]][k][1] for k in r]
+                    sc = [float(np.hypot(A[0, 0], A[1, 0])) for A in As]
+                    drift = max(float(np.ptp([A[0, 2] for A in As])), float(np.ptp([A[1, 2] for A in As]))) / wm
+                    zoom = max(sc) / max(min(sc), 1e-6)
+                    push = zoom - 1 >= 0.005 or drift >= 0.01
+                    how = f"scale x{zoom:.3f}, drift {drift * 100:.1f} % of the width"
+                    if mv.get("moving"):
+                        src_issues.append(f"{name}: a still of {mv.get('what') or 'a subject caught mid-movement'}, full screen {d_:.1f} s at "
+                                          f"{t0_:.1f} s, reads as a frozen video ({how})")
+                    elif "error" in mv:
+                        still_warn.append(f"{name}: a still full screen {d_:.1f} s at {t0_:.1f} s, not checked for a subject caught "
+                                          f"mid-movement ({mv['error']})")
+                    elif not push and d_ >= 1.0:
+                        still_warn.append(f"{name}: a still held full screen {d_:.1f} s at {t0_:.1f} s without a push ({how})")
+                    else:
+                        still_ok.append(f"{name}: a still full screen {d_:.1f} s at {t0_:.1f} s, {'pushed' if push else 'short'} "
+                                        f"({how}; {mv.get('what', '')})")
+                continue
             if l["kind"] == "insert":
                 r = subprocess.run(["ffmpeg", "-hide_banner", "-ss", f"{l['ms']:.3f}", "-t", f"{max(0.05, min(l['dur'], li['dur'] - l['ms'])):.3f}", "-i", l["src"],
                                     "-an", "-vf", f"scale=270:-2,freezedetect=n=-60dB:d={FREEZE_MAX}", "-f", "null", "-"], capture_output=True, text=True)
@@ -1068,8 +1136,26 @@ def analyse(video, project=None, profile="talking-head", words=None, allow_hold=
         C.append(chk("own_people", "Own footage shows only the speaker", "fail" if others else "pass", f"{len(others)} frame(s) with someone else",
                      "only the speaker (or nobody) in their own footage", others[:8],
                      "Pick another window (own_footage.py find / check), or get the user's yes on own_footage.py sheet first." if others else None))
+        # the vision check (Gemini on the window each layer uses, broll_vision.py, cached) runs first: `models` drops a
+        # detector face in a shot it says has nobody in it; `people` and `match` report it below
+        vl = [l for l in comp["layers"] if l["kind"] in ("insert", "backdrop")]
+        for l in vl:
+            if l["still"] and not l.get("windows") and vis.get(l["id"]):
+                ks, w_ = sorted(vis[l["id"]]), []
+                for k in ks:
+                    if w_ and k * DTM - w_[-1][1] <= 0.3:
+                        w_[-1][1] = (k + 1) * DTM
+                    else:
+                        w_.append([k * DTM, (k + 1) * DTM])
+                l["windows"] = [tuple(x) for x in w_]
+        res_v = None
+        if vl and use_vision:
+            import broll_vision as BV
+            log(f"  vision: people rules + line match on {len(vl)} B-roll layer(s)")
+            res_v = BV.check_many([BV.layer_job(l, words) for l in vl])
+        nobody = {l["id"] for l, r in zip(vl, res_v or []) if "error" not in r and r.get("people") == "none"}
         # no posed stock models: a stranger's face big in a stock / AI / unknown insert
-        models = []
+        models, ignored = [], []
         if meref:
             for l in ins_layers:
                 if l["origin"]["kind"] == "own":
@@ -1083,14 +1169,18 @@ def analyse(video, project=None, profile="talking-head", words=None, allow_hold=
                     hit = None
                     for f in Fc.detect(im, 0.7):
                         if f[2] >= 0.08 * im.shape[1] and float((R_ @ Fc.feature(im, f)).max()) < SPK_TH:
-                            hit = f"{l['id']} ({os.path.basename(l['origin']['src'])}) at {t:.1f} s: a stranger's face, {f[2] / im.shape[1] * 100:.0f} % of the width"
+                            hit = (f"{l['id']} ({os.path.basename(l['origin']['src'])}) at {t:.1f} s: a stranger's face, {f[2] / im.shape[1] * 100:.0f} % "
+                                   f"of the width (detector score {f[14]:.2f})")
                             break
+                    if hit and l["id"] in nobody:
+                        ignored.append(hit.replace("a stranger's face", "a detector face") + "; the vision check sees nobody: not counted")
+                        break
                     if hit:
                         models.append(hit)
                         break
         st_m = ("fail" if profile == "broll-led" else "warn") if models else "pass"
-        C.append(chk("models", "No posed stock models", st_m, f"{len(models)} insert(s) with a stranger's face", "places, objects, the speaker's world; no stock faces",
-                     models[:8], "Replace the shot with the user's footage, a place or an object, or an AI still in the reel's frame language." if models else None))
+        C.append(chk("models", "No posed stock models", st_m, f"{len(models)} insert(s) with a stranger's face" + (f", {len(ignored)} false detection(s)" if ignored else ""),
+                     "places, objects, the speaker's world; no stock faces", models[:8] + ignored[:4], "Replace the shot with the user's footage, a place or an object, or an AI still in the reel's frame language." if models else None))
         # 1080p or better
         lowres = []
         for l in ins_layers:
@@ -1107,20 +1197,7 @@ def analyse(video, project=None, profile="talking-head", words=None, allow_hold=
                      lowres[:8], "Use a 2160p/1080p source (no 720p B-roll; Mixkit only where 2160p is offered)." if lowres else None))
         # the people rules (people-rules.json) and every B-roll shot shows what its line says. Gemini on the window each
         # layer uses (broll_vision.py, cached).
-        vl = [l for l in comp["layers"] if l["kind"] in ("insert", "backdrop")]
-        for l in vl:
-            if l["still"] and not l.get("windows") and vis.get(l["id"]):
-                ks, w_ = sorted(vis[l["id"]]), []
-                for k in ks:
-                    if w_ and k * DTM - w_[-1][1] <= 0.3:
-                        w_[-1][1] = (k + 1) * DTM
-                    else:
-                        w_.append([k * DTM, (k + 1) * DTM])
-                l["windows"] = [tuple(x) for x in w_]
         if vl and use_vision:
-            import broll_vision as BV
-            log(f"  vision: people rules + line match on {len(vl)} B-roll layer(s)")
-            res_v = BV.check_many([BV.layer_job(l, words) for l in vl])
             name = lambda l: f"{l['id']} ({os.path.basename(l['origin']['src'] or l['src'])})"   # noqa: E731
             ppl = [f"{name(l)}: {BV.verdict(r)}" for l, r in zip(vl, res_v) if "error" not in r and not r["ok"] and not r.get("confirmed")]
             okd = [f"{name(l)}: {BV.verdict(r)}" for l, r in zip(vl, res_v) if "error" not in r and not r["ok"] and r.get("confirmed")]
@@ -1225,10 +1302,13 @@ def analyse(video, project=None, profile="talking-head", words=None, allow_hold=
                          "with components.py add, then components.py record after the user approves." if r["repeats"] else None))
         except (SystemExit, FileNotFoundError) as e:
             C.append(chk("components", f"Fresh {style} components", "skip", str(e)))
-    st = "fail" if freezes or src_issues else "pass"
-    C.append(chk("freeze", "Frozen picture", st, f"{len(freezes)} freeze(s), {len(src_issues)} source issue(s)", f"none > {FREEZE_MAX} s; no clip past its end",
-                 [f"{t:.2f} s: {d:.2f} s frozen ({w})" for t, d, w in freezes][:8] + src_issues[:8],
-                 None if st == "pass" else "Never pad a clip past its end (insert_prep.py refuses to); shorten the slot or move the in-point; a stalled speaker under stickers needs the plate re-rendered.",
+    st = "fail" if freezes or src_issues else "warn" if still_warn else "pass"
+    C.append(chk("freeze", "Frozen picture", st, f"{len(freezes)} freeze(s), {len(src_issues)} source issue(s), {len(still_ok) + len(still_warn)} still clip(s)",
+                 f"none > {FREEZE_MAX} s; no clip past its end; no frozen action",
+                 [f"{t:.2f} s: {d:.2f} s frozen ({w})" for t, d, w in freezes][:8] + src_issues[:8] + still_warn[:6] + still_ok[:6],
+                 None if st == "pass" else "Never pad a clip past its end (insert_prep.py refuses to); shorten the slot or move the in-point; a stalled "
+                 "speaker under stickers needs the plate re-rendered. A photo of someone mid-movement full screen: use a moving clip, or frame the "
+                 "photo (card, polaroid). A photo held full screen: give it a slow push (scale 1 -> 1.05).",
                  times=[t for t, _, _ in freezes]))
     hdr = G.is_hdr(info)
     C.append(chk("hdr", "SDR BT.709 output", "fail" if hdr else "pass", f"{info['transfer']}/{info['primaries']}", "bt709",
@@ -1319,7 +1399,7 @@ def main():
     ap.add_argument("--allow-hold", default="", help="designed holds, e.g. 28.4-29.3,40-41")
     ap.add_argument("--no-ocr", action="store_true")
     ap.add_argument("--no-match", action="store_true", help="ignore the composition (classifier only)")
-    ap.add_argument("--style", help="recipe name (clean-os, seoul-list, stan-style, result-podcast); the speaker's face is checked as shot either way")
+    ap.add_argument("--style", help="recipe name (clean-os, seoul-list, stan-style, result-podcast, whiteboard); the speaker's face is checked as shot either way")
     ap.add_argument("--no-vision", action="store_true", help="skip the Gemini people / line-match check (offline); it then warns")
     ap.add_argument("--out")
     a = ap.parse_args()

@@ -1,0 +1,19 @@
+{
+ "_about": "Edit decision list: source clip, source in/out (s), speed, audio (voice = keep at full, amb = ambience low, mute). Order = edit order. POV montage worked example (script.txt); the clips are yours to supply: re-time every range from your own sheets and transcripts.",
+ "segments": [
+  {"clip": "gull", "a": 40.85, "b": 44.25, "speed": 1, "audio": "voice", "note": "HOOK (flash-forward): 20 minutes at the seaside and I've already lost my lunch"},
+  {"clip": "pier", "a": 2.0, "b": 4.0, "speed": 1, "audio": "amb", "note": "rewind: the pier from the entrance"},
+  {"clip": "pier", "a": 7.85, "b": 9.85, "speed": 1, "audio": "voice", "note": "okay, look at that water"},
+  {"clip": "pier", "a": 12.0, "b": 20.0, "speed": 2, "audio": "mute", "note": "walking down the pier"},
+  {"clip": "selfie", "a": 3.0, "b": 5.0, "speed": 1, "audio": "mute", "note": "selfie cutaway (phone, 9:16): the behind word"},
+  {"clip": "kiosk", "a": 3.85, "b": 5.8, "speed": 1, "audio": "voice", "note": "one large fries, please"},
+  {"clip": "walk", "a": 0.0, "b": 9.0, "speed": 3, "audio": "mute", "note": "fries in hand, to the bench"},
+  {"clip": "bench", "a": 4.85, "b": 11.75, "speed": 1, "audio": "voice", "note": "did you know gulls can remember your face? this one is definitely remembering mine"},
+  {"clip": "bench", "a": 20.0, "b": 29.0, "speed": 3, "audio": "mute", "note": "eating, the gull on the railing (stats)"},
+  {"clip": "gull", "a": 17.0, "b": 18.4, "speed": 1, "audio": "amb", "note": "the gull dives in"},
+  {"clip": "gull", "freeze": 18.4, "dur": 1.4, "audio": "mute", "note": "FREEZE: the gull mid-air over the fries"},
+  {"clip": "gull", "a": 18.4, "b": 21.5, "speed": 1, "audio": "voice", "note": "no, no, no! that was my lunch!"},
+  {"clip": "gull", "a": 24.0, "b": 33.0, "speed": 3, "audio": "mute", "note": "the gull flies off with the fries (the reaction)"},
+  {"clip": "pier", "a": 20.0, "b": 25.0, "speed": 2.5, "audio": "mute", "note": "walking back up the pier (end card)"}
+ ]
+}

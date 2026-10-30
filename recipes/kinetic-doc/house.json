@@ -1,0 +1,71 @@
+{
+ "about": "Kinetic doc house look (fixed; founded 2026-10-15 from 4 reference reels: @lightyear.residency, @usvchq, @_otsan, @rit2raj_das; choices not measured from them were made at founding). One house look per style, new components every reel.",
+ "world": "black-and-white archive: every picture (AI, stock, archive, the user's own footage without the speaker in it) in black and white, ONE warm red accent, grey pages with a vignette for turn lines, warm paper for quotes and the end; the speaker's face stays in colour, as shot",
+ "palette": {
+  "ink": "#111111",
+  "white": "#F4F3EF",
+  "red": "#D63A2F",
+  "black": "#0A0A0A",
+  "grey_c": "#DDDDDD",
+  "grey_m": "#C9C9C9",
+  "grey_e": "#A1A1A1",
+  "paper_c": "#E6E1D6",
+  "paper_e": "#A9A49B",
+  "red_note": "#D63A2F: white on it 4.7:1, on black 4.5:1, on the grey page 3.4:1 (display sizes only); the ONE accent: the payoff word, the turn word on a page, a label box, a counter, a strike"
+ },
+ "layout": "A: the speaker's plate full screen as shot; the caption block in the chest band (top = max(1130, chin + 60), never past y 1500); full-screen scenes (pictures, pages) <= 2.5 s each. B / C: every moment is a scene; pictures sit in the upper middle (print box <= 980 x 880 centred on y 745), the caption block at top 1240. Nothing in the Instagram top bar (< 220) or bottom UI (> 1500).",
+ "type": {
+  "captions": "one centred line; every word pops on in ONE frame at its spoken start, at its final place in the pre-laid line (no fade, no scale, no slide); small words Inter 500, 62 px (shrinks to fit 940 px), white, sentence case, word spacing .32em, soft shadow (never an outline); the line clears with the phrase",
+  "big_word": "one heavy word per idea: Oswald 700 caps, up to 168 px (fits 940 px), on its own line under the small words of its phrase",
+  "serif_voice": "Playfair Display italic 600: quotes, coined terms, names and dates (picture labels 54 px)",
+  "pages": "Inter 600 78 px small words, Oswald 700 caps 210 px big words, Playfair italic 96 px; black block cursor the size of the word, 3 frames ahead",
+  "typewriter": "JetBrains Mono 66 px, ~1 character a frame, a blinking bar cursor, on warm paper",
+  "labels": "red #D63A2F box, Oswald 700 caps white, wipes on left to right in 0.5 s (power3.out); sub-line strip #F4F3EF, Inter 600 48 px ink",
+  "numbers": "Playfair Display 900 upright in red, lining figures (the italic subset draws old-style figures), counting up with a tick per value",
+  "never": "fades, scale-ups or bounces on text; outlined text over pictures; a second display family; per-word colour highlights"
+ },
+ "insert_frame": [
+  "print: the sharp picture over its own blurred, darkened copy (the 16:9 -> 9:16 bridge), slow push x1.06",
+  "window: the picture in a frame on black, stepping up in three sizes 4 frames apart, then a slow push",
+  "full: full bleed, slow push (footage, the hook burst)",
+  "polaroids on the grey page, one per word, the camera sliding to the newest (0.35 s eased)"
+ ],
+ "motion": {
+  "cuts": "hard cuts only, on sentence starts or phrase breaks; no dissolves, no flash frames, no glitches; no fade at the end",
+  "camera": "pictures push slowly (power1.inOut); A: the plate pushes x1.05 over the first 1.1 s (the hook), snap punch-ins of 2 frames on stressed words (<= 3); type never drifts",
+  "hidden_cut": "one cut hidden in motion per reel (an object crossing the frame, a whip, a zoom into a page): a slot, new each reel"
+ },
+ "texture": "a grain overlay (.07, overlay) and a radial falloff on pages and pictures only; never on the speaker's plate",
+ "sound": "the voice wall to wall; a flat bed ~19 dB under the voice (music db -19, no ducking) that never stops; SFX only under picture events: whoosh-cine 0.12 s before a picture cut, whoosh-2 into a page, whoosh-3 on a punch-in, a tick per counter value, send-swoosh under a label box, a shutter under a polaroid; never under caption words; nothing under the payoff (quiet())",
+ "budgets": {
+  "A": "face on screen >= 65 %, each full-screen scene <= 2.5 s, <= 3 inserts a minute, every look-away covered, nothing on the face (facereel)",
+  "B_C": "every moment is a scene; something new every ~1.25 s outside the payoff (pace() reports the longest gaps)",
+  "people": "the user's people rules (people-rules.json, empty by default) in every picture; cut-outs and pictures of single people and objects, never crowds or group photos; no classical nudes (the Creation of Adam is out); every picture through broll_vision.py before use"
+ },
+ "film": "the speaker's face as shot: no grade, no filter, no grain, no dim, nothing on it",
+ "vary_per_reel": [
+  "every picture (new prompts / new footage)",
+  "the hook device",
+  "the page treatments and their words",
+  "the hidden-cut transition",
+  "the number device",
+  "the ending device",
+  "the music bed"
+ ],
+ "kept": [],
+ "tolerance": {
+  "L": 8.0,
+  "wb_b": 5.0,
+  "wb_a": 4.0,
+  "sat": [
+   0.85,
+   1.15
+  ],
+  "contrast": [
+   0.85,
+   1.15
+  ]
+ },
+ "grade_rule": "none: the speaker's footage stays as shot; inserts are conformed to it",
+ "components_rule": "the house look is the type, captions, accents, insert framing and the speaker's face as shot; phone-UI scenes, paper props, polaroid / card / collage treatments, transitions, hook and outro devices are NEW every reel (scripts/components.py plan / check / record, catalog.json)"
+}

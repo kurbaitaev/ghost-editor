@@ -40,7 +40,7 @@ for src in "$@"; do
   fi
   ffmpeg -v error -y -i "$src" -an \
     -vf "${hdr}${pre},scale=1080:1920:force_original_aspect_ratio=increase:out_range=tv:flags=lanczos,crop=1080:1920,setsar=1,format=yuv420p" \
-    -c:v libx264 -preset medium -crf 18 -g 30 -bf 2 -movflags +faststart \
+    -c:v libx264 -threads "$(cat "$(dirname "$0")/../../scripts/X264_THREADS")" -preset medium -crf 18 -g 30 -bf 2 -movflags +faststart \
     -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv "$dst.tmp.mp4"
   mv "$dst.tmp.mp4" "$dst"
   # provenance sidecar (as insert_prep.py writes): broll_qa.py checks no posed stock models, own footage only the speaker

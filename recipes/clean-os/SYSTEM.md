@@ -146,7 +146,13 @@ the base blur-resolve.
 9. **Layering:** one text element at a time. Captions are blocked word by word under selections, scenes and type;
    selections end before the next scene or type; full-screen type sits above captions and selections.
 
-## 4. The planning procedure (do this before writing build.py)
+## 4. The planning procedure (do this before writing reel.py)
+
+A reel is `$P/reel.py` on the builder: `cleanos.py` (the house, captions, scenes / chest / top / figma / pen / hero, the
+budgets that fail the build) and `kit.py` (counters, toggles, rows, bars, rings, taps, typing, stacks, alerts). Read
+`python3 cleanos.py --api`, not the source and not old generators; `cleanos.py --new $P --from <cut>` makes the project.
+reel.py holds only this reel's word-keyed calls and its NEW components' markup (aim <= 150 lines). A part that two reels
+needed goes into kit.py (a part is not a component: the catalog tracks the scene it sits in).
 
 1. Script table: sentence → nucleus → family → primitive → state change → landing word.
 2. `components.py plan --style clean-os`; fill S1, S2 and S4 with components the last 7 reels did not use (register
@@ -155,7 +161,7 @@ the base blur-resolve.
    the cover ones (trim, punch, hold the scene, framed insert).
 4. Budget: OS time 20–35 %; one scene every 6–12 s; never two scenes back to back without ≥ 1.5 s of face between; the
    speaker's face on screen >= 65 % of the reel; full-screen scenes median <= 2.5 s, each with a state change every
-   1-1.5 s; `broll_qa.py` checks all of it on the render.
+   1-1.5 s; `broll_qa.py` checks all of it on the render; the builder fails the build on the face / scene / gap budgets.
 5. Before the render `components.py check --style clean-os --project $P` (broll_qa.py warns too); after the user's yes
    `components.py record --style clean-os --project $P --reel <id>` and one line in a changelog at the end of this
    file: what was new, what worked.

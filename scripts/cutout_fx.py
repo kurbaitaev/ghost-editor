@@ -47,6 +47,8 @@ import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+from x264 import THREADS as X264_THREADS  # noqa: E402  (scripts/X264_THREADS)
 CACHE = Path(os.environ.get("CUTOUT_FX_CACHE") or os.environ.get("GHOST_MATTE_CACHE") or "~/.cache/ghost-matte").expanduser()
 WEIGHT_DIRS = [CACHE / "hf", Path("~/.cache/ghost-matte/hf").expanduser()]
 os.environ.setdefault("HF_MODULES_CACHE", str(CACHE / "hf-modules"))  # trust_remote_code copies birefnet.py here
@@ -413,7 +415,7 @@ class Writer:
             cmd += ["-ss", f"{a_ss:.3f}", "-t", f"{a_t:.3f}", "-i", audio]
         cmd += ["-map", "0:v:0"] + (["-map", "1:a:0", "-c:a", "aac", "-b:a", "128k", "-shortest"] if audio else []) + [
             # a key frame every second: HyperFrames previews and snapshots seek the clip in a browser
-            "-vf", vf, "-c:v", "libx264", "-preset", "medium", "-crf", str(crf), "-g", str(max(1, int(round(fps)))), "-pix_fmt", "yuv420p",
+            "-vf", vf, "-c:v", "libx264", "-threads", X264_THREADS, "-preset", "medium", "-crf", str(crf), "-g", str(max(1, int(round(fps)))), "-pix_fmt", "yuv420p",
             "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv", "-movflags", "+faststart", self.out]
         self.p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
         self.k = 0

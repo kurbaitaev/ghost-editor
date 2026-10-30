@@ -1,0 +1,36 @@
+Swiss Grid (recipes/swiss-grid) - credits
+
+SOURCE
+  Repository: lemo-opuscar by LemoLab (Lemomo), https://github.com/lemomo-ai/lemo-opuscar
+  Commit read: f17136060781a0068a7951245a3aa7835a7230de (2026-10-29)
+  Path: styles/swiss-motion/ (STYLE.md, DEMO.md, demo/ease.js, demo/film.js, style.json) and TECHNIQUE.md
+  Licence of the code and docs: MIT, "Copyright (c) 2026 LemoLab" (full text: LICENSE-lemo-opuscar.txt, verbatim)
+
+WHAT WAS ADAPTED (MIT, with the notice above)
+  - Spec text: the style's rules, paraphrased and reworked for a 9:16 talking head in SYSTEM.md and house.json
+    (modular grid, one typeface, one signal colour, flush left / ragged right, extreme scale contrast, subtitles as
+    part of the layout, clip-reveal words on their onsets, two curves only, wipes not fades, knife-cut deletions,
+    ripples ordered by distance, the exception that moves linearly and unsnapped with an on-grid / off-grid readout,
+    giant numerals climbing in four eased steps and set optically flush left, caption rows with a rule above,
+    print foley, the "grid means something" and "the exception leaves the frame" moves).
+  - Component code: the precise ease cubic-bezier(.7,0,.2,1) solver (demo/ease.js cubicBezier -> SW in swissgrid.py's
+    page script), the note-value timing (snap lands one note value after it starts), the stepped numeral climb
+    (ease.js steps), the clip-rect word reveal and upward exit (film.js revealText / drawLine), the knife cut (film.js
+    drawPosterText knife line + midline collapse), the distance-ordered ripple (film.js buildUnits rank), the
+    exception's linear flight with a pause (film.js flight). Re-written from canvas into HTML + GSAP for HyperFrames.
+  - Palette: page #EAE9E5, paper #FFFFFF, ink #111111, signal red #E30613, grey guides #CFCEC9 family (DEMO.md
+    "Palette & props").
+
+NOT COPIED
+  - The demo film swiss-motion.mp4, its stills and poster (CC BY 4.0): watched as reference only; not part of the
+    recipe.
+  - The demo's music, samples, voice (Kokoro af_sarah) and foley renders; its story ("Five Rules for a Poster"),
+    poster content, score.json, layouts and end card; the LemoLab sign-off.
+  - The demo's fonts (Archivo, UnifrakturMaguntia, DM Serif Display). Archivo has no Cyrillic; this recipe uses
+    Inter (SIL OFL 1.1, rsms), already shipped in templates/fonts with its licence (LICENSE-Inter.txt).
+  - No logos, no real institutions, no fictional channel names.
+
+OTHER MATERIAL
+  - None ships with the recipe. A reel uses the speaker's own footage and voice, and a real picture only of a thing
+    the speaker names (e.g. a book cover, shown in greyscale), supplied by the user.
+  - SFX from library/sfx (Mixkit kit + the CC0 pack); no music.

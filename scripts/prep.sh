@@ -42,8 +42,9 @@ g() { echo "$stats" | python3 -c "import json,sys;print(json.load(sys.stdin)['$1
 echo "input: $(g input_i) LUFS, true peak $(g input_tp) dBTP"
 af="loudnorm=I=-16:TP=-1.5:LRA=11:measured_I=$(g input_i):measured_TP=$(g input_tp):measured_LRA=$(g input_lra):measured_thresh=$(g input_thresh):offset=$(g target_offset):linear=true,aresample=48000"
 
-enc=(-c:v h264_videotoolbox -b:v 14M)
-ffmpeg -hide_banner -encoders 2>/dev/null | grep -q h264_videotoolbox || enc=(-c:v libx264 -crf 17 -preset fast)
+# libx264 with the fixed thread count (scripts/x264.py): both Macs write the same bytes. VideoToolbox's encoder was
+# faster but gives a different file on every run, even on one Mac.
+enc=(-c:v libx264 -threads "$(cat "$HERE/X264_THREADS")" -crf 17 -preset fast)
 ffmpeg -v error -y -i "$src" -vf "$vf" "${enc[@]}" -pix_fmt yuv420p -g 30 -keyint_min 30 \
   -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv \
   -af "$af" -c:a aac -b:a 192k -ac 2 -movflags +faststart "$out"

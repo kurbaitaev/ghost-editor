@@ -10,7 +10,7 @@
 [![MIT](https://img.shields.io/badge/license-MIT-black?style=flat)](LICENSE)
 [![Follow @kurbaitaev](https://img.shields.io/badge/follow-%40kurbaitaev-black?logo=x&style=flat)](https://x.com/kurbaitaev)
 
-<img src="docs/media/styles-grid.gif" width="100%" alt="27 styles playing at once in vertical tiles, each with its name underneath. Green dot: in the repo today (Clean OS, Seoul list, RESULT, stan style, Explainer, POV montage). Orange: coming soon (Face RESULT, Kinetic doc, Paper collage, Whiteboard, Step Deck, Product page, Tactile paper). Purple: lab experiments from my own reels.">
+<img src="docs/media/styles-grid.gif" width="100%" alt="34 styles playing at once in vertical tiles, each with its name underneath. Green dot: in the repo today (Clean OS, Seoul list, RESULT, stan style, Explainer, POV montage, Face RESULT, Kinetic doc, Whiteboard, Step Deck, Product page, Tactile paper, Caption News, News Package, Telestrator, Halftone Dossier, Swiss Grid, Data Story, Hologram HUD). Orange: coming soon (Paper collage). Purple: lab experiments from my own reels.">
 
 <sub>green: in the repo today &nbsp;·&nbsp; orange: coming soon &nbsp;·&nbsp; purple: lab, tried on my own reels</sub>
 
@@ -59,6 +59,19 @@ Then:
 | `edit this in stan style` | a tool tutorial with your screen behind your head |
 | `make an animated explainer` | no camera: a narrator and a world that draws itself |
 | `cut these POV clips into a reel` | smart-glasses or GoPro clips cut into a story |
+| `edit this in Face RESULT` | RESULT around your face: paper props, polaroids and quote cards beside you, never on you |
+| `make a kinetic doc` | a black-and-white archive documentary with one red accent, words popping on as you say them |
+| `edit this in Whiteboard` | a split screen: a marker board above draws each thought live, you below |
+| `make a Step Deck` | a numbered tips deck: giant italic numerals, word cards and prints cut between your face |
+| `edit this as a Product page` | a tool review laid out like a product page: real pictures, rebuilt UI, hairline drawings |
+| `edit this in Tactile paper` | your talk on printed paper that moves like stop-motion, with real page folds |
+| `edit this in Caption News` | big chunked captions, the keyword on a yellow block, source tags |
+| `make a News Package` | you as the anchor of a TV news segment |
+| `edit this in Telestrator` | freeze the frame and draw on it like a sports replay |
+| `make a Halftone Dossier` | a retro printed case file |
+| `edit this in Swiss Grid` | a strict grid poster with one red |
+| `make a Data Story` | pencil charts of real, sourced numbers |
+| `edit this in Hologram HUD` | a wireframe scan with target boxes |
 | `edit mine like this reel` | it studies a reel you love and edits yours the same way |
 
 Plus seven one-word presets: `clean`, `editorial`, `meme`, `cinematic`, `launch`, `kinetic`, `pop`.
@@ -83,7 +96,7 @@ A 60-second reel takes about 15 to 25 minutes of machine time on an M3 MacBook A
 
 **Can it make a style that isn't here?** Yes. Describe it or show it a reel and it writes the recipe. That's how the named styles were made.
 
-**Sounds and music?** Mixkit's free library, downloaded during the install.
+**Sounds and music?** Mixkit's free library, downloaded during the install, plus a pack of CC0 meme sounds that ships in the repo.
 
 More: [how it works](docs/HOW-IT-WORKS.md) · [every building block](docs/PLAYBOOK.md) · [licences](docs/THIRD_PARTY/README.md)
 </details>

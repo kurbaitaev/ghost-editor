@@ -50,6 +50,51 @@ them back to back in script order.
    One audited reel hid all 31 of its flagged windows behind B-roll and UI; 29 of
    them were 0.03-0.4 s blips, and the speaker ended up on screen 33 % of the reel.
 
+## The raw cut, step by step (a scripted recording with many takes)
+
+These scripts make the clean raw cut that every style builds on. On Apple Silicon the transcription steps use mlx-whisper
+(about a minute per clip); without it they fall back to CPU whisper (~27 s per island).
+Python: one with numpy, opencv and mediapipe for every step except `vad_pauses.py`, which runs in the audio QA venv
+(`scripts/setup_audioqa.sh`: `~/.venvs/ghost-audioqa`, silero); `islands_tx.py` finds the mlx venv itself
+(`$MLXW_PY` or `~/.venvs/mlxw`).
+
+0. `rawcut_prep.sh <recording.MOV> $P`: build/full.wav (48 kHz mono: the voice every later step cuts), build/a16.wav
+   (16 kHz: VAD and whisper) and build/proxy.mp4 (1080x1920, frame for frame with the recording: facescan.py's row i
+   is frame i, and it exits 1 if a frame went missing). GPU decode on Apple Silicon (~1 min for a 3 min 4K clip).
+1. `vad_pauses.py build/full.wav --min-pause 0.3 --out build/vad.json`: the speech islands (silero-vad, below). 0.3 s is
+   the tested value; the default 0.7 keeps gaps up to 0.7 s inside one island, so a quick restart shares
+   an island (and a transcript) with the line before it.
+2. `islands_tx.py build/a16.wav --vad build/vad.json --lang <code> --out build/islands.json`: every island transcribed on
+   its own. Whisper over the whole file merges a restart into one clean sentence and skips short false starts.
+3. `facescan.py <proxy.mp4> build/facescan.json --pts <the source .MOV>`: head angles and eyes on every frame, at the
+   source's true frame times. Phone cameras run slightly slow (29.99 fps), so frame/30 drifts up to 0.16 s over 12
+   minutes; a proxy's own timestamps are rounded (up to 17 ms off), so `--pts` takes the original file.
+4. Optional: `gem_audit.py attempts <video> script.txt --out build/attempts.md`, Gemini 2.5 Pro's log of every attempt.
+   A lead, not a fact (its timestamps drift).
+5. `takes.py --script script.txt --words build/islands.json --facescan build/facescan.json [--attempts build/attempts.md]
+   --out build/takes.json`: every attempt at every script sentence, with coverage, extra and missing words, gaps and face
+   flags. Pick one per sentence with the rules above and write cut.json (`pieces` or `segments`, see plan_cut.py),
+   with `"source": "<the recording>"` (assemble.py cuts the plates from it) and `"tight": 1.3` for the raw cut's look
+   (wide/tight at take changes reads as a second camera; 1.6, the Clean OS default, is a punch-in).
+6. `plan_cut.py <project>`: frame-exact pieces. Edges come from the voice itself (lead 0.10 s, tail 0.18 s), pulled in
+   off any flagged frame, never mid-blink; pauses over 0.26 s inside a take shrink to 0.18 s; `vearly` makes a split edit
+   (the picture cuts before the sound). Each off-lens window is labelled keep or cover (rule 8). `--where 12.3` maps an
+   edit time back to the recording.
+7. `subcheck.py <project>`: hidden restarts. Each piece is split at its silences and re-transcribed; a repeated opening
+   is a false start whisper merged away (8 found in one batch of cuts).
+8. `recipes/clean-os/assemble.py <project> --plan build/plan.json [--alt]`, then `voice_smooth.py <project> --plan
+   build/plan.json`: the plates (wide, tight, and with `--alt` one that switches only at take changes, also written as
+   build/rawcut.mp4) and the smoothed voice. Never a grade on the plate. Each piece starts on the recording's frame
+   NEAREST its cut time; an older per-project cutter took the first frame at or after it. Phone cameras drift, so
+   where the drift passes half a frame the two pick neighbours: re-cut with these scripts, a 13-piece cut came out with
+   the same 13 pieces, the same 898 frames, the voice in sync (0 ms lag in every piece), and 5 pieces one frame earlier
+   (13-17 ms from the voice instead of 17-20 ms). The voice chain itself is voice_smooth.py's (35 ms joins, per-take
+   level match), not the older cutter's 24 ms joins.
+9. `qa_cut.py build/rawcut.mp4 --plan build/plan.json --facescan build/facescan.json`: face flags on every output frame,
+   pauses, join gaps and a cut sheet. `gem_audit.py audit <cut>` / `gaze <cut>` give a strict second opinion; check each
+   of its flags in close-up frames (`eyestrip.py <video> build/facescan.json t0 t1`) before acting: its 5 fps pass reads
+   blinks and wide/tight switches as glances, and crisp word onsets as clicks.
+
 ## When whisper smears a long raw take (a 5:38 raw with 8 hidden restarts)
 
 On a long recording with many retakes, whisper over the whole file drifts: a word lasts 4-7 s, and

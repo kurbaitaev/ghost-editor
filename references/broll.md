@@ -105,6 +105,52 @@ design, so the first three rows don't apply there. Sourcing, grade, motion, face
 2. **Stills in ONE frame language for the whole reel**: AI stills (`broll_gen.py`) or stock IMAGES as polaroids on navy,
    a phone card, a framed print, a collage page. Objects and places; people only where the idea needs one, inside the
    people rules. Preferred over several video cutaways.
+   **Pictures: which source first (`scripts/image_sources.py` holds the same list):**
+   1. **Wikimedia Commons** (`wikimedia_fetch.py`): first for anything archival or historical (old villages, maps,
+      manuscripts, alphabets, 19th-century photos). Public domain / CC, so it may go bigger than a framed print
+      (full screen only when `full_screen_ok`). The row keeps licence, author and source page; CC BY / BY-SA need the
+      author named in the post caption. Commons search is literal: keep queries to 1-3 words, and use
+      `wikimedia_fetch.py cats <words>` + `category "<name>"` for archives (e.g. a people's or a region's category).
+   2. **Google Images** (`google_images.py`, Apify actor hooli/google-images-scraper, billed per result): what
+      Commons misses. No actor offers Google's usage-rights filter, so free-licence hosts (Commons, Pexels, Unsplash,
+      Pixabay) are ranked first; the rest are the creator's work: FRAMED only (print, cut-out, page), never full
+      screen. A Commons hit: re-fetch it with `wikimedia_fetch.py get <page>` for the real licence.
+   **A picture must say its line at a glance on a phone** (a dim black-and-white shot of city lights does not say
+   "Silicon Valley"): a named, iconic, recognisable subject (a landmark, a logo-free product, a known place: Apple Park
+   from above, the Golden Gate) beats a generic mood; no dim or flat B&W that hides the subject (colour, or a light
+   warm tint, when the style allows), and big enough in the frame to read. Pull 4-6 options, look at them side by
+   side, pick the one a stranger names in under a second.
+   **Score before choosing**, with `scripts/image_pick.py`, per reel (project = the reel folder that holds broll/):
+   1. `brief $P --line id="<line>" --frame "<how it is shown>"`: per line the concrete subject the speaker names
+      (place, object, person type, era), 2-3 phrases in EN and RU, what would be wrong. Gemini drafts it: READ AND FIX
+      it (it once asked for a "SQUAT TO STOP" phone screen no stock has).
+   2. `pull $P`: 6-10 candidates per line from Wikimedia (each EN/RU pair) and Google (`tag` adds rows already
+      fetched).
+   3. `score $P`: Gemini on the full still plus a phone-size copy, 0-5 each: says the line at a glance, specific
+      (a proxy such as SF for Silicon Valley caps at 3), quality, survives the frame (a drawing in a photo print caps
+      at 2), plus pass/fail on clashing text/logos and on the people rules. Scores + one-line reason in the manifest.
+   4. `pick $P`: the top one only if it scores >= 4 on "says the line"; ties are settled side by side at phone size.
+      Below 4 the line is FLAGGED: no picture beats a weak one.
+   5. `sheet $P -o "<check folder>/<Reel> - picture scores.jpg"`: every candidate, its scores, the pick; next to the
+      preview.
+   **One photo is often not enough; build the line** (a campus photo alone, or a clock on a bedside table, still reads
+   as "basic"): when a line names a PLACE known for what is in it, add its signs as die-cut stickers slapping on around
+   the print (Silicon Valley = Apple Park + Apple / Google / Meta / NVIDIA / OpenAI logos from Commons + a label with
+   the name; logos are fine here, they ARE the subject). When a line names an OBJECT doing something (an alarm that
+   rings), cut the object out (matte.py's Matter, birefnet-general-lite, ghost-matte venv) as a die-cut sticker, make
+   it DO the thing (the clock shakes on twos with white ring marks) and give it its real sound (library sfx
+   `alarm-bell`, Mixkit #995). A plain photo print on the ground is the fallback, not the default.
+   **A reel about a named tool, app or company: pull its brand kit first**: `scripts/brand_kit.py pull <its URL> --dir
+   $P/brand` takes the logo the site itself uses (Gemini picks it among every candidate; the simple-icons mark when the
+   page has no wordmark), one-colour versions for white and dark grounds, the app icon, the brand colour (simple-icons
+   hex first) and its product shots, each people-checked (FAILs land in brand/shots/rejected/). Cards then show the
+   thing as it really looks: the accent, the logo chip (`"src": "brand/<logo_on_white>"`), its screenshots framed.
+   LOOK at brand/sheet.jpg first; `brand_kit.py show` prints the lines to paste.
+   Every search runs in English AND Russian (Russian sometimes finds better; give `--other "<query>"` or Gemini
+   translates). Every download is people-checked (`broll_vision.py check` against the people rules in
+   `people-rules.json`; tiny background figures count) and refused under 1080 px on the short side unless lowered for
+   a picture shown framed small (`--min-image`, the row then says `small_frame_only`). Still the same few inserts: a
+   better picture replaces one, never adds one.
 3. **Stock video: the last resort, and only inside a frame** (a polaroid, a phone, a card) in talking-head styles:
    - never full screen when anything else fits, and never for a list;
    - only when it matches the reel's world (the same light, place, season and era; no posing models);
@@ -121,6 +167,21 @@ design, so the first three rows don't apply there. Sourcing, grade, motion, face
    - `pace`: median shot 0.9-2.2 s;
    - `resolution`: 1080p or better.
    A Seoul list that failed did so on mismatched stock, not on stock as such.
+
+**Which route fetches what** (after own footage, `own_footage.py`):
+
+| need | route | notes |
+|---|---|---|
+| an object, place or idea as a still, one look for the reel | `broll_gen.py` (Gemini image) or stock images | framed (polaroid, card, collage); people only where the idea needs one, inside the people rules |
+| a real action or scene that moves, many options, one creator's series | Pexels: web-search `site:pexels.com/video <what the line shows>`, then `broll_fetch.py get <urls> --dir $P/broll --beat <line>` | originals by the public download link, often 4K; no key needed; Pexels License. Look at each clip's three frames, then `broll_fetch.py note <id> --desc ... --in --out` |
+| a common scene (office, city, nature, hands), quick | Mixkit: `broll_fetch.py search <tag>`, then `get mixkit:<id>` | only clips with a 2160p file are free for commercial use; `get` refuses the rest |
+| an archival / historical picture (old places, maps, manuscripts, 19th-c. photos) | `wikimedia_fetch.py search <1-3 words> --other "<ru>" --dir $P/broll --beat <line>`, or `category` / `get "File:..."` | public domain / CC; may go bigger than a print; licence + author in the row |
+| a picture Commons misses | `google_images.py search <words> --other "<ru>" --n 8 --take 4 --dir $P/broll --beat <line>` | Apify, billed per result; free-licence hosts first; the rest framed only |
+| a specific shot no stock has, moving | an AI video model (e.g. MiniMax on Runpod), costs money | last; ask first |
+
+Every fetched clip then goes through `insert_prep.py` with its `best_in` window (people and line check, grade onto the
+plate). The manifest (`$P/broll/manifest.json`, format in `broll_fetch.py --help`) is the B-roll list for the edit:
+one row per clip with its page URL, size, fps, three look frames, what it shows and the usable window.
 
 Then:
 - **Every shot shows its line** (section 0): if nothing shows it, leave the line bare.
@@ -219,12 +280,17 @@ a format (section 3, the B-roll-led exception).
 - **Inserts:** `insert_prep.py`. It never pads a clip past its end (a padded cafe tile froze for 1.4 s), retimes
   23.976/24/25 fps stock to 30 so every frame plays once (no judder), tone-maps HDR (one HLG clip switched a whole render
   to HLG), and puts a keyframe every 1 s.
-- **Deliver** H.264 8-bit SDR BT.709. Check with `ffprobe -show_entries stream=color_transfer`.
+- **Deliver** H.264 8-bit SDR BT.709 (`finals.py render` writes it). Check with `ffprobe -show_entries stream=color_transfer`.
+- **A photo as a clip** (a still written out as a video, `-loop 1`) is a photo, not a stall: frame it, blur it behind,
+  or give it a slow push (scale 1 -> 1.05) full screen. Never a person, animal or vehicle caught mid-movement full screen:
+  a frozen runner reads as a stuck video. Use a moving clip there.
 
 ## 8. Process
 
 One reel at a time through `approval_sheet.py`. No batch renders of a wave without a sheet per reel: 7 styles rendered
-from one template in 7 minutes came out with 0-2 approval files.
+from one template in 7 minutes came out with 0-2 approval files. Custom builds (a recipe generator, no reel.json):
+`broll_vision.py picks` before the render, then `finals.py preview` copies; nothing renders at delivery quality before
+the user's OK on them (scripts/finals.py: preview -> render -> qa -> deliver).
 
 ## 9. The QA (`scripts/broll_qa.py`)
 
@@ -249,5 +315,12 @@ Other parts:
 - Captions are read with macOS Vision text recognition (`ocr_text.js`, JXA through `osascript`; English and Russian):
   this part needs a Mac. A text line counts as a caption when its words were spoken within the last ~1.5 s.
 - Size = line-box height / 0.93 (calibrated on renders with known CSS sizes).
+- `freeze` tells a still from a stall. A clip that moves and then holds (a padded or held cut) fails. A clip that never
+  moves (a photo written out as a clip) is judged by how the reel shows it: framed, a blurred backdrop, or under 0.5 s
+  full screen passes; full screen it fails when Gemini (`broll_vision.still_motion`, cached) says it shows someone or
+  something caught mid-movement, and warns when it is held 1 s or more without a push. The plate's held last frame
+  under the music fade (the last 0.5 s of the composition) is by design.
+- `models` drops a detector face in a shot the vision check says has nobody in it: YuNet reads a football's panels
+  and a stone bust as faces (in one test: 0.74 on a ball, 0.88 on a real stranger). Without the vision check the hit stays.
 - Speed: about 1-3 minutes for a 60 s reel on an Apple-silicon laptop, plus one Gemini call per B-roll shot the first
   time (cached after that).

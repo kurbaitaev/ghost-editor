@@ -1,0 +1,82 @@
+{
+ "about": "Telestrator house look (fixed; one house look per style, new components every reel). Ported from the MIT style 'Sports Telestrator' of lemo-opuscar (https://github.com/lemomo-ai/lemo-opuscar, styles/telestrator/STYLE.md), adapted from 16:9 football footage to a 9:16 talking head.",
+ "world": "the speaker's talking head is the match footage: played live, then frozen (a still of the exact frame) and drawn on - rings under the hand, marker arrows, red space zones behind the speaker, label cards - in the space around the face, never on it; between face shots the reel cuts with a yellow slanted wipe to dark tactics boards (#0C1411, 60 px chalk grid) where the line's object (a phone, a book, a list) is played, frozen, rewound and drawn on; a studio show's packaging (corner bug with three modes, source clock, matchup bar, subtitle bar) sits on every frame from frame 0",
+ "layout": "1080x1920 at 30 fps. Packaging: source clock top left (x 60, y 140, h 64), corner bug top right (right edge x 980, top y 130: yellow show block + mode line), subtitle bar centred (y 1500-1590, max 940 px), matchup bar bottom right (right edge 980, y 1610-1696): nothing below y 1700 (Instagram UI), above y 120 or right of x 980. Drawings and labels live in the space that is not the face: the hand at the chest, the clothes below it, the room beside the speaker, the ceiling above the head. Face boxes are measured per freeze frame; no ring, arrow, label or zone may enter them; red zones and the spotlight are drawn BEHIND the speaker's cutout so they can only touch the background. Split screen: two 537 px vertical windows (1:1 slices of the wide and tight plates, the face inside each) and a 6 px yellow divider at x 537.",
+ "layout_px": {
+  "clock": {"x": 60, "y": 136, "h": 64, "px": 48},
+  "bug": {"right": 980, "top": 130, "block_px": 50, "mode_px": 48},
+  "subtitle": {"yc": 1545, "px": 52, "maxw": 900},
+  "score": {"right": 980, "top": 1610, "px": 50},
+  "label": {"big_px": 64, "small_px": 48, "bar_px": 10},
+  "split": {"win_w": 537, "divider": 6, "slice_x": {"wide": 270, "tight": 330}},
+  "safe": {"top": 120, "bottom": 1700, "right": 980, "left": 20}
+ },
+ "palette": {
+  "yellow": "#FFD400",
+  "cyan": "#3FD8FF",
+  "red": "#FF3B30",
+  "chalk": "#F4F1E8",
+  "board": "#0C1411",
+  "card": "rgba(8,12,14,0.9)",
+  "card_opaque": "#080C0E",
+  "ink": "#0C1411",
+  "grey": "#8C948F",
+  "roles": "yellow = the speaker / the thing they say matters / main marker lines; cyan = what works against them (notifications, the opponents); red = space (fill 0.36 + dashed edge); chalk = traced lines, neutral marks, stamps. A label's left bar takes the colour of what it names. Change the hues only together, never the roles."
+ },
+ "type": {
+  "families": {
+   "label": ["Inter Tight", 900, "normal", "inter-tight"],
+   "body": ["Inter Tight", 700, "normal", "inter-tight"],
+   "sub": ["Inter Tight", 600, "normal", "inter-tight"],
+   "cond": ["Oswald", 600, "normal", "oswald"],
+   "num": ["Oswald", 700, "italic", "oswald"],
+   "mono": ["JetBrains Mono", 500, "normal", "jetbrains-mono"]
+  },
+  "font_faces": [["Inter Tight", "inter-tight", "100 900", "normal"], ["Oswald", "oswald", "200 700", "normal"], ["JetBrains Mono", "jetbrains-mono", "100 800", "normal"]],
+  "unicode_ranges": [["cyrillic", "U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116"], ["latin", "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"]],
+  "substitutions": "the source's Noto Sans SC 900 labels -> Inter Tight 900 (Cyrillic); Barlow Condensed 600 / 800 Italic (no Cyrillic) -> Oswald 600 / 700 with a synthesized oblique; IBM Plex Mono 500 -> JetBrains Mono 500 (Cyrillic). All OFL, copied from templates/fonts.",
+  "rules": "labels: big line Inter Tight 900 64 px chalk + small spaced line Oswald 600 48 px in the role colour (letter-spacing 3 px), on a black card with a 10 px left bar; packaging numbers Oswald 700 oblique; clock JetBrains Mono 500 48 px; subtitles Inter Tight 600 52 px on a black 0.64 bar with a 4 px yellow left edge, one line, never wrapped (a chunk is shortened, not shrunk); board rows Inter Tight 900 64-72 px with Oswald 700 oblique yellow numerals 120 px. Nothing under 48 px. No handwriting fonts.",
+  "floor_px": 48
+ },
+ "packaging": {
+  "show": "BREAKDOWN",
+  "modes": {"live": ["LIVE", "#FF3B30", "dot"], "analysis": ["ANALYSIS", "#FFD400", null], "replay": ["REPLAY", "#3FD8FF", null]},
+  "matchup": ["YOU", "CAFFEINE"],
+  "matchup_rule": "the matchup bar names the reel's two sides (set packaging.matchup for each reel; the default is an example); the yellow leader block sits on the side that holds the moment and flips once, on the payoff word, with a yellow flash. No invented score numbers.",
+  "clock": "▶ running digits in play (from the reel's own time and frame number: true by construction), ❚❚ yellow digits on a freeze, ◀◀ counting back in a rewind; shown on analysis shots and the opening stopwatch, hidden in plain live play and on summary boards"
+ },
+ "motion": {
+  "fps": 30,
+  "freeze_entry": "a still of the exact plate frame (accurate_rnd + full_chroma_int decode) under the speaker's cutout (same frame + its matte); behind the cutout: a white flash 0.55 -> 0 in 0.1 s and a spotlight that darkens the background to 0.42 outside a focus ellipse in 0.3 s. No punch, desaturation, cool cast or vignette on the speaker's picture (the face as shot).",
+  "freeze_len": "1.3-2.4 s; a freeze over 2 s gets a second action inside it; 2-4 freezes per reel",
+  "draw_order": "ring (who) -> line or zone (what) -> label (the finding), 0.25-0.6 s apart",
+  "marker": "dark outline (w + 6, black 0.55) + coloured core with a CSS drop-shadow glow + white highlight (w x 0.28), drawn along its length; arrowhead pops over the last 10 %; deterministic 2 px wobble at the samples; solid = what happened, dashed (26/16) = intended or future path",
+  "ring": "perspective ellipse (ry = 0.36 r) under the hand, drawn clockwise in 0.3 s with a 0.6 -> 1 pop; an outer dashed ring (1.22 r) creeping at 60 px/s for the ring's life; fill 0.16 of its colour",
+  "label": "clip reveal left to right in 0.25 s, a tick on landing",
+  "wipe": "between segments only: a yellow slanted band (420 px, skew -14 deg, dark 14 px edges) crosses the frame in 0.34 s, the cut on its midpoint; inside a segment hard cuts; no dissolves",
+  "rewind": "the board's objects run their entrance backwards in 0.6 s with +-13 px jitter, four white tracking bars, a big ◀◀ and REWIND; the clock counts back",
+  "stamp": "once per reel: a framed card drops from 1.7x to 1x with overshoot, rotated -5 deg, with a small flash"
+ },
+ "sound": {
+  "rule": "the voice + SFX only, no music bed, no score: the source's band is replaced by its foley alone. Sound only where something enters: freeze = camera shutter + a low thump; ring = pop; each marker line = marker scribble; each landed label = tick; wipe = whoosh; rewind = tape rewind; stamp = impact; notifications = notification blips (three at most); the matchup flip = a UI confirm.",
+  "levels": "shutter 0.5, thump 0.22, pops 0.3, scribble 0.35, ticks 0.3, whooshes 0.3, rewind 0.45, stamp 0.4; never louder than the voice",
+  "density": "about 1 per second in analysis passages, none in plain live play",
+  "sfx_len_s": {"shutter-1": 0.444, "impact-2": 1.2, "impact-1": 1.6, "pop-1": 0.219, "pop-3": 0.14, "marker-scribble": 0.543, "tick-1": 0.2, "whoosh-1": 0.9, "whoosh-2": 0.9, "whoosh-3": 0.9, "reaction-tape-rewind": 1.5, "tech-notification-2": 0.405, "tech-ui-confirm": 1.0}
+ },
+ "budgets": {
+  "face": "the speaker's face (live or frozen, full or split) on screen 55-70 % of the reel (the proof reel: about 62 %)",
+  "boards": "2-3 tactics boards per 30 s, each 3-5 s, each with one object played, frozen and drawn",
+  "freezes": "2-4 freezes on the speaker's footage, one of them dual-angle when there are two plates",
+  "pictures": "drawn: phones, UI, icons, rows; at most one real picture (e.g. a book cover the speaker names) per 30 s; no stock people"
+ },
+ "film": "the speaker's face as shot: no grade, no filter, no punch on the plate; freeze stills are the exact frame",
+ "vary_per_reel": [
+  "the components (components.py plan --style telestrator): what each board plays and freezes, the drawn objects, the freeze findings and labels, the opening (stopwatch over live play, a frozen first frame, a board), the ending (matchup flip, a summary board, a held last freeze)",
+  "the matchup names (the reel's two sides) and which side leads first",
+  "which freeze is dual-angle and which plate goes in which window"
+ ],
+ "kept": [],
+ "tolerance": {"L": 8.0, "wb_b": 5.0, "wb_a": 4.0, "sat": [0.85, 1.15], "contrast": [0.85, 1.15]},
+ "grade_rule": "none: the speaker's footage stays as shot; the source's footage grade, punch, desaturation and grain are dropped",
+ "components_rule": "the house look is the packaging, the colour roles, the marker / ring / label / wipe grammar and the speaker's face as shot; boards, drawn objects, freeze findings, openings and endings are NEW every reel (catalog.json)"
+}

@@ -1,0 +1,125 @@
+{
+ "about": "Swiss Grid house look (fixed; one house look per style, new components every reel). Ported from LemoLab's MIT-licensed Swiss Motion Graphics style (lemo-opuscar styles/swiss-motion: STYLE.md, DEMO.md, demo/ease.js + film.js), adapted to a 9:16 talking head. CREDITS.txt.",
+ "world": "International Typographic Style in motion around a talking head: the 9:16 frame is a modular page; the speaker's face, as shot, lives in one horizontal band of it between a paper header (caption row + counter) and a paper page (their words set flush left on the grid); between face worlds the page grows up over the frame into short full-screen poster cards (giant numeral chapter cards, a grid being built, a grid that means something); one signal colour = the reel's one protagonist, the only thing allowed to be inexact",
+ "frame": {
+  "w": 1080,
+  "h": 1920,
+  "fps": 30,
+  "margin_left": 72,
+  "col_w": 130,
+  "gutter": 24,
+  "cols": 6,
+  "col_x": [
+   72,
+   226,
+   380,
+   534,
+   688,
+   842
+  ],
+  "right_edge": 972,
+  "baseline": 24,
+  "header_h": 300,
+  "header_rule_y": 176,
+  "header_note_base": 244,
+  "page_gap_px": 40,
+  "notes_rule_y": 1608,
+  "notes_base": 1668,
+  "safe": {
+   "top": 120,
+   "bottom": 1700,
+   "right": 980
+  },
+  "note": "6 columns of 130 px, 24 px gutters, 72 px left margin, content ends at x 972 (Instagram's action column keeps ~100 px of the right edge). The header is a 300 px paper strip; the page starts 40 px under the bottom of the speaker's head box in the window (face_track grown box), so the face, as shot, is never covered. Text stays between y 120 and 1700."
+ },
+ "palette": {
+  "page": "#EAE9E5",
+  "paper": "#FFFFFF",
+  "ink": "#111111",
+  "mute": "#77766F",
+  "guide": "#D3D2CC",
+  "guide_paper": "#E2E1DC",
+  "secondary": "#CFCEC9",
+  "signal": "#E30613",
+  "note": "page, paper, ink, greys and ONE signal colour. The signal colour is the reel's one protagonist (in the proof reel, a phone): the opening line under the header, its slab, the minutes it takes, the module that leaves the grid. Nothing else is red; real pictures go grey (a red-pink book cover is shown in greyscale). Overprint allowed: black type on the signal colour. No gradients, shadows, grain, glow or blur."
+ },
+ "type": {
+  "family": "Inter (OFL, rsms), variable 100-900, Latin + Cyrillic woff2 from templates/fonts. One family for the whole reel (the source used Archivo, which has no Cyrillic).",
+  "lead": {
+   "weight": 500,
+   "size": 60,
+   "color": "mute"
+  },
+  "statement_face": {
+   "weight": 700,
+   "size": 104,
+   "color": "ink"
+  },
+  "statement_card": {
+   "weight": 700,
+   "size": 112,
+   "color": "ink"
+  },
+  "note": {
+   "weight": 500,
+   "size": 48,
+   "color": "ink"
+  },
+  "numeral": {
+   "weight": 800,
+   "size": 962,
+   "note": "figure height ~700 px (cap 0.7275 em), optically flush left: x - lsb (house numeral_lsb_em)"
+  },
+  "tracking_em_at_90_up": -0.022,
+  "line_height": 1.04,
+  "floor_px": 48,
+  "ascent_em": 0.96875,
+  "numeral_lsb_em": {
+   "0": 0.0403,
+   "1": 0.0446,
+   "2": 0.0445,
+   "3": 0.0429,
+   "4": 0.0452,
+   "5": 0.0388,
+   "6": 0.0403,
+   "7": 0.0323,
+   "8": 0.0403,
+   "9": 0.0403
+  },
+  "rules": "flush left, ragged right, every line on a column start; lowercase allowed in headlines; the speaker's words exactly as said (a fix only for a wrong transcription, e.g. a misspelt name); every string checked for glyph coverage at build time; nothing under 48 px."
+ },
+ "motion": {
+  "ease": "cubic-bezier(.7,0,.2,1) for every snap (JS function SW in the page); linear for lines being drawn and for the exception. No overshoot, no spring, no bounce, no fades, no blur.",
+  "note_values": {
+   "E16": 0.1333,
+   "E8": 0.2667,
+   "BEAT": 0.5333,
+   "note": "30 fps: a sixteenth = 4 frames, an eighth = 8 frames; onsets rounded to whole frames"
+  },
+  "entrances": "words rise out of a clip rect from below the baseline in a sixteenth, starting on their spoken onset; they leave upward in an eighth; paper (cards, pages) appears by a wipe of its edge; lines grow along their length (linear); giant numerals climb in 4 eased steps",
+  "deletions": "knife cut: a 3 px ink line crosses the element in a sixteenth (linear), then the element collapses to its midline in an eighth",
+  "ripples": "ordered by distance from their cause, two units per sixteenth",
+  "exception": "the signal element only: linear, unsnapped, one eighth pause mid-flight, a readout beside it turns from 'on grid' to 'off grid'"
+ },
+ "sound": {
+  "rule": "the voice + SFX only, NO music bed. Foley of print, dry: a sound only where something enters or is cut (paper wipe = paper-flip, block snap = wood-hit, type / row clack = click-1, knife = shutter-1, ruling pen = pencil-write trimmed, slide = wood-plane, the exception leaving = whoosh-1 soft); none on single caption words.",
+  "density": "about 4-6 per 10 s (snap = beat)",
+  "never": "a music bed, a sting, a meme sound, an unlicensed (licensed: false) file"
+ },
+ "budgets": {
+  "face_min_pct": 65,
+  "card_max_s": 2.5,
+  "inserts_per_min_max": 3,
+  "pictures": "drawn graphics first (type, bars, modules, grids); a real picture only for a thing the speaker names (e.g. a book cover), greyscale, placed on the grid like an artifact with a museum label"
+ },
+ "film": "the speaker's face as shot: no grade, no filter, no crop, no scale; the header and page cover only what is above the head and the chest below the chin",
+ "vary_per_reel": [
+  "what the grid means (e.g. 60 cells = the 60 minutes of an hour)",
+  "the chapter programme (how many numbered chapters and which lines open them)",
+  "the poster cards and their compositions",
+  "the exception's move and the ending",
+  "the knife-cut lists, bars and modules"
+ ],
+ "grade_rule": "none: the speaker's footage stays as shot; the only real picture (a named thing) goes greyscale for the one-signal-colour rule",
+ "components_rule": "one house look (grid, type, palette, motion, header + page, caption row, print foley); the poster cards, protagonist shape, list devices, the grid that means something, the exception's move and the ending are NEW every reel (catalog.json)"
+}

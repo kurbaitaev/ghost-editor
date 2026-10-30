@@ -1,0 +1,32 @@
+Telestrator recipe - credits
+
+Source
+  Repository: lemo-opuscar by LemoLab - https://github.com/lemomo-ai/lemo-opuscar
+  Path:       styles/telestrator/ (STYLE.md, DEMO.md, demo/index.html, style.json), and TECHNIQUE.md
+  Style:      "Sports Telestrator" (体育战术板), demo film "Freeze Frame" (定格)
+  Licence:    MIT - Copyright (c) 2026 LemoLab (full text: LICENSE-lemo-opuscar.txt in this folder, verbatim)
+
+What was adapted (under the MIT licence)
+  - Spec text: the style's grammar and rules from STYLE.md, rewritten for a 9:16 talking head - watch then take apart,
+    one freeze one finding, draw order ring -> line/area -> label, the three colour roles (yellow / cyan / red space,
+    chalk), the corner bug with live / analysis / replay modes, the source clock (play / pause / rewind), the score bar
+    (here a matchup bar with no numbers), the subtitle bar, the yellow slanted packaging wipe, the dual-angle split
+    freeze, the rewind with tracking bars, the once-per-film stamp, the dark board with a 60 px grid, the foley set.
+  - Component code ideas: the marker line (outline + glowing core + highlight, drawn along its length, arrowhead on the
+    last 10 %, deterministic wobble), the perspective ring (ry = 0.36 r, drawn clockwise, outer dashed ring rotating at
+    60 px/s), the spotlight (even-odd hole), the label card (black card, coloured left bar, two lines). The source
+    draws these on a Canvas 2D page (demo/index.html); telestrator.py re-implements them as SVG/HTML + GSAP for
+    HyperFrames. No source code is copied verbatim.
+  - Palette: #FFD400, #3FD8FF, #FF3B30, #F4F1E8, #0C1411, rgba(8,12,14,0.9) from STYLE.md section 4.
+
+What was NOT copied
+  - The demo film, its stills and poster (CC BY 4.0 by LemoLab), and its footage and photos (third-party broadcast
+    footage released under CC BY by the broadcaster, Wikimedia photos): none are in this recipe or in any reel.
+  - The fictional show name 定格 FREEZE FRAME, its end card and the "LemoLab x Claude" sign-off, any broadcaster, club
+    or channel name or logo.
+  - The source's fonts (Noto Sans SC, Barlow Condensed, IBM Plex Mono subsets): replaced by Inter Tight, Oswald and
+    JetBrains Mono from this skill's templates/fonts (OFL, with Cyrillic).
+  - The music score, voice-over and match sound.
+
+Pictures: none ship with the recipe. A reel uses the speaker's own footage and a real picture only of a thing the
+speaker names (e.g. a book cover), supplied by the user. Everything else is drawn.

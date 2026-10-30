@@ -1,0 +1,360 @@
+{
+ "_about": "Registry of this style's components (SYSTEM.md): what each one is, its kind and the regexes (sig) that find it in a built index.html. scripts/components.py plan / check / add / record read and write it: history lists your reels in order, projects maps a reel id to its project folder, and each element's reels say where it was used. Empty history = nothing used yet.",
+ "reels": {},
+ "history": [],
+ "projects": {},
+ "_about_components": "kind = hook / scene / prop / frame / transition / outro (new every reel) or emphasis / signature / house (may stay); sig = regexes (a LIST) on the built index.html; history = reels in order; projects = where each reel's index.html is. scripts/components.py reads and writes this file.",
+ "elements": [
+  {
+   "id": "house-captions-behind-head",
+   "kind": "house",
+   "slot": "captions",
+   "desc": "every spoken word on its onset on a layer between the speaker's plate and its matte (the head hides the lower part), the baseline on the crown of the head + the tier offset; wide / tight switch times kept",
+   "sig": [
+    "<div id=\"fcap\" class=\"full\" style=\"z-index:2\">",
+    "<div id=\"mcam\" class=\"full\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-size-tiers-serif-voice",
+   "kind": "house",
+   "slot": "captions",
+   "desc": "size by importance: Inter Tight 600 tiers T / M / B (never under 56 px), the voice or payoff word of a clause in Playfair Display Italic (about 1 in 6)",
+   "sig": [
+    "<tspan id=\\\"t\\d+_\\d+\\\" style=\\\"font-family:'Playfair Display';font-weight:400;font-style:italic"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-first-word-fade-rise",
+   "kind": "house",
+   "slot": "captions",
+   "desc": "the first word of a face world fades in over 6 frames (0 .11 .51 .80 .91 .96 1) and rises 30 px (E6)",
+   "sig": [
+    "\\{\"opacity\": 0\\.11\\}"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-navy-word-card",
+   "kind": "house",
+   "slot": "cards",
+   "desc": "E5 navy word card (#0B1829, warm #FAE9D4 words): a question, doubt or turn line; the phrase appends in place or drops a second line",
+   "sig": [
+    "background:#0B1829;\">\\n<svg class=\"full\"[^>]*>\\n<g id=\"cw_"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-white-word-page",
+   "kind": "house",
+   "slot": "cards",
+   "desc": "E20 white word page (#F1F1F1, #0F1827 words): statements between face worlds, the stressed word flickers on",
+   "sig": [
+    "background:#F1F1F1;\">\\n<svg class=\"full\"[^>]*>\\n<g id=\"(cw_|w\\d+_all)"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-step-card-giant-numeral",
+   "kind": "house",
+   "slot": "steps",
+   "desc": "E21 step card: full-screen field rotating navy / off-white / electric blue, the giant Playfair italic numeral (960 px) entering at x1.48 with a 4-frame blur and shrinking circ.out, a 10-frame glow stepping down hard, the words pushed back on top",
+   "sig": [
+    "<g id=\"W\\d+_nd\"><g id=\"W\\d+_np\"><text id=\"W\\d+_num\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-broll-tinted-captions",
+   "kind": "house",
+   "slot": "inserts",
+   "desc": "E22 captions over a full-screen clip tinted to its light (cream #FAFCD4 on the bench) with a glow of the same hue, pushed back x1.47 on entry",
+   "sig": [
+    "drop-shadow\\(0 0 18px rgba\\(\\d+,\\d+,\\d+,\\.45\\)\\)"
+   ],
+   "reels": []
+  },
+  {
+   "id": "emphasis-flicker-on",
+   "kind": "emphasis",
+   "slot": "emphasis",
+   "desc": "E8 flicker-on: the stressed word appears with 6 stepped opacity keys (dark: 1 .32 .60 .34 .74 1, light pages: .84 .14 .32 .14 .46 1)",
+   "sig": [
+    "\\{\"fillOpacity\": 0\\.32\\}",
+    "\\{\"fillOpacity\": 0\\.14\\}"
+   ],
+   "reels": []
+  },
+  {
+   "id": "emphasis-punch-in",
+   "kind": "emphasis",
+   "slot": "emphasis",
+   "desc": "X8 the reel's one punch-in: the same take x1.20, hard, plate and matte together, on the clause the speaker leans on",
+   "sig": [
+    "tl\\.set\\(\"#cam\", \\{\"scale\": 1\\.\\d+\\}"
+   ],
+   "reels": []
+  },
+  {
+   "id": "emphasis-blue-box-under-word",
+   "kind": "emphasis",
+   "slot": "emphasis",
+   "desc": "E10 / E25 an electric-blue box (#2534E9) grows centre-out under a word, starting 5 frames before it (power1.inOut 0.3 s); the word on it in white serif italic",
+   "sig": [
+    "background:#2534E9;transform:scaleX\\(0\\.0125\\)"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-face-word-pushback",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame 0 = the speaker's face (tight, eyes to lens) with the first word big behind the head, the caption layer pushed back x1.36 -> 1 (circ.out 0.6 s) and drifting (E2 curve)",
+   "sig": [
+    "tl\\.fromTo\\(\"#fc_W\\d+_push\", \\{\"scale\": 1\\.36\\}"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-bw-print-flicker-red-words",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "hook 2: B&W paper prints of the line's objects (laptop, letters, headset, calendar, clock, desk) swapped on a ~10 fps clock with jitter and a squash glitch, the spoken words one at a time in red Inter Tight 700, the layer pushed back on each clause (E1 + E2; the reference: eye macros)",
+   "sig": [
+    "<img id=\"pr\\d*_\\w+\" class=\"full\" src=\"assets/prints/"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-cream-disk-tiny-words",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "hook 3: the quiet cream card after the loud ones: a black disk with a crescent moon that wanders on twos and is swallowed on the line's last word, tiny words hugging the disk left / right (E4; the reference: an eye in the disk)",
+   "sig": [
+    "<circle cx=\"541\" cy=\"960\" r=\"113\" fill=\"#050505\"/>"
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-title-caps-rgb-split",
+   "kind": "scene",
+   "slot": "S3",
+   "desc": "the promise as a title card: small Playfair caps building word by word, the big caps word on its word, the block shrinking circ.out, an RGB split from three channel copies (E3)",
+   "sig": [
+    "class=\"ttl\\d*_push\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "frame-paper-panel-replay",
+   "kind": "frame",
+   "slot": "S4",
+   "desc": "the metaphor clip in a white paper panel on navy (E18), a tiny line above building word by word, the Playfair label (what the clip shows) on its word, fade-up from dark",
+   "sig": [
+    "_panel_wrap\" style=\"position:absolute"
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-clip-panel-then-full",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "the same clip continues full screen after its panel (media-start carries on) under scene-tinted captions: the carpenter's hand on the finished board",
+   "sig": [
+    "<video id=\"\\w+_full\" class=\"full\" src=\"assets/ins/[^\"]+\" data-start=\"[\\d.]+\" data-duration=\"[\\d.]+\" data-media-start=\"[1-9]"
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-five-tables-rack-focus",
+   "kind": "scene",
+   "slot": "S6",
+   "desc": "step 1's picture: five drawn unfinished tables pop in on the number word, a white lift + 1-frame jump onto the middle one on the next stressed word with the others racked soft, its missing leg draws on the line's last words (E24 + X5)",
+   "sig": [
+    "id=\"dg_cam\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-tables-return",
+   "kind": "scene",
+   "slot": "S6",
+   "desc": "step 2's picture is a callback: the tables return with the centre one finished, the others soft, the noun on a blue box (self-reference R9)",
+   "sig": [
+    "id=\"dr_cam\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-counter-1-to-10",
+   "kind": "scene",
+   "slot": "S6",
+   "desc": "a counter: on the number word the numeral counts 1 -> 10 one value per frame, the rest of the line lands under it (E15)",
+   "sig": [
+    "<text id=\"cnt\\d+\" x=\"540\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "transition-white-exit",
+   "kind": "transition",
+   "slot": "S7",
+   "desc": "X3 a white page brightens to white and blurs over its last 7 frames into the next card",
+   "sig": [
+    "<div id=\"\\w+_white\" class=\"full\" style=\"background:#FFFFFF;opacity:0\">"
+   ],
+   "reels": []
+  },
+  {
+   "id": "transition-fade-up-dark",
+   "kind": "transition",
+   "slot": "S7",
+   "desc": "X7 a card fades up from dark: 35 % on its first frame, 100 % on the next",
+   "sig": [
+    "\\{\"opacity\": 0\\.35\\}"
+   ],
+   "reels": []
+  },
+  {
+   "id": "transition-blur-out-into-step",
+   "kind": "transition",
+   "slot": "S7",
+   "desc": "X1 the diagram blurs 1 / 2 / 4 / 7 / 11 / 16 px over its last 6 frames, hard cut to Step 2 (a whoosh-cine starts with the blur)",
+   "sig": [
+    "\\{\"filter\": \"blur\\(16px\\)\"\\}"
+   ],
+   "reels": []
+  },
+  {
+   "id": "transition-push-out-push-in",
+   "kind": "transition",
+   "slot": "S7",
+   "desc": "X4 Step 3's numeral and words leave left (power2.in 0.75 s, the blur growing), hard cut, the face's caption layer comes in from the right (circ.out 1.24 s)",
+   "sig": [
+    "\\{\"x\": -1100, \"ease\": \"power2.in\"",
+    "tl\\.fromTo\\(\"#fc_W\\d+_x\", \\{\"x\": 400\\}"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-gradient-keyword",
+   "kind": "outro",
+   "slot": "S8",
+   "desc": "flat outro: the payoff word as the reel's one gradient word (Montserrat 800, orange -> magenta -> blue) behind the head, flicker-on + 100 px rise, the clause steps aside; no CTA, ends on the last word (the reference: the 'preset' CTA keyword)",
+   "sig": [
+    "<g id=\"gword\\d*_g\" opacity=\"0\">"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-blue-bar-over-face",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame 0: an electric-blue bar above the head with the speaker's own hook line in white Playfair italic (two lines), held across the first two worlds (0-2 s) while the live words land behind the head",
+   "sig": [
+    "id=\"hb_box\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-city-still-full",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "hook 2: a B&W generated still of the line's noun (an empty city avenue, no people) full screen with a slow push-back, cream captions on the dark road, the hook bar on top",
+   "sig": [
+    "id=\"w02_img\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-quote-box-word-reveal",
+   "kind": "scene",
+   "slot": "S2",
+   "desc": "a quoted author's line: white page, a blue box grows centre-out, the quote reveals word by word in white Inter Tight, the payoff word in cream serif italic, slow drift",
+   "sig": [
+    "id=\"w05_box\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-dot-crowd-rack",
+   "kind": "scene",
+   "slot": "S6",
+   "desc": "a crowd as a field of ink dots (no faces, no gender) popping in a row a frame; on the lonely word one centre dot turns blue and the rest rack soft; on the crowd word the field drifts while the blue dot stays still",
+   "sig": [
+    "id=\"w08_crowd\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "frame-still-ink-captions-window",
+   "kind": "frame",
+   "slot": "S4",
+   "desc": "a B&W generated still (two coffee cups on a cafe table) full screen, ink captions with a white glow in the window light above the object",
+   "sig": [
+    "cups\\.jpg"
+   ],
+   "reels": []
+  },
+  {
+   "id": "transition-numeral-zoom-through",
+   "kind": "transition",
+   "slot": "S7",
+   "desc": "the step numeral scales x1.1 -> x5.2 with a 2-28 px blur over the last 6 frames while the words fade, hard cut into the next world (whoosh-cine with it)",
+   "sig": [
+    "_num\", \\{\"scale\": 5\\.2"
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-hook-bar-callback",
+   "kind": "scene",
+   "slot": "S6",
+   "desc": "self-reference: when the speaker repeats the hook's words, the hook's city still returns and the blue hook bar grows centre-out with those words landing on it one by one",
+   "sig": [
+    "id=\"cb_box\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-path-drawing-empty-spots",
+   "kind": "scene",
+   "slot": "S6",
+   "desc": "line drawing: a path draws from a small dot to a big blue dot on the 'now' word, four dashed empty circles beside it (nobody saw it), words above",
+   "sig": [
+    "id=\"w18_path\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-serif-word-alone",
+   "kind": "outro",
+   "slot": "S8",
+   "desc": "the payoff word alone in big serif italic behind the head (flicker-on), the rest of the clause as a small serif sub-line on the crown, held to the last word; no gradient word",
+   "sig": [
+    "fc_W26_s2"
+   ],
+   "reels": []
+  }
+ ],
+ "ideas_not_built_yet": [
+  "a tight hook stack: the three hook lines inside the first 5-6 s (the founding reel's ran 0-12 s because the approved lines sat at 0 / 5.6 / 10.2 s): plan the lines short before recording",
+  "the promise as a title bar over the face: an electric-blue box growing centre-out with the serif italic words on it, the head in front (E10, the reference's '3 step breakdown')",
+  "a recap row of live mini cards replaying the reel's own hook segments, labelled Hook 1 / 2 / 3 (E19, self-reference)",
+  "a flip deck: a portrait card flipping in 3D on successive words, each face one of the speaker's real assets (E28; screenshots they provide)",
+  "a name mind map: the speaker's name full width, role words with arrows drawing in a fast stagger (E12, a credibility aside)",
+  "a stats card: views and followers counting up live in a ring, a badge icon flying in (E15 full; real numbers only)",
+  "a quote box: a blue box with the quote revealing word by word, one word tinted (E25)",
+  "a hook diagram: labels over names, connector lines drawing down, the camera close on item 1 then pulling back, depth-of-field on the items not said (E24 full)",
+  "a B-roll keyword colour ramp: 6 colour keys a frame, dark blue -> white, on B&W B-roll only, never on the face (E9)",
+  "a caption slide-in with horizontal motion blur and a slow drift, direction-matched to the previous exit",
+  "translucent glow captions over a warm close-up (E26) and captions tracked to a moving object in a clip (E27)",
+  "fine grain (2-3 %) and a soft vignette on every page (the reference has them; the founding reel has none)",
+  "cuts snapped to the bed's beat (+-80 ms inside a word gap)",
+  "a diegetic prop action on a noun when the speaker records (opening a book on 'breakdown')",
+  "size tiers chosen by a tagger (keyword score -> T / M / B, serif about 1 in 6, never two in a row) instead of by hand",
+  "sounds the founding reel lacked: a reverse whoosh for the push-out, a short 0.6 s gap riser, paper / print flips (the CC0 pack now has whoosh-reverse, riser-short, paper-flip and paper-riffle; not yet tried here), a boom-bap bed with a clap on 2 and 4"
+ ]
+}

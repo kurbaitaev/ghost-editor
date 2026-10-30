@@ -1,6 +1,6 @@
 ---
 name: ghost-editor
-description: AI video editor for talking-head reels. Turns a raw phone recording of someone talking to camera (retakes, pauses, false starts) into a finished vertical 1080x1920 reel for Instagram, TikTok or Shorts: best take of each sentence, pause trimming, word-timed captions that never cover the face and stay inside the platform safe area, motion scenes on the spoken word, sound effects and music mixed against the voice, B-roll that is framed, graded to the speaker's footage, matched to its line and checked against the user's own people rules, in seven presets (clean, editorial, meme, cinematic, launch, kinetic, pop). It can also reverse-engineer a reference edit the user likes and apply that style to their recording. Use when the user hands over a talking-head video and says "edit this", "make a reel", "make it look like this video", "add captions/motion graphics/sound effects", "pick the best takes", "remove the pauses", or asks for a re-cut. Also the named styles "Clean OS" (Apple-clean word cards + phone-UI scenes + a Figma selection box), the vector explainer (no footage, an ElevenLabs narrator, a world drawn live), RESULT (a warm podcast edit with paper, film and handwriting), the POV montage (first-person clips with freeze-frame moments), "Seoul list" (a voice-over list over fast B-roll with serif/grotesk word beats, white collage pages, phone-UI stickers and an iMessage outro) and "stan style" (a seated tool tutorial: screen recordings in the top band behind the speaker, small chest captions, a hook card, a diagram, [Step n] labels, a comment-keyword CTA); see recipes/ and docs/PLAYBOOK.md. Not for landscape screen recordings.
+description: "AI video editor for talking-head reels. Turns a raw phone recording of someone talking to camera (retakes, pauses, false starts) into a finished vertical 1080x1920 reel for Instagram, TikTok or Shorts: the best take of each sentence, pause trimming, word-timed captions that never cover the face, motion scenes on the spoken word, sound effects mixed against the voice and checked B-roll. Use when the user hands over a talking-head video and says \"edit this\", \"make a reel\", \"make it look like this video\", \"add captions/sound effects\", \"pick the best takes\", \"remove the pauses\", asks for a re-cut, or names a style. Named styles (recipes/, docs/PLAYBOOK.md): Clean OS, Seoul list, RESULT, Face RESULT, stan style, vector explainer, POV montage, Whiteboard, Kinetic doc, Step Deck, Product page, Tactile paper, Caption News, News Package, Telestrator, Halftone Dossier, Swiss Grid, Data Story, Hologram HUD; plus seven presets (clean, editorial, meme, cinematic, launch, kinetic, pop). Not for landscape screen recordings."
 ---
 
 # ghost-editor
@@ -15,6 +15,28 @@ Skill dir: `~/.claude/skills/ghost-editor` (below: `$S`). A reel project is any
 directory (`$P`); `build.mjs` copies what it needs into `$P/assets` so the
 project renders on its own.
 
+## Cost: one fresh helper per reel, the right model per step
+Measured on a batch of 21 reels: looking at frames was ~5 % of the Claude usage. The cost is context re-read on every
+turn (one helper that built 3 reels in a row re-read 212 M cached tokens over 464 turns) and new generator code written
+per reel (two helpers per style each wrote their own lib). Numbers: docs/PLAYBOOK.md "Cost".
+- **One reel = one FRESH helper** (Agent tool). Never one helper for several reels or a wave. The session that talks to
+  the user orchestrates: fill `templates/briefs/build-one-reel.txt` (build -> preview -> stop), send them the preview,
+  and on their OK fill `templates/briefs/finish-one-reel.txt` for a new helper. Changes after their notes go to a fresh
+  helper with the reel's `reel.py` and their words (the generator is the state, not the old transcript); SendMessage the
+  old helper only for a one-line fix. Spawn helpers as `reel-helper` when the session lists it
+  (`templates/agents/reel-helper.md`, copied to ~/.claude/agents/; shell and file tools only): a general-purpose helper
+  starts at ~85 k tokens of tool and skill lists and re-reads them on every call. Long jobs run in one blocking call,
+  never a background job polled per turn.
+- **Model per step:** Opus (the default) plans and judges: takes, hook, beats, components, `reel.py`, snapshots, the
+  user's notes. Sonnet (Agent tool `model: "sonnet"`) runs fixed recipes: preview / final renders, `finals.py` qa /
+  deliver, `components.py record`, file moves and commits. It stops on a hard QA fail and reports; the fix goes back to
+  Opus. Many frames are Gemini Flash's job (broll_vision / broll_qa), not Claude's.
+- **Little code per reel:** a named style's reel is a short generator on its recipe's builder (`clean-os/cleanos.py` +
+  `kit.py`, `result-podcast/faceresult.py`, `whiteboard/board.py`, `seoul-list/seoul.py`); read `<builder> --api`, not
+  old generators, and never write a per-batch lib. A part two reels needed goes into the builder's kit.
+- **Small context:** grep / `sed -n`, not cat; one overview sheet per look (`snap.py beats` -> overview.jpg), not single
+  frames; never re-read what you just wrote. Measure a reel with `scripts/reel_usage.py <helper transcripts>`.
+
 ## Pipeline
 
 ```
@@ -22,24 +44,33 @@ prep.sh        -> $P/assets/talk.mp4        1080x1920 30 fps, voice at -16 LUFS
 transcribe.py  -> $P/build/words.whisper.json + take table (all takes)
 face_track.py  -> $P/build/face.json          (captions and cards never cover the face)
 choose takes   -> $P/reel.json takes        (references/take-selection.md)
+  a scripted recording with many takes: rawcut_prep.sh -> vad_pauses.py -> islands_tx.py -> facescan.py --pts -> takes.py -> plan_cut.py -> subcheck.py
+  -> assemble.py --plan -> voice_smooth.py --plan -> qa_cut.py: the clean raw cut every style builds on (take-selection.md)
 plan beats     -> $P/reel.json beats/zoom   (references/reel-json.md; taste.py prompt first)
 film_look.py / transitions.py reel           optional: graded plate, transition windows (after takes are final)
 build.mjs      -> $P/index.html             + SFX table + rule and taste warnings
 approval_sheet.py -> build/approval.html    lint, a frame at every cut and beat; WAIT for the user's yes
 own_footage.py -> the user's own clips for the lines (face-checked: only them); `sheet` -> show the picked frames, WAIT for yes
+broll_fetch.py -> $P/broll/: stock originals (Pexels by link, Mixkit search) + manifest.json; when to use which: references/broll.md 3
+pictures: wikimedia_fetch.py (archival first) -> google_images.py; EN + RU, >= 1080 px, people-checked (references/broll.md 3)
+brand_kit.py pull <tool URL> --dir $P/brand -> a reel about a named tool/app/company: its real logo (light + dark), icon, brand colour, nearest Cyrillic Google font, people-checked product shots; LOOK at brand/sheet.jpg
+image_pick.py brief/pull/score/pick/sheet -> per line 6-10 candidates scored 0-5 (says the line at a glance >= 4 or FLAG); the scores sheet goes next to the preview
 insert_prep.py -> every B-roll insert: people + line check, cut, SDR, fps conform, graded onto the speaker's plate as shot (never the reverse)
 components.py plan/check -> new components per reel for a named style (catalog.json); record after the user's yes
 broll_vision.py picks -> build/broll-picks.jpg: every B-roll shot + stock image, its line, the people check; WAIT for the user's yes
-render         -> $P/build/reel.mp4
-render_report.py  -> pass/fail per check + fixes (runs broll_qa.py too); fix and re-render, at most 3 rounds
-qa.py          -> SFX-vs-voice on a stem, A/V lengths, contact sheet
-deliver        -> ~/Desktop/<name>-reel.mp4  taste.py log-reel; save_style.py if the user loved it
+finals.py preview -> "<name> (preview).mp4": 720x1280 at ~4.5 Mbit/s for the user's phone (+ a frame-0 still); WAIT for their OK
+finals.py render  -> "<name>.mp4": delivery master -> Instagram H.264 (refuses a reel with no current preview)
+finals.py qa      -> render_report.py + broll_qa.py per reel, one summary line each; fix and re-render, at most 3 rounds
+qa.py             -> SFX-vs-voice on a stem, A/V lengths, contact sheet
+finals.py deliver -> optional: -14 LUFS into the user's library of finished videos (CONTENT): NOT POSTED, _moves.tsv,
+                     TRACKER; taste.py log-reel; save_style.py if the user loved it
 ```
 
 ### 0. Check the toolchain once per session
 `bash $S/scripts/doctor.sh`: tools, GEMINI_API_KEY and the media library,
-each with its fix. The B-roll people and line check (`broll_vision.py`, `broll_qa.py`) needs GEMINI_API_KEY (the free
-tier is enough); without it those checks warn or fail as unchecked. On a fresh machine run `python3 $S/scripts/library_restore.py`
+each with its fix. The Gemini key is needed for the B-roll checks (the free tier is enough), and doctor proves it with
+one test call: insert_prep.py, broll_vision.py and broll_qa.py's people / match checks ask Gemini, and with people rules
+set a shot nobody could check fails the QA. On a fresh machine run `python3 $S/scripts/library_restore.py`
 first (SFX, memes, music and the animated emoji aren't in git). Say what is missing; don't
 improvise around it. Lines marked `opt` are optional tools with their own `scripts/setup_<x>.sh`
 (BiRefNet matte, audio QA, film-look LUTs, caption metrics); the core works without them.
@@ -81,6 +112,13 @@ fluent and later, keep one-breath runs as one take, and cut on WORD times:
 will follow a line, end that take 0.6 to 1 s after the last word so the
 meme sound has air. Aim for 45 to 75 s.
 
+**A scripted recording with many takes:** the raw-cut tools (take-selection.md, "The raw cut, step by step"):
+`rawcut_prep.sh` makes the voice files and a frame-exact proxy, `islands_tx.py` transcribes each speech island on its own,
+`takes.py` finds every attempt at every script sentence with its face flags, `plan_cut.py` turns your picks (cut.json)
+into frame-exact pieces with trimmed pauses, blink-safe edges and keep/cover labels, `subcheck.py` catches merged
+restarts, `assemble.py --plan` + `voice_smooth.py --plan` make the plates and the voice, `qa_cut.py` checks the result.
+On Apple silicon, transcribe with mlx-whisper (`transcribe.py --backend mlx`).
+
 **Audit the rough cut before building.** Whisper merges restarts and false starts into one clean sentence and smears
 timestamps across them ("And even the… and even the thing that…"). Render the rough cut, re-transcribe THAT voice, and ask
 Gemini 2.5 Pro (analyze_video) for a verbatim audit: repeats, fillers, clipped words, breaths, look-aways. A long stretch of voice
@@ -102,6 +140,15 @@ Seven presets: `clean`, `editorial`, `meme`, `cinematic`, `launch`, `kinetic`, `
 - `recipes/result-podcast/`, **RESULT**: warm podcast edit: one or two Inter Tight words with a two-tier emphasis, Caveat handwriting,
   navy dust cards, polaroids, a stop-motion paper stack, film-burn leaks, comic props, dissolves between lines.
   Call: "RESULT style".
+  **Face RESULT** (its talking-head mode; `faceresult.py` + `example-face/`, README "Face RESULT"): the speaker's face as shot, paper props /
+  polaroids / quote cards in zones beside, above or below the face measured from face.json (the build fails one that
+  touches the face), big two-tier captions on a navy card, film grain + dust only, full-screen cards <= 2.5 s.
+  Call: "Face RESULT", "RESULT on my face".
+- `recipes/whiteboard/`, **Whiteboard**: a split screen, a white marker board on the top half and the speaker's face on the
+  bottom half as shot; each thought drawn live in rough marker strokes with a visible marker following the stroke, Caveat
+  handwriting, an eraser between pages, white pill captions on the seam with the spoken word swept yellow; the board goes
+  full screen only over a look-away (`board.py` + `example/reel.py`, a generator per reel keyed to words). Call: "Whiteboard", "a marker board
+  edit". Read its SYSTEM.md first.
 - `recipes/pov-montage/`, **POV montage**: several first-person clips cut into a story with an edit list (speed-ups, freezes),
   the editorial motion layer, a freeze-frame moment with a meme. Call: "cut these POV clips".
 - `recipes/seoul-list/`, **Seoul list** (a format, not a footage source: the footage the user hands over first, then their
@@ -119,6 +166,46 @@ Seven presets: `clean`, `editorial`, `meme`, `cinematic`, `launch`, `kinetic`, `
   words in the hook and the diagram, forehead words near the end), a `hook` card (icon rows + black-on-white strip title),
   one white `diagram` with drawn-on lines entered by a zoom-blur, `step` and `cta` labels under the chin, `aside`.
   Call: "stan style", "tool tutorial". Read its SYSTEM.md first.
+- `recipes/kinetic-doc/`, **Kinetic doc**: black-and-white archive documentary with one red accent: words pop on as
+  spoken in one centred line (a big heavy word + small words), pictures arrive as prints, windows and polaroids, punch
+  lines get their own page; works for a talking head, a voice-over with visuals and B-roll only. Not the `kinetic`
+  preset. Call: "kinetic doc". Read its SYSTEM.md first.
+- `recipes/step-deck/`, **Step Deck**: a tips reel as a numbered deck over a talking head: every word lands on its
+  onset behind the speaker's head, the picture switches every 1-2 s between the face and flat word cards, paper prints
+  and line drawings, and each step opens on a card whose giant italic numeral shrinks into place; from @ant.lon. Call:
+  "Step Deck", "steps reel". Read its SYSTEM.md first.
+- `recipes/product-page/`, **Product page**: a review or demo of a named tool, app or book laid out like a product
+  page: white pages with the real picture, rebuilt UI and hairline drawings that a virtual camera moves through on the
+  spoken words, the speaker's cut-out over a rounded footage card, two-tier headlines (heavy sans + italic serif), one
+  spoken word at a time in a grey pill; from @adrien.ninet. Call: "Product page", "tool review page". Read its
+  SYSTEM.md first.
+- `recipes/tactile-paper/`, **Tactile paper**: the talk told on printed paper that moves like stop-motion (8 fps):
+  newspaper and archive sheets that unfurl and turn with a real page fold on a maroon ground, white arrows and a
+  crimson marker, black pill captions, the paper turning away like a page to reveal the speaker's face; from
+  @chrismoran__. Call: "Tactile paper", "paper page turn". Read its SYSTEM.md first.
+- `recipes/caption-news/`, **Caption News**: big chunked captions slammed on the spoken words with one keyword on a
+  yellow block, a title sting that becomes the channel bug, a source tag and a highlighted document beat when the
+  speaker names a source, the face as shot; ported from lemo-opuscar (MIT). Call: "Caption News", "news captions".
+  Read its SYSTEM.md first.
+- `recipes/news-package/`, **News Package**: the speaker is the anchor of a one-story TV segment: a sting that flies
+  into the corner as the bug, a chest strap with a category tab, a split-flap board, schematic cards and a rundown of
+  the points ticked off at the end; ported from lemo-opuscar (MIT). Call: "News Package", "news segment". Read its
+  SYSTEM.md first.
+- `recipes/telestrator/`, **Telestrator**: the footage freezes on the key word and gets drawn on like a sports replay
+  (rings, marker arrows, zones, a rewind), always below or around the face, never on it; ported from lemo-opuscar
+  (MIT). Call: "Telestrator", "sports breakdown", "freeze and draw". Read its SYSTEM.md first.
+- `recipes/halftone-dossier/`, **Halftone Dossier**: the story as a retro print case file: halftone pages in four flat
+  inks, heavy misregistered headlines, stamps that slam, a profile card, the speaker's face as shot between pages;
+  ported from lemo-opuscar (MIT). Call: "Halftone Dossier", "case file", "dossier". Read its SYSTEM.md first.
+- `recipes/swiss-grid/`, **Swiss Grid**: International Typographic Style around the speaker's face: a 6-column grid,
+  one typeface, one red, key words laid out like a poster, a counter, exact quiet motion; ported from lemo-opuscar
+  (MIT). Call: "Swiss Grid", "swiss poster". Read its SYSTEM.md first.
+- `recipes/data-story/`, **Data Story**: when a line carries a quantity a chart draws itself on cream paper with a
+  red-blue pencil and handwritten notes; only real numbers, each with its source on screen; ported from lemo-opuscar
+  (MIT). Call: "Data Story", "pencil charts". Read its SYSTEM.md first.
+- `recipes/hologram-hud/`, **Hologram HUD**: the thing the speaker talks about is scanned into a glowing wireframe,
+  target boxes lock onto its parts and values roll in, cut against the face as shot, never over it; ported from
+  lemo-opuscar (MIT). Call: "Hologram HUD", "hologram scan". Read its SYSTEM.md first.
 The visual inventory of every style (playing loops, soundboard, rules) is docs/PLAYBOOK.md.
 **Check the style's prerequisite before planning** (references/broll.md section 6): stan style needs real screen
 recordings, cinematic needs one consistent world of footage. If it is missing, say what is missing and propose another
@@ -211,15 +298,28 @@ snapshots the first frame, 1.5 s, just after every visible cut, each beat as it 
 one page (build/approval.html: contact sheet, timeline, takes, beats, captions, SFX, warnings). Look at it yourself first
 and fix what is wrong (cards on the chin, text wrapping, a meme clipped by the edge, captions colliding with a card, a wrong
 person). Then send the user the page and WAIT: they flag frames and paste a change list, or approve. After their yes:
-`approval_sheet.py $P --mark-approved`. For a quick look without the page: `npx hyperframes lint` and
-`npx hyperframes snapshot --at <edit seconds>` (edit seconds = the take's edit start + (original t - take a)).
+`approval_sheet.py $P --mark-approved`. For a quick look without the page: `$S/scripts/hf.sh lint` and
+`$S/scripts/hf.sh snapshot --at <edit seconds>` (edit seconds = the take's edit start + (original t - take a)).
 
-### 7. Render, report, fix (at most 3 rounds)
+### 7. Previews, final render, QA (at most 3 fix rounds)
+The user sees low-quality previews before anything renders at full quality. `finals.py` takes one or more project
+folders, or a batch manifest (`--batch reels.json`; the format is in its docstring). Run it as a tracked background job
+(a HyperFrames render cancels itself when its parent shell exits).
 ```bash
-npx hyperframes render -o build/reel.mp4 --quiet
-python3 $S/scripts/render_report.py $P build/reel.mp4   # build/render-report.json + .html, exit 1 on a failure
+F="python3 $S/scripts/finals.py"; R="--out $P/finals --code R12 --style 'Clean OS' --title 'Short English title'"
+$F preview $P $R    # -> "R12 - Clean OS (preview).mp4" (720x1280, ~4.5 Mbit/s). Send it; WAIT for the user's OK
+$F render  $P $R    # delivery master -> "R12 - Clean OS.mp4": Instagram H.264 (1080x1920, 30 fps, High@4.2, BT.709,
+                    # CRF 16 capped at 20 Mbit/s, AAC 256k); refuses a reel whose preview is missing or older than index.html
+$F qa      $P $R    # render_report.py + broll_qa.py -> "<name>.qa.json/.html", one summary line per reel
 python3 $S/scripts/qa.py $P build/reel.mp4              # SFX stem levels, A/V lengths, matte, transitions, shader flicker
 ```
+The user's changes after the previews go back into the build, then new previews. The HyperFrames version is pinned in
+ONE place, `scripts/HF_VERSION`: every script (finals.py, approval_sheet.py, qa.py, snap.py, build.mjs) and
+`$S/scripts/hf.sh` read it, so every machine renders with the same version. Never call `npx hyperframes` unpinned. To try
+a new release: `HF_VERSION=0.8.x $S/scripts/hf.sh ...` on one reel per recipe, compare, then change the file (doctor.sh
+warns while the variable is set). `render_report.py` also works on custom builds with no reel.json (a recipe's generator
+wrote index.html): it checks the render against the composition and skips the checks that need reel.json (take
+mapping, caption layout, SFX table).
 The report checks streams, duration, A/V alignment, loudness, black frames, a frozen speaker, silences inside the speech
 (mapped to the take), caption safe area, the first 1.5 s and the SFX levels, each failure with a fix. It also runs
 `broll_qa.py` (the B-roll and motion checks). Run that on its own for custom builds without reel.json:
@@ -241,8 +341,15 @@ also checks loudness (-16 ±1.5 LUFS, TP ≤ -0.5), silences > 0.8 s inside
 the speech, and writes `build/contact.jpg`. It never adds gain.
 
 ### 8. Deliver
-Copy to `~/Desktop/<name>-reel.mp4` (plus a 720p preview under 30 MB if
-asked). Handover: the takes chosen (original seconds and why), the beats and
+```bash
+CONTENT=<the user's library of finished videos, with a NOT POSTED/ folder> $F deliver $P $R [--collection "Trial reels"] [--dry]
+```
+Loudness to -14 LUFS / -1.5 dBTP (two passes, the video is copied), then the file goes to `$CONTENT/NOT POSTED/`
+(with `--collection`: one folder per video, one file per style), with a `_moves.tsv` line, a TRACKER row per video when
+the library has a TRACKER.csv, and a rebuilt TRACKER.html when TRACKER_WORK has a make_html.py. Without a library, hand
+over the `finals.py render` file. A hard QA fail (format, A/V, black or stalled picture, the people rules, the speaker's
+face regraded, a face covered, HDR) holds the reel until someone has looked: `--allow "<name>"` once it is judged fine.
+Handover: the takes chosen (original seconds and why), the beats and
 memes in plain words, the SFX count per minute, anything QA flagged, and the
 obvious follow-ups (music from the platform's library at post time, a
 different meme, the URL for the end card). Then `python3 $S/scripts/taste.py log-reel $P --verdict shipped`; if the user
@@ -253,6 +360,7 @@ loved the look, offer `python3 $S/scripts/save_style.py $P <name> --best-for "..
 python3 $S/scripts/trends.py                 # what's new on imgflip / Know Your Meme, what we lack
 python3 $S/scripts/meme_add.py <id> <url|file> --tags ... --use ... --triggers ... --trend hot
 python3 $S/scripts/sfx_fetch.py --only <id> --force   # after editing KIT in sfx_fetch.py
+python3 $S/scripts/cc0_pack.py list            # the CC0 meme-sound pack (ships in the repo); build re-downloads it
 python3 $S/scripts/audition.py --open         # soundboard + meme wall for a human listen
 ```
 Always look at a new meme's `preview.png` before using it. Sounds with a
@@ -279,14 +387,16 @@ Only the user's own feedback is `from: user` (quoted "you said"); a rule you lea
   - stan without screen recordings, and a Seoul list filled with unrelated posed stock models in three light worlds.
   The UI animation was fine; what went on screen, and how often, was not.
 - One reel at a time through approval_sheet.py; never batch-render a wave of styles without a sheet per reel (7 styles
-  rendered from one template in 7 minutes came out with 0-2 approval files).
+  rendered from one template in 7 minutes came out with 0-2 approval files). Custom builds with no reel.json have no
+  approval sheet: there the user's OK on the `finals.py preview` copies is the gate, and nothing renders at delivery
+  quality before it.
 
 - The speaker's plate must cover the whole reel: a talking-head clip that ends at the voice's length leaves the reel's
   tail (music fade, 0.3-0.5 s) black, which flashes at Instagram's loop point. Give the plate a held
   last frame (`tpad=stop_mode=clone`) and run it to the end; check the last 0.4 s of every render.
 - Run `hyperframes render` as a tracked background job, never `nohup ... &` from a tool shell: when the parent shell exits
   the render cancels itself (`render_cancelled_parent_exited`). Masters with animated grain can come out as 10-bit HEVC at
-  ~50 Mbit/s: deliver H.264 8-bit capped near 12 Mbit/s.
+  ~50 Mbit/s: `finals.py render` re-encodes every master to H.264 8-bit (CRF 16, capped at 20 Mbit/s).
 - A style is a SYSTEM, not a template. When breaking down a reference, write the invariants (what makes it the style),
   the house look (`house.json`: what stays fixed reel to reel), the content slots (what follows the script), a
   generator per slot, and a catalog of used components (`catalog.json`, read and written by `scripts/components.py`;
@@ -336,7 +446,8 @@ Only the user's own feedback is `from: user` (quoted "you said"); a rule you lea
 ## Files
 
 - `scripts/prep.sh` transcode + voice loudnorm
-- `scripts/transcribe.py` whisper (PATH) → words json + take table
+- `scripts/transcribe.py` whisper (PATH, or `--backend mlx` on Apple silicon) → words json + take table; decodes without
+  conditioning on earlier text, so retakes stay separate
 - `scripts/build.mjs` reel.json → HyperFrames index.html, SFX mixing and rules
 - `scripts/qa.py` render QA with SFX stem level check, A/V lengths (`--av-only`), matte, transitions, shader flicker
 - `scripts/broll_qa.py` B-roll and motion QA (budgets, grade, graphics motion, captions via `ocr_text.js` / macOS Vision,
@@ -362,12 +473,16 @@ Only the user's own feedback is `from: user` (quoted "you said"); a rule you lea
 - `scripts/broll_gen.py` AI still B-roll with Gemini (9:16), needs GEMINI_API_KEY
 - `scripts/tts_elevenlabs.py` narrator voiceover with word timings (ElevenLabs, takes by seed)
 - `scripts/denoise.sh` DeepFilterNet3 speech denoise, capped at 20 dB (sets up its own py3.11 venv)
-- `recipes/<name>/` named styles beyond the presets (README + SYSTEM.md + scripts; an English worked example for the
-  vector explainer, Seoul list and stan style)
+- `recipes/<name>/` named styles beyond the presets (README + SYSTEM.md + scripts; an English worked example in a
+  recipe's `example/` where it has one; Face RESULT's is `recipes/result-podcast/example-face/`; the lemo-opuscar ports
+  carry their MIT licence and CREDITS.txt)
 - `docs/PLAYBOOK.md` every style, toolkit and rule in one place (the shareable inventory)
 - `library/music/` licensed music beds + manifest
 - `library/sfx/` kit + manifest.json; `library/memes/<id>/` clips + meta.json
-- `templates/fonts/` Geist, Inter, Inter Tight, Playfair Display, Montserrat, Oswald, Unbounded, JetBrains Mono (OFL, latin + cyrillic woff2)
+- `templates/fonts/` Geist, Inter, Inter Tight, Playfair Display, Montserrat, Oswald, Unbounded, JetBrains Mono, Caveat (OFL, latin + cyrillic woff2)
+- `scripts/lib/facereel.py` the shared base of the custom talking-head builders (Face RESULT `recipes/result-podcast/faceresult.py`,
+  Whiteboard `recipes/whiteboard/board.py`, Clean OS `recipes/clean-os/cleanos.py` + its parts `kit.py`; `--api` prints each one's calls): plate as shot + held tail, word refs, GSAP timeline, SFX by role, ducked bed,
+  face zones and the face guard, the talking-head budgets, build/{beats,plan,sfx_events}.json
 - `references/reel-json.md` the spec and beat types
 - `references/take-selection.md` choosing takes (adapted from mariagorskikh/talking-head-reel, MIT)
 - `references/sound-and-memes.md` mixing, sources, licences, dead ends
@@ -380,4 +495,19 @@ Only the user's own feedback is `from: user` (quoted "you said"); a rule you lea
   `tests/test_cutout_fx.py` (fake model, no GPU: every effect, the frame grid, release); `tests/test_decode_levels.py`
   (RGB decode matches the BT.709 spec, a decode -> Writer round trip keeps the levels)
 - `scripts/approval_sheet.py`, `scripts/render_report.py`, `scripts/taste.py` (+ `lib/taste.mjs`, `taste.json`), `scripts/save_style.py` workflow
+- `scripts/finals.py` previews -> final render -> QA -> delivery into the user's library of finished videos, per reel or a batch
+- `scripts/allframes_qa.py RENDER.mp4 --fps 24 --rules people` one Gemini Flash call on every frame of a finished reel (~7 cents):
+  the people rules anywhere on screen, not only in declared B-roll layers (a warning, never a pass: recall ~8/10, times ~1 s)
+- `templates/briefs/build-one-reel.txt` / `finish-one-reel.txt` the two hand-offs of one reel (Opus builds to the preview,
+  Sonnet finishes after the user's OK); `scripts/reel_usage.py` sums a reel's helper transcripts (turns, tools, tokens, images)
+- `scripts/broll_fetch.py` stock B-roll originals (Pexels by link, Mixkit search) + manifest.json
+- `scripts/wikimedia_fetch.py` Wikimedia Commons pictures (search, categories, licence + author in the manifest); `scripts/google_images.py` Google Images via Apify; `scripts/image_sources.py` the shared order, EN+RU queries and size rule; `scripts/image_pick.py` brief -> candidates -> vision scores -> pick or flag -> contact sheet
+- `scripts/HF_VERSION` the one HyperFrames version; `scripts/hf.sh` / `scripts/hf_version.py` call it pinned
+- `scripts/toolchain.py` this machine's toolchain fingerprint vs another machine's (doctor.sh runs it); `scripts/venvs/*.txt` exact venvs
+- Raw cut of a scripted multi-take recording (references/take-selection.md): `scripts/rawcut_prep.sh` voice wavs + frame-exact proxy,
+  `scripts/islands_tx.py` per-island transcripts,
+  `scripts/takes.py` every attempt per script sentence, `scripts/facescan.py` (`--pts`: true frame times) head and eyes per
+  frame, `scripts/plan_cut.py` frame-exact pieces + keep/cover, `scripts/subcheck.py` hidden restarts,
+  `recipes/clean-os/assemble.py --plan [--alt]` plates, `scripts/voice_smooth.py --plan` voice, `scripts/qa_cut.py` raw-cut
+  QA, `scripts/gem_audit.py` Gemini attempt log / audit / gaze, `scripts/eyestrip.py` eye close-ups to check a flag
 - `scripts/setup_{captions,looks,matte,audioqa}.sh` the optional venvs; `docs/THIRD_PARTY/` sources and licences per pack

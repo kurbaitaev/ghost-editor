@@ -16,6 +16,7 @@ HDR (HLG / PQ, BT.2020) inputs are tone-mapped to SDR BT.709 inside the same LUT
 """
 import json
 import os
+import re
 import subprocess
 
 import numpy as np
@@ -232,7 +233,8 @@ def write_cube(path, p, transfer=None, n=None):
 def probe(path):
     j = json.loads(subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
                                    "stream=width,height,r_frame_rate,avg_frame_rate,color_transfer,color_primaries,color_space,pix_fmt,codec_name"
-                                   ":stream_side_data=rotation:format=duration", "-of", "json", path],
+                                   ":stream_side_data=rotation,side_data_type,crop_left,crop_right,crop_top,crop_bottom:format=duration",
+                                   "-of", "json", path],
                                   capture_output=True, text=True, check=True).stdout)
     s = j["streams"][0]
     n, d = s.get("avg_frame_rate", "0/1").split("/")
@@ -240,19 +242,33 @@ def probe(path):
     if not fps:
         n, d = s["r_frame_rate"].split("/")
         fps = float(n) / float(d)
-    rot = 0
+    rot, crop = 0, (0, 0, 0, 0)
     for sd in s.get("side_data_list", []) or []:
         if "rotation" in sd:
             rot = int(sd["rotation"])
+        if sd.get("side_data_type") == "Frame Cropping":
+            crop = tuple(int(sd.get(k, 0) or 0) for k in ("crop_left", "crop_right", "crop_top", "crop_bottom"))
     return {"w": int(s["width"]), "h": int(s["height"]), "fps": fps, "dur": float(j["format"].get("duration", 0) or 0),
             "transfer": s.get("color_transfer"), "primaries": s.get("color_primaries"), "space": s.get("color_space"),
-            "pix_fmt": s.get("pix_fmt"), "codec": s.get("codec_name"), "rotation": rot}
+            "pix_fmt": s.get("pix_fmt"), "codec": s.get("codec_name"), "rotation": rot, "frame_crop": crop}
 
 
 def shown_size(info):
-    """(w, h) as ffmpeg decodes it: phone files are stored landscape with a rotation flag and decoded upright"""
-    w, h = info["w"], info["h"]
+    """(w, h) as ffmpeg decodes it. w/h from ffprobe are the STORED size; ffmpeg first cuts off the container crop
+    (frame_crop, the clap box: iPhone Live Photo .movs store 1920x1440 and crop 88/66 px), then turns files stored
+    landscape with a rotation flag upright: Live Photo 1920x1440 rotation -90 decodes 1308x1744."""
+    l, r, t, b = info.get("frame_crop") or (0, 0, 0, 0)
+    w, h = info["w"] - l - r, info["h"] - t - b
     return (h, w) if info.get("rotation") in (90, -90, 270, -270) else (w, h)
+
+
+def decoded_size(path, t=0.0):
+    """(w, h) of one frame ffmpeg actually decodes at t (rotation and container crop applied), or None when none
+    decodes: the ground truth for crop maths, whatever this ffmpeg build does with side data"""
+    b = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{max(0.0, t):.3f}", "-i", path, "-frames:v", "1", "-an",
+                        "-pix_fmt", "gray", "-c:v", "pgm", "-f", "image2pipe", "-"], capture_output=True).stdout
+    m = re.match(rb"P5\s+(\d+)\s+(\d+)\s", b)
+    return (int(m.group(1)), int(m.group(2))) if m else None
 
 
 def fit(info, short=360):

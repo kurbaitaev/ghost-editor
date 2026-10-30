@@ -1,0 +1,31 @@
+Hologram HUD (ghost-editor recipe hologram-hud) - credits and what was adapted
+
+SOURCE
+  Repository: Lemo-Opuscar, https://github.com/lemomo-ai/lemo-opuscar (commit f171360, read 2026-10-29)
+  Path:       styles/hologram-hud/ (STYLE.md, DEMO.md, demo/engine/holo.js, demo/engine/hud.js)
+  Licence:    MIT, "Copyright (c) 2026 LemoLab" (full text: LICENSE-lemo-opuscar.txt, verbatim)
+
+ADAPTED (MIT)
+  - Spec text: the style's essence, colour logic (one cold hue + one warm accent spent only on locked values), motion
+    numbers (target lock 1.9x / 45 deg / 0.22 s / 3-frame flash, rolling values right to left, chip dock, explode along
+    the assembly axis, one 3-frame glitch), HUD furniture and the native moves, rewritten for a vertical talking head in
+    SYSTEM.md and house.json.
+  - Component code: engine/holohud.js is adapted from demo/engine/holo.js (projection, normalisation, the wireframe
+    renderer with depth fog, scan and scan-erase, solid Fresnel faces, glow, pad, scan plane) and demo/engine/hud.js
+    (theme, background, plate, chrome, target box, leader, rollText, monoText, spec card, chip, marker, beam, subtitle,
+    glitch). Changes: classic script, 1080x1920, Cyrillic fonts and glyphs, 48 px floor, toggle chips, multi-part locks,
+    new models, and a data-driven scene renderer.
+  - Palette: hue 188 (cyan) and accent 38 (amber), the stage and plate values, as in the demo.
+
+NOT COPIED
+  - The demo film "Volt · Spec Scan" and its stills, poster, music, voice and sound. Their models (the e-bike, the
+    drone), fonts (Rajdhani and Share Tech Mono have no Cyrillic), and the LemoLab end card and sign-off.
+  - The phone, book and basics models here are new code. No picture ships: a reel may show one real cover (the book
+    the speaker names), which belongs to its publisher.
+
+FONTS (OFL 1.1)
+  - Exo 2, The Exo 2 Project Authors (fonts/exo2.woff2, from github.com/google/fonts ofl/exo2; fonts/OFL-Exo2.txt)
+  - JetBrains Mono, JetBrains (copied from the skill's templates/fonts; fonts/LICENSE-JetBrainsMono.txt)
+
+SOUND
+  - Library SFX only (library/sfx/manifest.json, licensed: true; Mixkit kit + the CC0 pack). No music bed or score.

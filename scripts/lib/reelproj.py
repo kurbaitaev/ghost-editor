@@ -211,6 +211,38 @@ def load_project(path, skill=None, upstream=None):
     return pr
 
 
+def bare_project(path, skill=None, recipe=None):
+    """A HyperFrames project with no reel.json (its index.html was written by a custom generator, e.g. a recipe's
+    build.py): one 'take' spanning the main composition, so edit time = composition time. spec["bare"] tells the
+    tools to skip what needs the build (take mapping, caption layout, SFX table). Words (edit time): the first of
+    build/words.edit.json, words.cut.json, words.json, words.smooth.json (a list or a whisper json), as broll_qa reads them."""
+    path = os.path.abspath(path)
+    skill = os.path.abspath(os.path.expanduser(skill or DEFAULT_SKILL))
+    total, fps = 0.0, 30
+    idx = os.path.join(path, "index.html")
+    if os.path.exists(idx):
+        m = re.search(r'<div[^>]*data-composition-id="main"[^>]*>', open(idx, encoding="utf-8", errors="replace").read())
+        d = re.search(r'data-duration="([\d.]+)"', m.group(0)) if m else None
+        f = re.search(r'data-fps="([\d.]+)"', m.group(0)) if m else None
+        total = float(d.group(1)) if d else 0.0
+        fps = int(round(float(f.group(1)))) if f else 30
+    spec = {"bare": True, **({"recipe": recipe} if recipe else {})}
+    pr = Project(path, skill, {}, {}, spec, fps, [Take(0, 0.0, total, 0.0, total, 0.0, total, "composition")], total, 0, round(total, 3))
+    b = os.path.join(path, "build")
+    for name in ("words.edit.json", "words.cut.json", "words.json", "words.smooth.json"):
+        p = os.path.join(b, name)
+        if not os.path.exists(p):
+            continue
+        w = json.load(open(p))
+        if isinstance(w, dict):
+            w = [x for s in w.get("segments", []) for x in s.get("words", [])] if "segments" in w else w.get("words", [])
+        pr.words_edit = [{"word": str(x.get("word") or x.get("w") or x.get("text") or "").strip(), "start": x.get("start", x.get("s")),
+                          "end": x.get("end", x.get("e"))} for x in w if isinstance(x, dict)]
+        pr.words_edit = [x for x in pr.words_edit if x["start"] is not None]
+        break
+    return pr
+
+
 # ---- beats ----------------------------------------------------------------
 
 TEXT_KEYS = {"text", "value", "label", "title", "line", "header", "stamp", "emoji", "url"}

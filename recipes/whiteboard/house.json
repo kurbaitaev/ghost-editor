@@ -1,0 +1,39 @@
+{
+ "about": "Whiteboard house look (fixed: one house look per style, new components every reel).",
+ "layout": "frame 1 = the speaker's face full screen + the hook pill; the white board drops over the top half (0-960) on the first words, the face slides into the bottom half (pivot and scale from face.json, the whole face under the seam)",
+ "type": {
+  "board": "Caveat 700 handwriting, revealed left to right while the marker writes it",
+  "captions": "white Inter 750 pills on the seam (y 914), the spoken word swept in yellow #FFE14D"
+ },
+ "marker_colours": {
+  "ink": "#1E1F24",
+  "blue": "#1F5FD1",
+  "red": "#D7342B",
+  "green": "#128A4F",
+  "orange": "#E0A100"
+ },
+ "strokes": "seeded rough geometry (board.py helpers), drawn on with stroke-dashoffset, never popped; a visible marker follows every stroke and word, lifts off between ideas; an eraser wipe between pages",
+ "cover": "the board goes full screen only over a look-away (build/cover_windows.json), <= 2.5 s",
+ "film": "the speaker's face as shot: no grade, no filter",
+ "insert_frame": [],
+ "sound": "a quiet bed ducked under the voice; marker scribble as texture (>= 1.6 s apart), an eraser whoosh per page",
+ "vary_per_reel": [
+  "the drawings and the page metaphors (new every reel: components.py plan --style whiteboard)",
+  "the music bed (quiet: piano, ambient)"
+ ],
+ "tolerance": {
+  "L": 8.0,
+  "wb_b": 5.0,
+  "wb_a": 4.0,
+  "sat": [
+   0.85,
+   1.15
+  ],
+  "contrast": [
+   0.85,
+   1.15
+  ]
+ },
+ "grade_rule": "none: the speaker's footage stays as shot; the board has no inserts",
+ "components_rule": "the house look is the type, captions, accents and the speaker's face as shot; the drawings, page metaphors, hook and outro pages are NEW every reel (scripts/components.py plan / check / record, catalog.json; each draw() names its shape)"
+}

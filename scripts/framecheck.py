@@ -22,7 +22,9 @@ try:
 except ImportError:  # pragma: no cover
     Image = ImageDraw = None
 
-HF = ["npx", "hyperframes"]
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from hf_version import hf  # noqa: E402  (scripts/HF_VERSION)
+HF = hf()
 
 
 def snapshot(proj, times, out):

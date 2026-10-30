@@ -1,0 +1,523 @@
+{
+ "_about": "Registry of this style's components (SYSTEM.md): what each one is, its kind and the regexes (sig) that find it in a built index.html. scripts/components.py plan / check / add / record read and write it: history lists your reels in order, projects maps a reel id to its project folder, and each element's reels say where it was used. Empty history = nothing used yet.",
+ "reels": {},
+ "history": [],
+ "projects": {},
+ "_about_components": "kind = hook / scene / prop / frame / transition / outro (new every reel) or emphasis / signature / house (may stay); sig = regexes (a LIST) on the built index.html; history = reels in order; projects = where each reel's index.html is. scripts/components.py reads and writes this file.",
+ "elements": [
+  {
+   "id": "house-word-pill",
+   "kind": "house",
+   "slot": "pill",
+   "desc": "the spoken word alone in a grey pill (rgba 0,0,0,.45, Inter Tight 700 66 px) in a fixed slot y 1098-1194 over pages, splits and UI; hard swap 1 frame after the onset, held to the next word; off under titles and while the words are UI text",
+   "sig": [
+    "class=\"clip pillrow\"[^>]*><span class=\"pill\">"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-page-title-two-tier",
+   "kind": "house",
+   "slot": "title",
+   "desc": "black two-tier page title: Inter Tight 800 tier rising from 280 px below with a per-letter fade + blur, the payoff tier in Playfair Display Italic 600 revealed softly left to right from its word; the tiers touch",
+   "sig": [
+    "<p id=\"\\w+_a\" class=\"tier\"[^>]*><span class=\"ch \\w+a\">"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-chest-captions",
+   "kind": "house",
+   "slot": "captions",
+   "desc": "white two-tier captions on the chest (sans 84 + serif italic 124 px) over a low scrim, each word blurring in on its onset, hard swap per phrase",
+   "sig": [
+    "<span class=\"cw\" id=\"\\w+w0\">"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-hook-cutout-card",
+   "kind": "house",
+   "slot": "frame",
+   "desc": "hook layout: a white-to-grey gradient page, the plate in a rounded card (inset 1290, r 66) and the BiRefNet cut-out in front, head breaking out of the card top under the headline",
+   "sig": [
+    "clip-path:inset\\(1290px 18px 0px 18px round 66px\\)"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-split-cutout-panel",
+   "kind": "house",
+   "slot": "frame",
+   "desc": "split: the plate x0.87 in a rounded card at the bottom (inset 1390, r 60) + the cut-out, a white panel sliding in from the right (expo.out 45 f) carrying the UI or a drawing, the pill on the seam above the head",
+   "sig": [
+    "clip-path:inset\\(1390px 70px 0px 70px round 60px\\)"
+   ],
+   "reels": []
+  },
+  {
+   "id": "signature-measured-push",
+   "kind": "signature",
+   "slot": "camera",
+   "desc": "the virtual camera's measured push-in on a new page (scale 0.654 -> 1.0 in 12 steps of 0.04 s, the reference's phone push)",
+   "sig": [
+    "\\{\"scale\": 0\\.654\\}, \\{\"scale\": 0\\.666"
+   ],
+   "reels": []
+  },
+  {
+   "id": "signature-zoom-for-title",
+   "kind": "signature",
+   "slot": "camera",
+   "desc": "the page zooms out 0.9 s (power3 / quart inOut, x0.74-0.78, anchored near the top) on the title's first word to make room for the two-tier title",
+   "sig": [
+    "\"duration\": 0\\.9, \"ease\": \"(power3|quart)\\.inOut\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "signature-hairline-line-art",
+   "kind": "signature",
+   "slot": "drawing",
+   "desc": "isometric hairline line art: grey non-scaling strokes #9A9A9A-#C8C8C8 on white, one black active part (a tile, a moon, steam, a bead) with a small live loop",
+   "sig": [
+    "vector-effect=\"non-scaling-stroke\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "signature-music-dropout",
+   "kind": "signature",
+   "slot": "sound",
+   "desc": "the bed drops out under the hook payoff (0.06 s out) and comes back with the first setup page (0.25 s in)",
+   "sig": [
+    "data-automation=\\'[^\\']*\\{\"t\": [1-9][\\d.]*, \"v\": 0\\.0\\}, \\{\"t\": [\\d.]+, \"v\": 0\\.0\\}, \\{\"t\": [\\d.]+, \"v\": 0\\.0[1-9]"
+   ],
+   "reels": []
+  },
+  {
+   "id": "signature-rise-stack-pages",
+   "kind": "signature",
+   "slot": "list",
+   "desc": "a spoken list becomes a stack of drawings, one per noun on its word, ending in a zoom-out and a two-tier title (the reference's outputs montage)",
+   "sig": [
+    "<div id=\"\\w+_wo\" class=\"clip wrap\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "emphasis-veil-before-title",
+   "kind": "emphasis",
+   "slot": "title",
+   "desc": "a white veil over a busy page in two ramps (.04 -> .27 -> .6), one per title tier, so the black title reads",
+   "sig": [
+    "<div id=\"\\w+_veil\" class=\"wrap\" style=\"background:#FDFDFD;opacity:0"
+   ],
+   "reels": []
+  },
+  {
+   "id": "emphasis-three-voice-pivot",
+   "kind": "emphasis",
+   "slot": "captions",
+   "desc": "the pivot line in three voices on the chest: serif regular / heavy sans / serif italic payoff (the reference's Here's / how to / set it up.)",
+   "sig": [
+    "font-family:'Playfair Display';font-style:normal;font-weight:400;font-size:84px"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-file-card-cover-badge",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame 0: a dark file card with the thing's name and '> [book] author', the real cover as its corner badge, settling (y -13 -> -20 -> 0), over a 3-tier headline and the matted head",
+   "sig": [
+    "<div id=\"hk_cd\" class=\"abs\"[^>]*background:#181519",
+    "<img id=\"hk_badge\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "transition-hook-wash-card-exit",
+   "kind": "transition",
+   "slot": "S1->S2",
+   "desc": "hook exit: the card grows x1.14 and drifts down while fading, the footage washes to white (quad.in 4 f), the headline cuts, the next page pre-rolls behind",
+   "sig": [
+    "\"scale\": 1\\.14, \"y\": 73"
+   ],
+   "reels": []
+  },
+  {
+   "id": "transition-whip-blur-strip",
+   "kind": "transition",
+   "slot": "page->page",
+   "desc": "whip between two drawings: one strip, outgoing smears left, a blank frame, incoming from the right, x-only motion blur (scaleX 10 trick), landing on the incoming word with a whoosh",
+   "sig": [
+    "\\{\"scaleX\": 10\\}"
+   ],
+   "reels": []
+  },
+  {
+   "id": "transition-reframe-cut-tight",
+   "kind": "transition",
+   "slot": "face",
+   "desc": "a hard reframe cut to the tight plate mid-thought and back (the reference's reframe cuts inside one recording)",
+   "sig": [
+    "<video id=\"\\w+_v\" class=\"clip vid\" src=\"assets/[\\w-]*tight[\\w-]*\\.mp4\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-cover-rise-push-detail",
+   "kind": "scene",
+   "slot": "S3",
+   "desc": "the real cover rises from below on its page (expo.out 24 f), the camera pushes x1.23 onto its title on the word, drifts, accelerates into the cut",
+   "sig": [
+    "\\{\"y\": 1350\\}, \\{\"y\": 0, \"duration\": 0\\.96, \"ease\": \"expo\\.out\"",
+    "\\{\"scale\": 1\\.23, \"duration\": 0\\.52"
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-ios-permission-alert",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "split: an iOS notification permission alert; '…' is pressed on '…', the alert fades on '…'",
+   "sig": [
+    "id=\"btn_no\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-ios-settings-toggles-off",
+   "kind": "scene",
+   "slot": "S5",
+   "desc": "iOS Settings '…': on each named app the accent highlight lands on its row and its toggle flips off with a tick; the UI camera zooms out then pushes in",
+   "sig": [
+    "<div id=\"\\w+_hl\" class=\"abs\"[^>]*opacity:0;\"></div>",
+    "<div id=\"kn0\" class=\"abs\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "prop-bell-icon-slash",
+   "kind": "prop",
+   "slot": "S4",
+   "desc": "an accent app icon with a white bell drops from the top edge on '…' and gets a slash drawn on '…'",
+   "sig": [
+    "<line id=\"sl_a\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "prop-art-exploded-phone",
+   "kind": "prop",
+   "slot": "S2",
+   "desc": "exploded hairline phone (shell, board, glass with an app grid), its black tile hopping cell to cell",
+   "sig": [
+    "<rect id=\"\\w+_act\" x=\"88\" y=\"150\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "prop-art-bed-moon",
+   "kind": "prop",
+   "slot": "S8",
+   "desc": "isometric bed with a black moon and stars bobbing",
+   "sig": [
+    "<g id=\"\\w+_moon\">"
+   ],
+   "reels": []
+  },
+  {
+   "id": "prop-art-sneaker",
+   "kind": "prop",
+   "slot": "S8",
+   "desc": "running shoe in profile with black laces and speed lines, rocking",
+   "sig": [
+    "<g id=\"\\w+_shoe\">"
+   ],
+   "reels": []
+  },
+  {
+   "id": "prop-art-mugs-teapot",
+   "kind": "prop",
+   "slot": "S8",
+   "desc": "two mugs and a teapot on a small table, black steam rising",
+   "sig": [
+    "<g id=\"\\w+_steam\">"
+   ],
+   "reels": []
+  },
+  {
+   "id": "prop-art-staircase-bead",
+   "kind": "prop",
+   "slot": "S9",
+   "desc": "a staircase of growing steps with a flag; a black bead hops a step on each word and falters back on the scary one",
+   "sig": [
+    "<circle id=\"\\w+_bead\"",
+    "\"ease\": \"bounce\\.out\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "prop-art-book",
+   "kind": "prop",
+   "slot": "S11",
+   "desc": "a closed hairline book with a black ribbon (gallery tile)",
+   "sig": [
+    "<circle cx=\"[\\d.-]+\" cy=\"[\\d.-]+\" r=\"5\" fill=\"#111\"/></svg>"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-gallery-tile-shrinks",
+   "kind": "outro",
+   "slot": "S11",
+   "desc": "gallery of the reel's own drawings; the 2x2 phone tile shrinks to one cell on '…', leaving dashed empty cells (room); linear zoom-out, veil, black title, flat end",
+   "sig": [
+    "border:2\\.5px dashed #D2D2D2",
+    "\"scaleX\": 0\\.4688"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-scan-title-page-card",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "the real public-domain title page of the named text as a white card (tilts -1.2 -> 0 and settles) above the 3-tier headline, the matted head over the footage card",
+   "sig": [
+    "id=\"hk_scan_card\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "transition-sheet-rise-over-hook",
+   "kind": "transition",
+   "slot": "S1->S3",
+   "desc": "the next white page rises from below as a sheet with a soft top shadow and covers the hook (power3.out 0.30 s, soft whoosh); no wash",
+   "sig": [
+    "id=\"s3_sheet\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-scan-page-highlight-push",
+   "kind": "scene",
+   "slot": "S3",
+   "desc": "a real scanned page with a plain-fact label, push-to-detail x2 onto the named word, accent45 highlights drawn L->R over printed words on the words (multiply)",
+   "sig": [
+    "id=\"s3_hl_dist\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-split-loupe-strip",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "split: a loupe card holding three lines of the real page (edges masked), two printed words highlighted on the words that translate them",
+   "sig": [
+    "id=\"s4_loupe\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "prop-art-crowd-dots-one-alone",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "hairline iso crowd of gender-less dots arriving in a scatter, one black dot alone in a dashed clearing, pulsing",
+   "sig": [
+    "id=\"cr1_me\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-split-chat-typing-send",
+   "kind": "scene",
+   "slot": "S6",
+   "desc": "split: rebuilt chat with a contact name from the words; typed text as grey bars, one per spoken word; send pressed on the last word, the message lands in the thread",
+   "sig": [
+    "id=\"chat_field\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "transition-scale-reframe-from-bottom",
+   "kind": "transition",
+   "slot": "face",
+   "desc": "a reframe on the one plate: scaled x1.04 -> x1.14 about the bottom centre (pixels only scaled), captions unscaled; keeps the chin above the chest captions",
+   "sig": [
+    "id=\"fc8_v\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "prop-art-doorframe-height-marks",
+   "kind": "prop",
+   "slot": "S9",
+   "desc": "an empty hairline iso door frame; pencil height marks climb the jamb one per word, the top one black on the payoff word",
+   "sig": [
+    "id=\"dr1_m5\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-split-voice-message-plays",
+   "kind": "scene",
+   "slot": "S10",
+   "desc": "split: the same chat with a voice message in the accent; play -> pause on the verb, waveform bars fill to the cut",
+   "sig": [
+    "id=\"s10_vm\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-drawings-row-dot-through-door",
+   "kind": "outro",
+   "slot": "S13",
+   "desc": "the reel's drawings in one row of tiles (slow push); on the payoff word a black dot steps into the doorway and goes through; two-tier title from the last line",
+   "sig": [
+    "id=\"od_dot\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-white-title-tab-over-face",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "the face full frame as shot; a white rounded tab at the top above the head with the frame-1 hook in two tiers (ink sans + serif payoff), in on frame 0, lifts out at the first sentence cut",
+   "sig": [
+    "id=\"hk_tab\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-profile-grid-push-real-tile",
+   "kind": "scene",
+   "slot": "S2",
+   "desc": "a white profile grid of hairline placeholder tiles with one real tile (the earlier reel); the tile lifts on its word and the camera pushes into it",
+   "sig": [
+    "id=\"g1_grid\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-corpus-window-translate-lines",
+   "kind": "scene",
+   "slot": "S3",
+   "desc": "a light app window of the tool, source pane as grey line bars, the accent Translate button pressed on its verb, the target lines draw in left to right on the words",
+   "sig": [
+    "id=\"cw_win\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-ig-share-sheet-send-bubble",
+   "kind": "scene",
+   "slot": "S5",
+   "desc": "the reel tile on white, an IG-style share sheet rises with nameless avatar circles, one checked and Send pressed on the verb, then a nameless message bubble pops in",
+   "sig": [
+    "id=\"sh_sheet\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-chest-headline-ringing-bell",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame 0: the face full frame as shot, the hook headline in white tiers on the chest (payoff in serif) with a hairline bell after the alarm word that rings (rotation shake) until the payoff",
+   "sig": [
+    "id=\"hk_bell\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-appstore-chip-home-reps-ring",
+   "kind": "scene",
+   "slot": "S3",
+   "desc": "the real home screen of the named app in a phone on a white page; an App Store chip lands on its word, push to the alarm time on the alarm word, an accent ring on the reps button on the squats word",
+   "sig": [
+    "id=\"p1_chip\"",
+    "id=\"p1_ring\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-methods-list-strike",
+   "kind": "scene",
+   "slot": "S5",
+   "desc": "the failed methods the speaker lists as plain list rows arriving on their first words, both struck through left to right on 'nothing worked', then greyed",
+   "sig": [
+    "p2_strike"
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-real-alarm-shakes-until-squats",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "the app's real ringing alarm screen in a phone that shakes (rings) from its entrance until the action word, where the action button is pressed, the shake stops and the camera pushes to the button",
+   "sig": [
+    "id=\"p3_btn\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "prop-dots-200-half-lit",
+   "kind": "prop",
+   "slot": "S7",
+   "desc": "a grid of 200 hairline dots (one per user) fills on 'downloaded' with a two-tier title of the number, half of them light up in the accent on 'half'",
+   "sig": [
+    "class=\"p5d"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-flat-face-callback",
+   "kind": "outro",
+   "slot": "S9",
+   "desc": "no outro card: the reel ends flat on the face full frame, the last caption's serif tier calls back the hook's payoff",
+   "sig": [
+    "id=\"fc_out\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "scene-own-recording-phone-counts-to-dismissed",
+   "kind": "scene",
+   "slot": "page",
+   "desc": "the speaker's own screen recording (sped 6x, as shot) plays inside the page phone with the measured push; the app counts the reps and its done screen lands on the payoff word, soft pop",
+   "sig": [
+    "id=\"cam3v\"",
+    "squat_6x\\.mp4"
+   ],
+   "reels": []
+  },
+  {
+   "id": "prop-appstore-row-card",
+   "kind": "prop",
+   "slot": "face",
+   "desc": "App Store row on the CTA word over the face shot: real rounded app icon, name, seller, blue …; white card in the free band above the head",
+   "sig": [
+    "id=\"cta_card\"",
+    "id=\"cta_pill\""
+   ],
+   "reels": []
+  }
+ ],
+ "ideas_not_built_yet": [
+  "zoom-to-field on a real desktop screen recording: a light app window scales from a point and pushes into its input on the word (reference C8; needs the recording of the tool)",
+  "caret-follow typing pan with a slash-command chip above the input (reference C10)",
+  "pull-back to a floating window card, then dive into the result in one camera move (reference T10)",
+  "cursor-following virtual camera on a real screen recording (L effort)",
+  "dark-mode flip: a one-frame palette invert on the word that names the switch, with a click (reference D6)",
+  "demo action retimed to its verb in the real recording (speed-ramp between actions; |action - word| <= 0.2 s)",
+  "pivot line on the speaker's own desk B-roll with a 3-voice caption in the upper third while the bed is out (reference 4.04-5.20 s)",
+  "blank-beat breath: 4 frames of an empty page with only the pill before a reply streams in (reference D4)",
+  "chat reply streaming line by line, one option highlighted in accent45, the typed choice in an input card from the right (reference C11)",
+  "feathered left-to-right reveal and a grey-to-black gradient fill on the payoff word",
+  "Hairline (Claude skill) as a per-reel illustration generator, after a licence check (reference technique)",
+  "library/sfx gaps: a soft wide air swell, a slider drag, hover ticks, a UI toggle click",
+  "end-tail riser into the loop (reference 27.3 s, low confidence) and a pad entering at the demo pivot",
+  "keyword box CTA (the word blurs in, the accent box fills in ~11 f behind it): only with a real offer (the data)"
+ ]
+}

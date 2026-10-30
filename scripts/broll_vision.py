@@ -237,6 +237,59 @@ def _check(path, tin=0.0, dur=None, line=None):
     return {"error": err}
 
 
+MOTION_PROMPT = """This is one frame of a STILL photo that a vertical video shows full screen for a second or two (a photo
+written out as a video clip, usually with a slow zoom). Reply as JSON only, with these keys:
+"moving": true if the photo shows a person or an animal caught in the middle of a movement (running, walking, jumping,
+  swimming, riding, dancing, throwing, playing a sport) or a vehicle driving or flying: something a viewer expects to keep
+  moving, so a frozen frame of it looks like a paused or stuck video. false for places, landscapes, buildings, objects,
+  food, a flame, smoke, still water, and for people or animals sitting, standing, lying or posing still.
+"what": a few words: what is caught mid-movement, or what the photo shows."""
+MOTION_V = 1
+
+
+def still_motion(path):
+    """A photo shown as a clip (broll_qa freeze): does it show a subject caught mid-movement? {'moving', 'what'} or
+    {'error'}. One frame, cached like check()."""
+    try:
+        st = os.stat(path)
+    except OSError as e:
+        return {"error": str(e)}
+    k = hashlib.sha1(f"{os.path.realpath(path)}|{st.st_size}|{st.st_mtime_ns}|motion|{MOTION_V}|{MODEL}".encode()).hexdigest()
+    cp = os.path.join(CACHE, "motion-" + k + ".json")
+    if os.path.exists(cp):
+        try:
+            return json.load(open(cp))
+        except (OSError, json.JSONDecodeError):
+            pass
+    try:
+        ok, buf = cv2.imencode(".jpg", frames(path, n=1)[0], [cv2.IMWRITE_JPEG_QUALITY, 88])
+    except Exception as e:      # noqa: BLE001
+        return {"error": f"frames: {e}"}
+    err = None
+    for wait in (0, 3, 8, 20):
+        time.sleep(wait)
+        try:
+            from google.genai import types
+            r = client().models.generate_content(model=MODEL, contents=[types.Part.from_bytes(data=buf.tobytes(), mime_type="image/jpeg"), MOTION_PROMPT],
+                                                 config=types.GenerateContentConfig(response_mime_type="application/json", temperature=0))
+            j = json.loads(r.text or "")
+            if isinstance(j, list) and j:
+                j = j[0]
+            if not isinstance(j, dict) or not isinstance(j.get("moving"), bool):
+                raise ValueError(f"bad answer: {(r.text or '')[:200]}")
+            res = {"moving": j["moving"], "what": str(j.get("what", ""))[:120], "model": MODEL}
+            os.makedirs(CACHE, exist_ok=True)
+            tmp = cp + f".{os.getpid()}.tmp"
+            json.dump(res, open(tmp, "w"), ensure_ascii=False, indent=1)
+            os.replace(tmp, cp)
+            return res
+        except RuntimeError as e:          # no key: no point retrying
+            return {"error": str(e)}
+        except Exception as e:             # noqa: BLE001  transient: retry
+            err = f"{type(e).__name__}: {str(e)[:200]}"
+    return {"error": err}
+
+
 def check_many(jobs, workers=4):
     """jobs: [(path, tin, dur, line)] -> results in the same order"""
     from concurrent.futures import ThreadPoolExecutor

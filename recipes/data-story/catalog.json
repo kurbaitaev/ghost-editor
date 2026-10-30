@@ -1,0 +1,115 @@
+{
+ "_about": "Registry of this style's components (SYSTEM.md): what each one is, its kind and the regexes (sig) that find it in a built index.html. scripts/components.py plan / check / add / record read and write it: history lists your reels in order, projects maps a reel id to its project folder, and each element's reels say where it was used. Empty history = nothing used yet.",
+ "reels": {},
+ "history": [],
+ "projects": {},
+ "elements": [
+  {
+   "id": "house-cream-paper-sheet",
+   "kind": "house",
+   "slot": "world",
+   "desc": "every page is the same cream paper sheet (fibre noise, faint 30 px dot grid in world space) with a slow camera push; hard cut in on a word onset, never a fade",
+   "sig": [
+    "\"paper\": true"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-red-blue-pencil",
+   "kind": "house",
+   "slot": "performer",
+   "desc": "the red-blue pencil draws every mark: lift, arc between marks, tremor while drawing, flips to its red end before a red mark, exits to the edge; from the upper right over the face so it never crosses it",
+   "sig": [
+    "\"pencilScale\": 1\\.25"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-figure-caption",
+   "kind": "house",
+   "slot": "captions",
+   "desc": "the subtitle is the figure caption: mono kicker (figure / source), hairline rule, Playfair Display 58 px words on their onsets, two lines max (auto-fit down to 48 px), hard swaps; over the face on a paper band 1196-1486",
+   "sig": [
+    "\"cap\": \\{\"x\": 64"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-handwritten-notes",
+   "kind": "house",
+   "slot": "notes",
+   "desc": "Caveat pencil notes written on left to right with per-glyph jitter and graphite grain; blue for human notes, red for warnings; un-closed rings, wobbly leaders, underlines",
+   "sig": [
+    "\"k\": \"hand\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-face-note-slip",
+   "kind": "house",
+   "slot": "notes",
+   "desc": "over the face a note sits on a torn paper slip above the head (y 230-370), the pencil from the upper right; guarded against the face core",
+   "sig": [
+    "\"k\": \"slip\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "question-first-plot",
+   "kind": "hook",
+   "slot": "S1 opening",
+   "desc": "the question first: the headline typesets, empty axes grow (units only, no numbers), a red dashed empty cell with a handwritten ?",
+   "sig": [
+    "\"text\": \"\\?\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "book-print-ring",
+   "kind": "prop",
+   "slot": "S2 named thing",
+   "desc": "the named book's real cover pinned on the paper as a print, the author's name handwritten with a leader, a red ring round a detail of its cover on the words that quote it",
+   "sig": [
+    "\"k\": \"img\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "category-bars-sourced",
+   "kind": "scene",
+   "slot": "S3 data chart",
+   "desc": "horizontal bars from zero land on each category the speaker names, values from a primary source named in the kicker (in the proof: a published study's table of notification counts by category), its headline figure as a red note",
+   "sig": [
+    "\"k\": \"bar\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "day-unit-chart",
+   "kind": "scene",
+   "slot": "S4 parts of a day",
+   "desc": "the day as 24 hour cells: official recommendations as filled cells (e.g. hours of sleep, minutes of activity a week as a fraction of a cell, both with their agency named), a heart for close ones",
+   "sig": [
+    "\"k\": \"box\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hatch-sweep-ending",
+   "kind": "outro",
+   "slot": "S5 ending",
+   "desc": "the day again: graphite hatching (the thing that eats the time) fills every free cell, its red label is struck, the hatching is swept away column by column, dashed empty cells draw on, last note; push in",
+   "sig": [
+    "\"k\": \"hatch\""
+   ],
+   "reels": []
+  }
+ ],
+ "ideas_not_built_yet": [
+  "sonification (pitch = value) and the bed: dropped by the no-music rule; foley only",
+  "a series in time with tracking camera (dots + line, frame break, scale switch)",
+  "encoding morph bars -> waffle",
+  "the frozen-pane tick strip when an axis scrolls off",
+  "words behind the speaker's head with the matte"
+ ]
+}

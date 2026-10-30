@@ -1,0 +1,10 @@
+# POV montage worked example: "lost my lunch to a seagull" (a seaside walk in first person, 7 spoken lines, ~45 words,
+# about 39 s of montage + a 2 s outro). Clip, source seconds of the line in that clip, the line. The clips are yours to
+# supply; re-time edl.json and gen_words.py from your own contact sheets and transcripts.
+gull    41.02-44.12  20 minutes at the seaside, and I've already lost my lunch.  (the flash-forward hook, from the end)
+pier     8.02-9.56   Okay, look at that water.
+kiosk    4.02-5.58   One large fries, please.
+bench    5.02-6.96   Did you know gulls can remember your face?
+bench    9.52-11.52  This one is definitely remembering mine.
+gull    18.62-19.96  No, no, no!                                                 (after the freeze: the gull mid-air)
+gull    20.28-21.26  That was my lunch!

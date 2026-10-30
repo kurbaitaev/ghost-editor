@@ -1,0 +1,541 @@
+{
+ "_about": "Registry of this style's components (SYSTEM.md): what each one is, its kind and the regexes (sig) that find it in a built index.html. scripts/components.py plan / check / add / record read and write it: history lists your reels in order, projects maps a reel id to its project folder, and each element's reels say where it was used. Empty history = nothing used yet.",
+ "reels": {},
+ "history": [],
+ "projects": {},
+ "_about_components": "kind = hook / scene / prop / frame / transition / outro (new every reel) or emphasis / signature / house (may stay); sig = regexes (a LIST) on the built index.html; history = reels in order; projects = where each reel's index.html is. scripts/components.py reads and writes this file. The proof reels are recorded only after the OK.",
+ "elements": [
+  {
+   "id": "word-pop-captions",
+   "kind": "house",
+   "slot": null,
+   "desc": "one centred caption line; every word pops on in one frame at its spoken start at its final place (Inter 500 62 px, white; ink over light grounds)",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "big-word-oswald",
+   "kind": "house",
+   "slot": null,
+   "desc": "one heavy word per phrase (two short ones share the line): Oswald 700 caps up to 168 px under the small words",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "serif-voice",
+   "kind": "house",
+   "slot": null,
+   "desc": "quotes, coined terms, names: Playfair Display italic (captions, picture labels, polaroid labels)",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "turn-page-grey-cursor",
+   "kind": "house",
+   "slot": "S2",
+   "desc": "the turn line alone on the baked grey page, a black block the size of each word 3 frames ahead",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "picture-print-blur",
+   "kind": "house",
+   "slot": "S3",
+   "desc": "a picture as a print on its own blurred, darkened copy (B&W), slow push",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "bw-world-red-accent",
+   "kind": "house",
+   "slot": null,
+   "desc": "every picture black and white; one red #D63A2F for the payoff word, label boxes, counters, strikes",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "hard-cuts-only",
+   "kind": "house",
+   "slot": null,
+   "desc": "scene changes are hard cuts on phrase starts; no dissolves, flashes, glitches, no fade at the end",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "flat-bed-picture-sfx",
+   "kind": "house",
+   "slot": null,
+   "desc": "flat bed ~19 dB under the voice; SFX only under picture events; the payoff without SFX (quiet())",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "face-push-hook-A",
+   "kind": "house",
+   "slot": "S1",
+   "desc": "format A: the plate (as shot) pushes in x1.05 over the first 1.1 s while the first words pop on",
+   "sig": [],
+   "reels": []
+  },
+  {
+   "id": "hook-burst-list",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "the one montage burst: full-bleed B&W pictures cut on the listed words in the hook (B: files, a clock, a telephone)",
+   "sig": [
+    "class=\"scene pic full\" data-kd=\"pic-full\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-own-clip-print",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "the speaker's own night clip as a print, pushing in from frame 0 (C: the skyline through the living-room window)",
+   "sig": [
+    "data-tag=\"hook-own-clip-print\"",
+    "kd-tag: hook-own-clip-print"
+   ],
+   "reels": []
+  },
+  {
+   "id": "page-type-quote",
+   "kind": "scene",
+   "slot": "S2",
+   "desc": "a quote typed on warm paper word by word as spoken, mono, caret at the end (C: Simmel)",
+   "sig": [
+    "data-kd=\"page-type\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "page-paper-term",
+   "kind": "scene",
+   "slot": "S2",
+   "desc": "a coined term on warm paper in the serif italic with the cursor (B: …)",
+   "sig": [
+    "data-kd=\"page-paper\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "page-black-glow",
+   "kind": "scene",
+   "slot": "S2",
+   "desc": "white caps with a soft glow on black, a word snapping on per beat (not used yet)",
+   "sig": [
+    "data-kd=\"page-black\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "polaroid-slide",
+   "kind": "frame",
+   "slot": "S3",
+   "desc": "polaroids on the grey page, one per word, the camera sliding to the newest",
+   "sig": [
+    "data-kd=\"polaroids\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "window-steps",
+   "kind": "frame",
+   "slot": "S3",
+   "desc": "a picture in a window on black stepping up in three sizes, then a slow push",
+   "sig": [
+    "data-kd=\"pic-window\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "archive-name-band",
+   "kind": "frame",
+   "slot": "S3",
+   "desc": "an archive portrait as a print with the person's name in the serif on a dark band",
+   "sig": [
+    "class=\"plabel\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "counter-ticks",
+   "kind": "prop",
+   "slot": "S4",
+   "desc": "a number counting up in red Playfair 900, a tick per value, its unit under it (B: 38 000 …)",
+   "sig": [
+    "data-kd=\"counter\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "red-label-sub",
+   "kind": "emphasis",
+   "slot": "S5",
+   "desc": "a red box wiping on with the stressed words in Oswald caps + a white sub-line strip",
+   "sig": [
+    "data-kd=\"label\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "erase-word",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "the big word loses its letters right to left on a word meaning 'disappears' (A: …«…»)",
+   "sig": [
+    "class=\"lt\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "swap-gag",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "the picture changes state in one frame on its word (B: the switch flips on «…»)",
+   "sig": [
+    "data-kd=\"swap\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "strike-red",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "a red line drawn through the picture on the word it rejects (B: the sofa on «…»)",
+   "sig": [
+    "data-kd=\"strike\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "punch-picture",
+   "kind": "emphasis",
+   "slot": "S5",
+   "desc": "a 2-frame punch-in on a picture on the stressed word",
+   "sig": [
+    "\\.pz\", \\{\"scale\": 1\\.0\\}"
+   ],
+   "reels": []
+  },
+  {
+   "id": "punch-face-literal",
+   "kind": "emphasis",
+   "slot": "S5",
+   "desc": "a punch-in on the face that acts out the word (A: «…» comes too close)",
+   "sig": [
+    "tl\\.fromTo\\(\"#zoom\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-bookend",
+   "kind": "outro",
+   "slot": "S7",
+   "desc": "the payoff returns to the hook's picture (B: the deck chair)",
+   "sig": [
+    "data-tag=\"outro-bookend\"",
+    "kd-tag: outro-bookend"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-open-door",
+   "kind": "outro",
+   "slot": "S7",
+   "desc": "the payoff on a door opening onto light (C)",
+   "sig": [
+    "data-tag=\"outro-open-door\"",
+    "kd-tag: outro-open-door"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-red-word-face",
+   "kind": "outro",
+   "slot": "S7",
+   "desc": "the payoff held on the face with the last big words in red (A: …)",
+   "sig": [
+    "kd-tag: outro-red-word-face"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-split-flap-board",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "railway split-flap board above the head: the hook number in black tiles (red digits) + a rail sub-line, legible on frame 0; tiles flip by squash (old char out, new char in) for status changes",
+   "sig": [
+    "class=\"kd-flap[ \"]"
+   ],
+   "reels": []
+  },
+  {
+   "id": "page-book-marginalia",
+   "kind": "scene",
+   "slot": "S3",
+   "desc": "an open book on the grey page (author running head, title in serif, grey text bars); a red pencil bracket draws in the margin beside one passage on its word, the passage inks in",
+   "sig": [
+    "kd-margin"
+   ],
+   "reels": []
+  },
+  {
+   "id": "turn-wedding-portrait-phone",
+   "kind": "frame",
+   "slot": "S2",
+   "desc": "a vintage double-oval wedding portrait on a cabinet-card mount: an archive man on the left, the phone as the partner on the right (lands on its word), a red serif ampersand in the held pause",
+   "sig": [
+    "kd-wed"
+   ],
+   "reels": []
+  },
+  {
+   "id": "frame-contact-sheet-grease",
+   "kind": "frame",
+   "slot": "S3",
+   "desc": "a vertical film contact sheet (sprockets, frame numbers) of three B&W frames for a spoken list; a red grease-pencil circle draws around each frame on its word",
+   "sig": [
+    "kd-sheet"
+   ],
+   "reels": []
+  },
+  {
+   "id": "page-balance-scale-tip",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "an engraved balance scale on the grey page: the fear weight (a serif tag quoting the words) holds the left pan down until a red weight drops into the right pan on the word and tips the beam",
+   "sig": [
+    "kd-scale"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-flap-board-blanks",
+   "kind": "outro",
+   "slot": "S7",
+   "desc": "bookend: the hook split-flap board returns over the payoff and its tiles flip to blank one by one on the free-time word, held to a hard end on the face",
+   "sig": [
+    "kd-flap-blank"
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-telegram-tape",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "a telegram form pasted above the head from frame 0: two PT Mono tape strips carry the hook text, the key phrase red",
+   "sig": [
+    "data-kd=\"telegram\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "prop-slot-drum-list",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "slot-machine drum in the chest band: spins on the verb, stops on each listed word (Oswald caps) as it is said",
+   "sig": [
+    "class=\"drum"
+   ],
+   "reels": []
+  },
+  {
+   "id": "page-plug-pulled-term",
+   "kind": "scene",
+   "slot": "S2",
+   "desc": "term page on warm paper: serif small word + big Oswald word, a drawn plug pulls out of its wall socket on the word",
+   "sig": [
+    "data-kd=\"plugpage\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "stat-receipt-printout",
+   "kind": "prop",
+   "slot": "S4",
+   "desc": "a paper receipt prints up in the chest band, PT Mono rows land on their words: header, the number in red, the findings",
+   "sig": [
+    "class=\"rcpt"
+   ],
+   "reels": []
+  },
+  {
+   "id": "frame-quad-tiles",
+   "kind": "frame",
+   "slot": "S3",
+   "desc": "full-screen 2x2 grid of B&W object pictures on black, one tile cuts in per listed word, holds as a set",
+   "sig": [
+    "data-kd=\"quad\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-telegram-reply",
+   "kind": "outro",
+   "slot": "S7",
+   "desc": "the hook telegram returns in the payoff: its first strip struck in red, a reply strip with the payoff words lands; flat end",
+   "sig": [
+    "id=\"tg2\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-face-sandwich",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame 0: the text hook split around the face, line 1 above the head (small words + one big Oswald word on the red box), line 2 under the chin (small + big), static and readable on frame 0, clears on the next phrase",
+   "sig": [
+    "data-kd=\"hook-sandwich\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "print-side-taped-cover",
+   "kind": "frame",
+   "slot": "S3",
+   "desc": "a real B&W print (book cover) taped in the side column beside the face (not full screen), slow push, the author name typed on its margin on the name word",
+   "sig": [
+    "data-kd=\"print-side\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "stamp-vykl-sources",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "listed sources stack in Oswald in the chest band, each on its word; a red rubber stamp «…» slams beside each (2 frames, one thud each)",
+   "sig": [
+    "data-kd=\"stamp-off\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "list-red-numerals-chest",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "a numbered list builds in the chest band: white Playfair numerals on red squares, Oswald items, every word on its spoken start, a small Inter sub-line under the last item; silent",
+   "sig": [
+    "data-kd=\"list-numbered\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-hook-answer",
+   "kind": "outro",
+   "slot": "S7",
+   "desc": "the last line is set in the frame-0 hook type (small lines + the big word on the red box, no question mark), word by word on the voice, held to a hard end: frame 0 asks, the last frame answers",
+   "sig": [
+    "data-kd=\"hook-answer\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-museum-caption-card",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame-1 hook text on a warm-paper museum caption card pinned above the head, the key word underlined red",
+   "sig": [
+    "data-kd=\"museum-card\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "print-photo-corners-red",
+   "kind": "frame",
+   "slot": "S3",
+   "desc": "a print held by four album photo corners (one red) that snap on at the cut",
+   "sig": [
+    "class=\"kd-corner"
+   ],
+   "reels": []
+  },
+  {
+   "id": "print-lak-page-loupe",
+   "kind": "frame",
+   "slot": "S3",
+   "desc": "an old page as a print, a round loupe slides in and magnifies the text on the detail word",
+   "sig": [
+    "class=\"kd-loupe"
+   ],
+   "reels": []
+  },
+  {
+   "id": "timeline-then-now-line",
+   "kind": "prop",
+   "slot": "S4",
+   "desc": "a thin ink timeline draws above the head: a pin for the past date, a red dot for now",
+   "sig": [
+    "class=\"kd-tline"
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-card-return-tick",
+   "kind": "outro",
+   "slot": "S7",
+   "desc": "the hook's caption card returns on the thanks line and a red tick draws beside its key word; payoff clean after",
+   "sig": [
+    "id=\"mc2\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "hook-cabinet-paper-note",
+   "kind": "hook",
+   "slot": "S1",
+   "desc": "frame 0: the hook line on a warm-paper strip in the empty band above the head (the cabinet), held through line 1 while captions land below",
+   "sig": [
+    "data-tag=\"hook-cabinet-paper-note\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "frame-print-pile",
+   "kind": "frame",
+   "slot": "S3",
+   "desc": "a listed attempt lands as a second print dropped on top of the first (tilted, hard), a pile of tried methods",
+   "sig": [
+    "data-tag=\"frame-print-pile\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "page-lights-on-idea",
+   "kind": "scene",
+   "slot": "S2",
+   "desc": "turn page starts dimmed; the light switches on (hard, click) on the idea word, which lands red",
+   "sig": [
+    "data-tag=\"page-lights-on-idea\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "cta-five-stars-review",
+   "kind": "prop",
+   "slot": "S5",
+   "desc": "five outline stars under the CTA caption fill red one by one on the word review",
+   "sig": [
+    "data-tag=\"cta-five-stars-review\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "outro-red-delete-held",
+   "kind": "outro",
+   "slot": "S7",
+   "desc": "payoff held on the face, the delete word as a red box, no SFX, hard end",
+   "sig": [
+    "kd-tag: outro-red-delete-held"
+   ],
+   "reels": []
+  }
+ ],
+ "ideas_not_built_yet": [
+  "hidden cut: an object from the story crossing the frame and uncovering the next shot (R3 ship)",
+  "cut-out world on the grey page (v2)",
+  "callouts tracked on the footage (v2)",
+  "flat map with pinned labels (v2)",
+  "a quote shown playing on an old TV in a dark room (R1)"
+ ]
+}

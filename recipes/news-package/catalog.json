@@ -1,0 +1,139 @@
+{
+ "_about": "Registry of this style's components (SYSTEM.md): what each one is, its kind and the regexes (sig) that find it in a built index.html. scripts/components.py plan / check / add / record read and write it: history lists your reels in order, projects maps a reel id to its project folder, and each element's reels say where it was used. Empty history = nothing used yet.",
+ "reels": {},
+ "history": [],
+ "projects": {},
+ "_about_components": "kind = scene / prop / frame / transition / outro (new every reel) or house (the package system, stays); sig = regexes (a LIST) on the built index.html; history = reels in order; projects = where each reel's index.html is. scripts/components.py reads and writes this file.",
+ "elements": [
+  {
+   "id": "house-sting-to-bug",
+   "kind": "house",
+   "slot": "S1",
+   "desc": "the plate slams in (x1.35 -> 1, back ease) with slashes and a ring, letters drop one by one, the wordmark opens from the centre, a glint, then the same plate flies to the top right and stays as the bug",
+   "sig": [
+    "<g id=\"plt\">",
+    "plt_gl"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-strap",
+   "kind": "house",
+   "slot": "S3",
+   "desc": "lower-third strap on the speaker's chest: lemon category tab, paper body with a lemon bar, s8 headline + c6 olive sub-line, ink end block with the channel word; flips its words on the face (0.32 s), set on cuts; travels with its picture under a band wipe",
+   "sig": [
+    "<g id=\"fs\" opacity=\"0\">",
+    "_sp_tab"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-band-wipe",
+   "kind": "house",
+   "slot": "S7",
+   "desc": "the only transition between parts: a vertical band (lemon 84 + ink 5 + gold 14 px) crossing in 0.3 s; the new picture revealed left of it with its own package layer",
+   "sig": [
+    "<g id=\"band\" opacity=\"0\">"
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-rundown-ticked",
+   "kind": "house",
+   "slot": "S2",
+   "desc": "the rundown of the reel's points (tab, big number + unit, mono line, title, numbered rows with a mono timecode of when each point airs) flips in at the top of the segment and returns as the recap, each row ticked on the speaker's last words",
+   "sig": [
+    "id=\"rundown_row0\"",
+    "id=\"recap_tick0\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-corner-tag-schema",
+   "kind": "house",
+   "slot": "S5",
+   "desc": "the SCHEMATIC corner tag (mono gold on an ink box with a gold bar; the word in the reel's language) on every schematic graphic that has no data behind it",
+   "sig": [
+    "x=\"60\" y=\"140\" width=\"\\d+\" height=\"80\" fill=\"rgba\\(18,20,23,\\.82\\)\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "house-source-line",
+   "kind": "house",
+   "slot": "S3",
+   "desc": "the source line under the strap (mono caps gold on an ink box) for as long as a point rests on a source",
+   "sig": [
+    "_src\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "doc-cover-fly-stamp",
+   "kind": "scene",
+   "slot": "S4",
+   "desc": "the real cover of a book the speaker names flies out on an arc (scale 0.08 -> 1, rotation settles), the title pushes up on its last word, one stamp with the book's gist lands on the word that says it",
+   "sig": [
+    "id=\"book_doc\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "flap-board-on-off",
+   "kind": "scene",
+   "slot": "S5",
+   "desc": "split-flap board flipping a state (' ON' -> 'OFF') under the point's title, every tile flips on the word that changes it",
+   "sig": [
+    "id=\"note_fl0_ft\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "check-rows-off",
+   "kind": "scene",
+   "slot": "S5",
+   "desc": "three accent-edged rows (the things the speaker lists) flip in on their words, each box ticks and the OFF label lands",
+   "sig": [
+    "id=\"note_ck0\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "accent-cards-bracket",
+   "kind": "scene",
+   "slot": "S5",
+   "desc": "three accent-edged ink cards push up on three words the speaker lists, each with a drawn icon (moon, chevrons, heart), a gold bracket joins them to a one-line summary",
+   "sig": [
+    "id=\"basics_ac0\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "threshold-schematic",
+   "kind": "scene",
+   "slot": "S5",
+   "desc": "schematic line climbing one step per word to a dashed threshold label; held beat; crosses in lemon on the word that crosses it with shake, ring, deep boom; a readout lands",
+   "sig": [
+    "id=\"tasks_thr\""
+   ],
+   "reels": []
+  },
+  {
+   "id": "proportion-bar-cells",
+   "kind": "scene",
+   "slot": "S5",
+   "desc": "one-scale bar of a whole taken by one part, cells for the other things fill on the words that name them with a bracket and a leader; the part shrinks on the turn word",
+   "sig": [
+    "id=\"free_pr_p\""
+   ],
+   "reels": []
+  }
+ ],
+ "ideas_not_built_yet": [
+  "the quote card (ink, a large lemon quotation mark lands first, the lines push up, a gold rule, name, occasion and date, an underline sweeping the key word as the speaker says it): for a reel that quotes a real person's own words",
+  "the explainer map long take (places light in order of distance, a city sends documents to their addressees, the camera pushes and pans): for a reel about places",
+  "a profile strap (tab PROFILE) naming a person the speaker talks about, or the speaker if they want an on-screen name",
+  "a 'coming up next' teaser card or a slanted-wipe end card with the plate (the source's endings; ask first, a flat ending is the default)",
+  "a cold open on the biggest graphic before the sting (the source's second opening), so frame 0 carries the hook fact"
+ ]
+}

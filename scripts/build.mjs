@@ -41,6 +41,8 @@ import { STAN_CSS, isStanBeat, stanPrepare, stanBeat, stanPipTweens, buildChestC
 
 const SKILL = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const LIB = path.join(SKILL, "library");
+// the pinned HyperFrames CLI (scripts/HF_VERSION; an HF_VERSION env var overrides it), same as hf.sh / hf_version.py
+const HF = `hyperframes@${process.env.HF_VERSION || fs.readFileSync(path.join(SKILL, "scripts", "HF_VERSION"), "utf8").trim()}`;
 const proj = path.resolve(process.argv[2] || ".");
 const rawSpec = JSON.parse(fs.readFileSync(path.join(proj, "reel.json"), "utf8"));
 // a style preset (styles/<name>.json) supplies defaults; reel.json overrides
@@ -484,7 +486,7 @@ if (spec.matte || panelMatte.length) {
   } else if (!fs.existsSync(mp)) {
     if (mcfg.engine !== "hyperframes") warn.push(`matte: BiRefNet venv not set up (bash ${path.join(SKILL, "scripts", "setup_matte.sh")}); used hyperframes remove-background (u2net: softer, jumpier edges)`);
     console.log("cutting the speaker out (hyperframes remove-background, ~4 fps; cached in assets/talk-matte.webm)...");
-    execFileSync("npx", ["hyperframes", "remove-background", path.resolve(proj, SRC), "-o", mp], { stdio: ["ignore", "ignore", "pipe"], cwd: proj, maxBuffer: 1 << 28 }); console.log("  matte done");
+    execFileSync("npx", ["-y", HF, "remove-background", path.resolve(proj, SRC), "-o", mp], { stdio: ["ignore", "ignore", "pipe"], cwd: proj, maxBuffer: 1 << 28 }); console.log("  matte done");
   }
   if (spec.matte) matteHtml = takes.map((k, i) => `
       <video id="matte-${i}" class="matte" src="assets/talk-matte.webm" data-start="${fgrid(k.f0)}" data-duration="${fgrid(k.frames)}" data-media-start="${k.a}" data-track-index="2" muted playsinline></video>`).join("");
@@ -737,8 +739,8 @@ for (const b of beatsList) {
       } else {
         inner = `<div id="${id}-in" class="ov meme-img" style="left:${x}px;top:${y}px;width:${w}px"><img src="${dst}"/></div>`;
         tl.push(`ft("#${id}-in", { autoAlpha: 0, scale: 0.5, rotation: ${tilt + 14} }, { autoAlpha: 1, scale: 1, rotation: ${tilt}, duration: 0.32, ease: "back.out(2)" }, ${t0});`);
-        // default punch: vine boom when the (private) rip kit has it, else a licensed impact
-        const memeDefault = meta.sfx && sfxManifest[meta.sfx] ? meta.sfx : sfxManifest["vine-boom"] ? "vine-boom" : "cinematic-deep-boom" in sfxManifest ? "cinematic-deep-boom" : "impact";
+        // default punch: vine boom when the (private) rip kit has it, else the CC0 deep boom, else a licensed impact
+        const memeDefault = meta.sfx && sfxManifest[meta.sfx] ? meta.sfx : sfxManifest["vine-boom"] ? "vine-boom" : sfxManifest["deep-boom"] ? "deep-boom" : "cinematic-deep-boom" in sfxManifest ? "cinematic-deep-boom" : "impact";
         beatSfx(b, t0, memeDefault, "meme image");
       }
       break;

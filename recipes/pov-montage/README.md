@@ -28,9 +28,10 @@ First made for a first-person scooter ride across a city (smart-glasses footage,
 
 **Public edition note:** the reaction meme and the record-scratch sound in step 5 come from a private meme kit that is not
 redistributed. Add your own clip with `scripts/meme_add.py` (only media you have the rights to) and use a Mixkit sound such as
-`impact-1` or `whoosh-cine` for the freeze.
+`impact-1` or `whoosh-cine` for the freeze. The worked example does that: `impact-1` on the freeze and a Mixkit reaction sound
+(`reaction-fail-trombone`) where the meme would go.
 
-## Formats (the public edition ships no worked example for this recipe yet)
+## Formats (worked example in example/: edl.json, assemble.py, gen_words.py, reel.json, script.txt)
 
 - **edl.json:** `{"segments": [...]}` in edit order. A segment is `{"clip": "<id>", "a": <source in, s>, "b": <source out, s>,
   "speed": 1, "audio": "voice" | "amb" | "mute", "note": "..."}`; a freeze is `{"clip": "<id>", "freeze": <source s>, "dur": 1.4,
@@ -54,12 +55,13 @@ redistributed. Add your own clip with `scripts/meme_add.py` (only media you have
 
 ```bash
 S=~/.claude/skills/ghost-editor; P=~/reels/<name>
-# proxies + sheets + transcripts (see SKILL.md step 1-2); write $P/edl.json, $P/assemble.py and $P/gen_words.py (Formats above)
+# proxies + sheets + transcripts (see SKILL.md step 1-2); write $P/edl.json (format: example/edl.json)
+cp $S/recipes/pov-montage/example/{assemble.py,gen_words.py} $P/   # edit SRC / PHONE at the top of assemble.py
 cd $P && python3 assemble.py && python3 gen_words.py              # gen_words: type the kept lines with source word times
 python3 $S/scripts/face_track.py assets/talk.mp4 --out build/face.json
-# reel.json: style editorial + brand + beats (Formats above), then
-node $S/scripts/build.mjs $P && npx hyperframes lint && npx hyperframes snapshot --at <every beat>
-npx hyperframes render -o build/reel.mp4 && python3 $S/scripts/qa.py $P build/reel.mp4
+# reel.json: start from example/reel.json (style editorial + brand + beats), then
+node $S/scripts/build.mjs $P && $S/scripts/hf.sh lint && $S/scripts/hf.sh snapshot --at <every beat>
+$S/scripts/hf.sh render -o build/reel.mp4 && python3 $S/scripts/qa.py $P build/reel.mp4
 ```
 
 ## Checks that caught real problems
@@ -69,3 +71,22 @@ npx hyperframes render -o build/reel.mp4 && python3 $S/scripts/qa.py $P build/re
 - Two meme sounds 5 s apart break the 8 s guideline; keep both only when they are the joke, and say so.
 - The person cut-out (matte) is cached: after any re-cut delete it, or old cut-outs float over new footage.
 - Speed-ups above 2× need chained atempo filters (assemble.py does it).
+
+## Worked example
+
+`example/` holds an English montage, "lost my lunch to a seagull": a seaside walk in first person, five smart-glasses clips
+and one phone selfie cut by `edl.json` into 14 segments (39 s + a 2 s outro): the flash-forward hook as a `kinetic` scene
+with the speaker in a round window, a `fly3d` "20 minutes earlier / 12:40 / the pier" rewind with a glitch in, a `behind`
+word on the selfie, an `image` scene from a still of the speaker's own unused footage, a cursor-click `card` for the fun
+fact, `stats` badges for the times, the moment (the gull dives in, a 1.4 s freeze with a 1.3× push, `impact-1` and an emoji
+over the gull), the reaction sound right after the line and a comment-prompt end card; editorial captions (`group` 4, two
+`highlight` words), `happy-times` ducked under every spoken line, `sfxProfile: "restrained"` (7 hits, about 10 a minute).
+`script.txt` lists the seven spoken lines with their clip and source seconds. It is for reading and copying: the clips are
+yours to supply. Map your files in `assemble.py` (`SRC`, `PHONE`), re-time `edl.json` and the words in `gen_words.py` from
+your own sheets and transcripts, then every beat time in `reel.json` (they are edit times on the assembled montage,
+build/edl_map.json). Editorial captions pair lines two by two across the whole reel (a `tags` pill heads a block of up to
+three), so a sentence with an odd number of lines hands its last line to the next sentence's block, and it stays on screen
+through a mute montage in between: check each `eblock`'s `data-start`/`data-duration` in index.html, and keep every sentence
+an even number of lines with `group` and the commas you type in gen_words.py (the example puts a comma after "seaside" for
+that). A dry run (test-pattern clips with a synthetic voice; whisper times typed into gen_words.py) assembles, builds
+(BiRefNet matte for the behind word) and lints with 0 errors; it has not been rendered with real footage.

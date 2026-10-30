@@ -1,0 +1,18 @@
+{
+ "_about": "Clean OS worked example (script.txt). Segments: the best complete take of each line in original seconds of a stand-in recording (line 2 has a false start before 8.22, skipped); re-time them from your own transcript. Format: assemble.py docstring.",
+ "source": "~/Downloads/my-video.mov",
+ "denoised": "audio/df20/raw_DeepFilterNet3.wav",
+ "segments": [
+  [0.54, 3.76, "You don't need more time. You need fewer tabs."],
+  [8.22, 13.94, "This morning I counted 32 open tabs, 11 unread chats and 3 half-written drafts."],
+  [14.68, 17.84, "Every one of them is a small promise to come back later."],
+  [18.58, 21.79, "And every promise takes a little piece of your attention."],
+  [22.53, 26.13, "So try this. Pick one thing and close everything else."],
+  [26.87, 30.89, "Set a timer for 25 minutes and turn your notifications off."],
+  [31.63, 34.56, "Not forever. Just until the timer rings."],
+  [35.3, 38.97, "Then you'll have one thing finished, instead of ten things started."],
+  [39.71, 41.9, "And that feeling is better than any app."]
+ ],
+ "eyes": [0.5, 0.42],
+ "tight": 1.6
+}

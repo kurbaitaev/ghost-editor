@@ -1,0 +1,131 @@
+{
+ "about": "Data Story house look (fixed; one house look per style, new components every reel). Ported from lemo-opuscar styles/dataviz (Data Storytelling, MIT, (c) 2026 LemoLab; https://github.com/lemomo-ai/lemo-opuscar) for a talking head; proved on a 32 s reel.",
+ "world": "the speaker's talking head as shot, cut against full-screen pages of ONE cream paper sheet where a chart draws itself mark by mark under a red-blue pencil, with handwritten notes pinned to the marks; over the face only a paper caption band at the bottom (the figure caption) and pencil notes in the band above the head",
+ "layout": "1080x1920 at 30 fps. Figure caption on every frame the speaker speaks: mono kicker at baseline 1262, hairline rule at 1282, Playfair Display 58 px words from x 64, last line's baseline 1440 (two lines max, 952 px wide); over the face the band is paper 1196-1486 (the chin ended ~1112 on the proof reel's plates; check yours). Pages: title (Playfair 84) at baseline 330, subtitle (mono 48) at 400, the chart between y 470 and 1180, notes in Caveat 60-84 px. Face notes: Caveat 84 px, baseline 300-330, inside y 230-370 (above the grown head box), x 64-980. Nothing under the Instagram top bar (< 220), past x 980, or under y 1490.",
+ "layout_px": {
+  "cap": {
+   "x": 64,
+   "size": 58,
+   "maxW": 952,
+   "base": 1440,
+   "rule": 1282,
+   "kicker": 48,
+   "band": [
+    1196,
+    1486
+   ]
+  },
+  "page": {
+   "title_y": 330,
+   "title_px": 84,
+   "sub_y": 400,
+   "chart_top": 470,
+   "chart_bottom": 1180,
+   "left": 80,
+   "right": 980
+  },
+  "note": {
+   "size": 84,
+   "y": 320,
+   "x_left": 64,
+   "x_right": 980,
+   "top_limit": 230,
+   "pad": 22
+  },
+  "pencil": {
+   "scale": 1.25,
+   "page_angle": 0.62,
+   "face_angle": -0.62
+  }
+ },
+ "type": {
+  "captions": "the figure caption (source: Newsreader 42 px on 1920x1080): Playfair Display 400, 58 px, ink #2B2723, left-aligned at x 64, max two lines; each word appears on its whisper onset (fade + 6 px rise over 0.125 s); a mono kicker (JetBrains Mono 48 px, #6E665C) names the figure and its source; a hairline rule draws under the kicker; the caption flips up 26 px as it leaves",
+  "display": "chart headlines in Playfair Display 400 (the source's Newsreader role), typeset letter by letter; tick values, units and sources in JetBrains Mono 400 (the source's IBM Plex Mono role); notes in Caveat 500 written on left to right with per-glyph jitter and graphite grain",
+  "substitutions": "Newsreader (no Cyrillic) -> Playfair Display; IBM Plex Mono (not in templates/fonts) -> JetBrains Mono; Caveat kept (has Cyrillic). All OFL, from templates/fonts (Cyrillic + Latin woff2), copied into assets/fonts per reel.",
+  "floor_px": 48,
+  "never": "em dashes on screen; words that claim what the speaker did not say; any on-screen text under 48 px; SVG filter:url(#id)",
+  "families": [
+   "Caveat",
+   "Playfair Display",
+   "JetBrains Mono"
+  ]
+ },
+ "palette": {
+  "paper": "#F6F3EC",
+  "dotgrid": "#E4DDCF",
+  "ink": "#2B2723",
+  "ink_soft": "#6E665C",
+  "rule": "#DDD6C9",
+  "zero": "#BDB4A5",
+  "blue_pencil": "#2F5D8A",
+  "red_pencil": "#A8283A",
+  "wood": "#E3C79C",
+  "ramp_seq": [
+   "#FDDBC7",
+   "#F4A582",
+   "#D6604D",
+   "#B2182B"
+  ],
+  "ramp_div": [
+   "#2166AC",
+   "#4393C3",
+   "#92C5DE",
+   "#D1E5F0",
+   "#F2EEE8",
+   "#FDDBC7",
+   "#F4A582",
+   "#D6604D",
+   "#B2182B",
+   "#7A0F1E"
+  ],
+  "note": "colour encodes ONE thing, the value (a sequential ramp for counts, the RdBu ramp around a reference mean for diverging data); blue lead for human notes and memories, red lead for records and warnings; a change of lead marks a turn; a real object (a book cover) is the one accent that bypasses the ramp"
+ },
+ "insert_frame": [
+  "a page of the same cream paper sheet (fibre noise, faint 30 px dot grid), full screen, with a slow camera push; the chart grows on it (axes, bars, dots, cells) and every mark is drawn by the red-blue pencil, which enters from the lower right",
+  "a real object pinned to the paper as a print with a soft shadow (e.g. a book cover), annotated in pencil (an un-closed ring, a leader, a handwritten name)",
+  "over the face: the paper caption band at the bottom and a handwritten pencil note above the head (the pencil enters from the upper right so it never crosses the face)"
+ ],
+ "motion": {
+  "fps": 30,
+  "rule": "no fades to blank or dissolves: a page arrives by hard cut on a word onset with its paper already there, and the transitions inside a page are chart operations (axes grow, a bar lands, cells fill, hatching is swept away); the speaker's face is never moved or filtered",
+  "pencil": "lift before each mark, travel in an arc between marks (lift 0.1 -> 1 -> 0.1), a small tremor while drawing, exit to the frame edge 0.25 s after the last mark; flips blue -> red end when the next mark is red",
+  "marks": "a bar grows from zero in 70 % of its window (cubic out), then its pencil outline; a dot pops x1.55 over 0.25 s with a ripple; notes write on left to right in 0.5-0.9 s; headlines typeset letter by letter in 0.4-0.6 s",
+  "camera": "one slow push per page (x1.00 -> x1.04-1.10, ease in-out), a push to the last mark at the end (one mark, close)"
+ },
+ "sound": {
+  "rule": "the voice + SFX only, no music bed (the source's sonification and bed are dropped); graphite, paper and wood foley only where something enters",
+  "roles": "paper-flip on a page cut, pencil-write on a handwritten note, wood-hit on a bar landing, tick-1 on a dot or a run of cells, paper-riffle on the hatch sweep (morph), nothing on caption words",
+  "density": "about 4-6 SFX per 10 s, foley 14 dB under the voice, impacts 12-14 dB under",
+  "never": "a music bed, a score, a stinger; a YouTube rip (licensed false); a meme sound"
+ },
+ "budgets": {
+  "face_min_pct": 50,
+  "page_max_s": 3.4,
+  "inserts_per_min_max": 3,
+  "pictures": "graphics drawn in code; a real object picture only when the speaker names it (e.g. a book), at most ~3 a minute",
+  "people": "no people in pictures at all (the charts carry the reel)",
+  "data": "every number on screen is true and sourced from a primary or official source, with the source and its date in the kicker; a chart with no verified number is labelled SCHEMATIC (in the reel's language) and shows no numbers"
+ },
+ "film": "the speaker's face as shot: no grade, no filter",
+ "vary_per_reel": [
+  "the dataset and the chart type (pick the chart the data asks for: bars for categories, a unit / waffle chart for parts of a day, a slope for before and after, dots for a series)",
+  "the notes (the speaker's words, in blue or red), the opening move (the question first, one mark, the finished chart) and the ending move (one mark close, the empty cell, the headline revised)",
+  "the pages' camera paths and where the pencil enters"
+ ],
+ "kept": [],
+ "tolerance": {
+  "L": 8.0,
+  "wb_b": 5.0,
+  "wb_a": 4.0,
+  "sat": [
+   0.85,
+   1.15
+  ],
+  "contrast": [
+   0.85,
+   1.15
+  ]
+ },
+ "grade_rule": "none: the speaker's footage stays as shot",
+ "components_rule": "the house look is the paper, the pencil, the caption band, the type and the colour logic; the charts, notes, opening and ending moves are NEW every reel (scripts/components.py plan / check / record, catalog.json)"
+}

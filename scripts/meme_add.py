@@ -14,7 +14,7 @@ A video is trimmed to [in, out], keyed (green/blue screen -> alpha; auto
 samples the corner pixels), scaled to --w px wide (default 360; the reaction
 slot is ~320-380 px), and written as VP9-with-alpha WebM, audio peak-normalized
 to -1 dBFS in Opus. HyperFrames renders its alpha (verified). A still is
-saved as PNG and gets --sfx as its sound (default: vine-boom if your kit has it, else a licensed boom).
+saved as PNG and gets --sfx as its sound (default: vine-boom if your kit has it, else the CC0 deep-boom).
 
 Writes library/memes/<id>/{clip.webm|image.png, preview.png, meta.json}.
 ALWAYS look at preview.png before using a new meme: a bad key (green fringe,

@@ -1,5 +1,6 @@
 # media is rebuilt by scripts/library_restore.py; the repo keeps manifests and meta only
 library/sfx/*.wav
+!library/sfx/cc0-*.wav
 library/memes/*/clip.webm
 library/memes/*/image.png
 library/memes/*/preview.png
@@ -27,3 +28,9 @@ library/me/
 
 # Gemini answers of broll_vision.py (people rules, line match), per clip window
 library/vision-cache/
+
+# toolchain.py fingerprints of each machine (shared through the synced library, not git)
+library/toolchain/
+
+# Style library loops and posters (scripts/style_page.py previews; rebuilt from styles/registry.json, synced with the library)
+library/style-previews/

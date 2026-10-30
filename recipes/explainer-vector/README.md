@@ -38,8 +38,8 @@ cp $P/voice/take1.words.json $P/voice/words.json
 ffmpeg -i $P/voice/take1.mp3 -af loudnorm=I=-16:TP=-1.5 -c:a aac $P/assets/voice.m4a
 # 3. fonts (Playfair, Montserrat, Geist from $S/templates/fonts), SFX + music bed from $S/library into $P/assets
 # 4. copy example/build_two_directions.py to $P/build.py; redraw the world for the new metaphor; re-key every beat to words
-cd $P && python3 build.py && npx hyperframes lint && npx hyperframes snapshot --at <every beat>
-npx hyperframes render -o renders/<name>.mp4
+cd $P && python3 build.py && $S/scripts/hf.sh lint && $S/scripts/hf.sh snapshot --at <every beat>
+$S/scripts/hf.sh render -o renders/<name>.mp4
 ```
 
 ## Checks that caught real problems

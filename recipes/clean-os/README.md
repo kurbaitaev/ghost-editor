@@ -44,12 +44,17 @@ python3 $S/scripts/face_track.py proxy.mp4 --out $P/build/face.json          # m
 .venv-df/bin/deepFilter audio/raw.wav --atten-lim 20 -o audio/df20      # venv: the first run of scripts/denoise.sh creates $S/.venv-df
 # 3. write $P/cut.json (see assemble.py docstring), then:
 python3 $R/assemble.py $P
+#    many takes of a script: plan the cut first (references/take-selection.md, "The raw cut, step by step"):
+#    python3 $S/scripts/plan_cut.py $P && python3 $R/assemble.py $P --plan $P/build/plan.json --alt
+#    The plates are never graded (the speaker's face as shot); the old default grade is gone.
 python3 $S/scripts/transcribe.py $P/assets/voice.wav --out $P/build/words.cut.json --lang <code> --model turbo
 python3 $R/fetch_fonts.py $P
-# 4. write $P/build.py from SYSTEM.md and the catalog (the public edition ships no worked example for this recipe yet):
-#    shots, cards, UI scenes, figma(), persp/ring, script word, sfx. Every element is keyed to words via W("word", n).
-cd $P && python3 build.py && npx hyperframes lint && npx hyperframes snapshot --at <every beat>
-npx hyperframes render -o renders/<name>.mp4
+# 4. write $P/reel.py on the builder (SYSTEM.md section 4): python3 $R/cleanos.py --api lists every call; the project
+#    from an approved cut: python3 $R/cleanos.py --new $P --from <cut dir>. Everything is keyed to words: R.t("word").
+#    (example/build_one_thing.py is a hand-written build of an English example: read it for ideas, never copy it.)
+#    A Markup pen word needs its font: python3 $R/fetch_fonts.py $P "Marck Script".
+cd $P && python3 reel.py && $S/scripts/hf.sh lint && python3 $S/recipes/seoul-list/snap.py beats $P   # look at build/snaps/overview.jpg
+python3 $S/scripts/finals.py preview $P --out $P/finals --style "Clean OS" --code <C> --title "<title>"   # WAIT for the user's OK
 ```
 
 ## Checks that caught real problems
@@ -77,3 +82,20 @@ npx hyperframes render -o renders/<name>.mp4
   to whole frames while the voice was cut at exact times: the picture ran 2 frames long and the voice ended 43-54 ms early.
   An older cut: `python3 $S/scripts/qa.py $P <any render> --av-only` flags it; `python3 $S/tests/test_assemble_sync.py`
   is the regression test.
+
+## Worked example
+
+`example/build_one_thing.py` with `example/script.txt` and `example/cut.json`: an English monologue, "one thing at a time"
+(9 lines, about 32 s), built in the current house look (house.json), not the first reel's: Inter cards resolving from blur
+on the chest, the red Figma box twice rejecting ("more time", "not forever") and once focusing, QuickType suggestions
+tapped up into the card on two choice words, the Markup pen writing "feeling" in Marck Script, a green accent. Its
+components: four OS moments (a home screen whose badges count up on 32 / 11 / 3, the app switcher flicking every card away
+but one, a chest window with a timer wheel rolling to 25 and a notifications toggle switching off, a checklist with one
+item done and ten started), the scenes growing out of the Dynamic Island and shrinking back, an "attention" battery
+beside the head draining across its sentence; a small sound on every entrance and the `vastness` bed. A new reel keeps the
+house and replaces those components. It is for reading (a new reel is written on the builder, not copied from
+it) and for a test run: the recording is yours to supply. Put your file in
+cut.json `source`, re-time `segments` from your own transcript, run assemble.py, transcribe `assets/voice.wav` with
+`--lang en`, then fix any word key the build stops on (whisper writes "10" for "ten": keys accept `"ten|10"`). A dry run
+(a test-pattern 4K source with a synthetic voice and a false start, cut by assemble.py, words from whisper on the cut voice)
+builds and lints with 0 errors and 0 warnings; it has not been rendered with real footage.

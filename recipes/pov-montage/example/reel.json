@@ -1,0 +1,284 @@
+{
+ "title": "POV montage worked example: lost my lunch to a seagull (English)",
+ "notes": "For reading and copying. The clips are yours to supply (edl.json lists them: five smart-glasses clips gull, pier, kiosk, walk, bench and one phone selfie); assemble.py stitches them into assets/talk.mp4 and gen_words.py writes build/words.fixed.json. Every time below is EDIT time on that montage (build/edl_map.json): re-time the beats after any re-cut. The image scene's still is a frame of your own unused footage (assets/broll/pier-20.0.jpg: ffmpeg -ss 20 -i <pier clip> -frames:v 1, centre-cropped to 9:16).",
+ "style": "editorial",
+ "platform": "instagram",
+ "source": "assets/talk.mp4",
+ "words": "build/words.fixed.json",
+ "fps": 30,
+ "outro": 2,
+ "matte": true,
+ "brand": {
+  "accent": "#FFD23F",
+  "accentDark": "#B88A00",
+  "ink": "#111111",
+  "capSize": 62,
+  "font": "Montserrat",
+  "onAccent": "#111111"
+ },
+ "takes": [
+  {
+   "a": 0.0,
+   "b": 39.07,
+   "note": "pre-assembled montage (assemble.py / edl.json)"
+  }
+ ],
+ "zoom": {
+  "origin": "50% 42%",
+  "snaps": [],
+  "pushes": [
+   {
+    "at": 22.95,
+    "z": 1.1,
+    "up": 1.6,
+    "until": 24.9,
+    "down": 0.2
+   },
+   {
+    "at": 29.57,
+    "z": 1.3,
+    "up": 0.22,
+    "until": 30.97,
+    "down": 0.12
+   }
+  ]
+ },
+ "captions": {
+  "style": "editorial",
+  "group": 4,
+  "y": 1180,
+  "highlight": [
+   "water",
+   "lunch"
+  ]
+ },
+ "sfxProfile": "restrained",
+ "music": {
+  "id": "happy-times",
+  "db": -0.5,
+  "fadeIn": 0.4,
+  "fadeOut": 1.5,
+  "duck": [
+   {
+    "from": 0.0,
+    "to": 3.6,
+    "db": -15
+   },
+   {
+    "from": 5.3,
+    "to": 7.4,
+    "db": -15
+   },
+   {
+    "from": 13.3,
+    "to": 15.3,
+    "db": -15
+   },
+   {
+    "from": 18.3,
+    "to": 25.2,
+    "db": -15
+   },
+   {
+    "from": 29.5,
+    "to": 31.0,
+    "db": -18
+   },
+   {
+    "from": 31.0,
+    "to": 34.1,
+    "db": -15
+   }
+  ]
+ },
+ "mix": {
+  "roleDb": {
+   "ui": -19,
+   "whoosh": -15,
+   "impact": -13,
+   "meme": -3
+  }
+ },
+ "beats": [
+  {
+   "type": "scene",
+   "kind": "kinetic",
+   "at": 0.0,
+   "to": 3.45,
+   "in": "cut",
+   "out": "blur",
+   "pip": true,
+   "text": "*20* *minutes* _at_ _the_ seaside _and_ _I've_ _already_ *lost* _my_ *lunch*",
+   "bg": "#111111",
+   "pipY": 1560,
+   "pipX": 820,
+   "pullback": 0.45,
+   "zoom": 1.35,
+   "ink": "#ffffff"
+  },
+  {
+   "type": "scene",
+   "kind": "fly3d",
+   "at": 3.45,
+   "to": 5.3,
+   "bg": "#111111",
+   "in": "glitch",
+   "out": "blur",
+   "cam": {
+    "from": -80,
+    "to": 420
+   },
+   "items": [
+    {
+     "text": "20 minutes",
+     "sub": "earlier",
+     "at": 3.5,
+     "x": -120,
+     "y": -260,
+     "z": 0,
+     "size": 150
+    },
+    {
+     "text": "12:40",
+     "at": 3.95,
+     "x": 140,
+     "y": 20,
+     "z": -380,
+     "size": 140
+    },
+    {
+     "text": "the pier",
+     "at": 4.4,
+     "x": -60,
+     "y": 260,
+     "z": -700,
+     "size": 110
+    }
+   ]
+  },
+  {
+   "type": "behind",
+   "text": "SEASIDE",
+   "at": 11.5,
+   "to": 13.3,
+   "color": "#FFD23F",
+   "y": 900
+  },
+  {
+   "type": "scene",
+   "kind": "image",
+   "at": 16.0,
+   "to": 18.3,
+   "src": "assets/broll/pier-20.0.jpg",
+   "zoom": [
+    1.0,
+    1.12
+   ],
+   "captions": true,
+   "in": "blur",
+   "out": "blur"
+  },
+  {
+   "type": "scene",
+   "kind": "card",
+   "at": 18.4,
+   "to": 21.2,
+   "bg": "#111111",
+   "y": 760,
+   "in": "blur",
+   "out": "blur",
+   "lines": [
+    {
+     "text": "did you know gulls can",
+     "at": 18.45,
+     "size": 70,
+     "color": "#ffffff"
+    }
+   ],
+   "pill": {
+    "text": "remember your face?",
+    "at": 19.6,
+    "size": 84
+   },
+   "cursor": {
+    "clickAt": 20.3,
+    "dx": 150,
+    "dy": 215
+   }
+  },
+  {
+   "type": "scene",
+   "kind": "stats",
+   "at": 25.3,
+   "to": 28.1,
+   "bg": "#111111",
+   "in": "blur",
+   "out": "blur",
+   "badges": [
+    {
+     "value": "12:41",
+     "sub": "fries bought",
+     "at": 25.4
+    },
+    {
+     "value": "12:44",
+     "sub": "fries gone",
+     "at": 26.0,
+     "label": "**3 minutes** of lunch",
+     "labelAt": 26.6
+    }
+   ]
+  },
+  {
+   "type": "emoji",
+   "emoji": "😱",
+   "at": 29.65,
+   "to": 30.95,
+   "x": 640,
+   "y": 700,
+   "sfx": "none"
+  },
+  {
+   "type": "scene",
+   "kind": "card",
+   "at": 37.1,
+   "to": "end",
+   "bg": "#111111",
+   "y": 820,
+   "in": "expand",
+   "out": "cut",
+   "lines": [
+    {
+     "text": "gulls 1 · me 0",
+     "at": 37.2,
+     "size": 130,
+     "color": "#FFD23F"
+    }
+   ],
+   "pill": {
+    "text": "your worst gull story?",
+    "at": 37.9,
+    "size": 70
+   },
+   "cursor": {
+    "clickAt": 38.6,
+    "dx": 150,
+    "dy": 215
+   }
+  }
+ ],
+ "sfx": [
+  {
+   "at": 29.57,
+   "id": "impact-1",
+   "db": 0,
+   "lead": 0
+  },
+  {
+   "at": 34.3,
+   "id": "reaction-fail-trombone",
+   "db": -4,
+   "lead": 0
+  }
+ ]
+}

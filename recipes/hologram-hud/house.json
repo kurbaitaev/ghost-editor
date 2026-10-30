@@ -1,0 +1,72 @@
+{
+ "about": "Hologram HUD house look (fixed; one house look per style, new components every reel). Ported from Lemo-Opuscar styles/hologram-hud (MIT, Copyright (c) 2026 LemoLab; https://github.com/lemomo-ai/lemo-opuscar) and proved on one talking-head reel.",
+ "world": "a talking head as shot, cut on word onsets against full-screen HUD scenes: a near-black stage with a dot grid, a round projector pad, and the object of the spoken line scanned in as a glowing line wireframe; target boxes lock onto its parts, values roll in from garbage glyphs and turn amber the frame they are true, finished values dock as toggle chips in a rail that stays to the end; one interface over both worlds (edge chrome, the HUD subtitle)",
+ "layout": "1080x1920 at 30 fps. Top band: subject // mode top left and the live status top right, baselines at y 196 (under the 120 px Instagram top bar), JetBrains Mono 48 px. Rail: two columns of chips (452 x 84) from y 236, 104 px per row (x 76 and 544). Subject: the target on screen at cx 380-540, cy 700-1000, the object >= 1/3 of the frame height at its key moment. Spec cards x 130, w 820, y 1180-1240 (under the object). Subtitles: plate bottom at y 1690 (plate x 110-970), two lines max. Corner brackets 40 px in, from y 130 to y 1720; rulers y 260-1620. Nothing over the speaker's face on face worlds: the subtitle sits on the speaker's chest, the chrome on the edges.",
+ "layout_px": {
+  "status_baseline_y": 196,
+  "rail": {"x": [76, 544], "y0": 236, "row": 104, "w": 452, "h": 84},
+  "card": {"x": 130, "w": 820, "y": [1180, 1240]},
+  "subtitle": {"bottom_y": 1660, "max_w": 770, "px": 70, "cap_px": 48, "lines": 2},
+  "title": {"x": 96, "y": 400, "px": 140, "track_px": 18},
+  "chrome": {"margin": 40, "top": 130, "bottom": 1720, "bracket": 60}
+ },
+ "type": {
+  "ui": "Exo 2 (OFL, Cyrillic) for everything that reads: Light 300 for the big rolling values and the title (wide tracking), Medium 500 for subtitles and details, SemiBold 600 for labels, Bold 700 dark on the hue chip for lock tags",
+  "mono": "JetBrains Mono 500 (OFL, Cyrillic) for the subject // mode, the status and card indexes",
+  "sizes": "subtitles 70 px (cap height 48 px, the 48 px floor measured cap-to-baseline); labels, tags, markers, chips, details, mono 48 px; values 96-150 px; title 140 px. Nothing under 48 px (the house rule): the source's 18-22 px micro telemetry is dropped, its job is done by ticks, rulers and the dot grid",
+  "substitutions": "Rajdhani (no Cyrillic) -> Exo 2; Share Tech Mono (no Cyrillic) -> JetBrains Mono",
+  "rolling": "values and labels roll right to left from garbage glyphs of their own script (Cyrillic glyphs for Cyrillic), numbers on a fixed advance, the decimal point a square",
+  "never": "text on the wireframe without its dark plate; em dashes; words the speaker did not say in the subtitles (only a name spelled right); invented numbers"
+ },
+ "palette": {
+  "hue": 188,
+  "accent": 38,
+  "stage": "hsl(hue+12, 70%, 2.4%) with a radial lift hsl(hue+6, 65%, 7%), 48 px dot grid, vignette 0.5",
+  "line": "hsla(hue, 100%, 72%, a); hot edges hsla(hue, 70%, 92%); dim hsla(hue, 70%, 52%)",
+  "accent_use": "hsla(accent, 100%, 64%): ONLY a value at the frame it becomes true, the rail toggles, a marker label once it is set. Nothing else",
+  "plates": "rgba(1,8,12,.74), 1 px border at 28 %, 14 px corner ticks",
+  "keep": "the single-colour exception: one real object may keep its own colour (in the proof reel: a book cover), never decoration"
+ },
+ "chrome": {
+  "subject_default": "SUBJECT // SCAN",
+  "rule": "corner brackets + parallax rulers on every frame (face worlds too, drawn source-over with a soft shadow), subject // mode top left, live status top right (HUD worlds; a real count or progress only)"
+ },
+ "insert_frame": [
+  "the object as a line wireframe on the projector pad, built in code from primitives (engine/holohud.js: rr, piece, cylX, place); never a rendered or stock object",
+  "a real printed object (a book cover) may sit on the wireframe's face in its own colour with the interlace over it (keep)"
+ ],
+ "motion": {
+  "fps": 30,
+  "rule": "hard cuts on word onsets between the speaker's face and a HUD scene; inside a HUD scene no cuts: the scan plane grows or erases the object, the camera follows the target box (cubic in-out, starting before the next lock), the turntable whips to the next item",
+  "power_on": "3 frames into every HUD scene: a bright line opens to the full frame",
+  "lock": "the box starts 1.9x the part's rest bbox, rotated 45 deg, faint; snaps in 0.22 s (cubic out); white for 3 frames on the lock; tag on a hue chip",
+  "explode": "pieces slide along their assembly axis over 0.5-0.8 s, hot while open; close fast",
+  "roll": "values 0.4-0.5 s from glyphs, right to left, accent + a 1-frame white flash on the lock; labels roll in over the card's reveal",
+  "dock": "the card fades 0.35 s, its chip slides in 40 px over 0.3 s and stays to the end",
+  "glitch": "one 3-frame slice glitch per reel, on the biggest change",
+  "subtitle": "in 0.1 s before the voice, readable on its first frame (no glyph roll on the speaker's words: rolls are for HUD values and labels only), out 0.12 s before the next line; voiceprint bars move while a word is spoken"
+ },
+ "sound": {
+  "rule": "the voice + SFX only, no bed, no score (the house rule). The source's synth score and foley are replaced by library UI sounds: a sound where a HUD scene opens, a lock lands, a value becomes true, a chip docks, a notification is pinged; nothing on subtitle swaps or face worlds",
+  "roles": "tech-digital-whoosh / whoosh-2 into a HUD scene (2-3 frames before the cut), paper-flip when a printed object scans in, click-1 / pop-3 on a lock, tech-ui-confirm when a value turns accent, pop-2 on a chip dock, tech-notification-2 on a notification marker, glitch-hit on the glitch, whoosh-reverse under a scan-erase, deep-boom at the solid ignition",
+  "density": "6-8 per 10 s inside HUD scenes, none on face worlds (proof reel: 26 in 32 s)",
+  "never": "a music bed or score; a YouTube rip (licensed: false); a sound on every caption; the same whoosh twice in a row"
+ },
+ "budgets": {
+  "face": "the speaker's face on screen 35-45 % (proof reel: 39.5 %), each face world 2-3 s, at most one longer run where the spoken line is personal",
+  "pace": "a HUD scene per object or list (2-7 s), a lock every 0.7-2 s inside it",
+  "pictures": "drawn wireframes only; at most one real printed object per reel (keep), checked on a full still",
+  "people": "no people in the HUD (objects only); the speaker's face is never drawn into a HUD scene"
+ },
+ "film": "the speaker's face as shot: no grade, no filter, no graphic on it",
+ "vary_per_reel": [
+  "the objects (models built for the spoken nouns) and their parts",
+  "what is locked, in which order, and what each value is (only true values; a state like OFF / ON, a name, a real count)",
+  "the camera route, the opening (scan-in, a part first, plan view) and the ending (power-down, one value, solid ignition)",
+  "the rail's chips"
+ ],
+ "kept": [],
+ "tolerance": {"L": 8.0, "wb_b": 5.0, "wb_a": 4.0, "sat": [0.85, 1.15], "contrast": [0.85, 1.15]},
+ "grade_rule": "none: the speaker's footage stays as shot",
+ "components_rule": "the house look is the stage, pad, wireframe engine, HUD furniture, type, subtitles and accent rule; the objects, lock order, camera route, opening and ending devices are NEW every reel (catalog.json)"
+}

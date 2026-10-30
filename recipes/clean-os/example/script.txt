@@ -1,0 +1,12 @@
+# Clean OS worked example: "one thing at a time" (9 lines, ~95 words, about 32 s).
+# One talking-head take per line, read calmly to camera. cut.json holds the source seconds of the best complete take of
+# each line in a stand-in recording; re-time them from your own transcript.
+You don't need more time. You need fewer tabs.
+This morning I counted 32 open tabs, 11 unread chats and 3 half-written drafts.
+Every one of them is a small promise to come back later.
+And every promise takes a little piece of your attention.
+So try this. Pick one thing and close everything else.
+Set a timer for 25 minutes and turn your notifications off.
+Not forever. Just until the timer rings.
+Then you'll have one thing finished, instead of ten things started.
+And that feeling is better than any app.

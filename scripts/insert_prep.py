@@ -3,7 +3,7 @@
 speaker plate, crop/scale, 1 s keyframes. Writes <out> + <out>.json (what was done, stats before/after vs the plate).
 
     insert_prep.py SRC OUT --in 3.5 --dur 2.0 --ref assets/plate.mp4 [--size 1080x1920] [--focus 0.5,0.45]
-                   [--crop x:y:w:h] [--strength 1.0] [--no-grade] [--fps 30] [--fps-mode retime|drop] [--fit]
+                   [--crop w:h:x:y] [--strength 1.0] [--no-grade] [--fps 30] [--fps-mode retime|drop] [--fit]
     insert_prep.py --check SRC --in 3.5 --dur 2.0 --ref assets/plate.mp4     # numbers only, no file
     insert_prep.py PHOTO.jpg OUT.jpg --ref assets/plate.mp4                    # a still (AI still, photo card): graded only
 
@@ -18,7 +18,11 @@ Rules it enforces (2026-10-13 B-roll audit, references/broll.md):
   one HDR clip in a HyperFrames composition switches the whole render to HDR.
 - fps: 23.976/24/25 fps sources are RETIMED so every source frame plays once (no duplicated frames = no judder; the
   shot plays 1.2-1.25x faster, reported); 50/60 fps sources drop every other frame; 29.97 is treated as 30.
-- 1 s keyframe interval (-g = fps): sparse keyframes made HyperFrames warn and seek slowly on every Oct 12 cut.
+- 1 s keyframe interval (-g = fps): sparse keyframes made HyperFrames warn and seek slowly on every cut tested.
+- size: every crop / aspect / --focus number is in the frame ffmpeg DECODES (one frame is decoded to read it), not the
+  size ffprobe reports. iPhone Live Photo .movs are stored 1920x1440 with a container crop (88/66 px) and rotation -90:
+  they decode 1308x1744. Crop maths on the stored size ran past the frame and failed. The sidecar
+  records the stored size, the rotation and the container crop.
 - grade: the insert's exposure, contrast, white balance and saturation are moved onto the plate's (grade_lib.py), so the
   QA (broll_qa.py) passes it: |d wb b*| <= 8, |d L*| <= 15, saturation x0.8-1.2. Clamps keep a night shot from being
   pushed to day; if the result still misses, the shot is from another world: pick another (the JSON says why).
@@ -32,6 +36,7 @@ import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import grade_lib as G  # noqa: E402
+from x264 import THREADS as X264_THREADS  # noqa: E402  (scripts/X264_THREADS)
 
 
 def target_span(info, dur, fps, mode):
@@ -46,13 +51,18 @@ def target_span(info, dur, fps, mode):
     return dur, 1.0, f"fps={fps}", f"{sf:g} -> {fps:g} fps (duplicated frames: judder)"
 
 
-def crop_expr(info, size, focus, crop):
+def crop_expr(shown, size, focus, crop):
+    """shown: (w, h) of the frame as ffmpeg decodes it (upright, container crop off)"""
+    sw, sh = shown
     if crop:
+        try:
+            cw, ch, x, y = (int(float(v)) for v in crop.split(":"))
+        except ValueError:
+            return f"crop={crop}"          # w:h only, or an ffmpeg expression: ffmpeg checks it
+        if x < 0 or y < 0 or x + cw > sw or y + ch > sh:
+            sys.exit(f"--crop {crop} runs past the decoded frame {sw}x{sh}")
         return f"crop={crop}"
     W, H = size
-    sw, sh = info["w"], info["h"]
-    if info.get("rotation") in (90, -90, 270, -270):
-        sw, sh = sh, sw
     ar = W / H
     if sw / sh > ar:
         cw, ch = int(round(sh * ar / 2)) * 2, sh
@@ -73,8 +83,8 @@ def main():
     ap.add_argument("--ref", help="the speaker plate (video) whose grade the insert is conformed to")
     ap.add_argument("--ref-stats", help="JSON stats instead of --ref (grade_lib.plate_stats output)")
     ap.add_argument("--size", default="1080x1920")
-    ap.add_argument("--focus", default="0.5,0.5", help="crop centre as fractions of the source frame")
-    ap.add_argument("--crop", help="explicit ffmpeg crop w:h:x:y in source pixels (overrides --size aspect/--focus)")
+    ap.add_argument("--focus", default="0.5,0.5", help="crop centre as fractions of the decoded (upright) source frame")
+    ap.add_argument("--crop", help="explicit ffmpeg crop w:h:x:y in pixels of the decoded (upright) frame (overrides --size aspect/--focus)")
     ap.add_argument("--fps", type=float, default=30.0)
     ap.add_argument("--fps-mode", choices=["retime", "dup"], default="retime")
     ap.add_argument("--strength", type=float, default=1.0, help="0..1: how far to move the grade onto the plate")
@@ -101,6 +111,12 @@ def main():
     if a.dur is None:
         sys.exit("--dur is required for a video")
     info = G.probe(a.src)
+    shown = G.shown_size(info)
+    dec = G.decoded_size(a.src, a.tin)
+    if dec and dec != shown:
+        print(f"WARNING: {os.path.basename(a.src)}: ffprobe side data says {shown[0]}x{shown[1]}, ffmpeg decodes {dec[0]}x{dec[1]}: "
+              "using the decoded size", file=sys.stderr)
+    shown = dec or shown
     W, H = (int(v) for v in a.size.lower().split("x"))
     span, speed, fpsf, fps_note = target_span(info, a.dur, a.fps, a.fps_mode)
     have = info["dur"] - a.tin
@@ -113,10 +129,13 @@ def main():
         span = have - 1e-3
     hdr = G.is_hdr(info)
     transfer = info["transfer"] if info["transfer"] in ("arib-std-b67", "smpte2084") else None
-    crop = crop_expr(info, (W, H), [float(v) for v in a.focus.split(",")], a.crop)
+    crop = crop_expr(shown, (W, H), [float(v) for v in a.focus.split(",")], a.crop)
     kind = G.guess_kind(a.src) if a.kind == "auto" else a.kind
     rep = {"src": os.path.abspath(a.src), "kind": kind, "in": a.tin, "source_span": round(span, 3), "out_dur": dur, "fps": fps_note, "speed": round(speed, 4),
-           "hdr": hdr, "transfer": info["transfer"], "src_size": f"{info['w']}x{info['h']}", "src_fps": round(info["fps"], 3), "crop": crop}
+           "hdr": hdr, "transfer": info["transfer"], "src_size": f"{shown[0]}x{shown[1]}", "stored_size": f"{info['w']}x{info['h']}", "rotation": info["rotation"],
+           "src_fps": round(info["fps"], 3), "crop": crop}
+    if any(info["frame_crop"]):
+        rep["container_crop"] = dict(zip(("left", "right", "top", "bottom"), info["frame_crop"]))
     p = None
     if not a.no_grade and (a.ref or a.ref_stats):
         ref = json.load(open(a.ref_stats)) if a.ref_stats else G.plate_stats(a.ref)
@@ -154,7 +173,7 @@ def main():
     g = int(round(a.fps))
     cmd = ["ffmpeg", "-v", "error", "-y", "-ss", f"{a.tin:.3f}", "-t", f"{span + 0.5 / info['fps']:.3f}", "-i", a.src, "-an",
            "-vf", ",".join(vf), "-r", f"{a.fps:g}", "-frames:v", str(int(round(dur * a.fps))),
-           "-c:v", "libx264", "-preset", "medium", "-crf", str(a.crf), "-g", str(g), "-keyint_min", str(g), "-sc_threshold", "0", "-bf", "2",
+           "-c:v", "libx264", "-threads", X264_THREADS, "-preset", "medium", "-crf", str(a.crf), "-g", str(g), "-keyint_min", str(g), "-sc_threshold", "0", "-bf", "2",
            "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv", "-movflags", "+faststart", a.out]
     subprocess.run(cmd, check=True)
     if lut:

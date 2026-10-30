@@ -29,6 +29,8 @@ import re
 import shutil
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from hf_version import hf  # noqa: E402  (the pinned HyperFrames CLI, scripts/HF_VERSION)
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
 from reelproj import DEFAULT_SKILL, beats_timeline, load_project, sh  # noqa: E402
 
@@ -308,7 +310,7 @@ def main():
         if code:
             print(log[-1500:])
             sys.exit(1)
-        lint = sh(["npx", "hyperframes", "lint", "--json"], cwd=vp)
+        lint = sh(hf("lint", "--json"), cwd=vp)
         try:
             lj = json.loads(lint.stdout[lint.stdout.index("{"):])
             print(f"lint: {lj.get('errorCount')} errors")
@@ -322,13 +324,13 @@ def main():
         built = lambda b: min((b["moments"][-1] + 0.45) if b["moments"] else b["t0"] + 0.8, b["t1"] - 0.15)  # noqa: E731
         times = sorted({round(spk + 0.4, 2)} | {round(built(b), 2) for b in bts[:3]})
         if a.render:
-            r = sh(["npx", "hyperframes", "render", "-o", "build/reel.mp4", "--quiet"], cwd=vp, timeout=7200)
+            r = sh(hf("render", "-o", "build/reel.mp4", "--quiet"), cwd=vp, timeout=7200)
             print("render", "OK" if r.returncode == 0 else "FAILED", os.path.join(vp, "build", "reel.mp4"))
         else:
             for label, proj in (("own look", other.path), (name, vp)):
                 outd = os.path.join(vdir, f"{name}-on-{os.path.basename(other.path)}-frames", label.replace(" ", "-"))
                 os.makedirs(outd, exist_ok=True)
-                r = sh(["npx", "hyperframes", "snapshot", proj, "--at", ",".join(map(str, times)), "-o", outd, "--describe", "false", "--no-end"], cwd=proj, timeout=1800)
+                r = sh(hf("snapshot", proj, "--at", ",".join(map(str, times)), "-o", outd, "--describe", "false", "--no-end"), cwd=proj, timeout=1800)
                 print(f"snapshots ({label}): {outd}" + ("" if r.returncode == 0 else " FAILED " + r.stderr[-300:]))
 
 

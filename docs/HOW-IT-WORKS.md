@@ -20,7 +20,7 @@ python3 $S/scripts/face_track.py $P/assets/talk.mp4 --out $P/build/face.json
 python3 $S/scripts/autocut.py $P/assets/talk.mp4 --noise -30
 # the agent writes $P/reel.json: {"style": "launch", "takes": [...], "beats": [...]}
 node $S/scripts/build.mjs $P
-cd $P && npx hyperframes lint && npx hyperframes render -o build/reel.mp4
+cd $P && $S/scripts/hf.sh lint && $S/scripts/hf.sh render -o build/reel.mp4
 python3 $S/scripts/qa.py $P build/reel.mp4
 ```
 
