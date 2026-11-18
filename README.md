@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>ghost-editor</h1>
+<h1>Ghost Editor</h1>
 
 <p><b>Three minutes of you stumbling through a script in.<br>A 30-second reel that looks paid-for out.</b></p>
 
@@ -31,7 +31,7 @@
 
 ## I paid an editor once
 
-Same raw recording. The human edit on the left, ghost-editor on the right.
+Same raw recording. The human edit on the left, Ghost Editor on the right.
 
 https://github.com/user-attachments/assets/312f6910-a8a0-4424-9dd4-612cd079a2e7
 
