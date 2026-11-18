@@ -6,6 +6,7 @@
 
 <p>Open-source AI video editor for talking-head reels. A Claude Code skill that renders on your Mac.</p>
 
+[![ghost-editor.dev](https://img.shields.io/badge/site-ghost--editor.dev-black?style=flat)](https://ghost-editor.dev)
 [![Stars](https://img.shields.io/github/stars/kurbaitaev/ghost-editor?style=flat&color=black)](https://github.com/kurbaitaev/ghost-editor/stargazers)
 [![MIT](https://img.shields.io/badge/license-MIT-black?style=flat)](LICENSE)
 [![Follow @kurbaitaev](https://img.shields.io/badge/follow-%40kurbaitaev-black?logo=x&style=flat)](https://x.com/kurbaitaev)
