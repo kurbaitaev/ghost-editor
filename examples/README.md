@@ -9,7 +9,7 @@ times themselves don't transfer. The structure and the choices do.
 |---|---|---|---|
 | `genz-motion-en.reel.json` | one clean English take, wide framing | motion (recreated from a reference edit) | `autocut` takes, editorial captions with pill tags and highlight, all 5 scene kinds, music bed, push-in whooshes |
 | `coffer-reach-motion-en.reel.json` | one English take, a product walkthrough | motion | a product pitch: price cards, a comment-keyword ending, short scene runs |
-| `gallery/<style>.reel.json` | the same English take | each of the 7 presets | the minimal reel.json per preset: start a new project from the closest one |
+| `gallery/<style>.reel.json` | the same English take | each preset | the minimal reel.json per preset: start a new project from the closest one |
 
 To render one yourself you need its recording. These files are for reading and
 copying, not for rendering as they are.

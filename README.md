@@ -4,16 +4,16 @@
 
 <p><b>Three minutes of you stumbling through a script in.<br>A 30-second reel that looks paid-for out.</b></p>
 
-<p>Open-source AI video editor for talking-head reels. A Claude Code skill that renders on your Mac.</p>
+<p>Open-source AI video editor for Claude Code. A skill that edits talking-head reels in 19 styles and renders on your Mac.</p>
 
 [![ghost-editor.dev](https://img.shields.io/badge/site-ghost--editor.dev-black?style=flat)](https://ghost-editor.dev)
 [![Stars](https://img.shields.io/github/stars/kurbaitaev/ghost-editor?style=flat&color=black)](https://github.com/kurbaitaev/ghost-editor/stargazers)
 [![MIT](https://img.shields.io/badge/license-MIT-black?style=flat)](LICENSE)
 [![Follow @kurbaitaev](https://img.shields.io/badge/follow-%40kurbaitaev-black?logo=x&style=flat)](https://x.com/kurbaitaev)
 
-<img src="docs/media/styles-grid.gif" width="100%" alt="34 styles playing at once in vertical tiles, each with its name underneath. Green dot: in the repo today (Clean OS, Seoul list, RESULT, stan style, Explainer, POV montage, Face RESULT, Kinetic doc, Whiteboard, Step Deck, Product page, Tactile paper, Caption News, News Package, Telestrator, Halftone Dossier, Swiss Grid, Data Story, Hologram HUD). Orange: coming soon (Paper collage). Purple: lab experiments from my own reels.">
+<img src="docs/media/styles-grid.gif" width="100%" alt="34 tiles playing at once, each with its name underneath. Green dot: the 19 styles in the repo today (Clean OS, Seoul list, RESULT, stan style, Explainer, POV montage, Face RESULT, Kinetic doc, Whiteboard, Step Deck, Product page, Tactile paper, Caption News, News Package, Telestrator, Halftone Dossier, Swiss Grid, Data Story, Hologram HUD). Orange: coming soon (Paper collage). Purple: lab experiments from my own reels.">
 
-<sub>green: in the repo today &nbsp;·&nbsp; orange: coming soon &nbsp;·&nbsp; purple: lab, tried on my own reels</sub>
+<sub>green: the 19 styles in the repo today &nbsp;·&nbsp; orange: coming soon &nbsp;·&nbsp; purple: lab, tried on my own reels</sub>
 
 </div>
 
@@ -50,7 +50,7 @@ Then:
 > Make my video look like this reel: ~/Downloads/reel-i-love.mp4
 
 <details>
-<summary><b>Styles you can ask for today</b></summary>
+<summary><b>The 19 styles you can ask for today</b></summary>
 
 | ask | you get |
 |---|---|
@@ -75,7 +75,7 @@ Then:
 | `edit this in Hologram HUD` | a wireframe scan with target boxes |
 | `edit mine like this reel` | it studies a reel you love and edits yours the same way |
 
-Plus seven one-word presets: `clean`, `editorial`, `meme`, `cinematic`, `launch`, `kinetic`, `pop`.
+Plus one-word presets: `clean`, `editorial`, `meme`, `cinematic`, `launch`, `kinetic`, `pop`.
 </details>
 
 <details>
@@ -92,6 +92,10 @@ A 60-second reel takes about 15 to 25 minutes of machine time on an M3 MacBook A
 
 <details>
 <summary><b>Questions</b></summary>
+
+**How many styles?** 19 named styles in version 0.3.0. Older listings may show 7.
+
+**Is this Ghost's editor?** No. ghost-editor, also written Ghost Editor, is not related to the Ghost blogging platform, its editor or the `ghost-editor` npm package.
 
 **Languages?** Tested in English and Russian. The demos are in Russian because I post in Russian.
 

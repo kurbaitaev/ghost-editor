@@ -191,7 +191,7 @@ Inter (Clean OS, stan style captions and labels, Whiteboard pills), Inter Tight 
 
 **Workflow**
 - Nothing renders before the user approves the approval sheet; a failed render report gets at most three fix rounds, then the user decides.
-- One reel at a time: no batch render of a wave of styles without a sheet per reel (7 styles from one template in 7 minutes came out with almost no approval files).
+- One reel at a time: no batch render of a wave of styles without a sheet per reel (7 renders from one template in 7 minutes came out with almost no approval files).
 - Every correction is recorded as taste in the user's words; learned rules are tagged as the skill's, never as "you said".
 - Cut picture and voice at the same frame-snapped times, or the voice drifts early across the pieces.
 

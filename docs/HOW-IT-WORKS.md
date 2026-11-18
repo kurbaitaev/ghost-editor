@@ -59,7 +59,8 @@ It writes a contact sheet, full-resolution frames and a second-by-second edit lo
 ## What's in the repo
 
 - `SKILL.md`: the workflow the agent follows, plus the rules learned from getting it wrong.
-- `styles/`: the seven presets.
+- `recipes/`: the 19 named styles, one folder each (RESULT and Face RESULT share one).
+- `styles/`: the one-word presets.
 - `examples/gallery/`: one working `reel.json` per style.
 - `scripts/`:
   - `build.mjs` (+ `lib/motion.mjs`, `lib/safezone.mjs`): `reel.json` → HyperFrames composition

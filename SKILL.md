@@ -1,6 +1,6 @@
 ---
 name: ghost-editor
-description: "AI video editor for talking-head reels. Turns a raw phone recording of someone talking to camera (retakes, pauses, false starts) into a finished vertical 1080x1920 reel for Instagram, TikTok or Shorts: the best take of each sentence, pause trimming, word-timed captions that never cover the face, motion scenes on the spoken word, sound effects mixed against the voice and checked B-roll. Use when the user hands over a talking-head video and says \"edit this\", \"make a reel\", \"make it look like this video\", \"add captions/sound effects\", \"pick the best takes\", \"remove the pauses\", asks for a re-cut, or names a style. Named styles (recipes/, docs/PLAYBOOK.md): Clean OS, Seoul list, RESULT, Face RESULT, stan style, vector explainer, POV montage, Whiteboard, Kinetic doc, Step Deck, Product page, Tactile paper, Caption News, News Package, Telestrator, Halftone Dossier, Swiss Grid, Data Story, Hologram HUD; plus seven presets (clean, editorial, meme, cinematic, launch, kinetic, pop). Not for landscape screen recordings."
+description: "Open-source AI video editor for Claude Code. Turns a raw talking-head phone recording (retakes, pauses, false starts) into a finished vertical 1080x1920 reel for Instagram, TikTok or Shorts: the best take of each sentence, pause trimming, word-timed captions that never cover the face, motion scenes on the spoken word, sound effects mixed against the voice and checked B-roll. Use when the user hands over a talking-head video and says \"edit this\", \"make a reel\", \"make it look like this video\", \"add captions/sound effects\", \"pick the best takes\", \"remove the pauses\", asks for a re-cut, or names a style. 19 named styles (recipes/, docs/PLAYBOOK.md): Clean OS, Seoul list, RESULT, Face RESULT, stan style, vector explainer, POV montage, Whiteboard, Kinetic doc, Step Deck, Product page, Tactile paper, Caption News, News Package, Telestrator, Halftone Dossier, Swiss Grid, Data Story, Hologram HUD. One-word presets: clean, editorial, meme, cinematic, launch, kinetic, pop. Not for landscape screen recordings."
 ---
 
 # ghost-editor
@@ -130,7 +130,7 @@ If the recording is already one good take, don't pick takes by hand:
 `python3 $S/scripts/autocut.py $P/assets/talk.mp4 --noise -30` prints `takes` with the pauses removed.
 
 ### 4. Pick a style, plan beats (`references/styles.md`, `references/reel-json.md`)
-Seven presets: `clean`, `editorial`, `meme`, `cinematic`, `launch`, `kinetic`, `pop`.
+One-word presets: `clean`, `editorial`, `meme`, `cinematic`, `launch`, `kinetic`, `pop`.
 **Recipes** (custom builds, not reel.json presets; each has its own README, SYSTEM.md and scripts). Follow the README end to end:
 - `recipes/clean-os/`, **Clean OS**: Apple-clean word cards, wide/tight from one 4K camera, literal phone-UI scenes
   (date picker, lock-screen notifications, search + stalled loading bar, Photos memory), a red Figma selection box with a cursor.
@@ -386,7 +386,7 @@ Only the user's own feedback is `from: user` (quoted "you said"); a rule you lea
   - panels opening over the speaker's face;
   - stan without screen recordings, and a Seoul list filled with unrelated posed stock models in three light worlds.
   The UI animation was fine; what went on screen, and how often, was not.
-- One reel at a time through approval_sheet.py; never batch-render a wave of styles without a sheet per reel (7 styles
+- One reel at a time through approval_sheet.py; never batch-render a wave of styles without a sheet per reel (7 renders
   rendered from one template in 7 minutes came out with 0-2 approval files). Custom builds with no reel.json have no
   approval sheet: there the user's OK on the `finals.py preview` copies is the gate, and nothing renders at delivery
   quality before it.

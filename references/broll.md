@@ -287,7 +287,7 @@ a format (section 3, the B-roll-led exception).
 
 ## 8. Process
 
-One reel at a time through `approval_sheet.py`. No batch renders of a wave without a sheet per reel: 7 styles rendered
+One reel at a time through `approval_sheet.py`. No batch renders of a wave without a sheet per reel: 7 reels rendered
 from one template in 7 minutes came out with 0-2 approval files. Custom builds (a recipe generator, no reel.json):
 `broll_vision.py picks` before the render, then `finals.py preview` copies; nothing renders at delivery quality before
 the user's OK on them (scripts/finals.py: preview -> render -> qa -> deliver).
